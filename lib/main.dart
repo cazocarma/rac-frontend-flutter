@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'shared/config/env.dart';
-import 'features/compas/data/compa_api.dart';
-import 'features/compas/ui/compa_list_screen.dart';
+import 'package:rentacompa/shared/di/services.dart';
+import 'app_routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Services.init(); // inicializa AuthApi y CompaApi
   runApp(const RACApp());
 }
 
@@ -12,11 +13,11 @@ class RACApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final api = CompaApi(Env.apiBase); // ej: http://localhost (NGINX)
     return MaterialApp(
       title: 'Rent-a-Compa',
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
-      home: CompaListScreen(api: api),
+      routes: buildRoutes(),
+      initialRoute: '/login',
     );
   }
 }
