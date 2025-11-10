@@ -1,4 +1,4 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,12 +36,7 @@ class AuthApi {
     return data;
   }
 
-  Future<void> register({
-    required String username,
-    required String email,
-    required String password,
-    required String role,
-  }) async {
+  Future<void> register({ required String username, required String email, required String password, }) async {
     final uri = Uri.parse('$baseUrl/register');
     final res = await http.post(uri,
         headers: {'Content-Type': 'application/json'},
@@ -49,7 +44,7 @@ class AuthApi {
           'username': username,
           'email': email,
           'password': password,
-          'role': role,
+          'role': 'cliente',
         }));
     if (res.statusCode != 200) throw Exception('HTTP ${res.statusCode}: ${res.body}');
     _parseData(res); // valida ok/err
@@ -126,3 +121,5 @@ class AuthApi {
     return data;
   }
 }
+
+
