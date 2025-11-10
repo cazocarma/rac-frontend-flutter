@@ -7,8 +7,13 @@ import 'package:rentacompa/features/match/ui/match_screen.dart';
 import 'package:rentacompa/features/compa_onboarding/ui/become_compa_screen.dart';
 import 'main.dart';
 
+/// Pantalla principal (shell) de la aplicación Rent-a-Compa.
+///
+/// Contiene el menú lateral y enruta hacia las secciones principales
+/// (lista de compas, agenda/match, onboarding de compas, etc.).
 class HomeShell extends StatelessWidget {
   const HomeShell({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AuthGuard(
@@ -17,30 +22,65 @@ class HomeShell extends StatelessWidget {
         drawer: Drawer(
           child: ListView(
             children: [
-              const DrawerHeader(child: Text('Menú', style: TextStyle(fontSize: 18))),
-              ListTile(leading: const Icon(Icons.group), title: const Text('Compas'),
-                onTap: () => Navigator.of(context).pushReplacementNamed('/home')),
-              ListTile(leading: const Icon(Icons.calendar_month), title: const Text('Match / Agenda'),
-                onTap: () => Navigator.of(context).pushReplacementNamed('/match')),
-              ListTile(leading: const Icon(Icons.star), title: const Text('Sé Compa'),
-                onTap: () => Navigator.of(context).pushReplacementNamed('/become-compa')),
+              const DrawerHeader(
+                child: Text('Menú', style: TextStyle(fontSize: 18)),
+              ),
+              ListTile(
+                leading: const Icon(Icons.group),
+                title: const Text('Compas'),
+                onTap: () =>
+                    Navigator.of(context).pushReplacementNamed('/home'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.calendar_month),
+                title: const Text('Match / Agenda'),
+                onTap: () =>
+                    Navigator.of(context).pushReplacementNamed('/match'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.star),
+                title: const Text('Sé Compa'),
+                onTap: () =>
+                    Navigator.of(context).pushReplacementNamed('/become-compa'),
+              ),
               const Divider(),
-              ListTile(leading: const Icon(Icons.chat), title: const Text('Chat (próximo hito)')),
-              ListTile(leading: const Icon(Icons.calendar_month), title: const Text('Match/Agenda (próximo hito)')),
-              ListTile(leading: const Icon(Icons.payment), title: const Text('Pagos (próximo hito)')),
-              ListTile(leading: const Icon(Icons.warning_amber_rounded), title: const Text('Alertas (próximo hito)')),
+              const ListTile(
+                leading: Icon(Icons.chat),
+                title: Text('Chat (próximo hito)'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.calendar_month),
+                title: Text('Match/Agenda (próximo hito)'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.payment),
+                title: Text('Pagos (próximo hito)'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.warning_amber_rounded),
+                title: Text('Alertas (próximo hito)'),
+              ),
               const Divider(),
-              ListTile(leading: const Icon(Icons.logout), title: const Text('Salir'),
-                onTap: () => performLogout(context)),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Salir'),
+                onTap: () => performLogout(context),
+              ),
             ],
           ),
         ),
-        body: const Padding(padding: EdgeInsets.all(12), child: CompaListScreen()),
+        body: const Padding(
+          padding: EdgeInsets.all(12),
+          child: CompaListScreen(),
+        ),
       ),
     );
   }
 }
 
+/// Define las rutas principales de la aplicación.
+///
+/// Retorna un mapa de rutas usado por `MaterialApp` en `main.dart`.
 Map<String, WidgetBuilder> buildRoutes() {
   return {
     '/': (_) => const StartupGate(),
