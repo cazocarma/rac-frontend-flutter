@@ -1,0 +1,8 @@
+# Normaliza a LF en el repo; evita CRLF en Dart/JS/HTML/CSS
+*.dart text eol=lf
+*.js   text eol=lf
+*.ts   text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
