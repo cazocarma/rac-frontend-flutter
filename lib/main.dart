@@ -1,39 +1,48 @@
+// Limpieza de duplicados: se mantiene solo la versión con ThemeController
 import 'package:flutter/material.dart';
 import 'package:rentacompa/shared/di/services.dart';
 import 'package:rentacompa/shared/services/session.dart';
+import 'package:rentacompa/shared/services/theme.dart';
 import 'app_routes.dart';
 
 /// Punto de entrada principal de la aplicación Rent-a-Compa.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Services.init(); // Inicializa AuthApi, CompaApi, MatchApi y UserApi.
-  runApp(const RACApp());
+  Services.init(); // Inicializa AuthApi, CompaApi.
+  await appTheme.load();
+  runApp(RACApp(theme: appTheme));
 }
 
 /// Widget raíz de la aplicación.
 ///
 /// Configura temas, rutas y la detección automática de sesión al inicio.
 class RACApp extends StatelessWidget {
-  const RACApp({super.key});
+  const RACApp({super.key, required this.theme});
+  final ThemeController theme;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Rent-a-Compa',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-        brightness: Brightness.light,
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
-        brightness: Brightness.dark,
-      ),
-      themeMode: ThemeMode.system, // Detecta el tema del sistema.
-      routes: buildRoutes(),
-      // Ruta inicial que decide si ir a login o home según tokens existentes.
-      initialRoute: '/',
+    return AnimatedBuilder(
+      animation: theme,
+      builder: (context, _) {
+        return MaterialApp(
+          title: 'Rent-a-Compa',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Colors.blue,
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Colors.blue,
+            brightness: Brightness.dark,
+          ),
+          themeMode: theme.mode,
+          routes: buildRoutes(),
+          // Ruta inicial que decide si ir a login o home según tokens existentes.
+          initialRoute: '/',
+        );
+      },
     );
   }
 }

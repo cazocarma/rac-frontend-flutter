@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../compas/data/compa_api.dart';
+import '../../booking/ui/booking_screen.dart';
 
 class CompaDetailScreen extends StatefulWidget {
   final CompaApi api;
@@ -58,7 +59,7 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '\$${c.tarifaHora.toStringAsFixed(0)}/h • ⭐ ${c.ratingPromedio.toStringAsFixed(1)}',
+                        '\$${c.tarifaHora.toStringAsFixed(0)}/h • ★ ${c.ratingPromedio.toStringAsFixed(1)}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 8),
@@ -76,10 +77,19 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Próximo hito: reservar
-                          },
                           child: const Text('Reservar'),
+                          onPressed: () {
+                            final cc = compa;
+                            if (cc == null) return;
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => BookingScreen(
+                                  compaId: cc.id,
+                                  compaName: cc.nombre,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -88,3 +98,4 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
     );
   }
 }
+

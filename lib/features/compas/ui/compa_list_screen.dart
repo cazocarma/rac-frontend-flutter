@@ -202,7 +202,8 @@ class _CompaListScreenState extends State<CompaListScreen> {
                   crossAxisCount: crossAxisCount,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
-                  childAspectRatio: isWide ? 2.8 : 3.2,
+                  // Hacemos las tarjetas ms grandes reduciendo el aspect ratio
+                  childAspectRatio: isWide ? 1.6 : 1.2,
                 ),
                 itemCount: items.length + (loadingMore ? 1 : 0),
                 itemBuilder: (context, i) {

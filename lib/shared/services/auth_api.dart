@@ -67,6 +67,16 @@ class AuthApi {
       );
     }
 
+    // Deriva rol desde userinfo y persiste (best-effort).
+    try {
+      final info = await userinfo();
+      final realm = (info['realm_access'] ?? {}) as Map<String, dynamic>;
+      final roles = (realm['roles'] as List?)?.map((e) => e.toString()).toList() ?? <String>[];
+      final role = roles.contains('compa') ? 'compa' : 'cliente';
+      final sp = await SharedPreferences.getInstance();
+      await sp.setString('user_role', role);
+    } catch (_) {}
+
     return data;
   }
 
@@ -215,6 +225,16 @@ class AuthApi {
         data['internal_jwt']['token'] ?? '',
       );
     }
+
+    // Deriva rol desde userinfo y persiste (best-effort).
+    try {
+      final info = await userinfo();
+      final realm = (info['realm_access'] ?? {}) as Map<String, dynamic>;
+      final roles = (realm['roles'] as List?)?.map((e) => e.toString()).toList() ?? <String>[];
+      final role = roles.contains('compa') ? 'compa' : 'cliente';
+      final sp = await SharedPreferences.getInstance();
+      await sp.setString('user_role', role);
+    } catch (_) {}
 
     return data;
   }

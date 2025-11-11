@@ -26,5 +26,18 @@ class Session {
     await prefs.remove('access_token');
     await prefs.remove('refresh_token');
     await prefs.remove('internal_token');
+    await prefs.remove('user_role');
+  }
+
+  /// Guarda el rol del usuario ('cliente' o 'compa').
+  static Future<void> setRole(String role) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_role', role);
+  }
+
+  /// Obtiene el rol guardado; por defecto 'cliente' si no existe.
+  static Future<String> role() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_role') ?? 'cliente';
   }
 }
