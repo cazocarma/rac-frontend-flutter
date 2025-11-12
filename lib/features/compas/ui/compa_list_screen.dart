@@ -191,96 +191,126 @@ class _CompaListScreenState extends State<CompaListScreen> {
           ),
         const SizedBox(height: 8),
         Expanded(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isWide = constraints.maxWidth >= 900;
-              final crossAxisCount = isWide ? 2 : 1;
+  child: LayoutBuilder(
+    builder: (context, constraints) {
+      final w = constraints.maxWidth;
 
-              return GridView.builder(
-                controller: _scrollCtrl,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  // Hacemos las tarjetas ms grandes reduciendo el aspect ratio
-                  childAspectRatio: isWide ? 1.6 : 1.2,
-                ),
-                itemCount: items.length + (loadingMore ? 1 : 0),
-                itemBuilder: (context, i) {
-                  if (i >= items.length) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+      // breakpoints
+      late final int crossAxisCount;
+      late final SliverGridDelegate gridDelegate;
 
-                  final c = items[i];
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => CompaDetailScreen(
-                              api: Services.compas,
-                              id: c.id,
-                            ),
+      if (w >= 1600) {
+        // gigante: 3 columnas
+        crossAxisCount = 4;
+        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          // altura fija y compacta para grandes
+          //mainAxisExtent: 500,
+          childAspectRatio: 3,
+        );
+      } else if (w >= 1200) {
+        // grande: 3 columnas
+        crossAxisCount = 3;
+        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          // altura fija y compacta para grandes
+          //mainAxisExtent: 500,
+          childAspectRatio: 3,
+        );
+      } else if (w >= 600) {
+        // medio: 2 columnas
+        crossAxisCount = 2;
+        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          // un poco más de alto que en grande si quieres
+          //mainAxisExtent: 500,
+          childAspectRatio: 3,
+        );
+      } else {
+        // pequeño: 1 columna
+        crossAxisCount = 1;
+        gridDelegate = const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          // en móviles suele ir mejor por ratio para que respire
+          childAspectRatio: 1.8,
+        );
+      }
+
+      return GridView.builder(
+        controller: _scrollCtrl,
+        gridDelegate: gridDelegate,
+        itemCount: items.length + (loadingMore ? 1 : 0),
+        itemBuilder: (context, i) {
+          if (i >= items.length) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final c = items[i];
+
+          return Card(
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => CompaDetailScreen(
+                      api: Services.compas,
+                      id: c.id,
+                    ),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 2),
+                    CircleAvatar(
+                      radius: 20,
+                      child: Text(c.nombre.isNotEmpty ? c.nombre[0] : '?'),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${c.nombre} – \$${c.tarifaHora.toStringAsFixed(0)}/h',
+                            style: Theme.of(context).textTheme.titleMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 22,
-                              child: Text(
-                                c.nombre.isNotEmpty
-                                    ? c.nombre[0]
-                                    : '?',
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '${c.nombre} – \$${c.tarifaHora.toStringAsFixed(0)}/h',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    [
-                                      if (c.habilidades.isNotEmpty)
-                                        c.habilidades.join(', '),
-                                      if ((c.descripcion ?? '')
-                                          .isNotEmpty)
-                                        c.descripcion!,
-                                    ]
-                                        .where((e) => e.isNotEmpty)
-                                        .join(' • '),
-                                    maxLines: 2,
-                                    overflow:
-                                        TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          const SizedBox(height: 2),
+                          Text(
+                            [
+                              if (c.habilidades.isNotEmpty) c.habilidades.join(', '),
+                              if ((c.descripcion ?? '').isNotEmpty) c.descripcion!,
+                            ].where((e) => e.isNotEmpty).join(' • '),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  ),
+),
+
         if (endReached && items.isNotEmpty)
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),

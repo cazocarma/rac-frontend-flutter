@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentacompa/shared/services/session.dart';
+import 'package:rentacompa/shared/widgets/modal_shell.dart';
 
 class MatchScreen extends StatefulWidget {
   const MatchScreen({super.key});
@@ -26,13 +27,18 @@ class _MatchScreenState extends State<MatchScreen> {
   @override
   Widget build(BuildContext context) {
     // Sin drawer aquí: pantalla dedicada.
-    return Scaffold(
-      appBar: AppBar(title: const Text('Match / Agenda')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: _role == 'compa'
-            ? const _CompaAgendaView()
-            : const _ClienteAgendaView(),
+    return ModalShell(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const BackButton(),
+          title: const Text('Match / Agenda'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: _role == 'compa'
+              ? const _CompaAgendaView()
+              : const _ClienteAgendaView(),
+        ),
       ),
     );
   }
@@ -99,4 +105,3 @@ class _CompaAgendaView extends StatelessWidget {
     );
   }
 }
-

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Maneja la sesión local del usuario.
@@ -35,9 +37,46 @@ class Session {
     await prefs.setString('user_role', role);
   }
 
-  /// Obtiene el rol guardado; por defecto 'cliente' si no existe.
+  /// Obtiene el rol desde el token JWT.
+  ///
+  /// Si no puede derivarse, usa el rol cacheado y finalmente "cliente".
   static Future<String> role() async {
     final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
+    if (token != null && token.isNotEmpty) {
+      final payload = _decodeJwtPayload(token);
+      final resolved = _roleFromPayload(payload);
+      if (resolved != null) {
+        await prefs.setString('user_role', resolved);
+        return resolved;
+      }
+    }
     return prefs.getString('user_role') ?? 'cliente';
+  }
+
+  static Map<String, dynamic>? _decodeJwtPayload(String token) {
+    final segments = token.split('.');
+    if (segments.length < 2) return null;
+    try {
+      final normalized = base64Url.normalize(segments[1]);
+      final decoded = utf8.decode(base64Url.decode(normalized));
+      return json.decode(decoded) as Map<String, dynamic>;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static String? _roleFromPayload(Map<String, dynamic>? payload) {
+    if (payload == null) return null;
+    final realm = payload['realm_access'];
+    if (realm is Map<String, dynamic>) {
+      final roles = realm['roles'];
+      if (roles is List) {
+        final lowered = roles.map((e) => e.toString().toLowerCase()).toList();
+        if (lowered.contains('compa')) return 'compa';
+        if (lowered.contains('cliente')) return 'cliente';
+      }
+    }
+    return null;
   }
 }
