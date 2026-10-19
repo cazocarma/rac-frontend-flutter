@@ -151,6 +151,14 @@ class _MatchScreenState extends State<MatchScreen> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Chip(
+                          backgroundColor: state == 'activa'
+                              ? Theme.of(context).colorScheme.primaryContainer
+                              : state == 'pendiente'
+                              ? Theme.of(context).colorScheme.secondaryContainer
+                              : Theme.of(
+                                  context,
+                                ).colorScheme.surfaceContainerHighest,
+                          side: BorderSide.none,
                           label: Text(
                             {
                                   'pendiente': 'Pendiente de aceptación',

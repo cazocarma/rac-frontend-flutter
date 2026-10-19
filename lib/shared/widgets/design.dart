@@ -1,49 +1,107 @@
 import 'package:flutter/material.dart';
 
 ThemeData racTheme(Brightness brightness) {
-  final colors = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF6355D8),
-    brightness: brightness,
-  );
-  return ThemeData(
-    useMaterial3: true,
-    colorScheme: colors,
-    scaffoldBackgroundColor: brightness == Brightness.light
-        ? const Color(0xFFF7F7FC)
-        : const Color(0xFF14141E),
+  final light = brightness == Brightness.light;
+  final colors =
+      ColorScheme.fromSeed(
+        seedColor: const Color(0xFF176B58),
+        brightness: brightness,
+      ).copyWith(
+        primary: light ? const Color(0xFF176B58) : const Color(0xFF91D5BC),
+        onPrimary: light ? Colors.white : const Color(0xFF103D32),
+        surface: light ? Colors.white : const Color(0xFF192822),
+        primaryContainer: light
+            ? const Color(0xFFE0EFE7)
+            : const Color(0xFF244D3F),
+        onPrimaryContainer: light
+            ? const Color(0xFF174D3D)
+            : const Color(0xFFC4EDDA),
+        outlineVariant: light
+            ? const Color(0xFFE1E7E1)
+            : const Color(0xFF35473D),
+      );
+  final base = ThemeData(useMaterial3: true, colorScheme: colors);
+  return base.copyWith(
+    scaffoldBackgroundColor: light
+        ? const Color(0xFFF6F7F2)
+        : const Color(0xFF101C17),
+    textTheme: base.textTheme.apply(
+      bodyColor: light ? const Color(0xFF243E33) : const Color(0xFFE1EBE4),
+      displayColor: light ? const Color(0xFF183F31) : const Color(0xFFE1EBE4),
+    ),
     appBarTheme: AppBarTheme(
-      backgroundColor: colors.surface,
+      backgroundColor: light
+          ? const Color(0xFFF6F7F2)
+          : const Color(0xFF101C17),
+      foregroundColor: colors.onSurface,
       centerTitle: false,
       elevation: 0,
+      scrolledUnderElevation: 0,
+      titleTextStyle: TextStyle(
+        color: colors.onSurface,
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
+      ),
     ),
+    dividerTheme: DividerThemeData(color: colors.outlineVariant, thickness: 1),
     cardTheme: CardThemeData(
       elevation: 0,
       color: colors.surface,
+      margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: colors.outlineVariant.withValues(alpha: .5)),
+        borderRadius: BorderRadius.circular(22),
+        side: BorderSide(color: colors.outlineVariant),
       ),
+    ),
+    chipTheme: base.chipTheme.copyWith(
+      side: BorderSide(color: colors.outlineVariant),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: colors.surfaceContainerLow,
+      fillColor: light ? Colors.white : colors.surface,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: colors.outlineVariant),
       ),
-      contentPadding: const EdgeInsets.all(18),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: colors.outlineVariant),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: colors.primary, width: 2),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
     ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size(48, 52),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(48, 48),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        side: BorderSide(color: colors.outlineVariant),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: colors.surface,
+      indicatorColor: colors.primaryContainer,
+      height: 76,
+      elevation: 0,
+      labelTextStyle: WidgetStateProperty.all(
+        const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: colors.inverseSurface,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
     ),
   );
 }
@@ -94,7 +152,20 @@ class EmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 56, color: Theme.of(context).colorScheme.primary),
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Theme.of(
+                context,
+              ).colorScheme.primaryContainer.withValues(alpha: .6),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Icon(
+              icon,
+              size: 40,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
           const SizedBox(height: 20),
           Text(
             title,

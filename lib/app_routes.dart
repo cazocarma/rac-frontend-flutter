@@ -8,6 +8,7 @@ import 'package:rentacompa/shared/guards/auth_guard.dart';
 import 'package:rentacompa/shared/services/logout.dart';
 import 'package:rentacompa/shared/widgets/design.dart';
 import 'main.dart';
+import 'shared/widgets/brand.dart';
 import 'features/plans/ui/plans_screen.dart';
 import 'features/alerts/ui/notifications_screen.dart';
 import 'features/compa_onboarding/ui/become_compa_screen.dart';
@@ -29,32 +30,50 @@ class HomeShell extends StatelessWidget {
   }
 
   Widget menu(BuildContext context) => ListView(
-    padding: const EdgeInsets.all(16),
+    padding: const EdgeInsets.all(18),
     children: [
+      const Padding(
+        padding: EdgeInsets.fromLTRB(12, 20, 12, 8),
+        child: RacBrand(),
+      ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 12),
-        child: Row(
-          children: [
-            Icon(
-              Icons.people_alt_rounded,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(width: 12),
-            Text('RAC', style: Theme.of(context).textTheme.headlineSmall),
-          ],
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 32),
+        child: Text(
+          'Tiempo para compartir.',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            fontSize: 11,
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 12, bottom: 14),
+        child: Text(
+          'TU ESPACIO',
+          style: TextStyle(
+            fontSize: 10,
+            letterSpacing: 1.8,
+            fontWeight: FontWeight.w700,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
       ),
       for (final d in destinations)
         Padding(
-          padding: const EdgeInsets.only(bottom: 6),
+          padding: const EdgeInsets.only(bottom: 5),
           child: ListTile(
+            dense: true,
+            minVerticalPadding: 14,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(13),
             ),
             selected: d.$3 == '/home',
             selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
-            leading: Icon(d.$2),
-            title: Text(d.$1),
+            leading: Icon(d.$2, size: 21),
+            title: Text(
+              d.$1,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
             onTap: () {
               if (MediaQuery.sizeOf(context).width < 1000) {
                 Navigator.pop(context);
@@ -63,10 +82,39 @@ class HomeShell extends StatelessWidget {
             },
           ),
         ),
+      const SizedBox(height: 22),
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(
+            context,
+          ).colorScheme.primaryContainer.withValues(alpha: .5),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.wb_sunny_outlined,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Comparte lo que te gusta',
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+            ),
+            const SizedBox(height: 6),
+            const Text(
+              'Publica tu perfil de compa y empieza con 3 reservas gratis por semana.',
+              style: TextStyle(fontSize: 11, height: 1.5),
+            ),
+          ],
+        ),
+      ),
       const Divider(height: 32),
       ListTile(
-        leading: const Icon(Icons.logout),
-        title: const Text('Salir'),
+        leading: const Icon(Icons.logout, size: 20),
+        title: const Text('Salir', style: TextStyle(fontSize: 13)),
         onTap: () => performLogout(context),
       ),
     ],
@@ -77,8 +125,13 @@ class HomeShell extends StatelessWidget {
     return AuthGuard(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Rent-a-Compa'),
+          title: wide ? const Text('Explorar compas') : const RacBrand(),
           actions: [
+            IconButton(
+              tooltip: 'Ver notificaciones',
+              onPressed: () => open(context, '/alerts'),
+              icon: const Icon(Icons.notifications_outlined),
+            ),
             IconButton(
               tooltip: 'Mi perfil',
               onPressed: () => open(context, '/profile'),
@@ -115,7 +168,19 @@ class HomeShell extends StatelessWidget {
               ),
         body: Row(
           children: [
-            if (wide) SizedBox(width: 250, child: menu(context)),
+            if (wide)
+              Container(
+                width: 250,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  border: Border(
+                    right: BorderSide(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                    ),
+                  ),
+                ),
+                child: menu(context),
+              ),
             const Expanded(child: PageContent(child: CompaListScreen())),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/services/theme.dart';
 import '../../../shared/widgets/design.dart';
+import '../../../shared/widgets/brand.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -13,15 +14,11 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'A tu manera',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+            const PageIntro(
+              eyebrow: 'Preferencias',
+              title: 'A tu manera',
+              description: 'Personaliza cómo se ve RAC en este dispositivo.',
             ),
-            const SizedBox(height: 8),
-            const Text('Personaliza cómo se ve RAC en este dispositivo.'),
-            const SizedBox(height: 24),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(20),

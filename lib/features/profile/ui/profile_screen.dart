@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/widgets/design.dart';
+import '../../../shared/widgets/brand.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -43,13 +44,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Tu espacio en RAC',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                const PageIntro(
+                  eyebrow: 'Tu cuenta',
+                  title: 'Tu espacio en RAC',
+                  description:
+                      'Tu información y tus accesos, en un mismo lugar.',
                 ),
-                const SizedBox(height: 24),
                 Card(
                   margin: EdgeInsets.zero,
                   child: Padding(

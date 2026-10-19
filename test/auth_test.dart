@@ -120,6 +120,7 @@ void main() {
       ),
     );
     expect(find.byType(TextField), findsNothing);
+    await tester.ensureVisible(find.text('Ingresar o crear cuenta'));
     await tester.tap(find.text('Ingresar o crear cuenta'));
     await tester.pumpAndSettle();
     expect(find.text('Inicio'), findsOneWidget);
@@ -133,6 +134,7 @@ void main() {
         home: UnifiedAuthScreen(auth: AuthApi(session: session)),
       ),
     );
+    await tester.ensureVisible(find.text('Ingresar o crear cuenta'));
     await tester.tap(find.text('Ingresar o crear cuenta'));
     await tester.pumpAndSettle();
     expect(find.textContaining('No pudimos iniciar sesión'), findsOneWidget);

@@ -50,11 +50,43 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      radius: 44,
-                      child: Text(
-                        c.nombre.isEmpty ? '?' : c.nombre[0].toUpperCase(),
-                        style: const TextStyle(fontSize: 36),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(28),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 38,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface,
+                            child: Text(
+                              c.nombre.isEmpty
+                                  ? '?'
+                                  : c.nombre[0].toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.w800,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Text(
+                              'Un interés en común.\nUn plan para compartir.',
+                              style: Theme.of(context).textTheme.titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.5,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 24),

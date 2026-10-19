@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 COPY . .
-RUN flutter build web --release
+RUN flutter build web --release && sh docker/version-web-assets.sh
 FROM nginx:1.28-alpine
 COPY --from=builder /app/build/web /usr/share/nginx/html
 COPY docker/config.json.template /etc/rac-config.json.template
