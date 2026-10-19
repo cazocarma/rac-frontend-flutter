@@ -1,0 +1,12 @@
+.git
+.dart_tool
+build
+**/ephemeral
+.flutter-plugins
+.flutter-plugins-dependencies
+*.log
+
+.env*
+**/key.properties
+**/*.jks
+**/local.properties

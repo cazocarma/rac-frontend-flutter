@@ -1,199 +1,120 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:rentacompa/shared/services/session.dart';
-import 'package:rentacompa/shared/widgets/modal_shell.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../../shared/di/services.dart';
+import '../../../shared/widgets/design.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
-
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final _form = GlobalKey<FormState>();
-  final _nameCtrl = TextEditingController();
-  final _emailCtrl = TextEditingController();
-  final _bioCtrl = TextEditingController();
-  final _picker = ImagePicker();
-
-  Uint8List? _photoData;
-  String _role = 'cliente';
-  bool _saving = false;
-
+  late Future<Map<String, dynamic>> data;
   @override
   void initState() {
     super.initState();
-    _load();
-  }
-
-  Future<void> _load() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedPhoto = prefs.getString('profile_photo');
-    Uint8List? photo;
-    if (storedPhoto != null && storedPhoto.isNotEmpty) {
-      try {
-        photo = base64Decode(storedPhoto);
-      } catch (_) {
-        photo = null;
-      }
-    }
-
-    _nameCtrl.text = prefs.getString('profile_name') ?? '';
-    _emailCtrl.text = prefs.getString('profile_email') ?? '';
-    _bioCtrl.text = prefs.getString('profile_bio') ?? '';
-    final role = await Session.role();
-
-    if (!mounted) return;
-    setState(() {
-      _photoData = photo;
-      _role = role;
-    });
-  }
-
-  Future<void> _save() async {
-    if (!_form.currentState!.validate()) return;
-    setState(() => _saving = true);
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('profile_name', _nameCtrl.text.trim());
-      await prefs.setString('profile_email', _emailCtrl.text.trim());
-      await prefs.setString('profile_bio', _bioCtrl.text.trim());
-      if (_photoData != null) {
-        await prefs.setString('profile_photo', base64Encode(_photoData!));
-      } else {
-        await prefs.remove('profile_photo');
-      }
-      await Session.setRole(_role);
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Perfil guardado')));
-    } finally {
-      if (mounted) {
-        setState(() => _saving = false);
-      }
-    }
-  }
-
-  Future<void> _pickPhoto() async {
-    final picked = await _picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1024,
-      imageQuality: 85,
-    );
-    if (picked == null) return;
-    final bytes = await picked.readAsBytes();
-    if (!mounted) return;
-    setState(() => _photoData = bytes);
+    data = Services.user.me();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ModalShell(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: const BackButton(),
-          title: const Text('Perfil'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _form,
-            child: ListView(
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Mi perfil')),
+    body: FutureBuilder<Map<String, dynamic>>(
+      future: data,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return EmptyState(
+            title: 'No pudimos cargar tu cuenta',
+            message: 'Inténtalo nuevamente.',
+            action: OutlinedButton(
+              onPressed: () => setState(() => data = Services.user.me()),
+              child: const Text('Reintentar'),
+            ),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final me = snapshot.data!;
+        final name = me['nombre'] as String? ?? 'Usuario';
+        return SingleChildScrollView(
+          child: PageContent(
+            width: 720,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 48,
-                        backgroundImage:
-                            _photoData != null ? MemoryImage(_photoData!) : null,
-                        child: _photoData == null
-                            ? const Icon(Icons.person, size: 48)
-                            : null,
-                      ),
-                      const SizedBox(height: 12),
-                      FilledButton.icon(
-                        onPressed: _pickPhoto,
-                        icon: const Icon(Icons.photo_camera),
-                        label: const Text('Cambiar foto'),
-                      ),
-                      if (_photoData != null)
-                        TextButton(
-                          onPressed: () => setState(() => _photoData = null),
-                          child: const Text('Quitar foto'),
+                Text(
+                  'Tu espacio en RAC',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                Card(
+                  margin: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CircleAvatar(
+                          radius: 36,
+                          child: Text(
+                            name.isEmpty ? '?' : name[0],
+                            style: const TextStyle(fontSize: 28),
+                          ),
                         ),
-                    ],
+                        const SizedBox(height: 20),
+                        Text(
+                          name,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 16),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const Icon(Icons.email_outlined),
+                          title: const Text('Correo de tu cuenta'),
+                          subtitle: Text(me['correo'] as String? ?? ''),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const Icon(Icons.verified_user_outlined),
+                          title: const Text('Tipo de cuenta'),
+                          subtitle: Text(
+                            {
+                                  'cliente': 'Usuario base',
+                                  'compa': 'Compa',
+                                  'admin': 'Administrador',
+                                }[me['role']] ??
+                                'Usuario base',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Card(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(20),
+                    leading: Icon(Icons.handyman_outlined),
+                    title: Text('Edición de perfil · En construcción'),
+                    subtitle: Text(
+                      'La edición de datos, biografía y foto estará disponible aquí. Los datos mostrados vienen de tu cuenta autenticada.',
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
-                TextFormField(
-                  controller: _nameCtrl,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty) ? 'Requerido' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _emailCtrl,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (v) => (v == null || !v.contains('@'))
-                      ? 'Email inválido'
-                      : null,
-                ),
-                const SizedBox(height: 12),
-                DropdownButtonFormField<String>(
-                  value: _role,
-                  decoration: const InputDecoration(
-                    labelText: 'Tipo de perfil',
-                  ),
-                  items: const [
-                    DropdownMenuItem(
-                      value: 'cliente',
-                      child: Text('Cliente'),
-                    ),
-                    DropdownMenuItem(
-                      value: 'compa',
-                      child: Text('Compa'),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    if (value == null) return;
-                    setState(() => _role = value);
-                  },
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _bioCtrl,
-                  decoration: const InputDecoration(
-                      labelText: 'Biografía (opcional)'),
-                  maxLength: 500,
-                  maxLines: 5,
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _saving ? null : _save,
-                    child: _saving
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Text('Guardar'),
-                  ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(context).pushNamed('/match'),
+                  icon: const Icon(Icons.calendar_month_outlined),
+                  label: const Text('Ver mis reservas'),
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
+        );
+      },
+    ),
+  );
 }

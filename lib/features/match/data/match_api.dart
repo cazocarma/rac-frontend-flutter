@@ -2,16 +2,65 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
 
+class SubscriptionRequired implements Exception {
+  const SubscriptionRequired(this.allowance);
+  final Map<String, dynamic> allowance;
+}
+
 class MatchApi {
   final String base; // Ejemplo: http://localhost
 
-  MatchApi(this.base);
+  final http.Client client;
+  MatchApi(this.base, {http.Client? client}) : client = client ?? http.Client();
+
+  Future<Map<String, dynamic>> allowance(String compaId, {String? date}) async {
+    final token = await Session.accessToken();
+    final uri = Uri.parse(
+      '$base/api/match/compa/$compaId/allowance',
+    ).replace(queryParameters: date == null ? null : {'fecha': date});
+    final response = await client.get(
+      uri,
+      headers: {if (token != null) 'Authorization': 'Bearer $token'},
+    );
+    if (response.statusCode != 200) throw StateError('Cupos no disponibles');
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> slots(
+    String compaId,
+    DateTime day,
+    int hours,
+  ) async {
+    final token = await Session.accessToken();
+    final start = DateTime(day.year, day.month, day.day).toUtc();
+    final end = DateTime(day.year, day.month, day.day + 1).toUtc();
+    final uri = Uri.parse('$base/api/match/availability/$compaId/slots')
+        .replace(
+          queryParameters: {
+            'inicio': start.toIso8601String(),
+            'fin': end.toIso8601String(),
+            'minutos': '${hours * 60}',
+          },
+        );
+    final response = await client.get(
+      uri,
+      headers: {if (token != null) 'Authorization': 'Bearer $token'},
+    );
+    if (response.statusCode != 200) throw StateError('Horarios no disponibles');
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  }
 
   /// Obtiene la disponibilidad de un compa específico.
   Future<Map<String, dynamic>> availability(String compaId) async {
-    final res = await http.get(
+    final at = await Session.accessToken();
+    final res = await client.get(
       Uri.parse('$base/api/match/availability/$compaId'),
+      headers: {if (at != null) 'Authorization': 'Bearer $at'},
     );
+
+    if (res.statusCode == 404) {
+      return {'availability': <String, dynamic>{}};
+    }
 
     if (res.statusCode != 200) {
       throw Exception('HTTP ${res.statusCode}: ${res.body}');
@@ -27,7 +76,7 @@ class MatchApi {
   ) async {
     final at = await Session.accessToken();
 
-    final res = await http.post(
+    final res = await client.post(
       Uri.parse('$base/api/match/availability/$compaId'),
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +98,7 @@ class MatchApi {
   }) async {
     final at = await Session.accessToken();
 
-    final res = await http.post(
+    final res = await client.post(
       Uri.parse('$base/api/match/session'),
       headers: {
         'Content-Type': 'application/json',
@@ -73,11 +122,9 @@ class MatchApi {
   Future<Map<String, dynamic>> getSession(String id) async {
     final at = await Session.accessToken();
 
-    final res = await http.get(
+    final res = await client.get(
       Uri.parse('$base/api/match/session/$id'),
-      headers: {
-        if (at != null) 'Authorization': 'Bearer $at',
-      },
+      headers: {if (at != null) 'Authorization': 'Bearer $at'},
     );
 
     if (res.statusCode != 200) {
@@ -91,7 +138,7 @@ class MatchApi {
   Future<Map<String, dynamic>> updateState(String id, String estado) async {
     final at = await Session.accessToken();
 
-    final res = await http.put(
+    final res = await client.put(
       Uri.parse('$base/api/match/session/$id/state'),
       headers: {
         'Content-Type': 'application/json',
@@ -100,6 +147,14 @@ class MatchApi {
       body: json.encode({'estado': estado}),
     );
 
+    if (res.statusCode == 402) {
+      final body = json.decode(res.body) as Map<String, dynamic>;
+      if (body['error'] == 'subscription_required') {
+        throw SubscriptionRequired(
+          Map<String, dynamic>.from(body['cupo'] as Map),
+        );
+      }
+    }
     if (res.statusCode != 200) {
       throw Exception('HTTP ${res.statusCode}: ${res.body}');
     }
@@ -123,7 +178,7 @@ class MatchApi {
       body['minutos'] = minutos;
     }
 
-    final res = await http.post(
+    final res = await client.post(
       Uri.parse('$base/api/match/session/$id/extend'),
       headers: {
         'Content-Type': 'application/json',
@@ -147,18 +202,13 @@ class MatchApi {
   }) async {
     final at = await Session.accessToken();
 
-    final uri = Uri.parse('$base/api/match/client/$id/sessions').replace(
-      queryParameters: {
-        'limit': '$limit',
-        'offset': '$offset',
-      },
-    );
+    final uri = Uri.parse(
+      '$base/api/match/client/$id/sessions',
+    ).replace(queryParameters: {'limit': '$limit', 'offset': '$offset'});
 
-    final res = await http.get(
+    final res = await client.get(
       uri,
-      headers: {
-        if (at != null) 'Authorization': 'Bearer $at',
-      },
+      headers: {if (at != null) 'Authorization': 'Bearer $at'},
     );
 
     if (res.statusCode != 200) {
@@ -176,18 +226,13 @@ class MatchApi {
   }) async {
     final at = await Session.accessToken();
 
-    final uri = Uri.parse('$base/api/match/compa/$id/sessions').replace(
-      queryParameters: {
-        'limit': '$limit',
-        'offset': '$offset',
-      },
-    );
+    final uri = Uri.parse(
+      '$base/api/match/compa/$id/sessions',
+    ).replace(queryParameters: {'limit': '$limit', 'offset': '$offset'});
 
-    final res = await http.get(
+    final res = await client.get(
       uri,
-      headers: {
-        if (at != null) 'Authorization': 'Bearer $at',
-      },
+      headers: {if (at != null) 'Authorization': 'Bearer $at'},
     );
 
     if (res.statusCode != 200) {

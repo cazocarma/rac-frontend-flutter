@@ -23,26 +23,26 @@ class CompaCard {
   });
 
   factory CompaCard.fromJson(Map<String, dynamic> j) => CompaCard(
-        id: j['id'] as String,
-        usuarioId: (j['usuario_id'] ?? j['usuarioId']) as String,
-        nombre: (j['nombre'] as String?) ?? '',
-        tarifaHora: _asDouble(j['tarifa_hora'] ?? j['tarifaHora']),
-        ratingPromedio: _asDouble(j['rating_promedio'] ?? j['ratingPromedio']),
-        habilidades: _asStringList(j['habilidades']),
-        fotoUrl: j['foto_url'] as String?,
-        descripcion: j['descripcion'] as String?,
-      );
+    id: j['id'] as String,
+    usuarioId: (j['usuario_id'] ?? j['usuarioId']) as String,
+    nombre: (j['nombre'] as String?) ?? '',
+    tarifaHora: _asDouble(j['tarifa_hora'] ?? j['tarifaHora']),
+    ratingPromedio: _asDouble(j['rating_promedio'] ?? j['ratingPromedio']),
+    habilidades: _asStringList(j['habilidades']),
+    fotoUrl: j['foto_url'] as String?,
+    descripcion: j['descripcion'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'usuario_id': usuarioId,
-        'nombre': nombre,
-        'tarifa_hora': tarifaHora,
-        'rating_promedio': ratingPromedio,
-        'habilidades': habilidades,
-        'foto_url': fotoUrl,
-        'descripcion': descripcion,
-      };
+    'id': id,
+    'usuario_id': usuarioId,
+    'nombre': nombre,
+    'tarifa_hora': tarifaHora,
+    'rating_promedio': ratingPromedio,
+    'habilidades': habilidades,
+    'foto_url': fotoUrl,
+    'descripcion': descripcion,
+  };
 }
 
 double _asDouble(dynamic v) {
@@ -70,20 +70,18 @@ class CompaApi {
   /// Headers adicionales (p. ej. Authorization).
   final Map<String, String> defaultHeaders;
 
-  CompaApi(
-    this.base, {
-    http.Client? client,
-    Map<String, String>? headers,
-  })  : _client = client ?? http.Client(),
-        defaultHeaders = {
-          'Accept': 'application/json',
-          ...?headers,
-        };
+  CompaApi(this.base, {http.Client? client, Map<String, String>? headers})
+    : _client = client ?? http.Client(),
+      defaultHeaders = {'Accept': 'application/json', ...?headers};
 
   Uri _u(String path, [Map<String, String>? query]) {
-    final normalizedBase = base.endsWith('/') ? base.substring(0, base.length - 1) : base;
+    final normalizedBase = base.endsWith('/')
+        ? base.substring(0, base.length - 1)
+        : base;
     final normalizedPath = path.startsWith('/') ? path : '/$path';
-    return Uri.parse('$normalizedBase$normalizedPath').replace(queryParameters: query);
+    return Uri.parse(
+      '$normalizedBase$normalizedPath',
+    ).replace(queryParameters: query);
   }
 
   Future<List<CompaCard>> list({
@@ -115,13 +113,12 @@ class CompaApi {
           .map((e) => CompaCard.fromJson(e as Map<String, dynamic>))
           .toList();
     }
-    throw const FormatException('Respuesta inesperada: se esperaba una lista JSON.');
+    throw const FormatException(
+      'Respuesta inesperada: se esperaba una lista JSON.',
+    );
   }
 
-  Future<CompaCard> getById(
-    String id, {
-    Map<String, String>? headers,
-  }) async {
+  Future<CompaCard> getById(String id, {Map<String, String>? headers}) async {
     final uri = _u('/api/user/compas/$id');
 
     final res = await _client
@@ -136,7 +133,9 @@ class CompaApi {
     if (decoded is Map<String, dynamic>) {
       return CompaCard.fromJson(decoded);
     }
-    throw const FormatException('Respuesta inesperada: se esperaba un objeto JSON.');
+    throw const FormatException(
+      'Respuesta inesperada: se esperaba un objeto JSON.',
+    );
   }
 
   Future<List<String>> listSkills({

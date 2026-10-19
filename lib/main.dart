@@ -4,10 +4,14 @@ import 'package:rentacompa/shared/di/services.dart';
 import 'package:rentacompa/shared/services/session.dart';
 import 'package:rentacompa/shared/services/theme.dart';
 import 'app_routes.dart';
+import 'shared/widgets/design.dart';
+import 'shared/config/env.dart';
 
 /// Punto de entrada principal de la aplicación Rent-a-Compa.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Env.load();
+  await Session.clearLegacyTokens();
   Services.init(); // Inicializa AuthApi, CompaApi.
   await appTheme.load();
   runApp(RACApp(theme: appTheme));
@@ -27,16 +31,9 @@ class RACApp extends StatelessWidget {
       builder: (context, _) {
         return MaterialApp(
           title: 'Rent-a-Compa',
-          theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.blue,
-            brightness: Brightness.light,
-          ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.blue,
-            brightness: Brightness.dark,
-          ),
+          debugShowCheckedModeBanner: false,
+          theme: racTheme(Brightness.light),
+          darkTheme: racTheme(Brightness.dark),
           themeMode: theme.mode,
           routes: buildRoutes(),
           // Ruta inicial que decide si ir a login o home según tokens existentes.
@@ -67,7 +64,14 @@ class _StartupGateState extends State<StartupGate> {
 
   /// Verifica el estado de sesión y redirige a la ruta correspondiente.
   Future<void> _decide() async {
-    final logged = await Session.isLoggedIn();
+    bool logged = false;
+    try {
+      logged = await Session.isLoggedIn();
+      if (logged) await Services.user.me();
+    } catch (_) {
+      await Session.clear();
+      logged = false;
+    }
     if (!mounted) return;
     if (logged) {
       Navigator.of(context).pushReplacementNamed('/home');
@@ -78,8 +82,6 @@ class _StartupGateState extends State<StartupGate> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
-    );
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }

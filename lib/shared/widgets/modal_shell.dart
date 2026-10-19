@@ -11,9 +11,10 @@ class ModalShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final overlayColor = backgroundDim ??
-        Colors.black.withOpacity(
-          Theme.of(context).brightness == Brightness.dark ? 0.25 : 0.04,
+    final overlayColor =
+        backgroundDim ??
+        Colors.black.withValues(
+          alpha: Theme.of(context).brightness == Brightness.dark ? 0.25 : 0.04,
         );
 
     return Scaffold(
@@ -50,7 +51,7 @@ class ModalShell extends StatelessWidget {
                             boxShadow: [
                               if (!compact)
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.18),
+                                  color: Colors.black.withValues(alpha: 0.18),
                                   blurRadius: 28,
                                   offset: const Offset(0, 16),
                                 ),

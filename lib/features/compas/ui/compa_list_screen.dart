@@ -1,331 +1,283 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../compas/data/compa_api.dart';
 import '../../../shared/di/services.dart';
+import '../../../shared/widgets/design.dart';
 import 'compa_detail_screen.dart';
 
 class CompaListScreen extends StatefulWidget {
   const CompaListScreen({super.key});
-
   @override
   State<CompaListScreen> createState() => _CompaListScreenState();
 }
 
 class _CompaListScreenState extends State<CompaListScreen> {
-  final _scrollCtrl = ScrollController();
-  String _currentSkill = '';
-  Timer? _debounce;
-
+  final search = TextEditingController();
   List<CompaCard> items = [];
-  bool loading = false;
-  bool loadingMore = false;
-  bool endReached = false;
+  List<String> skills = [];
+  bool loading = true, more = true;
   String? error;
-
-  int limit = 10;
-  int offset = 0;
-
-  List<String> skillOptions = [];
-  bool loadingSkills = false;
-
+  String filter = '';
+  int request = 0;
   @override
   void initState() {
     super.initState();
-    _loadInitial();
-    _scrollCtrl.addListener(_onScroll);
-    _fetchSkills('');
+    load();
+    loadSkills();
   }
 
   @override
   void dispose() {
-    _scrollCtrl.dispose();
-    _debounce?.cancel();
+    search.dispose();
     super.dispose();
   }
 
-  Future<void> _loadInitial() async {
+  Future<void> loadSkills() async {
+    try {
+      final data = await Services.compas.listSkills(limit: 20);
+      if (mounted) setState(() => skills = data);
+    } catch (_) {}
+  }
+
+  Future<void> load({bool append = false}) async {
+    final id = ++request;
     setState(() {
       loading = true;
       error = null;
-      items = [];
-      offset = 0;
-      endReached = false;
     });
-
     try {
       final data = await Services.compas.list(
-        skill: _currentSkill,
-        limit: limit,
-        offset: 0,
+        skill: filter,
+        limit: 12,
+        offset: append ? items.length : 0,
       );
-
+      if (!mounted || id != request) return;
       setState(() {
-        items = data;
-        offset = data.length;
-        endReached = data.length < limit;
+        items = append ? [...items, ...data] : data;
+        more = data.length == 12;
       });
-    } catch (e) {
-      setState(() => error = e.toString());
-    } finally {
-      setState(() => loading = false);
-    }
-  }
-
-  Future<void> _loadMore() async {
-    if (loadingMore || loading || endReached) return;
-
-    setState(() => loadingMore = true);
-
-    try {
-      final data = await Services.compas.list(
-        skill: _currentSkill,
-        limit: limit,
-        offset: offset,
-      );
-
-      setState(() {
-        items.addAll(data);
-        offset += data.length;
-        if (data.length < limit) endReached = true;
-      });
-    } catch (e) {
-      setState(() => error = e.toString());
-    } finally {
-      setState(() => loadingMore = false);
-    }
-  }
-
-  void _onScroll() {
-    if (_scrollCtrl.position.pixels >=
-        _scrollCtrl.position.maxScrollExtent - 200) {
-      _loadMore();
-    }
-  }
-
-  Future<void> _fetchSkills(String q) async {
-    setState(() => loadingSkills = true);
-    try {
-      final list = await Services.compas.listSkills(q: q, limit: 20);
-      setState(() => skillOptions = list);
     } catch (_) {
-      // ignora errores silenciosamente
+      if (mounted && id == request) {
+        setState(
+          () => error = 'No pudimos cargar los compas. Inténtalo otra vez.',
+        );
+      }
     } finally {
-      setState(() => loadingSkills = false);
+      if (mounted && id == request) setState(() => loading = false);
     }
-  }
-
-  void _onSkillChanged(String text) {
-    _currentSkill = text.trim();
-    _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 300), () {
-      _fetchSkills(_currentSkill);
-    });
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'Un buen plan empieza\ncon buena compañía.',
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w800,
+            letterSpacing: -1,
+          ),
+        ),
+        const SizedBox(height: 8),
+        const Text('Descubre personas con quienes compartir lo que te gusta.'),
+        const SizedBox(height: 24),
         Row(
           children: [
             Expanded(
-              child: Autocomplete<String>(
-                optionsBuilder: (TextEditingValue v) {
-                  final q = v.text.trim().toLowerCase();
-                  final filtered = skillOptions
-                      .where((s) => s.toLowerCase().startsWith(q))
-                      .toList();
-                  return filtered;
-                },
-                onSelected: (s) {
-                  _currentSkill = s;
-                },
-                fieldViewBuilder:
-                    (ctx, textCtrl, focus, onFieldSubmitted) {
-                  return TextField(
-                    controller: textCtrl,
-                    focusNode: focus,
-                    decoration: InputDecoration(
-                      labelText: 'Filtrar por skill',
-                      hintText: 'Ej: karaoke',
-                      border: const OutlineInputBorder(),
-                      isDense: true,
-                      suffixIcon: loadingSkills
-                          ? const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 16,
-                                width: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            )
-                          : null,
-                    ),
-                    onChanged: _onSkillChanged,
-                    onSubmitted: (_) {
-                      _currentSkill = textCtrl.text.trim();
-                      _loadInitial();
-                    },
-                  );
+              child: TextField(
+                controller: search,
+                decoration: const InputDecoration(
+                  hintText: 'Busca una habilidad: cine, running…',
+                  prefixIcon: Icon(Icons.search),
+                ),
+                onSubmitted: (v) {
+                  filter = v.trim();
+                  load();
                 },
               ),
             ),
             const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: _loadInitial,
+            FilledButton(
+              onPressed: loading
+                  ? null
+                  : () {
+                      filter = search.text.trim();
+                      load();
+                    },
               child: const Text('Buscar'),
             ),
           ],
         ),
         const SizedBox(height: 12),
+        SizedBox(
+          height: 44,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              for (final skill in ['', ...skills])
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ChoiceChip(
+                    label: Text(skill.isEmpty ? 'Todos' : skill),
+                    selected: filter == skill,
+                    onSelected: (_) {
+                      search.text = skill;
+                      filter = skill;
+                      load();
+                    },
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Text(
+              'Encuentra tu compa',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const Spacer(),
+            IconButton(
+              tooltip: 'Actualizar',
+              onPressed: loading ? null : () => load(),
+              icon: const Icon(Icons.refresh),
+            ),
+          ],
+        ),
         if (loading) const LinearProgressIndicator(),
         if (error != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              error!,
-              style: const TextStyle(color: Colors.red),
-            ),
-          ),
-        const SizedBox(height: 8),
-        Expanded(
-  child: LayoutBuilder(
-    builder: (context, constraints) {
-      final w = constraints.maxWidth;
-
-      // breakpoints
-      late final int crossAxisCount;
-      late final SliverGridDelegate gridDelegate;
-
-      if (w >= 1600) {
-        // gigante: 3 columnas
-        crossAxisCount = 4;
-        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          // altura fija y compacta para grandes
-          //mainAxisExtent: 500,
-          childAspectRatio: 3,
-        );
-      } else if (w >= 1200) {
-        // grande: 3 columnas
-        crossAxisCount = 3;
-        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          // altura fija y compacta para grandes
-          //mainAxisExtent: 500,
-          childAspectRatio: 3,
-        );
-      } else if (w >= 600) {
-        // medio: 2 columnas
-        crossAxisCount = 2;
-        gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          // un poco más de alto que en grande si quieres
-          //mainAxisExtent: 500,
-          childAspectRatio: 3,
-        );
-      } else {
-        // pequeño: 1 columna
-        crossAxisCount = 1;
-        gridDelegate = const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          // en móviles suele ir mejor por ratio para que respire
-          childAspectRatio: 1.8,
-        );
-      }
-
-      return GridView.builder(
-        controller: _scrollCtrl,
-        gridDelegate: gridDelegate,
-        itemCount: items.length + (loadingMore ? 1 : 0),
-        itemBuilder: (context, i) {
-          if (i >= items.length) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final c = items[i];
-
-          return Card(
-            clipBehavior: Clip.antiAlias,
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => CompaDetailScreen(
-                      api: Services.compas,
-                      id: c.id,
-                    ),
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 2),
-                    CircleAvatar(
-                      radius: 20,
-                      child: Text(c.nombre.isNotEmpty ? c.nombre[0] : '?'),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${c.nombre} – \$${c.tarifaHora.toStringAsFixed(0)}/h',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            [
-                              if (c.habilidades.isNotEmpty) c.habilidades.join(', '),
-                              if ((c.descripcion ?? '').isNotEmpty) c.descripcion!,
-                            ].where((e) => e.isNotEmpty).join(' • '),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+          MaterialBanner(
+            content: Text(error!),
+            actions: [
+              TextButton(
+                onPressed: () => load(),
+                child: const Text('Reintentar'),
               ),
-            ),
-          );
-        },
-      );
-    },
-  ),
-),
-
-        if (endReached && items.isNotEmpty)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              'No hay más resultados',
-              style: TextStyle(color: Colors.grey),
-            ),
+            ],
           ),
-        if (items.isEmpty && !loading && error == null)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 32),
-            child: Text('Sin resultados'),
-          ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 12),
+        SizedBox(
+          child: items.isEmpty && !loading
+              ? const EmptyState(
+                  title: 'No encontramos compas',
+                  message: 'Prueba otra habilidad o selecciona Todos.',
+                )
+              : LayoutBuilder(
+                  builder: (context, c) => GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: c.maxWidth >= 850
+                          ? 3
+                          : c.maxWidth >= 540
+                          ? 2
+                          : 1,
+                      mainAxisExtent: 285,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    itemCount: items.length + (more && !loading ? 1 : 0),
+                    itemBuilder: (context, i) {
+                      if (i == items.length) {
+                        return Center(
+                          child: OutlinedButton(
+                            onPressed: () => load(append: true),
+                            child: const Text('Ver más compas'),
+                          ),
+                        );
+                      }
+                      final compa = items[i];
+                      final colors = Theme.of(context).colorScheme;
+                      return Card(
+                        margin: EdgeInsets.zero,
+                        clipBehavior: Clip.antiAlias,
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => CompaDetailScreen(
+                                api: Services.compas,
+                                id: compa.id,
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 28,
+                                      backgroundColor: colors.primaryContainer,
+                                      child: Text(
+                                        compa.nombre.isEmpty
+                                            ? '?'
+                                            : compa.nombre[0].toUpperCase(),
+                                        style: const TextStyle(fontSize: 24),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_outward, size: 20),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  compa.nombre,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.titleLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  compa.habilidades.isEmpty
+                                      ? 'Conoce su perfil'
+                                      : compa.habilidades.join(' · '),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: colors.primary),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  compa.descripcion ??
+                                      'Comparte una nueva experiencia.',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const Spacer(),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${money(compa.tarifaHora)} CLP',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const Text(' / hora'),
+                                    const Spacer(),
+                                    if (compa.ratingPromedio > 0) ...[
+                                      const Icon(Icons.star_rounded, size: 16),
+                                      Text(
+                                        compa.ratingPromedio.toStringAsFixed(1),
+                                      ),
+                                    ] else
+                                      const Text('Nuevo'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+        ),
       ],
-    );
-  }
+    ),
+  );
 }

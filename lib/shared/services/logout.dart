@@ -16,10 +16,7 @@ Future<void> performLogout(BuildContext context) async {
     await Session.clear();
 
     if (context.mounted) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        '/login',
-        (route) => false,
-      );
+      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
     }
   }
 }
