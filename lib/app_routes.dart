@@ -189,8 +189,8 @@ class HomeShell extends StatelessWidget {
   }
 }
 
-Map<String, WidgetBuilder> buildRoutes() => {
-  '/': (_) => const StartupGate(),
+Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
+  '/': (_) => StartupGate(requestedRoute: requestedRoute),
   '/login': (_) => const UnifiedAuthScreen(),
   '/home': (_) => const HomeShell(),
   '/match': (_) => const MatchScreen(),

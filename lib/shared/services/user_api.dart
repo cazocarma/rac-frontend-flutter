@@ -52,6 +52,25 @@ class UserApi {
     return jsonDecode(res.body) as Map<String, dynamic>;
   }
 
+  Future<void> savePersonalProfile(Map<String, dynamic> payload) async {
+    final token = await Session.accessToken();
+    final response = await client.put(
+      Uri.parse('$base/api/user/me'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(payload),
+    );
+    if (response.statusCode != 200) {
+      throw StateError(
+        response.statusCode == 400
+            ? 'Revisa los datos del formulario.'
+            : 'No pudimos guardar tus cambios. Inténtalo nuevamente.',
+      );
+    }
+  }
+
   /// Crea o actualiza el perfil del usuario autenticado.
   ///
   /// El cuerpo (`payload`) debe incluir los campos del perfil a actualizar.
