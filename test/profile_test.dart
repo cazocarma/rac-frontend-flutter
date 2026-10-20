@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rentacompa/features/profile/ui/profile_screen.dart';
 import 'package:rentacompa/shared/services/user_api.dart';
 import 'package:rentacompa/shared/widgets/design.dart';
+import 'package:rentacompa/shared/widgets/public_profile.dart';
 
 class ProfileApi extends UserApi {
   ProfileApi() : super('http://fixture');
@@ -23,6 +24,50 @@ class ProfileApi extends UserApi {
 }
 
 void main() {
+  test('only managed image paths can be embedded in public profiles', () {
+    expect(managedPhotoUrl('https://tracker.example/photo.jpg'), isNull);
+    expect(managedPhotoUrl('javascript:alert(1)'), isNull);
+    expect(managedPhotoUrl('/api/user/media/profile/../../secret'), isNull);
+    expect(
+      managedPhotoUrl('/api/user/media/profile/${'a' * 32}.jpg'),
+      isNotNull,
+    );
+  });
+  testWidgets(
+    'public preview includes unsaved biography and excludes private contact fields',
+    (tester) async {
+      final api = ProfileApi();
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: racTheme(Brightness.light),
+          home: ProfileScreen(api: api),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final biography = find.widgetWithText(
+        TextFormField,
+        'Biografía pública (opcional)',
+      );
+      await tester.ensureVisible(biography);
+      await tester.enterText(
+        biography,
+        'Me gusta compartir películas y caminatas.',
+      );
+      await tester.pumpAndSettle();
+      final preview = find.widgetWithText(TextButton, 'Vista previa pública');
+      await tester.ensureVisible(preview);
+      await tester.tap(preview);
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Me gusta compartir películas y caminatas.'),
+        findsOneWidget,
+      );
+      expect(find.text('cris@fixture.test'), findsNothing);
+      expect(find.text('Teléfono (opcional)'), findsNothing);
+      expect(api.saved, isNull);
+      expect(tester.takeException(), isNull);
+    },
+  );
   testWidgets(
     'personal fields save without identity or role; failures retain edits',
     (tester) async {

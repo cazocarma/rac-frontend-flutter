@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/design.dart';
+import '../../../shared/widgets/public_profile.dart';
 import '../../booking/ui/booking_screen.dart';
 import '../data/compa_api.dart';
 
@@ -50,50 +51,11 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(28),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 38,
-                            backgroundColor: Theme.of(
-                              context,
-                            ).colorScheme.surface,
-                            child: Text(
-                              c.nombre.isEmpty
-                                  ? '?'
-                                  : c.nombre[0].toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: Text(
-                              'Un interés en común.\nUn plan para compartir.',
-                              style: Theme.of(context).textTheme.titleMedium
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    height: 1.5,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      c.nombre,
-                      style: Theme.of(context).textTheme.headlineLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                    PublicProfilePresentation(
+                      name: c.nombre,
+                      biography: c.biografia,
+                      interests: c.intereses,
+                      photoPath: c.fotoUrl,
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -118,7 +80,7 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'Un poco sobre mí',
+                      'Lo que podemos hacer',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),

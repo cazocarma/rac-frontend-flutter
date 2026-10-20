@@ -1,4 +1,7 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../../shared/widgets/public_profile.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/services/user_api.dart';
 import '../../../shared/widgets/design.dart';
@@ -22,12 +25,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'region',
       'ciudad',
       'intereses',
+      'biografia',
     ])
       key: TextEditingController(),
   };
   Map<String, dynamic>? me;
   bool loading = true, saving = false, dirty = false;
-  String? loadError, saveError;
+  String? loadError, saveError, photoError;
+  Uint8List? photo;
+  bool photoBusy = false;
   @override
   void initState() {
     super.initState();
@@ -49,6 +55,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     try {
       final value = await api.me();
+      Uint8List? loadedPhoto;
+      String? photoFailure;
+      if ((value['foto_version'] as String? ?? '').isNotEmpty) {
+        try {
+          loadedPhoto = await api.ownPhoto();
+        } catch (_) {
+          photoFailure =
+              'No pudimos cargar tu foto. Puedes volver a intentarlo.';
+        }
+      }
       if (!mounted) return;
       for (final key in fields.keys) {
         fields[key]!.text = key == 'intereses'
@@ -57,6 +73,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       setState(() {
         me = value;
+        photo = loadedPhoto;
+        photoError = photoFailure;
         loading = false;
         dirty = false;
       });
@@ -108,6 +126,180 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> changePhoto() async {
+    setState(() {
+      photoBusy = true;
+      photoError = null;
+    });
+    try {
+      final selected = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        requestFullMetadata: false,
+        maxWidth: 2048,
+        maxHeight: 2048,
+        imageQuality: 90,
+      );
+      if (selected == null || !mounted) return;
+      if (await selected.length() > 5 * 1024 * 1024) {
+        throw const ProfilePhotoException(
+          'La imagen debe pesar como máximo 5 MB.',
+        );
+      }
+      final bytes = await selected.readAsBytes();
+      final png =
+          bytes.length > 8 &&
+          bytes[0] == 137 &&
+          bytes[1] == 80 &&
+          bytes[2] == 78 &&
+          bytes[3] == 71;
+      final jpeg = bytes.length > 2 && bytes[0] == 255 && bytes[1] == 216;
+      if (!png && !jpeg) {
+        throw const ProfilePhotoException('Elige una foto JPG o PNG.');
+      }
+      if (!mounted) return;
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Confirma tu foto'),
+          content: SizedBox(
+            width: 300,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: Image.memory(
+                      bytes,
+                      fit: BoxFit.cover,
+                      cacheWidth: 512,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Se recortará al centro en formato cuadrado. Será pública al activar tu perfil compa.',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancelar'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Guardar foto'),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !mounted) return;
+      await api.savePhoto(bytes, png ? 'image/png' : 'image/jpeg');
+      Uint8List? normalized;
+      try {
+        normalized = await api.ownPhoto();
+      } catch (_) {
+        /* A successful save is not reversed by a preview download failure. */
+      }
+      if (!mounted) return;
+      setState(() => photo = normalized ?? bytes);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Tu foto se guardó correctamente')),
+      );
+    } catch (error) {
+      if (mounted) {
+        setState(
+          () => photoError = error is ProfilePhotoException
+              ? error.message
+              : 'No pudimos procesar la foto. Inténtalo nuevamente.',
+        );
+      }
+    } finally {
+      if (mounted) setState(() => photoBusy = false);
+    }
+  }
+
+  Future<void> removePhoto() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('¿Quitar tu foto?'),
+        content: const Text('Tu perfil volverá a mostrar tu inicial.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Conservar'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Quitar foto'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    setState(() {
+      photoBusy = true;
+      photoError = null;
+    });
+    try {
+      await api.deletePhoto();
+      if (mounted) setState(() => photo = null);
+    } catch (error) {
+      if (mounted) {
+        setState(
+          () => photoError = 'No pudimos quitar tu foto. Inténtalo nuevamente.',
+        );
+      }
+    } finally {
+      if (mounted) setState(() => photoBusy = false);
+    }
+  }
+
+  void preview() {
+    final interests = fields['intereses']!.text
+        .split(',')
+        .map((s) => s.trim())
+        .where((s) => s.isNotEmpty)
+        .toSet()
+        .toList();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(title: const Text('Vista previa pública')),
+          body: SingleChildScrollView(
+            child: PageContent(
+              width: 800,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Card(
+                    child: ListTile(
+                      leading: Icon(Icons.visibility_outlined),
+                      title: Text('Así se verá tu presentación'),
+                      subtitle: Text(
+                        'Esta vista incluye tus cambios sin guardar. No publica ni activa tu perfil compa.',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  PublicProfilePresentation(
+                    name: fields['nombre']!.text.trim(),
+                    biography: fields['biografia']!.text.trim(),
+                    interests: interests,
+                    photo: photo,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget field(
     String key,
     String label,
@@ -115,10 +307,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     bool required = false,
     TextInputType? keyboard,
     String? helper,
+    int lines = 1,
   }) => TextFormField(
     controller: fields[key],
-    enabled: !saving,
+    enabled: !saving && !photoBusy,
     maxLength: max,
+    minLines: lines,
+    maxLines: lines,
     keyboardType: keyboard,
     decoration: InputDecoration(
       labelText: label,
@@ -157,7 +352,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) => PopScope(
-    canPop: !saving,
+    canPop: !saving && !photoBusy,
     child: Scaffold(
       appBar: AppBar(title: const Text('Mi perfil')),
       body: loading
@@ -194,13 +389,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Row(
                                 children: [
-                                  CircleAvatar(
+                                  ProfileAvatar(
+                                    name: me!['nombre'] as String,
+                                    bytes: photo,
                                     radius: 30,
-                                    child: Text(
-                                      (me!['nombre'] as String).characters.first
-                                          .toUpperCase(),
-                                      style: const TextStyle(fontSize: 24),
-                                    ),
                                   ),
                                   const SizedBox(width: 16),
                                   Expanded(
@@ -228,6 +420,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 16),
+                              Wrap(
+                                spacing: 12,
+                                runSpacing: 8,
+                                children: [
+                                  OutlinedButton.icon(
+                                    onPressed: saving || photoBusy
+                                        ? null
+                                        : changePhoto,
+                                    icon: const Icon(
+                                      Icons.add_a_photo_outlined,
+                                    ),
+                                    label: Text(
+                                      photoBusy
+                                          ? 'Procesando foto…'
+                                          : 'Cambiar foto',
+                                    ),
+                                  ),
+                                  if (photo != null)
+                                    TextButton(
+                                      onPressed: saving || photoBusy
+                                          ? null
+                                          : removePhoto,
+                                      child: const Text('Quitar foto'),
+                                    ),
+                                  TextButton.icon(
+                                    onPressed: saving || photoBusy
+                                        ? null
+                                        : preview,
+                                    icon: const Icon(Icons.visibility_outlined),
+                                    label: const Text('Vista previa pública'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Foto y biografía serán públicas al activar tu perfil compa. JPG o PNG, máximo 5 MB. La foto se guarda por separado.',
+                              ),
+                              if (photoError != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    photoError!,
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.error,
+                                    ),
+                                  ),
+                                ),
                               const SizedBox(height: 24),
                               field(
                                 'nombre',
@@ -236,6 +478,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 required: true,
                                 helper:
                                     'Este nombre aparece en tu perfil compa y tus reservas.',
+                              ),
+                              const SizedBox(height: 12),
+                              field(
+                                'biografia',
+                                'Biografía pública (opcional)',
+                                600,
+                                lines: 4,
+                                helper:
+                                    'Cuenta qué te gusta compartir. Evita incluir datos de contacto privados.',
                               ),
                               const SizedBox(height: 12),
                               TextFormField(
@@ -331,7 +582,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 runSpacing: 12,
                                 children: [
                                   FilledButton.icon(
-                                    onPressed: saving || !dirty ? null : save,
+                                    onPressed: saving || photoBusy || !dirty
+                                        ? null
+                                        : save,
                                     icon: saving
                                         ? const SizedBox(
                                             width: 18,
@@ -346,7 +599,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                   OutlinedButton(
-                                    onPressed: saving || !dirty ? null : load,
+                                    onPressed: saving || photoBusy || !dirty
+                                        ? null
+                                        : load,
                                     child: const Text('Descartar cambios'),
                                   ),
                                 ],
@@ -361,15 +616,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Card(
-                        child: ListTile(
-                          leading: Icon(Icons.photo_camera_outlined),
-                          title: Text('Foto de perfil · En construcción'),
-                          subtitle: Text(
-                            'La carga de imágenes estará disponible cuando incorporemos su almacenamiento.',
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 12),
                       OutlinedButton.icon(
                         onPressed: () =>

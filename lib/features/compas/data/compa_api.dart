@@ -10,6 +10,8 @@ class CompaCard {
   final List<String> habilidades;
   final String? fotoUrl;
   final String? descripcion;
+  final String biografia;
+  final List<String> intereses;
 
   CompaCard({
     required this.id,
@@ -20,6 +22,8 @@ class CompaCard {
     required this.habilidades,
     this.fotoUrl,
     this.descripcion,
+    this.biografia = '',
+    this.intereses = const [],
   });
 
   factory CompaCard.fromJson(Map<String, dynamic> j) => CompaCard(
@@ -31,6 +35,8 @@ class CompaCard {
     habilidades: _asStringList(j['habilidades']),
     fotoUrl: j['foto_url'] as String?,
     descripcion: j['descripcion'] as String?,
+    biografia: j['biografia'] as String? ?? '',
+    intereses: _asStringList(j['intereses']),
   );
 
   Map<String, dynamic> toJson() => {
@@ -42,6 +48,8 @@ class CompaCard {
     'habilidades': habilidades,
     'foto_url': fotoUrl,
     'descripcion': descripcion,
+    'biografia': biografia,
+    'intereses': intereses,
   };
 }
 

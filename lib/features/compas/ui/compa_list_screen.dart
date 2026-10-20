@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../shared/widgets/public_profile.dart';
 import '../../compas/data/compa_api.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/widgets/design.dart';
@@ -316,152 +317,153 @@ class _CompaListScreenState extends State<CompaListScreen> {
       Color(0xFFE2EAF1),
     ];
     final tint = tints[index % tints.length];
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) =>
-                CompaDetailScreen(api: Services.compas, id: compa.id),
-          ),
+    void openProfile() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => CompaDetailScreen(api: Services.compas, id: compa.id),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 104,
-              padding: const EdgeInsets.all(20),
-              color: tint,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.white.withValues(alpha: .8),
-                    child: Text(
-                      compa.nombre.isEmpty
-                          ? '?'
-                          : compa.nombre[0].toUpperCase(),
-                      style: const TextStyle(
-                        fontSize: 28,
-                        color: Color(0xFF183F31),
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: .8),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (compa.ratingPromedio > 0)
-                          const Icon(
-                            Icons.star_rounded,
-                            size: 15,
-                            color: Color(0xFF99641E),
-                          ),
-                        Text(
-                          compa.ratingPromedio > 0
-                              ? compa.ratingPromedio.toStringAsFixed(1)
-                              : 'Nuevo en RAC',
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF183F31),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
+      );
+    }
+
+    return Semantics(
+      button: true,
+      excludeSemantics: true,
+      label:
+          'Ver perfil de ${compa.nombre}. ${compa.habilidades.join(', ')}. ${money(compa.tarifaHora)} CLP por hora. ${compa.ratingPromedio > 0 ? 'Calificación ${compa.ratingPromedio.toStringAsFixed(1)}' : 'Nuevo en RAC'}.',
+      onTap: openProfile,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: openProfile,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 104,
                 padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                color: tint,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      compa.nombre,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -.4,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      compa.habilidades.isEmpty
-                          ? 'Conoce sus intereses'
-                          : compa.habilidades.join(' · '),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: colors.primary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      (compa.descripcion ?? '').isEmpty
-                          ? 'Comparte una nueva experiencia.'
-                          : compa.descripcion!,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: colors.onSurfaceVariant,
-                        height: 1.5,
-                        fontSize: 13,
-                      ),
+                    ProfileAvatar(
+                      name: compa.nombre,
+                      path: compa.fotoUrl,
+                      radius: 30,
                     ),
                     const Spacer(),
-                    const Divider(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '${money(compa.tarifaHora)} CLP',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' / hora',
-                                  style: TextStyle(
-                                    color: colors.onSurfaceVariant,
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ],
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: .8),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (compa.ratingPromedio > 0)
+                            const Icon(
+                              Icons.star_rounded,
+                              size: 15,
+                              color: Color(0xFF99641E),
+                            ),
+                          Text(
+                            compa.ratingPromedio > 0
+                                ? compa.ratingPromedio.toStringAsFixed(1)
+                                : 'Nuevo en RAC',
+                            style: const TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF183F31),
                             ),
                           ),
-                        ),
-                        Icon(
-                          Icons.arrow_forward_rounded,
-                          color: colors.primary,
-                          size: 21,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        compa.nombre,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: -.4,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        compa.habilidades.isEmpty
+                            ? 'Conoce sus intereses'
+                            : compa.habilidades.join(' · '),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: colors.primary,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        (compa.descripcion ?? '').isEmpty
+                            ? 'Comparte una nueva experiencia.'
+                            : compa.descripcion!,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: colors.onSurfaceVariant,
+                          height: 1.5,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Divider(height: 20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '${money(compa.tarifaHora)} CLP',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' / hora',
+                                    style: TextStyle(
+                                      color: colors.onSurfaceVariant,
+                                      fontSize: 11,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_rounded,
+                            color: colors.primary,
+                            size: 21,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

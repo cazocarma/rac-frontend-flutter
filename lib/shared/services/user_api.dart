@@ -1,6 +1,12 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
+
+class ProfilePhotoException implements Exception {
+  const ProfilePhotoException(this.message);
+  final String message;
+}
 
 /// API para operaciones del servicio de usuarios.
 ///
@@ -11,6 +17,60 @@ class UserApi {
 
   /// Base URL del servicio de usuarios — ej: `http://localhost`.
   final String base;
+
+  Future<Uint8List?> ownPhoto() async {
+    final token = await Session.accessToken();
+    final response = await client
+        .get(
+          Uri.parse('$base/api/user/me/photo'),
+          headers: {if (token != null) 'Authorization': 'Bearer $token'},
+        )
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode == 404) return null;
+    if (response.statusCode != 200) {
+      throw const ProfilePhotoException('No pudimos cargar tu foto.');
+    }
+    return response.bodyBytes;
+  }
+
+  Future<void> savePhoto(Uint8List bytes, String mediaType) async {
+    final token = await Session.accessToken();
+    final response = await client
+        .put(
+          Uri.parse('$base/api/user/me/photo'),
+          headers: {
+            'Content-Type': mediaType,
+            if (token != null) 'Authorization': 'Bearer $token',
+          },
+          body: bytes,
+        )
+        .timeout(const Duration(seconds: 30));
+    if (response.statusCode != 200) {
+      throw ProfilePhotoException(switch (response.statusCode) {
+        413 => 'La imagen debe pesar como máximo 5 MB.',
+        400 || 415 =>
+          'Elige una imagen JPG o PNG válida, entre 32 y 4096 píxeles por lado y hasta 12 megapíxeles.',
+        429 => 'Estamos procesando otras fotos. Inténtalo en unos segundos.',
+        _ =>
+          'No pudimos confirmar el guardado de tu foto. Inténtalo nuevamente.',
+      });
+    }
+  }
+
+  Future<void> deletePhoto() async {
+    final token = await Session.accessToken();
+    final response = await client
+        .delete(
+          Uri.parse('$base/api/user/me/photo'),
+          headers: {if (token != null) 'Authorization': 'Bearer $token'},
+        )
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode != 200) {
+      throw const ProfilePhotoException(
+        'No pudimos quitar tu foto. Inténtalo nuevamente.',
+      );
+    }
+  }
 
   Future<Map<String, dynamic>?> ownCompa() async {
     final token = await Session.accessToken();
