@@ -18,6 +18,42 @@ class UserApi {
   /// Base URL del servicio de usuarios — ej: `http://localhost`.
   final String base;
 
+  Future<Map<String, dynamic>?> bookingReview(String id) async {
+    final token = await Session.accessToken();
+    final response = await client
+        .get(
+          Uri.parse('$base/api/user/bookings/$id/review'),
+          headers: {if (token != null) 'Authorization': 'Bearer $token'},
+        )
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode != 200) {
+      throw StateError('No pudimos cargar la reseña.');
+    }
+    return (jsonDecode(response.body) as Map<String, dynamic>)['resena']
+        as Map<String, dynamic>?;
+  }
+
+  Future<void> saveReview(String id, int score, String comment) async {
+    final token = await Session.accessToken();
+    final response = await client
+        .post(
+          Uri.parse('$base/api/user/bookings/$id/review'),
+          headers: {
+            'Content-Type': 'application/json',
+            if (token != null) 'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({'puntuacion': score, 'comentario': comment}),
+        )
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      throw StateError(
+        response.statusCode == 409
+            ? 'Esta reserva todavía no permite reseñas o ya tiene una. Actualiza para comprobar su estado.'
+            : 'No pudimos confirmar el envío. Puedes reintentar sin duplicar tu reseña.',
+      );
+    }
+  }
+
   Future<Uint8List?> ownPhoto() async {
     final token = await Session.accessToken();
     final response = await client

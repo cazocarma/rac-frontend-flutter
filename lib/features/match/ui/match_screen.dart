@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rentacompa/shared/widgets/reviews.dart';
 import '../data/match_api.dart';
 import 'package:rentacompa/shared/di/services.dart';
 import 'package:rentacompa/shared/services/session.dart';
@@ -180,6 +181,18 @@ class _MatchScreenState extends State<MatchScreen> {
                     Text(
                       'Reserva ${id.substring(0, 8)} · ${received ? 'Solicitud recibida' : 'Tu contratación'}',
                     ),
+                    if (state == 'finalizada' &&
+                        !received &&
+                        end.isAfter(DateTime.now()))
+                      const Text(
+                        'Podrás dejar una reseña cuando termine el horario reservado.',
+                      ),
+                    if (state == 'finalizada')
+                      BookingReview(
+                        key: ValueKey(id),
+                        id: id,
+                        canWrite: !received && !end.isAfter(DateTime.now()),
+                      ),
                     if (state == 'pendiente' || state == 'activa')
                       Padding(
                         padding: const EdgeInsets.only(top: 12),

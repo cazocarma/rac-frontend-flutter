@@ -7,6 +7,7 @@ class CompaCard {
   final String nombre;
   final double tarifaHora;
   final double ratingPromedio;
+  final int cantidadResenas;
   final List<String> habilidades;
   final String? fotoUrl;
   final String? descripcion;
@@ -22,6 +23,7 @@ class CompaCard {
     required this.habilidades,
     this.fotoUrl,
     this.descripcion,
+    this.cantidadResenas = 0,
     this.biografia = '',
     this.intereses = const [],
   });
@@ -32,6 +34,7 @@ class CompaCard {
     nombre: (j['nombre'] as String?) ?? '',
     tarifaHora: _asDouble(j['tarifa_hora'] ?? j['tarifaHora']),
     ratingPromedio: _asDouble(j['rating_promedio'] ?? j['ratingPromedio']),
+    cantidadResenas: (j['cantidad_resenas'] as num?)?.toInt() ?? 0,
     habilidades: _asStringList(j['habilidades']),
     fotoUrl: j['foto_url'] as String?,
     descripcion: j['descripcion'] as String?,
@@ -45,6 +48,7 @@ class CompaCard {
     'nombre': nombre,
     'tarifa_hora': tarifaHora,
     'rating_promedio': ratingPromedio,
+    'cantidad_resenas': cantidadResenas,
     'habilidades': habilidades,
     'foto_url': fotoUrl,
     'descripcion': descripcion,
@@ -81,6 +85,14 @@ class CompaApi {
   CompaApi(this.base, {http.Client? client, Map<String, String>? headers})
     : _client = client ?? http.Client(),
       defaultHeaders = {'Accept': 'application/json', ...?headers};
+
+  Future<Map<String, dynamic>> reviews(String id, {int offset = 0}) async {
+    final response = await _client
+        .get(_u('/api/user/compas/$id/reviews', {'offset': '$offset'}))
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode != 200) throw StateError('Reseñas no disponibles');
+    return jsonDecode(response.body) as Map<String, dynamic>;
+  }
 
   Uri _u(String path, [Map<String, String>? query]) {
     final normalizedBase = base.endsWith('/')

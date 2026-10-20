@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../shared/widgets/reviews.dart';
 import '../../../shared/widgets/design.dart';
 import '../../../shared/widgets/public_profile.dart';
 import '../../booking/ui/booking_screen.dart';
@@ -41,6 +42,9 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
           return const Center(child: CircularProgressIndicator());
         }
         final c = snapshot.data!;
+        final reviewLabel = c.cantidadResenas == 1
+            ? 'reseña verificada'
+            : 'reseñas verificadas';
         return SingleChildScrollView(
           child: PageContent(
             width: 800,
@@ -60,7 +64,7 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                     const SizedBox(height: 12),
                     Text(
                       c.ratingPromedio > 0
-                          ? '★ ${c.ratingPromedio.toStringAsFixed(1)} · Calificación promedio'
+                          ? '★ ${c.ratingPromedio.toStringAsFixed(1)} · ${c.cantidadResenas} $reviewLabel'
                           : 'Nuevo en RAC · Aún sin calificaciones',
                     ),
                     const SizedBox(height: 20),
@@ -89,6 +93,7 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                           ? 'Este compa todavía no agregó una descripción.'
                           : c.descripcion!,
                     ),
+                    PublicReviews(api: widget.api, id: c.id),
                     const SizedBox(height: 32),
                     const Divider(),
                     const SizedBox(height: 20),
