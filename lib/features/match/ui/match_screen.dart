@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../chat/ui/chat_screen.dart';
 import 'package:rentacompa/shared/widgets/reviews.dart';
 import '../data/match_api.dart';
 import 'package:rentacompa/shared/di/services.dart';
@@ -181,6 +182,18 @@ class _MatchScreenState extends State<MatchScreen> {
                     Text(
                       'Reserva ${id.substring(0, 8)} · ${received ? 'Solicitud recibida' : 'Tu contratación'}',
                     ),
+                    if (state != 'pendiente')
+                      TextButton.icon(
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (_) =>
+                                ChatConversationScreen(bookingId: id),
+                          ),
+                        ),
+                        icon: const Icon(Icons.chat_bubble_outline),
+                        label: const Text('Abrir conversación'),
+                      ),
                     if (state == 'finalizada' &&
                         !received &&
                         end.isAfter(DateTime.now()))
