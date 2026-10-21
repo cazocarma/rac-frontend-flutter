@@ -266,7 +266,12 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 12),
-            SelectableText(data!['detalle'] as String),
+            Semantics(
+              container: true,
+              label: data!['detalle'] as String,
+              excludeSemantics: true,
+              child: SelectableText(data!['detalle'] as String),
+            ),
             const Divider(height: 32),
             const Text('Historial asociado al reporte'),
             for (final item in (data!['items'] as List).reversed)
@@ -281,7 +286,12 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                       const SizedBox(height: 8),
-                      SelectableText(item['contenido'] as String),
+                      Semantics(
+                        container: true,
+                        label: item['contenido'] as String,
+                        excludeSemantics: true,
+                        child: SelectableText(item['contenido'] as String),
+                      ),
                     ],
                   ),
                 ),

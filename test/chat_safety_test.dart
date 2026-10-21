@@ -109,6 +109,7 @@ void main() {
   testWidgets(
     'moderation does not fetch evidence before explicit justified access',
     (tester) async {
+      final semantics = tester.ensureSemantics();
       final api = SafetyApi();
       await tester.pumpWidget(
         MaterialApp(
@@ -136,6 +137,11 @@ void main() {
       await tester.pumpAndSettle();
       expect(api.reads, 1);
       expect(find.text('Descripción privada del reporte'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel('Descripción privada del reporte'),
+        findsOneWidget,
+      );
+      semantics.dispose();
     },
   );
 }
