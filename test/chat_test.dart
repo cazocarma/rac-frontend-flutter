@@ -25,13 +25,14 @@ Map<String, dynamic> message(
 class FakeChat extends ChatApi {
   FakeChat({this.writable = true}) : super('http://fixture.test');
   final bool writable;
+  List<Map<String, dynamic>>? historyItems;
   final keys = <String>[];
   final cursors = <String>[];
   bool failFirstSend = true;
   Completer<Map<String, dynamic>>? pending;
   @override
   Future<Map<String, dynamic>> history(String id, {String? before}) async => {
-    'items': [message('1', 'Hola desde el compa')],
+    'items': historyItems ?? [message('1', 'Hola desde el compa')],
     'event_cursor': '1',
     'before': '',
     'has_more': false,
@@ -55,6 +56,36 @@ class FakeChat extends ChatApi {
 }
 
 void main() {
+  testWidgets('history groups consecutive messages by the device local day', (
+    tester,
+  ) async {
+    final first = DateTime(2026, 10, 18, 23, 59);
+    final next = DateTime(2026, 10, 19, 0, 1);
+    final api = FakeChat(writable: false)
+      ..historyItems = [
+        message('1', 'Primera noche')
+          ..['enviado_en'] = first.toUtc().toIso8601String(),
+        message('2', 'Segundo día')
+          ..['enviado_en'] = next.toUtc().toIso8601String(),
+        message('3', 'Mismo día')
+          ..['enviado_en'] = next
+              .add(const Duration(minutes: 1))
+              .toUtc()
+              .toIso8601String(),
+      ];
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ChatConversationScreen(bookingId: booking, apiFactory: () => api),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final context = tester.element(find.byType(ChatConversationScreen));
+    final labels = MaterialLocalizations.of(context);
+    expect(find.text(labels.formatFullDate(first)), findsOneWidget);
+    expect(find.text(labels.formatFullDate(next)), findsOneWidget);
+    expect(find.text('Mismo día'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
   test(
     'expired token refreshes once and retries with the same payload',
     () async {

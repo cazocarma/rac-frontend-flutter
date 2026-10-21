@@ -536,56 +536,91 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                             ),
                           );
                         }
-                        final m = ordered[index - (hasOlder ? 1 : 0)];
+                        final messageIndex = index - (hasOlder ? 1 : 0);
+                        final m = ordered[messageIndex];
                         final own = m['propio'] == true;
                         final sent = DateTime.parse(
                           m['enviado_en'] as String,
                         ).toLocal();
-                        return Align(
+                        final previous = messageIndex == 0
+                            ? null
+                            : DateTime.parse(
+                                ordered[messageIndex - 1]['enviado_en']
+                                    as String,
+                              ).toLocal();
+                        final startsDay =
+                            previous == null ||
+                            !DateUtils.isSameDay(previous, sent);
+                        return Column(
                           key: ValueKey(m['id']),
-                          alignment: own
-                              ? Alignment.centerRight
-                              : Alignment.centerLeft,
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 560),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                color: own
-                                    ? colors.primaryContainer
-                                    : colors.surfaceContainerHighest,
-                                borderRadius: BorderRadius.circular(18),
+                          children: [
+                            if (startsDay)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                ),
+                                child: Semantics(
+                                  header: true,
+                                  child: Text(
+                                    MaterialLocalizations.of(
+                                      context,
+                                    ).formatFullDate(sent),
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelLarge,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    own ? 'Tú' : widget.name,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.labelMedium,
+                            Align(
+                              alignment: own
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 560,
+                                ),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.all(14),
+                                  decoration: BoxDecoration(
+                                    color: own
+                                        ? colors.primaryContainer
+                                        : colors.surfaceContainerHighest,
+                                    borderRadius: BorderRadius.circular(18),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Semantics(
-                                    container: true,
-                                    label: m['contenido'] as String,
-                                    excludeSemantics: true,
-                                    child: SelectableText(
-                                      m['contenido'] as String,
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        own ? 'Tú' : widget.name,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelMedium,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Semantics(
+                                        container: true,
+                                        label: m['contenido'] as String,
+                                        excludeSemantics: true,
+                                        child: SelectableText(
+                                          m['contenido'] as String,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text(
+                                        '${dateLabel(sent)} · ${clockLabel(sent)}${own ? ' · Guardado' : ''}',
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.labelSmall,
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    '${dateLabel(sent)} · ${clockLabel(sent)}${own ? ' · Guardado' : ''}',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.labelSmall,
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         );
                       },
                     ),
