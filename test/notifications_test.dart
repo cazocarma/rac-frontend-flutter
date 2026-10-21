@@ -1,0 +1,80 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:rentacompa/features/alerts/data/alert_api.dart';
+import 'package:rentacompa/features/alerts/ui/notifications_screen.dart';
+
+class FakeInbox extends AlertApi {
+  FakeInbox() : super('http://fixture.invalid');
+  bool failed = false;
+  int unread = 3;
+  @override
+  Future<Map<String, dynamic>> notifications({int offset = 0}) async => {
+    'items': [],
+    'has_more': false,
+    'no_leidas': unread,
+  };
+  @override
+  Future<void> readAll() async {
+    if (failed) throw StateError('unavailable');
+    unread = 0;
+  }
+}
+
+void main() {
+  test('alert API refreshes once and preserves the idempotent PUT', () async {
+    var refreshed = false;
+    final requests = <http.Request>[];
+    final api = AlertApi(
+      'https://rac.test',
+      token: () async => refreshed ? 'new' : 'old',
+      refresh: () async {
+        refreshed = true;
+      },
+      client: MockClient((request) async {
+        requests.add(request);
+        return http.Response(
+          jsonEncode(
+            refreshed ? {'actualizadas': 3} : {'error': 'invalid_token'},
+          ),
+          refreshed ? 200 : 401,
+        );
+      }),
+    );
+    await api.readAll();
+    expect(requests.length, 2);
+    expect(
+      requests.every(
+        (r) =>
+            r.method == 'PUT' &&
+            r.url.path == '/api/alert/notifications/read-all',
+      ),
+      true,
+    );
+    expect(requests.last.headers['Authorization'], 'Bearer new');
+    api.close();
+  });
+  testWidgets(
+    'global unread counter survives failures and updates after mark all',
+    (tester) async {
+      final api = FakeInbox()..failed = true;
+      await tester.pumpWidget(MaterialApp(home: NotificationsScreen(api: api)));
+      await tester.pumpAndSettle();
+      expect(find.text('3 sin leer en tu bandeja'), findsOneWidget);
+      await tester.tap(find.text('Marcar todas como leídas'));
+      await tester.pumpAndSettle();
+      expect(find.text('3 sin leer en tu bandeja'), findsOneWidget);
+      expect(
+        find.textContaining('No pudimos marcar tus avisos'),
+        findsOneWidget,
+      );
+      api.failed = false;
+      await tester.tap(find.text('Marcar todas como leídas'));
+      await tester.pumpAndSettle();
+      expect(find.text('0 sin leer en tu bandeja'), findsOneWidget);
+      expect(find.text('Marcar todas como leídas'), findsNothing);
+    },
+  );
+}

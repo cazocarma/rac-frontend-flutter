@@ -187,27 +187,4 @@ class UserApi {
       throw Exception('HTTP ${res.statusCode}: ${res.body}');
     }
   }
-
-  Future<Map<String, dynamic>> notifications({int offset = 0}) async {
-    final token = await Session.accessToken();
-    final response = await client.get(
-      Uri.parse('$base/api/user/notifications?limit=20&offset=$offset'),
-      headers: {if (token != null) 'Authorization': 'Bearer $token'},
-    );
-    if (response.statusCode != 200) {
-      throw StateError('Notificaciones no disponibles');
-    }
-    return jsonDecode(response.body) as Map<String, dynamic>;
-  }
-
-  Future<void> readNotification(String id) async {
-    final token = await Session.accessToken();
-    final response = await client.put(
-      Uri.parse('$base/api/user/notifications/$id/read'),
-      headers: {if (token != null) 'Authorization': 'Bearer $token'},
-    );
-    if (response.statusCode != 200) {
-      throw StateError('No se pudo marcar como leída');
-    }
-  }
 }

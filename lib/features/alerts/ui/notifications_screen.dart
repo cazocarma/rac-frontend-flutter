@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
-import '../../../shared/di/services.dart';
+import '../../../shared/config/env.dart';
+import '../data/alert_api.dart';
 import '../../../shared/widgets/design.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({super.key});
+  const NotificationsScreen({super.key, this.api});
+  final AlertApi? api;
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+  late final api = widget.api ?? AlertApi(Env.apiBase);
   late Future<Map<String, dynamic>> data = load();
+  bool markingAll = false;
+  @override
+  void dispose() {
+    if (widget.api == null) api.close();
+    super.dispose();
+  }
+
   int offset = 0;
   final busy = <String>{};
-  Future<Map<String, dynamic>> load() =>
-      Services.user.notifications(offset: offset);
+  Future<Map<String, dynamic>> load() => api.notifications(offset: offset);
   Future<void> markRead(String id) async {
-    if (busy.contains(id)) return;
+    if (markingAll || busy.contains(id)) return;
     setState(() => busy.add(id));
     try {
-      await Services.user.readNotification(id);
+      await api.readNotification(id);
       if (mounted) setState(() => data = load());
     } catch (_) {
       if (mounted) {
@@ -32,6 +41,27 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       }
     } finally {
       if (mounted) setState(() => busy.remove(id));
+    }
+  }
+
+  Future<void> markAll() async {
+    if (markingAll || busy.isNotEmpty) return;
+    setState(() => markingAll = true);
+    try {
+      await api.readAll();
+      if (mounted) setState(() => data = load());
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'No pudimos marcar tus avisos. Actualiza para comprobar su estado.',
+            ),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => markingAll = false);
     }
   }
 
@@ -80,6 +110,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 'Aquí verás las nuevas solicitudes y sus cambios de estado. Avisos por correo y al teléfono: en construcción.',
               ),
               const SizedBox(height: 16),
+              Text(
+                '${snapshot.data!['no_leidas'] ?? 0} sin leer en tu bandeja',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              if ((snapshot.data!['no_leidas'] as num? ?? 0) > 0)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: markingAll || busy.isNotEmpty ? null : markAll,
+                    icon: const Icon(Icons.done_all),
+                    label: Text(
+                      markingAll ? 'Actualizando…' : 'Marcar todas como leídas',
+                    ),
+                  ),
+                ),
               if (items.isEmpty)
                 const EmptyState(
                   title: 'Estás al día',
@@ -121,7 +166,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           children: [
                             if (item['leido_en'] == null)
                               TextButton(
-                                onPressed: busy.contains(item['id'])
+                                onPressed:
+                                    (markingAll || busy.contains(item['id']))
                                     ? null
                                     : () => markRead(item['id'] as String),
                                 child: const Text('Marcar como leída'),

@@ -40,6 +40,7 @@ class SafetyApi extends ChatApi {
     Map<String, dynamic>? body,
     bool poll = false,
     bool retryAuth = true,
+    String? method,
   }) async {
     reads++;
     return {
