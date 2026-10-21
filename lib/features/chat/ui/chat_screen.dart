@@ -561,6 +561,11 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                                 ),
                                 child: Semantics(
                                   header: true,
+                                  container: true,
+                                  excludeSemantics: true,
+                                  label: MaterialLocalizations.of(
+                                    context,
+                                  ).formatFullDate(sent),
                                   child: Text(
                                     MaterialLocalizations.of(
                                       context,
