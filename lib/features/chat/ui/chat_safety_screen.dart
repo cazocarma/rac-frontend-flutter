@@ -3,6 +3,12 @@ import '../../../shared/config/env.dart';
 import '../../../shared/widgets/design.dart';
 import '../data/chat_api.dart';
 
+const reportStatuses = {
+  'abierto': 'Pendiente de revisión',
+  'atendido': 'Reporte atendido',
+  'desestimado': 'Reporte desestimado',
+};
+
 const reportReasons = {
   'acoso': 'Acoso o amenazas',
   'spam': 'Spam o publicidad',
@@ -187,11 +193,22 @@ class _ChatSafetyScreenState extends State<ChatSafetyScreen> {
             ),
             const SizedBox(height: 20),
             if (data!['reportada'] == true)
-              const Card(
+              Card(
                 child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    'Reporte recibido. El equipo podrá revisar el caso. No necesitas enviarlo otra vez.',
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        reportStatuses[data!['estado_reporte']] ??
+                            'Reporte recibido',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Puedes actualizar esta pantalla para consultar el estado de tu reporte. No necesitas enviarlo otra vez.',
+                      ),
+                    ],
                   ),
                 ),
               )

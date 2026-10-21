@@ -9,11 +9,13 @@ class SafetyApi extends ChatApi {
   bool blocked = false, reported = false;
   int reads = 0;
   String? saved;
+  String reportState = 'abierto';
   @override
   Future<Map<String, dynamic>> safety(String id) async => {
     'bloqueada': blocked,
     'bloqueada_por_mi': blocked,
     'reportada': reported,
+    'estado_reporte': reported ? reportState : null,
   };
   @override
   Future<Map<String, dynamic>> block(String id, bool value) async {
@@ -104,7 +106,29 @@ void main() {
     await tester.pumpAndSettle();
     expect(api.saved, 'Descripción sintética del incidente');
     expect(find.text('Enviar reporte'), findsNothing);
-    expect(find.textContaining('Reporte recibido'), findsOneWidget);
+    expect(find.text('Pendiente de revisión'), findsOneWidget);
+  });
+  testWidgets('own report status refreshes without reopening the form', (
+    tester,
+  ) async {
+    final api = SafetyApi()..reported = true;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: ChatSafetyScreen(bookingId: 'booking', api: api),
+      ),
+    );
+    await tester.pumpAndSettle();
+    for (final entry in reportStatuses.entries) {
+      api.reportState = entry.key;
+      await tester.tap(find.byTooltip('Actualizar seguridad'));
+      await tester.pumpAndSettle();
+      expect(find.text(entry.value), findsOneWidget);
+      expect(find.text('Enviar reporte'), findsNothing);
+    }
+    api.reportState = 'future-status';
+    await tester.tap(find.byTooltip('Actualizar seguridad'));
+    await tester.pumpAndSettle();
+    expect(find.text('Reporte recibido'), findsOneWidget);
   });
   testWidgets(
     'moderation does not fetch evidence before explicit justified access',
