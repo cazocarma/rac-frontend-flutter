@@ -13,9 +13,18 @@ class ModerationScreen extends StatefulWidget {
 
 class _ModerationScreenState extends State<ModerationScreen> {
   late final api = widget.api ?? ChatApi(Env.apiBase);
+  static const filters = {
+    'abierto': 'Abiertos',
+    'atendido': 'Atendidos',
+    'desestimado': 'Desestimados',
+    'todos': 'Todos',
+  };
   Map<String, dynamic>? data;
   String? error;
-  int offset = 0;
+  String selectedState = 'abierto';
+  final cursors = <String>[''];
+  bool loading = false;
+  int requestVersion = 0;
   @override
   void initState() {
     super.initState();
@@ -29,23 +38,54 @@ class _ModerationScreenState extends State<ModerationScreen> {
   }
 
   Future<void> load() async {
+    final version = ++requestVersion;
+    final query = Uri(
+      queryParameters: {
+        'estado': selectedState,
+        if (cursors.last.isNotEmpty) 'despues': cursors.last,
+      },
+    ).query;
+    setState(() {
+      loading = true;
+      data = null;
+      error = null;
+    });
     try {
-      final result = await api.request('/moderation/reports?offset=$offset');
-      if (mounted) {
+      final result = await api.request('/moderation/reports?$query');
+      if (mounted && version == requestVersion) {
         setState(() {
           data = result;
-          error = null;
+          loading = false;
         });
       }
     } catch (e) {
-      if (mounted) {
-        setState(
-          () => error = e is ChatException && e.status == 403
+      if (mounted && version == requestVersion) {
+        setState(() {
+          loading = false;
+          error = e is ChatException && e.status == 403
               ? 'Acceso reservado al equipo de moderación.'
-              : 'No pudimos cargar los reportes. Inténtalo de nuevo.',
-        );
+              : 'No pudimos cargar los reportes. Inténtalo de nuevo.';
+        });
       }
     }
+  }
+
+  void selectState(String state) {
+    if (selectedState == state) return;
+    selectedState = state;
+    cursors
+      ..clear()
+      ..add('');
+    load();
+  }
+
+  String dateLabel(BuildContext context, dynamic value) {
+    final date = value is String ? DateTime.tryParse(value)?.toLocal() : null;
+    if (date == null) return 'Fecha no disponible';
+    final localizations = MaterialLocalizations.of(context);
+    String two(int value) => value.toString().padLeft(2, '0');
+    final day = '${two(date.day)}/${two(date.month)}/${date.year}';
+    return '$day · ${localizations.formatTimeOfDay(TimeOfDay.fromDateTime(date), alwaysUse24HourFormat: true)}';
   }
 
   @override
@@ -54,7 +94,14 @@ class _ModerationScreenState extends State<ModerationScreen> {
       title: const Text('Moderación de reportes'),
       actions: [
         IconButton(
-          onPressed: load,
+          onPressed: loading
+              ? null
+              : () {
+                  cursors
+                    ..clear()
+                    ..add('');
+                  load();
+                },
           tooltip: 'Actualizar reportes',
           icon: const Icon(Icons.refresh),
         ),
@@ -65,65 +112,132 @@ class _ModerationScreenState extends State<ModerationScreen> {
       child: ListView(
         children: [
           Text(
-            'Casos pendientes',
+            selectedState == 'abierto'
+                ? 'Casos pendientes'
+                : 'Historial de reportes',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 12),
           const Text(
-            'La cola muestra únicamente datos del caso. Para consultar su contenido debes indicar una justificación. Los casos donde participas quedan excluidos.',
+            'Consulta el estado y las fechas de cada reporte. Los casos donde participas quedan excluidos. El contenido de un caso abierto requiere una consulta justificada y registrada.',
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final filter in filters.entries)
+                ChoiceChip(
+                  label: Text(filter.value),
+                  selected: selectedState == filter.key,
+                  onSelected: (selected) {
+                    if (selected) selectState(filter.key);
+                  },
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Ordenados por fecha del reporte, del más antiguo al más reciente.',
+          ),
+          const SizedBox(height: 20),
+          if (loading) const LinearProgressIndicator(),
           if (error != null) ...[
-            Text(error!),
+            Text(error!, semanticsLabel: error),
             OutlinedButton(onPressed: load, child: const Text('Reintentar')),
-          ] else if (data == null)
-            const LinearProgressIndicator()
-          else ...[
+          ],
+          if (data != null) ...[
             if ((data!['items'] as List).isEmpty)
-              const Text('No hay reportes pendientes en esta página.'),
+              const Text('No hay reportes para este filtro en esta página.'),
             for (final item in data!['items'] as List)
               Card(
                 child: ListTile(
-                  leading: const Icon(Icons.flag_outlined),
-                  title: Text(reportReasons[item['motivo']] ?? 'Reporte'),
-                  subtitle: Text(
-                    'Caso ${(item['id'] as String).substring(0, 8)} · Reserva ${(item['sesion_id'] as String).substring(0, 8)}',
+                  leading: Icon(
+                    item['estado'] == 'abierto'
+                        ? Icons.flag_outlined
+                        : Icons.task_alt,
                   ),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (_) =>
-                            ModerationCaseScreen(id: item['id'] as String),
+                  title: Wrap(
+                    spacing: 12,
+                    runSpacing: 6,
+                    children: [
+                      Text(reportReasons[item['motivo']] ?? 'Reporte'),
+                      Chip(
+                        label: Text(
+                          reportStatuses[item['estado']] ??
+                              'Estado no disponible',
+                        ),
                       ),
-                    );
-                    if (mounted) await load();
-                  },
+                    ],
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Caso ${(item['id'] as String).substring(0, 8)} · Reserva ${(item['sesion_id'] as String).substring(0, 8)}',
+                      ),
+                      Text(
+                        'Reportado: ${dateLabel(context, item['creado_en'])}',
+                      ),
+                      if (item['estado'] != 'abierto') ...[
+                        Text(
+                          'Cierre: ${dateLabel(context, item['resuelto_en'])}',
+                        ),
+                        const Text(
+                          'Caso cerrado. La consulta del contenido está deshabilitada.',
+                        ),
+                      ],
+                    ],
+                  ),
+                  trailing: item['estado'] == 'abierto'
+                      ? const Icon(Icons.chevron_right)
+                      : null,
+                  onTap: item['estado'] == 'abierto'
+                      ? () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (_) => ModerationCaseScreen(
+                                id: item['id'] as String,
+                              ),
+                            ),
+                          );
+                          if (mounted) await load();
+                        }
+                      : null,
                 ),
               ),
-            Wrap(
-              spacing: 12,
-              children: [
-                if (offset > 0)
-                  OutlinedButton(
-                    onPressed: () {
-                      setState(() => offset -= 20);
-                      load();
-                    },
-                    child: const Text('Anteriores'),
-                  ),
-                if (data!['has_more'] == true)
-                  OutlinedButton(
-                    onPressed: () {
-                      setState(() => offset += 20);
-                      load();
-                    },
-                    child: const Text('Siguientes'),
-                  ),
-              ],
-            ),
           ],
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text('Página ${cursors.length}'),
+              if (cursors.length > 1)
+                OutlinedButton(
+                  onPressed: loading
+                      ? null
+                      : () {
+                          cursors.removeLast();
+                          load();
+                        },
+                  child: const Text('Anteriores'),
+                ),
+              if (data?['has_more'] == true &&
+                  (data?['next_cursor'] as String? ?? '').isNotEmpty)
+                OutlinedButton(
+                  onPressed: loading
+                      ? null
+                      : () {
+                          cursors.add(data!['next_cursor'] as String);
+                          load();
+                        },
+                  child: const Text('Siguientes'),
+                ),
+            ],
+          ),
         ],
       ),
     ),
