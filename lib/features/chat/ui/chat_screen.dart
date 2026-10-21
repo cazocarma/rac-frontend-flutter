@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../../../shared/widgets/design.dart';
 import '../data/chat_api.dart';
+import 'chat_safety_screen.dart';
+import 'moderation_screen.dart';
+import '../../../shared/services/session.dart';
 
 String chatState(String state) => switch (state) {
   'activa' => 'Confirmada',
@@ -18,6 +21,7 @@ class ChatListScreen extends StatefulWidget {
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
+  late final role = Session.role();
   late final api = ChatApi(Env.apiBase);
   late Future<Map<String, dynamic>> data = api.conversations();
   int offset = 0;
@@ -36,6 +40,21 @@ class _ChatListScreenState extends State<ChatListScreen> {
     appBar: AppBar(
       title: const Text('Mensajes'),
       actions: [
+        FutureBuilder<String>(
+          future: role,
+          builder: (context, snapshot) => snapshot.data == 'admin'
+              ? IconButton(
+                  tooltip: 'Moderación de reportes',
+                  icon: const Icon(Icons.admin_panel_settings_outlined),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (_) => const ModerationScreen(),
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ),
         IconButton(
           tooltip: 'Actualizar conversaciones',
           onPressed: () => load(0),
@@ -438,6 +457,19 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
       appBar: AppBar(
         title: Text(widget.name, maxLines: 1, overflow: TextOverflow.ellipsis),
         actions: [
+          IconButton(
+            tooltip: 'Seguridad de la conversación',
+            icon: const Icon(Icons.shield_outlined),
+            onPressed: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => ChatSafetyScreen(bookingId: widget.bookingId),
+                ),
+              );
+              if (mounted) await load();
+            },
+          ),
           IconButton(
             tooltip: 'Actualizar conversación',
             onPressed: load,
