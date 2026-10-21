@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'features/chat/ui/chat_screen.dart';
 import 'package:rentacompa/features/auth/unified_auth_screen.dart';
 import 'package:rentacompa/features/compas/ui/compa_list_screen.dart';
 import 'package:rentacompa/features/match/ui/match_screen.dart';
@@ -197,7 +198,7 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/profile': (_) => const ProfileScreen(),
   '/settings': (_) => const SettingsScreen(),
   '/become-compa': (_) => const BecomeCompaScreen(),
-  '/chat': (_) => const ConstructionScreen(title: 'Mensajes'),
+  '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),
   '/alerts': (_) => const NotificationsScreen(),
 };
