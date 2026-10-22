@@ -42,7 +42,9 @@ class JsonApi {
     };
     final uri = Uri.parse('$base$apiPath$path');
     final response =
-        await (method == 'PUT'
+        await (method == 'DELETE'
+                ? client.delete(uri, headers: headers)
+                : method == 'PUT'
                 ? client.put(
                     uri,
                     headers: headers,
