@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'account_standing.dart';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
@@ -17,6 +18,22 @@ class UserApi {
 
   /// Base URL del servicio de usuarios — ej: `http://localhost`.
   final String base;
+
+  Future<AccountStanding> standing() async {
+    final token = await Session.accessToken();
+    final response = await client
+        .get(
+          Uri.parse('$base/api/user/me/standing'),
+          headers: {if (token != null) 'Authorization': 'Bearer $token'},
+        )
+        .timeout(const Duration(seconds: 5));
+    if (response.statusCode != 200) {
+      throw StateError('Account standing unavailable');
+    }
+    return AccountStanding.fromJson(
+      jsonDecode(response.body) as Map<String, dynamic>,
+    );
+  }
 
   Future<Map<String, dynamic>?> bookingReview(String id) async {
     final token = await Session.accessToken();
