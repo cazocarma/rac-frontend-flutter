@@ -65,6 +65,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     }
   }
 
+  String contextLabel(Map<dynamic, dynamic> item) {
+    if (item['tipo'] == 'estado_cuenta') return 'Cuenta';
+    final session = item['sesion_id'];
+    return session is String && session.length >= 8
+        ? 'Reserva ${session.substring(0, 8)}'
+        : 'Reserva';
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
@@ -102,12 +110,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           return ListView(
             children: [
               Text(
-                'Novedades de tus reservas',
+                'Novedades de tu cuenta y reservas',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               const Text(
-                'Aquí verás las nuevas solicitudes y sus cambios de estado. Avisos por correo y al teléfono: en construcción.',
+                'Aquí verás cambios de tu cuenta y tus reservas. Avisos por correo y al teléfono: en construcción.',
               ),
               const SizedBox(height: 16),
               Text(
@@ -129,7 +137,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 const EmptyState(
                   title: 'Estás al día',
                   message:
-                      'Los próximos cambios en tus reservas aparecerán aquí.',
+                      'Los próximos cambios de tu cuenta y tus reservas aparecerán aquí.',
                   icon: Icons.notifications_none,
                 ),
               for (final item in items)
@@ -159,7 +167,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Reserva ${(item['sesion_id'] as String).substring(0, 8)} · ${dateLabel(DateTime.parse(item['creado_en'] as String).toLocal())}',
+                          '${contextLabel(item)} · ${dateLabel(DateTime.parse(item['creado_en'] as String).toLocal())}',
                         ),
                         Wrap(
                           spacing: 8,
@@ -173,9 +181,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 child: const Text('Marcar como leída'),
                               ),
                             TextButton(
-                              onPressed: () =>
-                                  Navigator.pushNamed(context, '/match'),
-                              child: const Text('Ver mis reservas'),
+                              onPressed: () => Navigator.pushNamed(
+                                context,
+                                item['tipo'] == 'estado_cuenta'
+                                    ? '/profile'
+                                    : '/match',
+                              ),
+                              child: Text(
+                                item['tipo'] == 'estado_cuenta'
+                                    ? 'Ver estado de mi cuenta'
+                                    : 'Ver mis reservas',
+                              ),
                             ),
                           ],
                         ),

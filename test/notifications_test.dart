@@ -23,6 +23,30 @@ class FakeInbox extends AlertApi {
   }
 }
 
+class AccountInbox extends AlertApi {
+  AccountInbox() : super('http://fixture.invalid');
+  bool read = false;
+  @override
+  Future<Map<String, dynamic>> notifications({int offset = 0}) async => {
+    'items': [
+      {
+        'id': 'notice-1',
+        'sesion_id': null,
+        'tipo': 'estado_cuenta',
+        'titulo': 'Actualización de tu cuenta',
+        'creado_en': '2026-10-23T12:00:00Z',
+        'leido_en': read ? '2026-10-23T13:00:00Z' : null,
+      },
+    ],
+    'has_more': false,
+    'no_leidas': read ? 0 : 1,
+  };
+  @override
+  Future<void> readNotification(String id) async {
+    read = true;
+  }
+}
+
 void main() {
   test('alert API refreshes once and preserves the idempotent PUT', () async {
     var refreshed = false;
@@ -77,4 +101,37 @@ void main() {
       expect(find.text('Marcar todas como leídas'), findsNothing);
     },
   );
+  for (final width in [360.0, 1200.0]) {
+    testWidgets('account notice has no fabricated booking at width $width', (
+      tester,
+    ) async {
+      tester.view.physicalSize = Size(width, 850);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final api = AccountInbox();
+      addTearDown(api.close);
+      await tester.pumpWidget(
+        MaterialApp(
+          home: NotificationsScreen(api: api),
+          routes: {
+            '/profile': (_) => const Scaffold(body: Text('Perfil de destino')),
+          },
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Actualización de tu cuenta'), findsOneWidget);
+      expect(find.text('Ver estado de mi cuenta'), findsOneWidget);
+      expect(find.text('Ver mis reservas'), findsNothing);
+      expect(tester.takeException(), isNull);
+      await tester.tap(find.text('Marcar como leída'));
+      await tester.pumpAndSettle();
+      expect(api.read, isTrue);
+      expect(find.text('0 sin leer en tu bandeja'), findsOneWidget);
+      await tester.tap(find.text('Ver estado de mi cuenta'));
+      await tester.pumpAndSettle();
+      expect(find.text('Perfil de destino'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  }
 }
