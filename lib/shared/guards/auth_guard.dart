@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../di/services.dart';
+import '../widgets/standing_notice.dart';
 import 'package:rentacompa/shared/services/session.dart';
 
 /// Widget sencillo que protege secciones que requieren sesión.
@@ -41,6 +43,11 @@ class _AuthGuardState extends State<AuthGuard> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    return widget.child;
+    return Column(
+      children: [
+        StandingNotice(load: Services.user.standing),
+        Expanded(child: widget.child),
+      ],
+    );
   }
 }

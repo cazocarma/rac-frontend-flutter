@@ -49,6 +49,18 @@ class _MatchScreenState extends State<MatchScreen> {
             'La solicitud quedará cancelada. Puedes crear otra reserva cuando quieras.',
           ),
           actions: [
+            FutureBuilder<String>(
+              future: Session.role(),
+              builder: (context, snapshot) =>
+                  snapshot.data == 'compa' || snapshot.data == 'admin'
+                  ? IconButton(
+                      tooltip: 'Mis días libres',
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/time-off'),
+                      icon: const Icon(Icons.event_busy_outlined),
+                    )
+                  : const SizedBox.shrink(),
+            ),
             TextButton(
               onPressed: () => Navigator.pop(c, false),
               child: const Text('Conservar'),
@@ -166,6 +178,7 @@ class _MatchScreenState extends State<MatchScreen> {
                                   'pendiente': 'Pendiente de aceptación',
                                   'activa': 'Confirmada',
                                   'cancelada': 'Cancelada',
+                                  'expirada': 'Vencida sin aceptación',
                                   'finalizada': 'Finalizada',
                                 }[state] ??
                                 state,

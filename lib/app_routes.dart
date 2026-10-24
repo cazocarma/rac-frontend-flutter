@@ -1,3 +1,6 @@
+import 'features/match/ui/time_off_screen.dart';
+import 'features/admin/ui/admin_screen.dart';
+import 'shared/services/session.dart';
 import 'package:flutter/material.dart';
 import 'features/chat/ui/chat_screen.dart';
 import 'package:rentacompa/features/auth/unified_auth_screen.dart';
@@ -83,6 +86,21 @@ class HomeShell extends StatelessWidget {
             },
           ),
         ),
+      FutureBuilder<String>(
+        future: Session.role(),
+        builder: (context, snapshot) => snapshot.data == 'admin'
+            ? ListTile(
+                leading: const Icon(Icons.admin_panel_settings_outlined),
+                title: const Text('Administración'),
+                onTap: () {
+                  if (MediaQuery.sizeOf(context).width < 1000) {
+                    Navigator.pop(context);
+                  }
+                  open(context, '/admin');
+                },
+              )
+            : const SizedBox.shrink(),
+      ),
       const SizedBox(height: 22),
       Container(
         padding: const EdgeInsets.all(16),
@@ -200,5 +218,7 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/become-compa': (_) => const BecomeCompaScreen(),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),
+  '/time-off': (_) => const AuthGuard(child: TimeOffScreen()),
+  '/admin': (_) => const AuthGuard(child: AdminScreen()),
   '/alerts': (_) => const NotificationsScreen(),
 };
