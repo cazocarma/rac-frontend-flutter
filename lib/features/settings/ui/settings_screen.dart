@@ -50,6 +50,19 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            Card(
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(20),
+                leading: const Icon(Icons.description_outlined),
+                title: const Text('Documentos y acuerdos'),
+                subtitle: const Text(
+                  'Consulta las versiones y tus aceptaciones.',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).pushNamed('/documents'),
+              ),
+            ),
+            const SizedBox(height: 16),
             const Card(
               child: ListTile(
                 contentPadding: EdgeInsets.all(20),

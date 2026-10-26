@@ -1,4 +1,5 @@
 import 'features/match/ui/time_off_screen.dart';
+import 'features/documents/ui/documents_screen.dart';
 import 'features/admin/ui/admin_screen.dart';
 import 'shared/services/session.dart';
 import 'package:flutter/material.dart';
@@ -215,6 +216,7 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/match': (_) => const MatchScreen(),
   '/profile': (_) => const ProfileScreen(),
   '/settings': (_) => const SettingsScreen(),
+  '/documents': (_) => const AuthGuard(child: DocumentsScreen()),
   '/become-compa': (_) => const BecomeCompaScreen(),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),
