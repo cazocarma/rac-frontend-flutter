@@ -56,6 +56,8 @@ class _RACAppState extends State<RACApp> {
             routes: buildRoutes(requestedRoute: widget.requestedRoute),
             // Ruta inicial que decide si ir a login o home según tokens existentes.
             initialRoute: '/',
+            onGenerateInitialRoutes: (_) =>
+                startupRoutes(widget.requestedRoute),
           ),
         );
       },
@@ -67,6 +69,20 @@ class _RACAppState extends State<RACApp> {
 ///
 /// Determina si redirigir al usuario a `/home` (si hay sesión)
 /// o al `/login` (si no hay sesión activa).
+// Platform deep links override MaterialApp.initialRoute and normally generate
+// both '/' and the requested page. Keep a single bootstrap route so the gate
+// cannot replace a page above itself and leave a dormant gate below Home.
+List<Route<dynamic>> startupRoutes(
+  String requestedRoute, {
+  Future<bool> Function()? checkSession,
+}) => [
+  MaterialPageRoute<void>(
+    settings: const RouteSettings(name: '/'),
+    builder: (_) =>
+        StartupGate(requestedRoute: requestedRoute, checkSession: checkSession),
+  ),
+];
+
 class StartupGate extends StatefulWidget {
   const StartupGate({super.key, this.requestedRoute = '/', this.checkSession});
   final String requestedRoute;

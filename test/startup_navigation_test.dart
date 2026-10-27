@@ -9,10 +9,8 @@ Widget screen(String name) => Scaffold(
   ),
 );
 Widget app(String requested, {bool logged = true}) => MaterialApp(
-  home: StartupGate(
-    requestedRoute: requested,
-    checkSession: () async => logged,
-  ),
+  onGenerateInitialRoutes: (_) =>
+      startupRoutes(requested, checkSession: () async => logged),
   routes: {
     '/home': (_) => screen('Home fixture'),
     '/documents': (_) => screen('Documents fixture'),
@@ -23,6 +21,11 @@ void main() {
   testWidgets(
     'direct authenticated document URL returns to home instead of a blank navigator',
     (tester) async {
+      tester.binding.platformDispatcher.defaultRouteNameTestValue =
+          '/documents';
+      addTearDown(
+        tester.binding.platformDispatcher.clearDefaultRouteNameTestValue,
+      );
       await tester.pumpWidget(app('/documents'));
       await tester.pumpAndSettle();
       expect(find.text('Documents fixture'), findsOneWidget);
