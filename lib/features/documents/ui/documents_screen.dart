@@ -1,3 +1,4 @@
+import 'document_text.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
@@ -191,7 +192,7 @@ class _DocumentReaderState extends State<DocumentReader> {
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
                 const SizedBox(height: 20),
-                SelectableText(item.content!),
+                DocumentText(item.content!),
                 const SizedBox(height: 28),
                 if (widget.metadata.acceptedAt != null)
                   const Text('Ya aceptaste esta versión.')

@@ -1,3 +1,4 @@
+import 'document_text.dart';
 import 'package:flutter/material.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../../shared/services/pending_documents.dart';
@@ -56,7 +57,7 @@ class _DocumentPromptState extends State<DocumentPrompt> {
           title: Text(metadata.title),
           content: SizedBox(
             width: 720,
-            child: SingleChildScrollView(child: SelectableText(exact.content!)),
+            child: SingleChildScrollView(child: DocumentText(exact.content!)),
           ),
           actions: [
             TextButton(
