@@ -1,0 +1,27 @@
+{
+  "@@locale": "en",
+  "updatedRules": "We updated our rules",
+  "readDocuments": "Review the pending versions before continuing. Your original operation will not be repeated automatically.",
+  "acceptContinue": "Accept and continue",
+  "explicitConsent": "I have read and accept the listed versions.",
+  "readFullText": "Read full text",
+  "readDone": "I have read this version",
+  "savingConsent": "Saving…",
+  "documentsUnavailable": "We could not load the pending versions. Return to the original action to update them.",
+  "consentFailed": "We could not save your acceptance. You can try again.",
+  "documentsChanged": "The documents changed. Return to the original action to review the current versions.",
+  "backToAction": "Return to action",
+  "privacyEscape": "View my data or delete my account",
+  "privacyTitle": "Your data and rights",
+  "privacyPending": "Under construction: export and deletion requests are not available yet. No request has been submitted. You can view your profile without accepting documents.",
+  "viewProfile": "View my profile data",
+  "pendingVersion": "Version {version}",
+  "documentReadFailed": "We could not open this exact version. Please try again.",
+  "@pendingVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  }
+}

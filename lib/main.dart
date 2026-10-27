@@ -1,3 +1,5 @@
+import 'features/documents/ui/document_prompt_host.dart';
+import 'l10n/generated/app_localizations.dart';
 // Limpieza de duplicados: se mantiene solo la versión con ThemeController
 import 'package:flutter/material.dart';
 import 'package:rentacompa/shared/di/services.dart';
@@ -24,25 +26,37 @@ Future<void> main() async {
 /// Widget raíz de la aplicación.
 ///
 /// Configura temas, rutas y la detección automática de sesión al inicio.
-class RACApp extends StatelessWidget {
+class RACApp extends StatefulWidget {
   const RACApp({super.key, required this.theme, this.requestedRoute = '/'});
   final ThemeController theme;
   final String requestedRoute;
 
   @override
+  State<RACApp> createState() => _RACAppState();
+}
+
+class _RACAppState extends State<RACApp> {
+  final navigatorKey = GlobalKey<NavigatorState>();
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: theme,
+      animation: widget.theme,
       builder: (context, _) {
-        return MaterialApp(
-          title: 'Rent-a-Compa',
-          debugShowCheckedModeBanner: false,
-          theme: racTheme(Brightness.light),
-          darkTheme: racTheme(Brightness.dark),
-          themeMode: theme.mode,
-          routes: buildRoutes(requestedRoute: requestedRoute),
-          // Ruta inicial que decide si ir a login o home según tokens existentes.
-          initialRoute: '/',
+        return DocumentPromptHost(
+          navigatorKey: navigatorKey,
+          child: MaterialApp(
+            navigatorKey: navigatorKey,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            title: 'Rent-a-Compa',
+            debugShowCheckedModeBanner: false,
+            theme: racTheme(Brightness.light),
+            darkTheme: racTheme(Brightness.dark),
+            themeMode: widget.theme.mode,
+            routes: buildRoutes(requestedRoute: widget.requestedRoute),
+            // Ruta inicial que decide si ir a login o home según tokens existentes.
+            initialRoute: '/',
+          ),
         );
       },
     );

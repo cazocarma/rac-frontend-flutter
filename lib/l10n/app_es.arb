@@ -1,0 +1,27 @@
+{
+  "@@locale": "es",
+  "updatedRules": "Actualizamos nuestras reglas",
+  "readDocuments": "Revisa las versiones pendientes antes de continuar. La operación original no se repetirá automáticamente.",
+  "acceptContinue": "Aceptar y continuar",
+  "explicitConsent": "He leído y acepto las versiones indicadas.",
+  "readFullText": "Leer texto completo",
+  "readDone": "He leído esta versión",
+  "savingConsent": "Guardando…",
+  "documentsUnavailable": "No pudimos cargar las versiones pendientes. Vuelve a la acción original para actualizarlas.",
+  "consentFailed": "No pudimos guardar la aceptación. Puedes reintentar.",
+  "documentsChanged": "Los documentos cambiaron. Vuelve a la acción original para revisar las versiones vigentes.",
+  "backToAction": "Volver a la acción",
+  "privacyEscape": "Ver mis datos o eliminar mi cuenta",
+  "privacyTitle": "Tus datos y derechos",
+  "privacyPending": "En construcción: las solicitudes de exportación y eliminación aún no están disponibles. No hemos enviado ninguna solicitud. Puedes consultar tu perfil sin aceptar documentos.",
+  "viewProfile": "Ver mis datos de perfil",
+  "pendingVersion": "Versión {version}",
+  "documentReadFailed": "No pudimos abrir esta versión exacta. Inténtalo nuevamente.",
+  "@pendingVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  }
+}

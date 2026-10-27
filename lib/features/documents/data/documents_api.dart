@@ -118,6 +118,26 @@ class DocumentsApi extends JsonApi {
   Future<LegalDocument> document(String id) async => LegalDocument.fromJson(
     await request('/documents/${Uri.encodeComponent(id)}'),
   );
+  Future<void> acceptBatch(
+    List<LegalDocument> documents,
+    DocumentRegistry registry,
+  ) async {
+    if (documents.isEmpty || documents.length > 5) {
+      throw const FormatException('Invalid consent batch');
+    }
+    await request(
+      '/me/documents/acceptances',
+      body: {
+        'context': 'account',
+        'registry': registry.reference,
+        'documents': [
+          for (final document in documents)
+            {'id': document.id, 'sha256': document.sha256},
+        ],
+      },
+    );
+  }
+
   Future<void> accept(
     LegalDocument document, {
     DocumentRegistry? registry,
