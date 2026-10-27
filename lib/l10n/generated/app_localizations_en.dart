@@ -112,4 +112,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compaRulesSaving => 'Saving…';
+
+  @override
+  String get documentHistoryTitle => 'Acceptance history';
+
+  @override
+  String get documentHistoryEmpty =>
+      'You have not recorded any acceptances yet.';
+
+  @override
+  String get documentHistoryFailed =>
+      'We could not load your history. You can try again.';
+
+  @override
+  String get documentHistoryMore => 'Load more';
+
+  @override
+  String get documentHistoryRetry => 'Try again';
+
+  @override
+  String get documentHistoryAccount => 'Account';
+
+  @override
+  String get documentHistoryOnboarding => 'Compa onboarding';
+
+  @override
+  String get documentHistoryBooking => 'Booking';
+
+  @override
+  String documentHistoryAt(String date, String context) {
+    return 'Accepted: $date · $context';
+  }
 }

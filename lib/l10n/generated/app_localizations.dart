@@ -277,6 +277,60 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Guardando…'**
   String get compaRulesSaving;
+
+  /// No description provided for @documentHistoryTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Historial de aceptaciones'**
+  String get documentHistoryTitle;
+
+  /// No description provided for @documentHistoryEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no has registrado aceptaciones.'**
+  String get documentHistoryEmpty;
+
+  /// No description provided for @documentHistoryFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el historial. Puedes reintentar.'**
+  String get documentHistoryFailed;
+
+  /// No description provided for @documentHistoryMore.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargar más'**
+  String get documentHistoryMore;
+
+  /// No description provided for @documentHistoryRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get documentHistoryRetry;
+
+  /// No description provided for @documentHistoryAccount.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuenta'**
+  String get documentHistoryAccount;
+
+  /// No description provided for @documentHistoryOnboarding.
+  ///
+  /// In es, this message translates to:
+  /// **'Registro como compa'**
+  String get documentHistoryOnboarding;
+
+  /// No description provided for @documentHistoryBooking.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva'**
+  String get documentHistoryBooking;
+
+  /// No description provided for @documentHistoryAt.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptado: {date} · {context}'**
+  String documentHistoryAt(String date, String context);
 }
 
 class _AppLocalizationsDelegate

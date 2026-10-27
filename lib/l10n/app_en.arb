@@ -36,5 +36,24 @@
   "compaRulesChanged": "The version changed. Reload the questionnaire and review every declaration again.",
   "compaRulesFailed": "We could not save your answers. They are preserved so you can try again.",
   "compaRulesContinue": "Continue",
-  "compaRulesSaving": "Saving…"
+  "compaRulesSaving": "Saving…",
+  "documentHistoryTitle": "Acceptance history",
+  "documentHistoryEmpty": "You have not recorded any acceptances yet.",
+  "documentHistoryFailed": "We could not load your history. You can try again.",
+  "documentHistoryMore": "Load more",
+  "documentHistoryRetry": "Try again",
+  "documentHistoryAccount": "Account",
+  "documentHistoryOnboarding": "Compa onboarding",
+  "documentHistoryBooking": "Booking",
+  "documentHistoryAt": "Accepted: {date} · {context}",
+  "@documentHistoryAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "context": {
+        "type": "String"
+      }
+    }
+  }
 }

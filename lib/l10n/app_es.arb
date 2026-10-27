@@ -36,5 +36,24 @@
   "compaRulesChanged": "La versión cambió. Vuelve a cargar el cuestionario y revisa todas las declaraciones nuevamente.",
   "compaRulesFailed": "No pudimos guardar tus respuestas. Se conservan para que puedas reintentar.",
   "compaRulesContinue": "Continuar",
-  "compaRulesSaving": "Guardando…"
+  "compaRulesSaving": "Guardando…",
+  "documentHistoryTitle": "Historial de aceptaciones",
+  "documentHistoryEmpty": "Aún no has registrado aceptaciones.",
+  "documentHistoryFailed": "No pudimos cargar el historial. Puedes reintentar.",
+  "documentHistoryMore": "Cargar más",
+  "documentHistoryRetry": "Reintentar",
+  "documentHistoryAccount": "Cuenta",
+  "documentHistoryOnboarding": "Registro como compa",
+  "documentHistoryBooking": "Reserva",
+  "documentHistoryAt": "Aceptado: {date} · {context}",
+  "@documentHistoryAt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "context": {
+        "type": "String"
+      }
+    }
+  }
 }

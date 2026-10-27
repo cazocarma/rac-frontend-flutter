@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -38,6 +39,13 @@ class FakeDocuments extends DocumentsApi {
     accepted = true;
   }
 }
+
+Widget documentApp(Widget child) => MaterialApp(
+  locale: const Locale('es'),
+  localizationsDelegates: AppLocalizations.localizationsDelegates,
+  supportedLocales: AppLocalizations.supportedLocales,
+  home: child,
+);
 
 void main() {
   test(
@@ -139,7 +147,7 @@ void main() {
         addTearDown(tester.view.resetDevicePixelRatio);
         final api = FakeDocuments();
         addTearDown(api.close);
-        await tester.pumpWidget(MaterialApp(home: DocumentsScreen(api: api)));
+        await tester.pumpWidget(documentApp(DocumentsScreen(api: api)));
         await tester.pumpAndSettle();
         await tester.tap(find.text('Términos para clientes'));
         await tester.pumpAndSettle();
@@ -173,7 +181,7 @@ void main() {
   ) async {
     final api = FakeDocuments()..empty = true;
     addTearDown(api.close);
-    await tester.pumpWidget(MaterialApp(home: DocumentsScreen(api: api)));
+    await tester.pumpWidget(documentApp(DocumentsScreen(api: api)));
     await tester.pumpAndSettle();
     expect(find.text('En construcción'), findsOneWidget);
     expect(find.byType(CheckboxListTile), findsNothing);
@@ -184,7 +192,7 @@ void main() {
   ) async {
     final api = FakeDocuments()..conflict = true;
     addTearDown(api.close);
-    await tester.pumpWidget(MaterialApp(home: DocumentsScreen(api: api)));
+    await tester.pumpWidget(documentApp(DocumentsScreen(api: api)));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Términos para clientes'));
     await tester.pumpAndSettle();
@@ -212,7 +220,7 @@ void main() {
   ) async {
     final api = FakeDocuments()..changed = true;
     addTearDown(api.close);
-    await tester.pumpWidget(MaterialApp(home: DocumentsScreen(api: api)));
+    await tester.pumpWidget(documentApp(DocumentsScreen(api: api)));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Términos para clientes'));
     await tester.pumpAndSettle();

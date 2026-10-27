@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../../../shared/services/json_api.dart';
@@ -31,7 +32,16 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Documentos y acuerdos')),
+    appBar: AppBar(
+      title: const Text('Documentos y acuerdos'),
+      actions: [
+        IconButton(
+          tooltip: AppLocalizations.of(context)!.documentHistoryTitle,
+          onPressed: () => Navigator.of(context).pushNamed('/document-history'),
+          icon: const Icon(Icons.history),
+        ),
+      ],
+    ),
     body: FutureBuilder<List<LegalDocument>>(
       future: data,
       builder: (context, snapshot) {
@@ -86,7 +96,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                         await Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (_) =>
-                                _DocumentReader(api: api, metadata: item),
+                                DocumentReader(api: api, metadata: item),
                           ),
                         );
                         reload();
@@ -102,15 +112,15 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
   );
 }
 
-class _DocumentReader extends StatefulWidget {
-  const _DocumentReader({required this.api, required this.metadata});
+class DocumentReader extends StatefulWidget {
+  const DocumentReader({super.key, required this.api, required this.metadata});
   final DocumentsApi api;
   final LegalDocument metadata;
   @override
-  State<_DocumentReader> createState() => _DocumentReaderState();
+  State<DocumentReader> createState() => _DocumentReaderState();
 }
 
-class _DocumentReaderState extends State<_DocumentReader> {
+class _DocumentReaderState extends State<DocumentReader> {
   late Future<LegalDocument> data = widget.api.document(widget.metadata.id);
   bool checked = false, busy = false, stale = false;
   String? error;

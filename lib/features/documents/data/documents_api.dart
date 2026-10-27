@@ -95,6 +95,18 @@ class LegalDocument {
   };
 }
 
+class DocumentAcceptance {
+  const DocumentAcceptance(this.document, this.context);
+  final LegalDocument document;
+  final String context;
+}
+
+class DocumentHistoryPage {
+  const DocumentHistoryPage(this.items, this.nextCursor);
+  final List<DocumentAcceptance> items;
+  final String? nextCursor;
+}
+
 class DocumentsApi extends JsonApi {
   DocumentsApi(super.base, {super.client, super.token, super.refresh})
     : super(apiPath: '/api/user');
@@ -113,6 +125,38 @@ class DocumentsApi extends JsonApi {
         )
         .toList(growable: false);
     return DocumentCollection(items: items, registry: registry);
+  }
+
+  Future<DocumentHistoryPage> history({String? cursor}) async {
+    final value = await request(
+      '/me/documents/history?limit=20${cursor == null ? '' : '&cursor=${Uri.encodeQueryComponent(cursor)}'}',
+    );
+    final items = value['items'], next = value['next_cursor'];
+    if (items is! List ||
+        items.length > 50 ||
+        (next != null &&
+            (next is! String ||
+                next.isEmpty ||
+                next.length > 512 ||
+                items.isEmpty))) {
+      throw const FormatException('Invalid document history');
+    }
+    final ids = <String>{}, result = <DocumentAcceptance>[];
+    for (final raw in items) {
+      final item = raw as Map<String, dynamic>;
+      final document = LegalDocument.fromJson(item);
+      if (document.acceptedAt == null ||
+          !ids.add(document.id) ||
+          !const {
+            'account',
+            'compa_onboarding',
+            'booking',
+          }.contains(item['context'])) {
+        throw const FormatException('Invalid acceptance history');
+      }
+      result.add(DocumentAcceptance(document, item['context'] as String));
+    }
+    return DocumentHistoryPage(List.unmodifiable(result), next as String?);
   }
 
   Future<List<LegalDocument>> documents() async => (await collection()).items;
