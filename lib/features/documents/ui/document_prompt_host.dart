@@ -1,3 +1,5 @@
+import '../../compa_onboarding/ui/assessment_screen.dart';
+import '../../compa_onboarding/data/assessment_api.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
@@ -12,22 +14,30 @@ class DocumentPromptHost extends StatefulWidget {
     required this.child,
     this.events,
     this.createApi,
+    this.assessmentEvents,
+    this.createAssessmentApi,
   });
   final GlobalKey<NavigatorState> navigatorKey;
   final Widget child;
   final Stream<DocumentPrecondition>? events;
   final DocumentsApi Function()? createApi;
+  final Stream<void>? assessmentEvents;
+  final AssessmentApi Function()? createAssessmentApi;
   @override
   State<DocumentPromptHost> createState() => _DocumentPromptHostState();
 }
 
 class _DocumentPromptHostState extends State<DocumentPromptHost> {
   late final StreamSubscription<DocumentPrecondition> subscription;
+  late final StreamSubscription<void> assessmentSubscription;
   bool showing = false;
   @override
   void initState() {
     super.initState();
     subscription = (widget.events ?? DocumentPreconditions.events).listen(open);
+    assessmentSubscription =
+        (widget.assessmentEvents ?? DocumentPreconditions.assessmentEvents)
+            .listen((_) => openAssessment());
   }
 
   Future<void> open(DocumentPrecondition pending) async {
@@ -48,9 +58,27 @@ class _DocumentPromptHostState extends State<DocumentPromptHost> {
     }
   }
 
+  Future<void> openAssessment() async {
+    if (!mounted || showing) return;
+    final navigator = widget.navigatorKey.currentState;
+    if (navigator == null) return;
+    showing = true;
+    final api =
+        widget.createAssessmentApi?.call() ?? AssessmentApi(Env.apiBase);
+    try {
+      await navigator.push<bool>(
+        MaterialPageRoute(builder: (_) => AssessmentScreen(api: api)),
+      );
+    } finally {
+      api.close();
+      showing = false;
+    }
+  }
+
   @override
   void dispose() {
     subscription.cancel();
+    assessmentSubscription.cancel();
     super.dispose();
   }
 

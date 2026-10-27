@@ -20,6 +20,46 @@ Map<String, dynamic> problem() => {
 
 void main() {
   test(
+    'assessment prerequisite notifies once without replaying either transport',
+    () async {
+      for (final legacy in [false, true]) {
+        var calls = 0, notices = 0;
+        final inner = MockClient((request) async {
+          calls++;
+          return http.Response('{"error":"COMPA_ATTESTATION_REQUIRED"}', 428);
+        });
+        if (legacy) {
+          final client = DocumentHttpClient(
+            inner,
+            onAssessmentRequired: () => notices++,
+          );
+          final response = await client.post(
+            Uri.parse('https://fixture.invalid/profile'),
+            body: 'private fixture',
+          );
+          expect(response.statusCode, 428);
+          client.close();
+        } else {
+          final api = JsonApi(
+            'https://fixture.invalid',
+            apiPath: '/api/user',
+            client: inner,
+            token: () async => 'fixture',
+            onAssessmentRequired: () => notices++,
+          );
+          await expectLater(
+            api.request('/profile', body: {'private': 'fixture'}),
+            throwsA(isA<ApiException>()),
+          );
+          api.close();
+        }
+        expect(calls, 1);
+        expect(notices, 1);
+      }
+    },
+  );
+
+  test(
     'stream observer preserves response bytes and bounds metadata inspection',
     () async {
       for (final body in [jsonEncode(problem()), 'not-json', 'x' * 17000]) {

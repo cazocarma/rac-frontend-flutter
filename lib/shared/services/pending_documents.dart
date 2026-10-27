@@ -63,6 +63,9 @@ class DocumentPrecondition {
 /// Ephemeral notifications carry document identity only. No request bodies,
 /// session credentials, legal text, or automatic retries are retained.
 class DocumentPreconditions {
+  static final _assessments = StreamController<void>.broadcast();
+  static Stream<void> get assessmentEvents => _assessments.stream;
+  static void requireAssessment() => _assessments.add(null);
   static final _events = StreamController<DocumentPrecondition>.broadcast();
   static Stream<DocumentPrecondition> get events => _events.stream;
   static void notify(DocumentPrecondition value) => _events.add(value);

@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:rentacompa/features/documents/ui/document_prompt_host.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -80,6 +82,41 @@ Future<void> complete(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets(
+    'a server prerequisite opens one assessment and disposes its subscription',
+    (tester) async {
+      final events = StreamController<void>.broadcast();
+      final key = GlobalKey<NavigatorState>();
+      var created = 0;
+      await tester.pumpWidget(
+        DocumentPromptHost(
+          navigatorKey: key,
+          assessmentEvents: events.stream,
+          createAssessmentApi: () {
+            created++;
+            return FakeAssessment();
+          },
+          child: MaterialApp(
+            navigatorKey: key,
+            locale: const Locale('es'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const Scaffold(body: Text('Original')),
+          ),
+        ),
+      );
+      events.add(null);
+      events.add(null);
+      await tester.pumpAndSettle();
+      expect(created, 1);
+      expect(find.byType(AssessmentScreen), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+      await tester.pumpAndSettle();
+      expect(events.hasListener, false);
+      await events.close();
+    },
+  );
+
   test('invalid or answer-key-bearing definitions cannot render', () {
     for (final mutate in <void Function(Map<String, dynamic>)>[
       (json) => (json['statements'] as List).removeLast(),

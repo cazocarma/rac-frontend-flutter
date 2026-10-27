@@ -8,9 +8,11 @@ class DocumentHttpClient extends http.BaseClient {
   DocumentHttpClient(
     this.inner, {
     this.onDocumentsRequired = DocumentPreconditions.notify,
+    this.onAssessmentRequired = DocumentPreconditions.requireAssessment,
   });
   final http.Client inner;
   final void Function(DocumentPrecondition) onDocumentsRequired;
+  final void Function() onAssessmentRequired;
   static const maxMetadataBytes = 16 * 1024;
 
   @override
@@ -45,15 +47,17 @@ class DocumentHttpClient extends http.BaseClient {
     }
     if (oversized) return;
     DocumentPrecondition? pending;
+    dynamic decoded;
     try {
-      pending = DocumentPrecondition.parse(
-        428,
-        jsonDecode(utf8.decode(metadata)),
-      );
+      decoded = jsonDecode(utf8.decode(metadata));
+      pending = DocumentPrecondition.parse(428, decoded);
     } on FormatException {
       return;
     }
     if (pending != null) onDocumentsRequired(pending);
+    if (decoded is Map && decoded['error'] == 'COMPA_ATTESTATION_REQUIRED') {
+      onAssessmentRequired();
+    }
   }
 
   @override

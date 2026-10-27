@@ -16,6 +16,7 @@ class JsonApi {
     required this.apiPath,
     this.exception = ApiException.new,
     this.onDocumentsRequired = DocumentPreconditions.notify,
+    this.onAssessmentRequired = DocumentPreconditions.requireAssessment,
     http.Client? client,
     Future<String?> Function()? token,
     Future<void> Function()? refresh,
@@ -28,6 +29,7 @@ class JsonApi {
   final Future<void> Function() refresh;
   final ApiException Function(int, String) exception;
   final void Function(DocumentPrecondition) onDocumentsRequired;
+  final void Function() onAssessmentRequired;
   Future<Map<String, dynamic>> request(
     String path, {
     Map<String, dynamic>? body,
@@ -75,6 +77,10 @@ class JsonApi {
     if (response.statusCode != 200 && response.statusCode != 201) {
       final pending = DocumentPrecondition.parse(response.statusCode, decoded);
       if (pending != null) onDocumentsRequired(pending);
+      if (response.statusCode == 428 &&
+          decoded['error'] == 'COMPA_ATTESTATION_REQUIRED') {
+        onAssessmentRequired();
+      }
       throw exception(
         response.statusCode,
         decoded['error'] as String? ?? 'api_unavailable',
