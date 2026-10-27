@@ -142,4 +142,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String documentHistoryAt(String date, String context) {
     return 'Aceptado: $date · $context';
   }
+
+  @override
+  String get compaPrerequisitesPending =>
+      'Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.';
 }

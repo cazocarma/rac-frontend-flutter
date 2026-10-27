@@ -1,3 +1,4 @@
+import '../../../shared/services/json_api.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/design.dart';
@@ -122,7 +123,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
               '¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.';
         });
       }
-    } catch (_) {
+    } catch (e) {
       if (mounted) {
         setState(() {
           if (saved) {
@@ -130,6 +131,8 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
             needsSession = true;
             error =
                 'Tu perfil se guardó, pero no pudimos actualizar los permisos de tu sesión. Pulsa Actualizar sesión para continuar.';
+          } else if (e is ApiException && e.status == 428) {
+            error = AppLocalizations.of(context)!.compaPrerequisitesPending;
           } else {
             error =
                 'No pudimos guardar tu perfil. Revisa tu conexión e inténtalo nuevamente. Tus cambios anteriores se conservan.';

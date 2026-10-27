@@ -331,6 +331,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Aceptado: {date} · {context}'**
   String documentHistoryAt(String date, String context);
+
+  /// No description provided for @compaPrerequisitesPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.'**
+  String get compaPrerequisitesPending;
 }
 
 class _AppLocalizationsDelegate

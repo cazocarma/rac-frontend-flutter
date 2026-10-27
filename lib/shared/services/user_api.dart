@@ -1,3 +1,4 @@
+import 'json_api.dart';
 import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'dart:convert';
 import 'account_standing.dart';
@@ -14,15 +15,20 @@ class ProfilePhotoException implements Exception {
 ///
 /// Maneja creación o actualización de perfiles (`upsertProfile`).
 class UserApi {
-  UserApi(this.base, {http.Client? client})
-    : client = DocumentHttpClient(client ?? http.Client());
+  UserApi(
+    this.base, {
+    http.Client? client,
+    Future<String?> Function()? tokenProvider,
+  }) : client = DocumentHttpClient(client ?? http.Client()),
+       tokenProvider = tokenProvider ?? Session.accessToken;
+  final Future<String?> Function() tokenProvider;
   final http.Client client;
 
   /// Base URL del servicio de usuarios — ej: `http://localhost`.
   final String base;
 
   Future<AccountStanding> standing() async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .get(
           Uri.parse('$base/api/user/me/standing'),
@@ -38,7 +44,7 @@ class UserApi {
   }
 
   Future<Map<String, dynamic>?> bookingReview(String id) async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .get(
           Uri.parse('$base/api/user/bookings/$id/review'),
@@ -53,7 +59,7 @@ class UserApi {
   }
 
   Future<void> saveReview(String id, int score, String comment) async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .post(
           Uri.parse('$base/api/user/bookings/$id/review'),
@@ -74,7 +80,7 @@ class UserApi {
   }
 
   Future<Uint8List?> ownPhoto() async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .get(
           Uri.parse('$base/api/user/me/photo'),
@@ -89,7 +95,7 @@ class UserApi {
   }
 
   Future<void> savePhoto(Uint8List bytes, String mediaType) async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .put(
           Uri.parse('$base/api/user/me/photo'),
@@ -113,7 +119,7 @@ class UserApi {
   }
 
   Future<void> deletePhoto() async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client
         .delete(
           Uri.parse('$base/api/user/me/photo'),
@@ -128,7 +134,7 @@ class UserApi {
   }
 
   Future<Map<String, dynamic>?> ownCompa() async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client.get(
       Uri.parse('$base/api/user/me/compa'),
       headers: {if (token != null) 'Authorization': 'Bearer $token'},
@@ -141,7 +147,7 @@ class UserApi {
   }
 
   Future<void> saveCompa(Map<String, dynamic> payload) async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client.put(
       Uri.parse('$base/api/user/me/compa'),
       headers: {
@@ -150,6 +156,16 @@ class UserApi {
       },
       body: jsonEncode(payload),
     );
+    if (response.statusCode == 428) {
+      final decoded = jsonDecode(response.body);
+      if (decoded is Map &&
+          const {
+            'DOCUMENT_ACCEPTANCE_REQUIRED',
+            'COMPA_ATTESTATION_REQUIRED',
+          }.contains(decoded['error'])) {
+        throw ApiException(428, decoded['error'] as String);
+      }
+    }
     if (response.statusCode != 200) {
       throw StateError(
         'No pudimos guardar tu perfil. Tus cambios anteriores se conservan; inténtalo nuevamente.',
@@ -158,7 +174,7 @@ class UserApi {
   }
 
   Future<Map<String, dynamic>> me() async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final res = await client.get(
       Uri.parse('$base/api/user/me'),
       headers: {if (token != null) 'Authorization': 'Bearer $token'},
@@ -168,7 +184,7 @@ class UserApi {
   }
 
   Future<void> savePersonalProfile(Map<String, dynamic> payload) async {
-    final token = await Session.accessToken();
+    final token = await tokenProvider();
     final response = await client.put(
       Uri.parse('$base/api/user/me'),
       headers: {
@@ -191,7 +207,7 @@ class UserApi {
   /// El cuerpo (`payload`) debe incluir los campos del perfil a actualizar.
   /// Lanza una excepción si la respuesta HTTP no es exitosa (código != 200).
   Future<void> upsertProfile(Map<String, dynamic> payload) async {
-    final at = await Session.accessToken();
+    final at = await tokenProvider();
 
     final res = await client.post(
       Uri.parse('$base/api/user/profile'),

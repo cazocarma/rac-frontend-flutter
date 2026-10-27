@@ -55,5 +55,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "compaPrerequisitesPending": "Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste."
 }

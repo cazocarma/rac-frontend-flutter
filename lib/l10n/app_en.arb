@@ -55,5 +55,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "compaPrerequisitesPending": "Complete the pending documents and rules, then activate your profile again. Your edits are preserved."
 }
