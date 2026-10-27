@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'session.dart';
+import 'pending_documents.dart';
 
 class ApiException implements Exception {
   const ApiException(this.status, this.code);
@@ -14,6 +15,7 @@ class JsonApi {
     this.base, {
     required this.apiPath,
     this.exception = ApiException.new,
+    this.onDocumentsRequired = DocumentPreconditions.notify,
     http.Client? client,
     Future<String?> Function()? token,
     Future<void> Function()? refresh,
@@ -25,6 +27,7 @@ class JsonApi {
   final Future<String?> Function() token;
   final Future<void> Function() refresh;
   final ApiException Function(int, String) exception;
+  final void Function(DocumentPrecondition) onDocumentsRequired;
   Future<Map<String, dynamic>> request(
     String path, {
     Map<String, dynamic>? body,
@@ -70,6 +73,8 @@ class JsonApi {
     }
     final decoded = jsonDecode(response.body) as Map<String, dynamic>;
     if (response.statusCode != 200 && response.statusCode != 201) {
+      final pending = DocumentPrecondition.parse(response.statusCode, decoded);
+      if (pending != null) onDocumentsRequired(pending);
       throw exception(
         response.statusCode,
         decoded['error'] as String? ?? 'api_unavailable',
