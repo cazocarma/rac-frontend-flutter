@@ -68,8 +68,9 @@ class _RACAppState extends State<RACApp> {
 /// Determina si redirigir al usuario a `/home` (si hay sesión)
 /// o al `/login` (si no hay sesión activa).
 class StartupGate extends StatefulWidget {
-  const StartupGate({super.key, this.requestedRoute = '/'});
+  const StartupGate({super.key, this.requestedRoute = '/', this.checkSession});
   final String requestedRoute;
+  final Future<bool> Function()? checkSession;
 
   @override
   State<StartupGate> createState() => _StartupGateState();
@@ -87,8 +88,12 @@ class _StartupGateState extends State<StartupGate> {
     final requestedPath = Uri.tryParse(widget.requestedRoute)?.path;
     bool logged = false;
     try {
-      logged = await Session.isLoggedIn();
-      if (logged) await Services.user.me();
+      if (widget.checkSession != null) {
+        logged = await widget.checkSession!();
+      } else {
+        logged = await Session.isLoggedIn();
+        if (logged) await Services.user.me();
+      }
     } catch (_) {
       await Session.clear();
       logged = false;
@@ -101,7 +106,13 @@ class _StartupGateState extends State<StartupGate> {
               requestedPath != '/login'
           ? requestedPath!
           : '/home';
-      Navigator.of(context).pushReplacementNamed(destination);
+      final navigator = Navigator.of(context);
+      // A direct URL needs a real home route underneath it; otherwise Back
+      // after a page reload can remove the only page and leave a blank app.
+      navigator.pushReplacementNamed('/home');
+      if (destination != '/home') {
+        navigator.pushNamed(destination);
+      }
     } else {
       Navigator.of(context).pushReplacementNamed('/login');
     }
