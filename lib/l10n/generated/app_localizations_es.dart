@@ -66,4 +66,50 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get documentReadFailed =>
       'No pudimos abrir esta versión exacta. Inténtalo nuevamente.';
+
+  @override
+  String get compaRulesTitle => 'Reglas para ser compa';
+
+  @override
+  String get compaRulesIntro =>
+      'Revisa cada declaración y responde las tres situaciones. Aprobar este paso no publica tu perfil ni verifica tu identidad.';
+
+  @override
+  String get compaRulesReview => 'Revisar reglas y cuestionario';
+
+  @override
+  String get compaRulesSubmit => 'Confirmar declaraciones y respuestas';
+
+  @override
+  String get compaRulesPassed =>
+      'Ya completaste esta versión del cuestionario.';
+
+  @override
+  String get compaRulesUnavailable =>
+      'En construcción: todavía no hay un cuestionario revisado disponible para tu cuenta o no pudimos cargarlo.';
+
+  @override
+  String get compaRulesRetry => 'Volver a cargar';
+
+  @override
+  String get compaRulesWrong =>
+      'Revisa las tres situaciones. Todas deben responderse correctamente.';
+
+  @override
+  String get compaRulesDeclarations =>
+      'Marca cada declaración por separado antes de continuar.';
+
+  @override
+  String get compaRulesChanged =>
+      'La versión cambió. Vuelve a cargar el cuestionario y revisa todas las declaraciones nuevamente.';
+
+  @override
+  String get compaRulesFailed =>
+      'No pudimos guardar tus respuestas. Se conservan para que puedas reintentar.';
+
+  @override
+  String get compaRulesContinue => 'Continuar';
+
+  @override
+  String get compaRulesSaving => 'Guardando…';
 }

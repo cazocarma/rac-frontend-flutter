@@ -1,3 +1,4 @@
+import 'features/compa_onboarding/ui/assessment_screen.dart';
 import 'features/match/ui/time_off_screen.dart';
 import 'features/documents/ui/documents_screen.dart';
 import 'features/admin/ui/admin_screen.dart';
@@ -217,6 +218,7 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/profile': (_) => const ProfileScreen(),
   '/settings': (_) => const SettingsScreen(),
   '/documents': (_) => const AuthGuard(child: DocumentsScreen()),
+  '/compa-rules': (_) => const AuthGuard(child: AssessmentScreen()),
   '/become-compa': (_) => const BecomeCompaScreen(),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),

@@ -23,5 +23,18 @@
         "type": "String"
       }
     }
-  }
+  },
+  "compaRulesTitle": "Reglas para ser compa",
+  "compaRulesIntro": "Revisa cada declaración y responde las tres situaciones. Aprobar este paso no publica tu perfil ni verifica tu identidad.",
+  "compaRulesReview": "Revisar reglas y cuestionario",
+  "compaRulesSubmit": "Confirmar declaraciones y respuestas",
+  "compaRulesPassed": "Ya completaste esta versión del cuestionario.",
+  "compaRulesUnavailable": "En construcción: todavía no hay un cuestionario revisado disponible para tu cuenta o no pudimos cargarlo.",
+  "compaRulesRetry": "Volver a cargar",
+  "compaRulesWrong": "Revisa las tres situaciones. Todas deben responderse correctamente.",
+  "compaRulesDeclarations": "Marca cada declaración por separado antes de continuar.",
+  "compaRulesChanged": "La versión cambió. Vuelve a cargar el cuestionario y revisa todas las declaraciones nuevamente.",
+  "compaRulesFailed": "No pudimos guardar tus respuestas. Se conservan para que puedas reintentar.",
+  "compaRulesContinue": "Continuar",
+  "compaRulesSaving": "Guardando…"
 }

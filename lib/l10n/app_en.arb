@@ -23,5 +23,18 @@
         "type": "String"
       }
     }
-  }
+  },
+  "compaRulesTitle": "Rules for becoming a compa",
+  "compaRulesIntro": "Review each declaration and answer the three scenarios. Passing this step does not publish your profile or verify your identity.",
+  "compaRulesReview": "Review rules and questionnaire",
+  "compaRulesSubmit": "Confirm declarations and answers",
+  "compaRulesPassed": "You have already completed this questionnaire version.",
+  "compaRulesUnavailable": "Under construction: no reviewed questionnaire is available for your account yet, or we could not load it.",
+  "compaRulesRetry": "Reload",
+  "compaRulesWrong": "Review the three scenarios. Every answer must be correct.",
+  "compaRulesDeclarations": "Confirm each declaration separately before continuing.",
+  "compaRulesChanged": "The version changed. Reload the questionnaire and review every declaration again.",
+  "compaRulesFailed": "We could not save your answers. They are preserved so you can try again.",
+  "compaRulesContinue": "Continue",
+  "compaRulesSaving": "Saving…"
 }

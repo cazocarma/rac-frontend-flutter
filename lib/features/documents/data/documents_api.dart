@@ -13,6 +13,8 @@ class DocumentRegistry {
   static final _uuid = RegExp(
     r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$',
   );
+  factory DocumentRegistry.fromReference(Map<String, dynamic> json) =>
+      DocumentRegistry.fromJson({...json, 'summary': <String>[]});
   factory DocumentRegistry.fromJson(Map<String, dynamic> json) {
     final locale = json['locale'],
         version = json['version'],

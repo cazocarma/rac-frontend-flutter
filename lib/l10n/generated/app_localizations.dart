@@ -199,6 +199,84 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos abrir esta versión exacta. Inténtalo nuevamente.'**
   String get documentReadFailed;
+
+  /// No description provided for @compaRulesTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Reglas para ser compa'**
+  String get compaRulesTitle;
+
+  /// No description provided for @compaRulesIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa cada declaración y responde las tres situaciones. Aprobar este paso no publica tu perfil ni verifica tu identidad.'**
+  String get compaRulesIntro;
+
+  /// No description provided for @compaRulesReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisar reglas y cuestionario'**
+  String get compaRulesReview;
+
+  /// No description provided for @compaRulesSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar declaraciones y respuestas'**
+  String get compaRulesSubmit;
+
+  /// No description provided for @compaRulesPassed.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya completaste esta versión del cuestionario.'**
+  String get compaRulesPassed;
+
+  /// No description provided for @compaRulesUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'En construcción: todavía no hay un cuestionario revisado disponible para tu cuenta o no pudimos cargarlo.'**
+  String get compaRulesUnavailable;
+
+  /// No description provided for @compaRulesRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a cargar'**
+  String get compaRulesRetry;
+
+  /// No description provided for @compaRulesWrong.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa las tres situaciones. Todas deben responderse correctamente.'**
+  String get compaRulesWrong;
+
+  /// No description provided for @compaRulesDeclarations.
+  ///
+  /// In es, this message translates to:
+  /// **'Marca cada declaración por separado antes de continuar.'**
+  String get compaRulesDeclarations;
+
+  /// No description provided for @compaRulesChanged.
+  ///
+  /// In es, this message translates to:
+  /// **'La versión cambió. Vuelve a cargar el cuestionario y revisa todas las declaraciones nuevamente.'**
+  String get compaRulesChanged;
+
+  /// No description provided for @compaRulesFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos guardar tus respuestas. Se conservan para que puedas reintentar.'**
+  String get compaRulesFailed;
+
+  /// No description provided for @compaRulesContinue.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get compaRulesContinue;
+
+  /// No description provided for @compaRulesSaving.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardando…'**
+  String get compaRulesSaving;
 }
 
 class _AppLocalizationsDelegate

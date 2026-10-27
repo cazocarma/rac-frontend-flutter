@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/design.dart';
 import '../../../shared/di/services.dart';
@@ -197,6 +198,13 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                   const SizedBox(height: 12),
                   const Text(
                     'Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.',
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: busy
+                        ? null
+                        : () => Navigator.of(context).pushNamed('/compa-rules'),
+                    icon: const Icon(Icons.fact_check_outlined),
+                    label: Text(AppLocalizations.of(context)!.compaRulesReview),
                   ),
                   const SizedBox(height: 24),
                   TextFormField(
