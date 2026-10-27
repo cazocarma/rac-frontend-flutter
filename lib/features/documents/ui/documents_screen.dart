@@ -128,7 +128,7 @@ class _DocumentReaderState extends State<_DocumentReader> {
       error = null;
     });
     try {
-      await widget.api.accept(item);
+      await widget.api.accept(item, registry: widget.metadata.registry);
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (mounted) {
@@ -136,7 +136,7 @@ class _DocumentReaderState extends State<_DocumentReader> {
           stale = e is ApiException && e.status == 409;
           if (stale) checked = false;
           error = stale
-              ? 'Esta versión ya no está disponible. Vuelve a la lista para actualizarla.'
+              ? 'Los documentos cambiaron. Vuelve a la lista para actualizarlos.'
               : 'No pudimos confirmar la aceptación. Puedes reintentar.';
         });
       }

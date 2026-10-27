@@ -27,7 +27,10 @@ class FakeDocuments extends DocumentsApi {
   @override
   Future<LegalDocument> document(String id) async => item(detail: true);
   @override
-  Future<void> accept(LegalDocument document) async {
+  Future<void> accept(
+    LegalDocument document, {
+    DocumentRegistry? registry,
+  }) async {
     calls++;
     if (conflict) throw const ApiException(409, 'document_version_unavailable');
     expect(document.id, item().id);
@@ -37,6 +40,70 @@ class FakeDocuments extends DocumentsApi {
 }
 
 void main() {
+  test(
+    'active metadata carries the registry reference without summary or approval claims',
+    () async {
+      Map<String, dynamic>? accepted;
+      final ref = {
+        'locale': 'es',
+        'version': 7,
+        'policy_version': '22222222-2222-4222-8222-222222222222',
+      };
+      final sample = FakeDocuments();
+      final api = DocumentsApi(
+        'https://fixture.invalid',
+        token: () async => 'fixture',
+        refresh: () async {},
+        client: MockClient((request) async {
+          if (request.method == 'GET') {
+            return http.Response(
+              jsonEncode({
+                'registry': {
+                  ...ref,
+                  'summary': ['Resumen sintético revisado'],
+                },
+                'items': [
+                  {
+                    'id': sample.item().id,
+                    'kind': 'terms_client',
+                    'version': 'fixture-1',
+                    'sha256': sample.hash,
+                  },
+                ],
+              }),
+              200,
+            );
+          }
+          accepted = jsonDecode(request.body) as Map<String, dynamic>;
+          return http.Response('{"accepted":1}', 200);
+        }),
+      );
+      addTearDown(api.close);
+      addTearDown(sample.close);
+      final items = await api.documents();
+      expect(items.single.registry!.version, 7);
+      await api.accept(items.single);
+      expect(accepted!['registry'], ref);
+      expect((accepted!['registry'] as Map).containsKey('summary'), isFalse);
+    },
+  );
+  test(
+    'invalid registry metadata is unavailable rather than an empty acceptance target',
+    () {
+      for (final value in [
+        {'locale': 'es', 'version': 0, 'policy_version': 'bad', 'summary': []},
+        {
+          'locale': 'es',
+          'version': 1,
+          'policy_version': '22222222-2222-4222-8222-222222222222',
+          'summary': ['1', '2', '3', '4'],
+        },
+      ]) {
+        expect(() => DocumentRegistry.fromJson(value), throwsFormatException);
+      }
+    },
+  );
+
   test('acceptance sends exact version hash and account context', () async {
     late Map<String, dynamic> body;
     final api = DocumentsApi(
@@ -138,7 +205,7 @@ void main() {
           .onPressed,
       isNull,
     );
-    expect(find.textContaining('ya no está disponible'), findsOneWidget);
+    expect(find.textContaining('Los documentos cambiaron'), findsOneWidget);
   });
   testWidgets('changed content hash cannot be accepted from old metadata', (
     tester,
