@@ -1,3 +1,4 @@
+import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'dart:convert';
 import 'account_standing.dart';
 import 'dart:typed_data';
@@ -13,7 +14,8 @@ class ProfilePhotoException implements Exception {
 ///
 /// Maneja creación o actualización de perfiles (`upsertProfile`).
 class UserApi {
-  UserApi(this.base, {http.Client? client}) : client = client ?? http.Client();
+  UserApi(this.base, {http.Client? client})
+    : client = DocumentHttpClient(client ?? http.Client());
   final http.Client client;
 
   /// Base URL del servicio de usuarios — ej: `http://localhost`.

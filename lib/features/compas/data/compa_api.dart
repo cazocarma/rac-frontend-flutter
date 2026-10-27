@@ -1,3 +1,4 @@
+import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -83,7 +84,7 @@ class CompaApi {
   final Map<String, String> defaultHeaders;
 
   CompaApi(this.base, {http.Client? client, Map<String, String>? headers})
-    : _client = client ?? http.Client(),
+    : _client = DocumentHttpClient(client ?? http.Client()),
       defaultHeaders = {'Accept': 'application/json', ...?headers};
 
   Future<Map<String, dynamic>> reviews(String id, {int offset = 0}) async {

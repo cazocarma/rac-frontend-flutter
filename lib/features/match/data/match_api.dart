@@ -1,3 +1,4 @@
+import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
@@ -11,7 +12,8 @@ class MatchApi {
   final String base; // Ejemplo: http://localhost
 
   final http.Client client;
-  MatchApi(this.base, {http.Client? client}) : client = client ?? http.Client();
+  MatchApi(this.base, {http.Client? client})
+    : client = DocumentHttpClient(client ?? http.Client());
 
   Future<Map<String, dynamic>> allowance(String compaId, {String? date}) async {
     final token = await Session.accessToken();

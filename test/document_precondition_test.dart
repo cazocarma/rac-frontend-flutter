@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
@@ -18,6 +19,37 @@ Map<String, dynamic> problem() => {
 };
 
 void main() {
+  test(
+    'stream observer preserves response bytes and bounds metadata inspection',
+    () async {
+      for (final body in [jsonEncode(problem()), 'not-json', 'x' * 17000]) {
+        var calls = 0;
+        final events = <DocumentPrecondition>[];
+        final client = DocumentHttpClient(
+          MockClient((request) async {
+            calls++;
+            return http.Response(
+              body,
+              428,
+              headers: {'x-fixture': 'preserved'},
+            );
+          }),
+          onDocumentsRequired: events.add,
+        );
+        final response = await client.post(
+          Uri.parse('https://test.invalid/profile'),
+          body: 'private fixture',
+        );
+        expect(response.statusCode, 428);
+        expect(response.body, body);
+        expect(response.headers['x-fixture'], 'preserved');
+        expect(calls, 1);
+        expect(events.length, body.startsWith('{') ? 1 : 0);
+        client.close();
+      }
+    },
+  );
+
   test('rejects malformed, empty and duplicated prerequisites', () {
     expect(DocumentPrecondition.parse(403, problem()), isNull);
     expect(DocumentPrecondition.parse(428, {'error': 'other'}), isNull);
