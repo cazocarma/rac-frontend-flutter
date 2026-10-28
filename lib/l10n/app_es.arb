@@ -56,5 +56,15 @@
       }
     }
   },
-  "compaPrerequisitesPending": "Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste."
+  "compaPrerequisitesPending": "Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.",
+  "staffTitle": "Consola de gestión",
+  "staffAccess": "Acceso del equipo",
+  "staffAccessHelp": "Usa tu cuenta del equipo y el segundo factor de autenticación.",
+  "staffSignIn": "Ingresar con MFA",
+  "staffSignOut": "Cerrar sesión del equipo",
+  "staffUnavailable": "No pudimos validar el acceso. Reintenta o inicia sesión nuevamente.",
+  "staffDenied": "Esta cuenta no tiene acceso a la consola.",
+  "staffReady": "Sesión del equipo validada",
+  "staffRetry": "Reintentar",
+  "staffPending": "Las herramientas editoriales están en construcción."
 }

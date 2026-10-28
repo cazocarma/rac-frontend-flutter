@@ -56,5 +56,15 @@
       }
     }
   },
-  "compaPrerequisitesPending": "Complete the pending documents and rules, then activate your profile again. Your edits are preserved."
+  "compaPrerequisitesPending": "Complete the pending documents and rules, then activate your profile again. Your edits are preserved.",
+  "staffTitle": "Management console",
+  "staffAccess": "Team access",
+  "staffAccessHelp": "Use your team account and second authentication factor.",
+  "staffSignIn": "Sign in with MFA",
+  "staffSignOut": "Sign out of team session",
+  "staffUnavailable": "We could not validate access. Retry or sign in again.",
+  "staffDenied": "This account cannot access the console.",
+  "staffReady": "Team session verified",
+  "staffRetry": "Retry",
+  "staffPending": "Editorial tools are under construction."
 }

@@ -1,3 +1,4 @@
+import 'features/staff/staff_screen.dart';
 import 'features/documents/ui/document_history_screen.dart';
 import 'features/compa_onboarding/ui/assessment_screen.dart';
 import 'features/match/ui/time_off_screen.dart';
@@ -213,6 +214,7 @@ class HomeShell extends StatelessWidget {
 
 Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/': (_) => StartupGate(requestedRoute: requestedRoute),
+  '/staff': (_) => StaffScreen.connected(),
   '/login': (_) => const UnifiedAuthScreen(),
   '/home': (_) => const HomeShell(),
   '/match': (_) => const MatchScreen(),

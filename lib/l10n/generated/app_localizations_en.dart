@@ -147,4 +147,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get compaPrerequisitesPending =>
       'Complete the pending documents and rules, then activate your profile again. Your edits are preserved.';
+
+  @override
+  String get staffTitle => 'Management console';
+
+  @override
+  String get staffAccess => 'Team access';
+
+  @override
+  String get staffAccessHelp =>
+      'Use your team account and second authentication factor.';
+
+  @override
+  String get staffSignIn => 'Sign in with MFA';
+
+  @override
+  String get staffSignOut => 'Sign out of team session';
+
+  @override
+  String get staffUnavailable =>
+      'We could not validate access. Retry or sign in again.';
+
+  @override
+  String get staffDenied => 'This account cannot access the console.';
+
+  @override
+  String get staffReady => 'Team session verified';
+
+  @override
+  String get staffRetry => 'Retry';
+
+  @override
+  String get staffPending => 'Editorial tools are under construction.';
 }

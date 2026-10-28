@@ -337,6 +337,66 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.'**
   String get compaPrerequisitesPending;
+
+  /// No description provided for @staffTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Consola de gestión'**
+  String get staffTitle;
+
+  /// No description provided for @staffAccess.
+  ///
+  /// In es, this message translates to:
+  /// **'Acceso del equipo'**
+  String get staffAccess;
+
+  /// No description provided for @staffAccessHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa tu cuenta del equipo y el segundo factor de autenticación.'**
+  String get staffAccessHelp;
+
+  /// No description provided for @staffSignIn.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresar con MFA'**
+  String get staffSignIn;
+
+  /// No description provided for @staffSignOut.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar sesión del equipo'**
+  String get staffSignOut;
+
+  /// No description provided for @staffUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos validar el acceso. Reintenta o inicia sesión nuevamente.'**
+  String get staffUnavailable;
+
+  /// No description provided for @staffDenied.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta cuenta no tiene acceso a la consola.'**
+  String get staffDenied;
+
+  /// No description provided for @staffReady.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión del equipo validada'**
+  String get staffReady;
+
+  /// No description provided for @staffRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get staffRetry;
+
+  /// No description provided for @staffPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Las herramientas editoriales están en construcción.'**
+  String get staffPending;
 }
 
 class _AppLocalizationsDelegate

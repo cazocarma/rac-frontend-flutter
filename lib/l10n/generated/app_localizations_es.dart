@@ -146,4 +146,37 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get compaPrerequisitesPending =>
       'Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.';
+
+  @override
+  String get staffTitle => 'Consola de gestión';
+
+  @override
+  String get staffAccess => 'Acceso del equipo';
+
+  @override
+  String get staffAccessHelp =>
+      'Usa tu cuenta del equipo y el segundo factor de autenticación.';
+
+  @override
+  String get staffSignIn => 'Ingresar con MFA';
+
+  @override
+  String get staffSignOut => 'Cerrar sesión del equipo';
+
+  @override
+  String get staffUnavailable =>
+      'No pudimos validar el acceso. Reintenta o inicia sesión nuevamente.';
+
+  @override
+  String get staffDenied => 'Esta cuenta no tiene acceso a la consola.';
+
+  @override
+  String get staffReady => 'Sesión del equipo validada';
+
+  @override
+  String get staffRetry => 'Reintentar';
+
+  @override
+  String get staffPending =>
+      'Las herramientas editoriales están en construcción.';
 }

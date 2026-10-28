@@ -102,6 +102,12 @@ class _StartupGateState extends State<StartupGate> {
   /// Verifica el estado de sesión y redirige a la ruta correspondiente.
   Future<void> _decide() async {
     final requestedPath = Uri.tryParse(widget.requestedRoute)?.path;
+    if (requestedPath == '/staff') {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) Navigator.of(context).pushReplacementNamed('/staff');
+      });
+      return;
+    }
     bool logged = false;
     try {
       if (widget.checkSession != null) {
