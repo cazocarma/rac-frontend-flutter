@@ -179,4 +179,23 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffPending =>
       'Las herramientas editoriales están en construcción.';
+
+  @override
+  String get staffReadRevision => 'Consultar revisión exacta';
+
+  @override
+  String get staffResource => 'Tipo de recurso';
+
+  @override
+  String get staffDocument => 'Documento';
+
+  @override
+  String get staffAssessment => 'Cuestionario privado';
+
+  @override
+  String get staffReference => 'Identificador de revisión (UUID)';
+
+  @override
+  String get staffRevisionUnavailable =>
+      'No pudimos consultar esta revisión. Comprueba el identificador y tu acceso.';
 }

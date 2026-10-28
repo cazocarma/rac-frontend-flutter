@@ -66,5 +66,11 @@
   "staffDenied": "Esta cuenta no tiene acceso a la consola.",
   "staffReady": "Sesión del equipo validada",
   "staffRetry": "Reintentar",
-  "staffPending": "Las herramientas editoriales están en construcción."
+  "staffPending": "Las herramientas editoriales están en construcción.",
+  "staffReadRevision": "Consultar revisión exacta",
+  "staffResource": "Tipo de recurso",
+  "staffDocument": "Documento",
+  "staffAssessment": "Cuestionario privado",
+  "staffReference": "Identificador de revisión (UUID)",
+  "staffRevisionUnavailable": "No pudimos consultar esta revisión. Comprueba el identificador y tu acceso."
 }

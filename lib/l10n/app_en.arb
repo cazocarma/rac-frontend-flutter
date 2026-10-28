@@ -66,5 +66,11 @@
   "staffDenied": "This account cannot access the console.",
   "staffReady": "Team session verified",
   "staffRetry": "Retry",
-  "staffPending": "Editorial tools are under construction."
+  "staffPending": "Editorial tools are under construction.",
+  "staffReadRevision": "Read exact revision",
+  "staffResource": "Resource type",
+  "staffDocument": "Document",
+  "staffAssessment": "Private assessment",
+  "staffReference": "Revision identifier (UUID)",
+  "staffRevisionUnavailable": "We could not read this revision. Check its identifier and your access."
 }

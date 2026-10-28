@@ -5,6 +5,7 @@ import '../../l10n/generated/app_localizations.dart';
 import '../../shared/config/env.dart';
 import '../../shared/services/auth_session.dart';
 import 'editorial_api.dart';
+import 'editorial_reader.dart';
 
 class StaffScreen extends StatefulWidget {
   const StaffScreen({super.key, required this.api});
@@ -27,6 +28,7 @@ class _StaffScreenState extends State<StaffScreen> {
   bool busy = true;
   bool verified = false;
   int? failure;
+  bool canRead = false;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _StaffScreenState extends State<StaffScreen> {
       busy = true;
       failure = null;
       verified = false;
+      canRead = false;
     });
     try {
       if (login) await widget.api.session.login();
@@ -47,7 +50,12 @@ class _StaffScreenState extends State<StaffScreen> {
           !(result['permissions'] as List).contains('staff.session.read')) {
         throw const EditorialFailure(403, uncertain: false);
       }
-      if (mounted) setState(() => verified = true);
+      if (mounted) {
+        setState(() {
+          verified = true;
+          canRead = (result['permissions'] as List).contains('documents.read');
+        });
+      }
     } on EditorialFailure catch (error) {
       if (mounted) setState(() => failure = error.status ?? 503);
     } catch (_) {
@@ -61,17 +69,19 @@ class _StaffScreenState extends State<StaffScreen> {
     setState(() {
       busy = true;
       verified = false;
+      canRead = false;
     });
     try {
       await widget.api.session.logout();
     } catch (_) {
       await widget.api.session.clear();
     } finally {
-      if (mounted)
+      if (mounted) {
         setState(() {
           busy = false;
           failure = 401;
         });
+      }
     }
   }
 
@@ -104,6 +114,8 @@ class _StaffScreenState extends State<StaffScreen> {
               if (busy)
                 const Center(child: CircularProgressIndicator())
               else if (verified) ...[
+                if (canRead) EditorialReader(api: widget.api),
+                const SizedBox(height: 20),
                 Text(t.staffPending),
                 const SizedBox(height: 16),
                 OutlinedButton(onPressed: logout, child: Text(t.staffSignOut)),

@@ -179,4 +179,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get staffPending => 'Editorial tools are under construction.';
+
+  @override
+  String get staffReadRevision => 'Read exact revision';
+
+  @override
+  String get staffResource => 'Resource type';
+
+  @override
+  String get staffDocument => 'Document';
+
+  @override
+  String get staffAssessment => 'Private assessment';
+
+  @override
+  String get staffReference => 'Revision identifier (UUID)';
+
+  @override
+  String get staffRevisionUnavailable =>
+      'We could not read this revision. Check its identifier and your access.';
 }

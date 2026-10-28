@@ -397,6 +397,42 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Las herramientas editoriales están en construcción.'**
   String get staffPending;
+
+  /// No description provided for @staffReadRevision.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar revisión exacta'**
+  String get staffReadRevision;
+
+  /// No description provided for @staffResource.
+  ///
+  /// In es, this message translates to:
+  /// **'Tipo de recurso'**
+  String get staffResource;
+
+  /// No description provided for @staffDocument.
+  ///
+  /// In es, this message translates to:
+  /// **'Documento'**
+  String get staffDocument;
+
+  /// No description provided for @staffAssessment.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuestionario privado'**
+  String get staffAssessment;
+
+  /// No description provided for @staffReference.
+  ///
+  /// In es, this message translates to:
+  /// **'Identificador de revisión (UUID)'**
+  String get staffReference;
+
+  /// No description provided for @staffRevisionUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar esta revisión. Comprueba el identificador y tu acceso.'**
+  String get staffRevisionUnavailable;
 }
 
 class _AppLocalizationsDelegate
