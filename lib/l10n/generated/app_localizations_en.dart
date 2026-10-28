@@ -326,4 +326,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffAssessmentInvalid =>
       'Complete commitments, questions, options and correct answers. Also check version and language.';
+
+  @override
+  String get staffActivateBundle => 'Activate document bundle';
+
+  @override
+  String get staffPrepareActivation => 'Read and prepare activation';
+
+  @override
+  String get staffConfirmActivation => 'Confirm bundle activation';
+
+  @override
+  String get staffRegistryVersion => 'Bundle version';
+
+  @override
+  String get staffActivationHelp =>
+      'Five reviewed and published documents and one assessment will become active. The server supplies the current version; if it changes before confirmation, review and prepare the bundle again.';
+
+  @override
+  String get staffActivationSummary =>
+      'Change summary (up to three lines, optional)';
+
+  @override
+  String get staffActivationInvalid =>
+      'We could not prepare this bundle. Check references, language, publications and summary; read again before confirming.';
 }

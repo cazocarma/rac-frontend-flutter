@@ -104,19 +104,31 @@ class EditorialDecisionAttempt {
       dispatched = true;
       final result = await api.submit(command);
       final body = jsonDecode(command.encodedBody) as Map<String, dynamic>;
-      final field = body.containsKey('document_id')
-          ? 'document_id'
-          : 'definition_id';
-      final assessmentDraft =
-          command.path == '/api/admin/staff/assessments/drafts';
-      if (result.length != (assessmentDraft ? 2 : 1) ||
-          result[field] != body[field] ||
-          (assessmentDraft &&
-              (result['sha256'] is! String ||
-                  !RegExp(
-                    r'^[0-9a-f]{64}$',
-                  ).hasMatch(result['sha256'] as String)))) {
-        throw const EditorialFailure(200, uncertain: true);
+      if (command.path == '/api/admin/staff/documents/activations') {
+        final expected = body['expected_version'];
+        if (expected is! int ||
+            expected < 0 ||
+            expected > 9007199254740990 ||
+            result.length != 1 ||
+            result['registry_version'] is! int ||
+            result['registry_version'] != expected + 1) {
+          throw const EditorialFailure(200, uncertain: true);
+        }
+      } else {
+        final field = body.containsKey('document_id')
+            ? 'document_id'
+            : 'definition_id';
+        final assessmentDraft =
+            command.path == '/api/admin/staff/assessments/drafts';
+        if (result.length != (assessmentDraft ? 2 : 1) ||
+            result[field] != body[field] ||
+            (assessmentDraft &&
+                (result['sha256'] is! String ||
+                    !RegExp(
+                      r'^[0-9a-f]{64}$',
+                    ).hasMatch(result['sha256'] as String)))) {
+          throw const EditorialFailure(200, uncertain: true);
+        }
       }
       await journal?.resolve(
         command: command,

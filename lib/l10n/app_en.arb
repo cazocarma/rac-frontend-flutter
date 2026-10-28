@@ -112,5 +112,12 @@
   "staffCorrectOption": "Correct answer",
   "staffAddOption": "Add option",
   "staffRemoveOption": "Remove last option",
-  "staffAssessmentInvalid": "Complete commitments, questions, options and correct answers. Also check version and language."
+  "staffAssessmentInvalid": "Complete commitments, questions, options and correct answers. Also check version and language.",
+  "staffActivateBundle": "Activate document bundle",
+  "staffPrepareActivation": "Read and prepare activation",
+  "staffConfirmActivation": "Confirm bundle activation",
+  "staffRegistryVersion": "Bundle version",
+  "staffActivationHelp": "Five reviewed and published documents and one assessment will become active. The server supplies the current version; if it changes before confirmation, review and prepare the bundle again.",
+  "staffActivationSummary": "Change summary (up to three lines, optional)",
+  "staffActivationInvalid": "We could not prepare this bundle. Check references, language, publications and summary; read again before confirming."
 }

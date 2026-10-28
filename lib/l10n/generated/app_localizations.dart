@@ -673,6 +673,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma.'**
   String get staffAssessmentInvalid;
+
+  /// No description provided for @staffActivateBundle.
+  ///
+  /// In es, this message translates to:
+  /// **'Activar conjunto de documentos'**
+  String get staffActivateBundle;
+
+  /// No description provided for @staffPrepareActivation.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar y preparar activación'**
+  String get staffPrepareActivation;
+
+  /// No description provided for @staffConfirmActivation.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar activación del conjunto'**
+  String get staffConfirmActivation;
+
+  /// No description provided for @staffRegistryVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión del conjunto'**
+  String get staffRegistryVersion;
+
+  /// No description provided for @staffActivationHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Se activarán cinco documentos y un cuestionario ya revisados y publicados. La versión se consulta al servidor; si cambia antes de confirmar, debes revisar y preparar nuevamente el conjunto.'**
+  String get staffActivationHelp;
+
+  /// No description provided for @staffActivationSummary.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen de cambios (hasta tres líneas, opcional)'**
+  String get staffActivationSummary;
+
+  /// No description provided for @staffActivationInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar.'**
+  String get staffActivationInvalid;
 }
 
 class _AppLocalizationsDelegate

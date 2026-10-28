@@ -7,6 +7,7 @@ import 'editorial_journal.dart';
 import 'editorial_reader.dart';
 import 'editorial_draft.dart';
 import 'assessment_draft.dart';
+import 'editorial_activation.dart';
 
 class EditorialWorkspace extends StatefulWidget {
   const EditorialWorkspace({
@@ -88,8 +89,9 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
           completed = true;
           final body =
               jsonDecode(item.command.encodedBody) as Map<String, dynamic>;
-          receipt =
-              '${body['document_id'] ?? body['definition_id']}\nSHA-256: ${item.receipt?['sha256'] ?? body['sha256']}';
+          receipt = item.receipt!.containsKey('registry_version')
+              ? '${AppLocalizations.of(context)!.staffRegistryVersion}: ${item.receipt!['registry_version']}'
+              : '${body['document_id'] ?? body['definition_id']}\nSHA-256: ${item.receipt?['sha256'] ?? body['sha256']}';
           acknowledged = false;
         });
       }
@@ -231,6 +233,15 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
             ),
           if (widget.permissions.contains('documents.draft'))
             AssessmentDraftForm(
+              onSubmit: (command) async {
+                final item = attempt(command);
+                setState(() => attempts.add(item));
+                await submit(item);
+              },
+            ),
+          if (widget.permissions.contains('documents.activate'))
+            EditorialActivationForm(
+              api: widget.api,
               onSubmit: (command) async {
                 final item = attempt(command);
                 setState(() => attempts.add(item));

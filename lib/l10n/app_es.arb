@@ -112,5 +112,12 @@
   "staffCorrectOption": "Respuesta correcta",
   "staffAddOption": "Agregar alternativa",
   "staffRemoveOption": "Quitar última alternativa",
-  "staffAssessmentInvalid": "Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma."
+  "staffAssessmentInvalid": "Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma.",
+  "staffActivateBundle": "Activar conjunto de documentos",
+  "staffPrepareActivation": "Consultar y preparar activación",
+  "staffConfirmActivation": "Confirmar activación del conjunto",
+  "staffRegistryVersion": "Versión del conjunto",
+  "staffActivationHelp": "Se activarán cinco documentos y un cuestionario ya revisados y publicados. La versión se consulta al servidor; si cambia antes de confirmar, debes revisar y preparar nuevamente el conjunto.",
+  "staffActivationSummary": "Resumen de cambios (hasta tres líneas, opcional)",
+  "staffActivationInvalid": "No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar."
 }

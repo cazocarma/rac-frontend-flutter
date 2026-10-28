@@ -326,4 +326,28 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffAssessmentInvalid =>
       'Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma.';
+
+  @override
+  String get staffActivateBundle => 'Activar conjunto de documentos';
+
+  @override
+  String get staffPrepareActivation => 'Consultar y preparar activación';
+
+  @override
+  String get staffConfirmActivation => 'Confirmar activación del conjunto';
+
+  @override
+  String get staffRegistryVersion => 'Versión del conjunto';
+
+  @override
+  String get staffActivationHelp =>
+      'Se activarán cinco documentos y un cuestionario ya revisados y publicados. La versión se consulta al servidor; si cambia antes de confirmar, debes revisar y preparar nuevamente el conjunto.';
+
+  @override
+  String get staffActivationSummary =>
+      'Resumen de cambios (hasta tres líneas, opcional)';
+
+  @override
+  String get staffActivationInvalid =>
+      'No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar.';
 }
