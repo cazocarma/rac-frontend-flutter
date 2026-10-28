@@ -82,5 +82,21 @@
   "staffDecisionFailed": "We could not complete the operation. Pending commands remain available for review.",
   "staffDecisionCompleted": "Operation confirmed. Read the revision again to view its current state.",
   "staffPendingRecovery": "Commands await confirmation. Retry the same command or authenticate again.",
-  "staffRetrySameCommand": "Retry the same command"
+  "staffRetrySameCommand": "Retry the same command",
+  "staffCreateDraft": "Create document draft",
+  "staffConfirmDraft": "Confirm draft",
+  "staffDraftHelp": "Drafts are immutable. Another person must review them before publication; creating a draft does not activate new obligations.",
+  "staffDocumentKind": "Document",
+  "staffClientTerms": "Client terms",
+  "staffCompaTerms": "Compa terms",
+  "staffCommunityRules": "Community rules",
+  "staffPrivacy": "Privacy",
+  "staffSafetyRules": "Safety rules",
+  "staffVersion": "Version",
+  "staffLocale": "Language",
+  "staffMaterialChange": "Does acceptance need to be renewed?",
+  "staffMaterialYes": "Yes, material change",
+  "staffMaterialNo": "No, non-material change",
+  "staffDocumentContent": "Complete text",
+  "staffDraftInvalid": "Check selections, version and text. The limit is 128 KiB of UTF-8 text."
 }

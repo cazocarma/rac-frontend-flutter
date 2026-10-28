@@ -5,6 +5,7 @@ import 'editorial_api.dart';
 import 'editorial_decision.dart';
 import 'editorial_journal.dart';
 import 'editorial_reader.dart';
+import 'editorial_draft.dart';
 
 class EditorialWorkspace extends StatefulWidget {
   const EditorialWorkspace({
@@ -33,6 +34,7 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
   bool failed = false;
   bool acknowledged = false;
   bool completed = false;
+  String? receipt;
 
   String get origin => widget.api.origin.origin;
   @override
@@ -83,6 +85,10 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
           attempts.remove(item);
           revision = null;
           completed = true;
+          final body =
+              jsonDecode(item.command.encodedBody) as Map<String, dynamic>;
+          receipt =
+              '${body['document_id'] ?? body['definition_id']}\nSHA-256: ${body['sha256']}';
           acknowledged = false;
         });
       }
@@ -185,7 +191,10 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
       children: [
         if (!ready && !failed) const LinearProgressIndicator(),
         if (failed) Text(t.staffDecisionFailed),
-        if (completed) Text(t.staffDecisionCompleted),
+        if (completed) ...[
+          Text(t.staffDecisionCompleted),
+          if (receipt != null) SelectableText(receipt!),
+        ],
         if (attempts.isNotEmpty) ...[
           Text(t.staffPendingRecovery),
           for (final item in attempts)
@@ -211,6 +220,14 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
           ),
         ],
         if (ready && attempts.isEmpty) ...[
+          if (widget.permissions.contains('documents.draft'))
+            EditorialDraft(
+              onSubmit: (command) async {
+                final item = attempt(command);
+                setState(() => attempts.add(item));
+                await submit(item);
+              },
+            ),
           EditorialReader(
             api: widget.api,
             onRevision: (kind, value) {

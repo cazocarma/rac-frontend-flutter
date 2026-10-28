@@ -4,6 +4,15 @@ import 'dart:convert';
 import 'editorial_api.dart';
 import 'editorial_journal.dart';
 
+String newEditorialReference() {
+  final random = Random.secure();
+  final bytes = List<int>.generate(16, (_) => random.nextInt(256));
+  bytes[6] = (bytes[6] & 15) | 64;
+  bytes[8] = (bytes[8] & 63) | 128;
+  final hex = bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+  return '${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}';
+}
+
 bool canEditorialDecide({
   required String resource,
   required Map<String, dynamic> revision,
@@ -46,13 +55,7 @@ EditorialCommand editorialDecision({
   )) {
     throw StateError('Editorial decision unavailable');
   }
-  final random = Random.secure();
-  final bytes = List<int>.generate(16, (_) => random.nextInt(256));
-  bytes[6] = (bytes[6] & 15) | 64;
-  bytes[8] = (bytes[8] & 63) | 128;
-  final hex = bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
-  final event =
-      '${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}';
+  final event = newEditorialReference();
   return EditorialCommand('$resource/${review ? 'reviews' : 'publications'}', {
     'event_id': event,
     resource == 'documents' ? 'document_id' : 'definition_id': revision['id'],

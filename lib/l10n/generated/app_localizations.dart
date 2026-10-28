@@ -493,6 +493,102 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Reintentar el mismo comando'**
   String get staffRetrySameCommand;
+
+  /// No description provided for @staffCreateDraft.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear borrador de documento'**
+  String get staffCreateDraft;
+
+  /// No description provided for @staffConfirmDraft.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar borrador'**
+  String get staffConfirmDraft;
+
+  /// No description provided for @staffDraftHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'El borrador es inmutable. Requiere revisión de otra persona antes de publicarse; crearlo no activa nuevas obligaciones.'**
+  String get staffDraftHelp;
+
+  /// No description provided for @staffDocumentKind.
+  ///
+  /// In es, this message translates to:
+  /// **'Documento'**
+  String get staffDocumentKind;
+
+  /// No description provided for @staffClientTerms.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos para clientes'**
+  String get staffClientTerms;
+
+  /// No description provided for @staffCompaTerms.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos para Compas'**
+  String get staffCompaTerms;
+
+  /// No description provided for @staffCommunityRules.
+  ///
+  /// In es, this message translates to:
+  /// **'Normas de comunidad'**
+  String get staffCommunityRules;
+
+  /// No description provided for @staffPrivacy.
+  ///
+  /// In es, this message translates to:
+  /// **'Privacidad'**
+  String get staffPrivacy;
+
+  /// No description provided for @staffSafetyRules.
+  ///
+  /// In es, this message translates to:
+  /// **'Normas de seguridad'**
+  String get staffSafetyRules;
+
+  /// No description provided for @staffVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión'**
+  String get staffVersion;
+
+  /// No description provided for @staffLocale.
+  ///
+  /// In es, this message translates to:
+  /// **'Idioma'**
+  String get staffLocale;
+
+  /// No description provided for @staffMaterialChange.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Requiere renovar la aceptación?'**
+  String get staffMaterialChange;
+
+  /// No description provided for @staffMaterialYes.
+  ///
+  /// In es, this message translates to:
+  /// **'Sí, cambio material'**
+  String get staffMaterialYes;
+
+  /// No description provided for @staffMaterialNo.
+  ///
+  /// In es, this message translates to:
+  /// **'No, cambio no material'**
+  String get staffMaterialNo;
+
+  /// No description provided for @staffDocumentContent.
+  ///
+  /// In es, this message translates to:
+  /// **'Texto completo'**
+  String get staffDocumentContent;
+
+  /// No description provided for @staffDraftInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8.'**
+  String get staffDraftInvalid;
 }
 
 class _AppLocalizationsDelegate

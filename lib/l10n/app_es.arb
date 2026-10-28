@@ -82,5 +82,21 @@
   "staffDecisionFailed": "No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.",
   "staffDecisionCompleted": "Operación confirmada. Consulta la revisión para ver su estado actualizado.",
   "staffPendingRecovery": "Hay comandos pendientes de confirmar. Reintenta el mismo comando o vuelve a autenticarte.",
-  "staffRetrySameCommand": "Reintentar el mismo comando"
+  "staffRetrySameCommand": "Reintentar el mismo comando",
+  "staffCreateDraft": "Crear borrador de documento",
+  "staffConfirmDraft": "Confirmar borrador",
+  "staffDraftHelp": "El borrador es inmutable. Requiere revisión de otra persona antes de publicarse; crearlo no activa nuevas obligaciones.",
+  "staffDocumentKind": "Documento",
+  "staffClientTerms": "Términos para clientes",
+  "staffCompaTerms": "Términos para Compas",
+  "staffCommunityRules": "Normas de comunidad",
+  "staffPrivacy": "Privacidad",
+  "staffSafetyRules": "Normas de seguridad",
+  "staffVersion": "Versión",
+  "staffLocale": "Idioma",
+  "staffMaterialChange": "¿Requiere renovar la aceptación?",
+  "staffMaterialYes": "Sí, cambio material",
+  "staffMaterialNo": "No, cambio no material",
+  "staffDocumentContent": "Texto completo",
+  "staffDraftInvalid": "Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8."
 }

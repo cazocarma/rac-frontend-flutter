@@ -232,4 +232,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get staffRetrySameCommand => 'Retry the same command';
+
+  @override
+  String get staffCreateDraft => 'Create document draft';
+
+  @override
+  String get staffConfirmDraft => 'Confirm draft';
+
+  @override
+  String get staffDraftHelp =>
+      'Drafts are immutable. Another person must review them before publication; creating a draft does not activate new obligations.';
+
+  @override
+  String get staffDocumentKind => 'Document';
+
+  @override
+  String get staffClientTerms => 'Client terms';
+
+  @override
+  String get staffCompaTerms => 'Compa terms';
+
+  @override
+  String get staffCommunityRules => 'Community rules';
+
+  @override
+  String get staffPrivacy => 'Privacy';
+
+  @override
+  String get staffSafetyRules => 'Safety rules';
+
+  @override
+  String get staffVersion => 'Version';
+
+  @override
+  String get staffLocale => 'Language';
+
+  @override
+  String get staffMaterialChange => 'Does acceptance need to be renewed?';
+
+  @override
+  String get staffMaterialYes => 'Yes, material change';
+
+  @override
+  String get staffMaterialNo => 'No, non-material change';
+
+  @override
+  String get staffDocumentContent => 'Complete text';
+
+  @override
+  String get staffDraftInvalid =>
+      'Check selections, version and text. The limit is 128 KiB of UTF-8 text.';
 }

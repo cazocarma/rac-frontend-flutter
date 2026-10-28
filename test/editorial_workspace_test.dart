@@ -43,7 +43,7 @@ void main() {
         session: StaffFixture(),
         origin: Uri.parse('https://rac.test'),
         client: MockClient((request) async {
-          if (request.method == 'GET')
+          if (request.method == 'GET') {
             return http.Response(
               jsonEncode({
                 'id': id,
@@ -57,6 +57,7 @@ void main() {
               }),
               200,
             );
+          }
           bodies.add(request.body);
           return http.Response(
             bodies.length == 1 ? '{}' : '{"document_id":"$id"}',

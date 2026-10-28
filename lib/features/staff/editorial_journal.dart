@@ -114,8 +114,9 @@ class EditorialJournal {
       }
       if (value['subject'] != subject ||
           value['issuer'] != issuer ||
-          value['origin'] != origin)
+          value['origin'] != origin) {
         continue;
+      }
       if (value.length != 6 ||
           value['operation'] is! String ||
           value['body'] is! String) {

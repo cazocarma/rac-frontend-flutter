@@ -232,4 +232,54 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get staffRetrySameCommand => 'Reintentar el mismo comando';
+
+  @override
+  String get staffCreateDraft => 'Crear borrador de documento';
+
+  @override
+  String get staffConfirmDraft => 'Confirmar borrador';
+
+  @override
+  String get staffDraftHelp =>
+      'El borrador es inmutable. Requiere revisión de otra persona antes de publicarse; crearlo no activa nuevas obligaciones.';
+
+  @override
+  String get staffDocumentKind => 'Documento';
+
+  @override
+  String get staffClientTerms => 'Términos para clientes';
+
+  @override
+  String get staffCompaTerms => 'Términos para Compas';
+
+  @override
+  String get staffCommunityRules => 'Normas de comunidad';
+
+  @override
+  String get staffPrivacy => 'Privacidad';
+
+  @override
+  String get staffSafetyRules => 'Normas de seguridad';
+
+  @override
+  String get staffVersion => 'Versión';
+
+  @override
+  String get staffLocale => 'Idioma';
+
+  @override
+  String get staffMaterialChange => '¿Requiere renovar la aceptación?';
+
+  @override
+  String get staffMaterialYes => 'Sí, cambio material';
+
+  @override
+  String get staffMaterialNo => 'No, cambio no material';
+
+  @override
+  String get staffDocumentContent => 'Texto completo';
+
+  @override
+  String get staffDraftInvalid =>
+      'Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8.';
 }
