@@ -589,6 +589,90 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8.'**
   String get staffDraftInvalid;
+
+  /// No description provided for @staffCreateAssessment.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear cuestionario privado'**
+  String get staffCreateAssessment;
+
+  /// No description provided for @staffConfirmAssessment.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar cuestionario'**
+  String get staffConfirmAssessment;
+
+  /// No description provided for @staffPrivateAssessmentHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Incluye cinco compromisos y tres preguntas. Selecciona explícitamente las respuestas correctas. La clave es privada y el servidor calcula el hash de la revisión.'**
+  String get staffPrivateAssessmentHelp;
+
+  /// No description provided for @staffNoSubstances.
+  ///
+  /// In es, this message translates to:
+  /// **'Compromiso sobre sustancias ilícitas'**
+  String get staffNoSubstances;
+
+  /// No description provided for @staffNoSexualServices.
+  ///
+  /// In es, this message translates to:
+  /// **'Compromiso sobre servicios sexuales'**
+  String get staffNoSexualServices;
+
+  /// No description provided for @staffCatalogOnly.
+  ///
+  /// In es, this message translates to:
+  /// **'Compromiso sobre actividades permitidas'**
+  String get staffCatalogOnly;
+
+  /// No description provided for @staffAdultsOnly.
+  ///
+  /// In es, this message translates to:
+  /// **'Compromiso de mayoría de edad'**
+  String get staffAdultsOnly;
+
+  /// No description provided for @staffEnforcement.
+  ///
+  /// In es, this message translates to:
+  /// **'Compromiso sobre medidas y apelación'**
+  String get staffEnforcement;
+
+  /// No description provided for @staffQuestion.
+  ///
+  /// In es, this message translates to:
+  /// **'Pregunta'**
+  String get staffQuestion;
+
+  /// No description provided for @staffOption.
+  ///
+  /// In es, this message translates to:
+  /// **'Alternativa'**
+  String get staffOption;
+
+  /// No description provided for @staffCorrectOption.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta correcta'**
+  String get staffCorrectOption;
+
+  /// No description provided for @staffAddOption.
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar alternativa'**
+  String get staffAddOption;
+
+  /// No description provided for @staffRemoveOption.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar última alternativa'**
+  String get staffRemoveOption;
+
+  /// No description provided for @staffAssessmentInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma.'**
+  String get staffAssessmentInvalid;
 }
 
 class _AppLocalizationsDelegate

@@ -98,5 +98,19 @@
   "staffMaterialYes": "Yes, material change",
   "staffMaterialNo": "No, non-material change",
   "staffDocumentContent": "Complete text",
-  "staffDraftInvalid": "Check selections, version and text. The limit is 128 KiB of UTF-8 text."
+  "staffDraftInvalid": "Check selections, version and text. The limit is 128 KiB of UTF-8 text.",
+  "staffCreateAssessment": "Create private assessment",
+  "staffConfirmAssessment": "Confirm assessment",
+  "staffPrivateAssessmentHelp": "Include five commitments and three questions. Explicitly select correct answers. The answer key is private and the server computes the revision hash.",
+  "staffNoSubstances": "Commitment about illicit substances",
+  "staffNoSexualServices": "Commitment about sexual services",
+  "staffCatalogOnly": "Commitment about permitted activities",
+  "staffAdultsOnly": "Adult age commitment",
+  "staffEnforcement": "Commitment about enforcement and appeals",
+  "staffQuestion": "Question",
+  "staffOption": "Option",
+  "staffCorrectOption": "Correct answer",
+  "staffAddOption": "Add option",
+  "staffRemoveOption": "Remove last option",
+  "staffAssessmentInvalid": "Complete commitments, questions, options and correct answers. Also check version and language."
 }

@@ -87,6 +87,7 @@ class EditorialDecisionAttempt {
   final String origin;
   bool uncertain = false;
   bool resolved = false;
+  Map<String, dynamic>? receipt;
   bool sending = false;
 
   Future<void> submit(EditorialApi api) async {
@@ -106,7 +107,15 @@ class EditorialDecisionAttempt {
       final field = body.containsKey('document_id')
           ? 'document_id'
           : 'definition_id';
-      if (result.length != 1 || result[field] != body[field]) {
+      final assessmentDraft =
+          command.path == '/api/admin/staff/assessments/drafts';
+      if (result.length != (assessmentDraft ? 2 : 1) ||
+          result[field] != body[field] ||
+          (assessmentDraft &&
+              (result['sha256'] is! String ||
+                  !RegExp(
+                    r'^[0-9a-f]{64}$',
+                  ).hasMatch(result['sha256'] as String)))) {
         throw const EditorialFailure(200, uncertain: true);
       }
       await journal?.resolve(
@@ -115,6 +124,7 @@ class EditorialDecisionAttempt {
         issuer: issuer,
         origin: origin,
       );
+      receipt = Map.unmodifiable(result);
       resolved = true;
     } on EditorialFailure catch (error) {
       uncertain = uncertain || error.uncertain;

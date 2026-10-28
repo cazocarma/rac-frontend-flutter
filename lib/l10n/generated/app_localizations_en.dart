@@ -282,4 +282,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffDraftInvalid =>
       'Check selections, version and text. The limit is 128 KiB of UTF-8 text.';
+
+  @override
+  String get staffCreateAssessment => 'Create private assessment';
+
+  @override
+  String get staffConfirmAssessment => 'Confirm assessment';
+
+  @override
+  String get staffPrivateAssessmentHelp =>
+      'Include five commitments and three questions. Explicitly select correct answers. The answer key is private and the server computes the revision hash.';
+
+  @override
+  String get staffNoSubstances => 'Commitment about illicit substances';
+
+  @override
+  String get staffNoSexualServices => 'Commitment about sexual services';
+
+  @override
+  String get staffCatalogOnly => 'Commitment about permitted activities';
+
+  @override
+  String get staffAdultsOnly => 'Adult age commitment';
+
+  @override
+  String get staffEnforcement => 'Commitment about enforcement and appeals';
+
+  @override
+  String get staffQuestion => 'Question';
+
+  @override
+  String get staffOption => 'Option';
+
+  @override
+  String get staffCorrectOption => 'Correct answer';
+
+  @override
+  String get staffAddOption => 'Add option';
+
+  @override
+  String get staffRemoveOption => 'Remove last option';
+
+  @override
+  String get staffAssessmentInvalid =>
+      'Complete commitments, questions, options and correct answers. Also check version and language.';
 }

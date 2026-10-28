@@ -98,5 +98,19 @@
   "staffMaterialYes": "Sí, cambio material",
   "staffMaterialNo": "No, cambio no material",
   "staffDocumentContent": "Texto completo",
-  "staffDraftInvalid": "Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8."
+  "staffDraftInvalid": "Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8.",
+  "staffCreateAssessment": "Crear cuestionario privado",
+  "staffConfirmAssessment": "Confirmar cuestionario",
+  "staffPrivateAssessmentHelp": "Incluye cinco compromisos y tres preguntas. Selecciona explícitamente las respuestas correctas. La clave es privada y el servidor calcula el hash de la revisión.",
+  "staffNoSubstances": "Compromiso sobre sustancias ilícitas",
+  "staffNoSexualServices": "Compromiso sobre servicios sexuales",
+  "staffCatalogOnly": "Compromiso sobre actividades permitidas",
+  "staffAdultsOnly": "Compromiso de mayoría de edad",
+  "staffEnforcement": "Compromiso sobre medidas y apelación",
+  "staffQuestion": "Pregunta",
+  "staffOption": "Alternativa",
+  "staffCorrectOption": "Respuesta correcta",
+  "staffAddOption": "Agregar alternativa",
+  "staffRemoveOption": "Quitar última alternativa",
+  "staffAssessmentInvalid": "Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma."
 }

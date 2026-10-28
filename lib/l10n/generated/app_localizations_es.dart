@@ -282,4 +282,48 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffDraftInvalid =>
       'Revisa las selecciones, la versión y el texto. El máximo es 128 KiB de texto UTF-8.';
+
+  @override
+  String get staffCreateAssessment => 'Crear cuestionario privado';
+
+  @override
+  String get staffConfirmAssessment => 'Confirmar cuestionario';
+
+  @override
+  String get staffPrivateAssessmentHelp =>
+      'Incluye cinco compromisos y tres preguntas. Selecciona explícitamente las respuestas correctas. La clave es privada y el servidor calcula el hash de la revisión.';
+
+  @override
+  String get staffNoSubstances => 'Compromiso sobre sustancias ilícitas';
+
+  @override
+  String get staffNoSexualServices => 'Compromiso sobre servicios sexuales';
+
+  @override
+  String get staffCatalogOnly => 'Compromiso sobre actividades permitidas';
+
+  @override
+  String get staffAdultsOnly => 'Compromiso de mayoría de edad';
+
+  @override
+  String get staffEnforcement => 'Compromiso sobre medidas y apelación';
+
+  @override
+  String get staffQuestion => 'Pregunta';
+
+  @override
+  String get staffOption => 'Alternativa';
+
+  @override
+  String get staffCorrectOption => 'Respuesta correcta';
+
+  @override
+  String get staffAddOption => 'Agregar alternativa';
+
+  @override
+  String get staffRemoveOption => 'Quitar última alternativa';
+
+  @override
+  String get staffAssessmentInvalid =>
+      'Completa los compromisos, preguntas, alternativas y respuestas correctas. Revisa también versión e idioma.';
 }
