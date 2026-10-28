@@ -93,6 +93,22 @@ class EditorialApi {
   Future<Map<String, dynamic>> sessionInfo() =>
       _get('/api/admin/staff/session');
 
+  Future<int> registryHead(String locale) async {
+    if (!{'es', 'en'}.contains(locale)) {
+      throw ArgumentError('Known locale required');
+    }
+    final result = await _get('/api/admin/staff/documents/registry/$locale');
+    final version = result['registry_version'];
+    // Both expected and expected+1 must be represented exactly in JavaScript.
+    if (result.length != 1 ||
+        version is! int ||
+        version < 0 ||
+        version > 9007199254740990) {
+      throw const EditorialFailure(200, uncertain: false);
+    }
+    return version;
+  }
+
   Future<Map<String, dynamic>> read(String resource, String id) {
     if (!{'documents', 'assessments'}.contains(resource) ||
         !RegExp(

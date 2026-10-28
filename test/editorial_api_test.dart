@@ -28,6 +28,43 @@ class StaffFixture implements AuthSession {
 
 void main() {
   test(
+    'registry head is fetched by locale and unsafe browser integers fail closed',
+    () async {
+      for (final body in [
+        '{"registry_version":0}',
+        '{"registry_version":4}',
+        '{"registry_version":9007199254740991}',
+        '{"registry_version":1.5}',
+        '{"registry_version":"4"}',
+        '{"registry_version":-1}',
+        '{"registry_version":4,"extra":"private"}',
+      ]) {
+        final api = EditorialApi(
+          session: StaffFixture(),
+          origin: Uri.parse('https://rac.test'),
+          client: MockClient((request) async {
+            expect(request.url.path, '/api/admin/staff/documents/registry/es');
+            expect(request.followRedirects, isFalse);
+            return http.Response(body, 200);
+          }),
+        );
+        if (body == '{"registry_version":0}' ||
+            body == '{"registry_version":4}') {
+          expect(
+            await api.registryHead('es'),
+            jsonDecode(body)['registry_version'],
+          );
+        } else {
+          await expectLater(
+            api.registryHead('es'),
+            throwsA(isA<EditorialFailure>()),
+          );
+        }
+      }
+    },
+  );
+
+  test(
     'redirects stay disabled and oversized replies remain uncertain',
     () async {
       final client = MockClient((request) async {
