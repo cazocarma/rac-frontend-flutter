@@ -59,8 +59,9 @@ class _EditorialDraftState extends State<EditorialDraft> {
     final t = AppLocalizations.of(context)!;
     EditorialCommand command;
     try {
-      if (material == null)
+      if (material == null) {
         throw const FormatException('Explicit selection required');
+      }
       command = draftDocument(
         kind: kind ?? '',
         version: version.text,
