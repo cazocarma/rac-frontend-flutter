@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:convert';
 
 import 'editorial_api.dart';
+import 'editorial_journal.dart';
 
 /// Binds a decision to the exact reviewed revision, never to editable fields.
 /// UI checks are convenience; owner authorization and four-eyes are mandatory.
@@ -46,8 +47,24 @@ EditorialCommand editorialDecision({
 /// Once any attempt is uncertain, a later rejection cannot prove that the
 /// original attempt rolled back. Preserve the command until a success receipt.
 class EditorialDecisionAttempt {
-  EditorialDecisionAttempt(this.command);
+  EditorialDecisionAttempt(this.command)
+    : journal = null,
+      subject = '',
+      issuer = '',
+      origin = '';
+  EditorialDecisionAttempt.durable(
+    this.command, {
+    required this.journal,
+    required this.subject,
+    required this.issuer,
+    required this.origin,
+    bool recovered = false,
+  }) : uncertain = recovered;
   final EditorialCommand command;
+  final EditorialJournal? journal;
+  final String subject;
+  final String issuer;
+  final String origin;
   bool uncertain = false;
   bool resolved = false;
   bool sending = false;
@@ -55,7 +72,15 @@ class EditorialDecisionAttempt {
   Future<void> submit(EditorialApi api) async {
     if (sending || resolved) throw StateError('Attempt unavailable');
     sending = true;
+    var dispatched = false;
     try {
+      await journal?.save(
+        command: command,
+        subject: subject,
+        issuer: issuer,
+        origin: origin,
+      );
+      dispatched = true;
       final result = await api.submit(command);
       final body = jsonDecode(command.encodedBody) as Map<String, dynamic>;
       final field = body.containsKey('document_id')
@@ -64,9 +89,18 @@ class EditorialDecisionAttempt {
       if (result.length != 1 || result[field] != body[field]) {
         throw const EditorialFailure(200, uncertain: true);
       }
+      await journal?.resolve(
+        command: command,
+        subject: subject,
+        issuer: issuer,
+        origin: origin,
+      );
       resolved = true;
     } on EditorialFailure catch (error) {
       uncertain = uncertain || error.uncertain;
+      rethrow;
+    } catch (_) {
+      uncertain = uncertain || dispatched;
       rethrow;
     } finally {
       sending = false;

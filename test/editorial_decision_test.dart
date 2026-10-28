@@ -1,3 +1,5 @@
+import 'package:oidc/oidc.dart';
+import 'package:rentacompa/features/staff/editorial_journal.dart';
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +17,67 @@ Map<String, dynamic> revision() => {
 };
 
 void main() {
+  test(
+    'durable attempt persists before dispatch and resolves only exact receipt',
+    () async {
+      final journal = EditorialJournal(store: OidcMemoryStore());
+      var calls = 0;
+      final api = EditorialApi(
+        session: StaffFixture(),
+        origin: Uri.parse('https://rac.test'),
+        client: MockClient((_) async {
+          calls++;
+          expect(
+            await journal.pending(
+              subject: 'reviewer',
+              issuer: 'issuer',
+              origin: 'origin',
+            ),
+            hasLength(1),
+          );
+          return http.Response(
+            '{"document_id":"11111111-1111-4111-8111-111111111111"}',
+            200,
+          );
+        }),
+      );
+      final cmd = editorialDecision(
+        resource: 'documents',
+        revision: revision(),
+        action: 'approved',
+        permissions: {'documents.approve'},
+        subject: 'reviewer',
+      );
+      final invalid = EditorialDecisionAttempt.durable(
+        cmd,
+        journal: journal,
+        subject: '',
+        issuer: 'issuer',
+        origin: 'origin',
+      );
+      await expectLater(invalid.submit(api), throwsStateError);
+      expect(calls, 0);
+      final valid = EditorialDecisionAttempt.durable(
+        cmd,
+        journal: journal,
+        subject: 'reviewer',
+        issuer: 'issuer',
+        origin: 'origin',
+      );
+      await valid.submit(api);
+      expect(calls, 1);
+      expect(valid.resolved, isTrue);
+      expect(
+        await journal.pending(
+          subject: 'reviewer',
+          issuer: 'issuer',
+          origin: 'origin',
+        ),
+        isEmpty,
+      );
+    },
+  );
+
   test(
     'review binds exact revision with fresh UUID; self approval forbidden',
     () {

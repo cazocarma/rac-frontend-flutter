@@ -7,6 +7,17 @@ import '../../shared/services/auth_session.dart';
 /// Keep the exact command in memory until an uncertain result is resolved.
 /// Neither credentials nor unpublished legal text belong in preferences/logs.
 class EditorialCommand {
+  factory EditorialCommand.restore(String operation, String encodedBody) {
+    final decoded = jsonDecode(encodedBody);
+    if (decoded is! Map<String, dynamic>) {
+      throw const FormatException('Invalid saved command');
+    }
+    final command = EditorialCommand(operation, decoded);
+    if (command.encodedBody != encodedBody) {
+      throw const FormatException('Saved command is not canonical');
+    }
+    return command;
+  }
   EditorialCommand(String operation, Map<String, dynamic> body)
     : path = _path(operation),
       encodedBody = jsonEncode(body) {
