@@ -41,17 +41,21 @@ void main() {
         find.text('Team session verified'),
         status == 200 ? findsOneWidget : findsNothing,
       );
-      if (status != 200) expect(find.text('Sign in with MFA'), findsOneWidget);
-      if (status == 403)
+      if (status != 200) {
+        expect(find.text('Sign in with MFA'), findsOneWidget);
+      }
+      if (status == 403) {
         expect(
           find.text('This account cannot access the console.'),
           findsOneWidget,
         );
-      if (status == 503)
+      }
+      if (status == 503) {
         expect(
           find.text('We could not validate access. Retry or sign in again.'),
           findsOneWidget,
         );
+      }
     });
   }
 

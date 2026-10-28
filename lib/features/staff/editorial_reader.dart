@@ -45,14 +45,17 @@ class _EditorialReaderState extends State<EditorialReader> {
           !RegExp(r'^[0-9a-f]{64}$').hasMatch(result['sha256'] as String)) {
         throw const FormatException('Invalid revision');
       }
-      if (mounted && generation == requestGeneration)
+      if (mounted && generation == requestGeneration) {
         setState(() => revision = result);
+      }
     } catch (_) {
-      if (mounted && generation == requestGeneration)
+      if (mounted && generation == requestGeneration) {
         setState(() => failed = true);
+      }
     } finally {
-      if (mounted && generation == requestGeneration)
+      if (mounted && generation == requestGeneration) {
         setState(() => busy = false);
+      }
     }
   }
 
