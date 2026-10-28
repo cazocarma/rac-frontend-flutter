@@ -14,20 +14,58 @@ abstract class AuthSession {
 }
 
 class OidcAuthSession implements AuthSession {
+  OidcAuthSession() : staffIssuer = null, staffOrigin = null;
+
+  /// A separate manager/client prevents ordinary tokens from becoming staff
+  /// credentials. The server still enforces audience, client roles and MFA.
+  OidcAuthSession.staff({required Uri issuer, required Uri appOrigin})
+    : staffIssuer = issuer,
+      staffOrigin = appOrigin {
+    if (!{'http', 'https'}.contains(appOrigin.scheme) ||
+        appOrigin.host.isEmpty ||
+        appOrigin.userInfo.isNotEmpty ||
+        (appOrigin.path.isNotEmpty && appOrigin.path != '/') ||
+        appOrigin.hasQuery ||
+        appOrigin.hasFragment ||
+        !{'http', 'https'}.contains(issuer.scheme) ||
+        issuer.host.isEmpty ||
+        issuer.userInfo.isNotEmpty ||
+        issuer.hasQuery ||
+        issuer.hasFragment) {
+      throw ArgumentError(
+        'Explicit staff issuer and application origin required',
+      );
+    }
+  }
+
+  final Uri? staffIssuer;
+  final Uri? staffOrigin;
+  bool get isStaff => staffIssuer != null;
+  String get _issuer => staffIssuer?.toString() ?? Env.issuer;
+  Uri get _redirect =>
+      staffOrigin?.resolve('/staff/redirect.html') ??
+      Uri.parse(Env.redirectUri);
+  Uri? get _returnUri => isStaff
+      ? staffOrigin!.resolve('/#/staff')
+      : (kIsWeb ? Uri.base.resolve('/') : null);
+
   OidcUserManager? _manager;
   Future<void>? _initializing;
   OidcUserManager get manager => _manager ??= OidcUserManager.lazy(
+    id: isStaff ? 'rac-staff-console' : null,
     discoveryDocumentUri: Uri.parse(
-      '${Env.issuer}/.well-known/openid-configuration',
+      '$_issuer/.well-known/openid-configuration',
     ),
-    clientCredentials: OidcClientAuthentication.none(clientId: Env.clientId),
+    clientCredentials: OidcClientAuthentication.none(
+      clientId: isStaff ? 'rac-staff' : Env.clientId,
+    ),
     store: createAuthStore(),
     settings: OidcUserManagerSettings(
-      redirectUri: Uri.parse(Env.redirectUri),
-      postLogoutRedirectUri: Uri.parse(Env.redirectUri),
+      redirectUri: _redirect,
+      postLogoutRedirectUri: _redirect,
       scope: const ['openid', 'profile', 'email'],
       allowedIdTokenAlgorithms: const ['RS256'],
-      expectedIssuer: Uri.parse(Env.issuer),
+      expectedIssuer: Uri.parse(_issuer),
       supportOfflineAuth: false,
       options: const OidcPlatformSpecificOptions(
         web: OidcPlatformSpecificOptions_Web(
@@ -55,7 +93,9 @@ class OidcAuthSession implements AuthSession {
     debugPrint('RAC OIDC: iniciando autorización');
     final user = await manager
         .loginAuthorizationCodeFlow(
-          originalUri: kIsWeb ? Uri.base.resolve('/') : null,
+          originalUri: _returnUri,
+          promptOverride: isStaff ? const ['login'] : null,
+          maxAgeOverride: isStaff ? Duration.zero : null,
         )
         .timeout(const Duration(seconds: 30));
     if (user == null && kIsWeb) {
@@ -86,7 +126,7 @@ class OidcAuthSession implements AuthSession {
   Future<void> logout() async {
     await _init();
     try {
-      await manager.logout(originalUri: kIsWeb ? Uri.base.resolve('/') : null);
+      await manager.logout(originalUri: _returnUri);
     } finally {
       await manager.forgetUser();
     }

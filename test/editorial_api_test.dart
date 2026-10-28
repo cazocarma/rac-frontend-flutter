@@ -64,8 +64,9 @@ void main() {
           );
           expect(request.headers['Authorization'], 'Bearer ${session.token}');
           bodies.add(request.body);
-          if (bodies.length == 1)
+          if (bodies.length == 1) {
             throw http.ClientException('secret diagnostic');
+          }
           return http.Response('{"document_id":"doc"}', 200);
         }),
       );

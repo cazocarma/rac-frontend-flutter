@@ -40,6 +40,31 @@ class FakeSession implements AuthSession {
 }
 
 void main() {
+  test('staff manager has isolated client, callback and storage identity', () {
+    final ordinary = OidcAuthSession();
+    final staff = OidcAuthSession.staff(
+      issuer: Uri.parse('https://identity.test/realms/rac'),
+      appOrigin: Uri.parse('https://rac.test'),
+    );
+    expect(staff.manager.id, 'rac-staff-console');
+    expect(ordinary.manager.id, isNull);
+    expect(
+      staff.manager.settings.redirectUri,
+      Uri.parse('https://rac.test/staff/redirect.html'),
+    );
+    expect(
+      staff.manager.settings.expectedIssuer,
+      Uri.parse('https://identity.test/realms/rac'),
+    );
+    expect(ordinary.isStaff, isFalse);
+    expect(
+      () => OidcAuthSession.staff(
+        issuer: Uri.parse('https://identity.test/realms/rac'),
+        appOrigin: Uri.parse('https://rac.test/path?callback=evil'),
+      ),
+      throwsArgumentError,
+    );
+  });
   test(
     'migration removes legacy tokens without removing user preferences',
     () async {
