@@ -4,9 +4,7 @@ import 'dart:convert';
 import 'editorial_api.dart';
 import 'editorial_journal.dart';
 
-/// Binds a decision to the exact reviewed revision, never to editable fields.
-/// UI checks are convenience; owner authorization and four-eyes are mandatory.
-EditorialCommand editorialDecision({
+bool canEditorialDecide({
   required String resource,
   required Map<String, dynamic> revision,
   required String action,
@@ -14,7 +12,7 @@ EditorialCommand editorialDecision({
   required String subject,
 }) {
   final review = action == 'approved' || action == 'rejected';
-  if (!{'documents', 'assessments'}.contains(resource) ||
+  return !(!{'documents', 'assessments'}.contains(resource) ||
       (!review && action != 'publish') ||
       subject.isEmpty ||
       !permissions.contains(
@@ -26,7 +24,26 @@ EditorialCommand editorialDecision({
       revision['published_at'] != null ||
       revision['id'] is! String ||
       revision['sha256'] is! String ||
-      !RegExp(r'^[0-9a-f]{64}$').hasMatch(revision['sha256'] as String)) {
+      !RegExp(r'^[0-9a-f]{64}$').hasMatch(revision['sha256'] as String));
+}
+
+/// Binds a decision to the exact reviewed revision, never to editable fields.
+/// UI checks are convenience; owner authorization and four-eyes are mandatory.
+EditorialCommand editorialDecision({
+  required String resource,
+  required Map<String, dynamic> revision,
+  required String action,
+  required Set<String> permissions,
+  required String subject,
+}) {
+  final review = action == 'approved' || action == 'rejected';
+  if (!canEditorialDecide(
+    resource: resource,
+    revision: revision,
+    action: action,
+    permissions: permissions,
+    subject: subject,
+  )) {
     throw StateError('Editorial decision unavailable');
   }
   final random = Random.secure();

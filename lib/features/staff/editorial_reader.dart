@@ -5,8 +5,9 @@ import '../documents/ui/document_text.dart';
 import 'editorial_api.dart';
 
 class EditorialReader extends StatefulWidget {
-  const EditorialReader({super.key, required this.api});
+  const EditorialReader({super.key, required this.api, this.onRevision});
   final EditorialApi api;
+  final void Function(String, Map<String, dynamic>?)? onRevision;
   @override
   State<EditorialReader> createState() => _EditorialReaderState();
 }
@@ -20,6 +21,7 @@ class _EditorialReaderState extends State<EditorialReader> {
   int generation = 0;
 
   void invalidate() {
+    widget.onRevision?.call(resource, null);
     generation++;
     setState(() {
       revision = null;
@@ -29,6 +31,7 @@ class _EditorialReaderState extends State<EditorialReader> {
   }
 
   Future<void> read() async {
+    widget.onRevision?.call(resource, null);
     final requestGeneration = ++generation;
     final id = reference.text.trim();
     final requestedResource = resource;
@@ -47,6 +50,7 @@ class _EditorialReaderState extends State<EditorialReader> {
       }
       if (mounted && generation == requestGeneration) {
         setState(() => revision = result);
+        widget.onRevision?.call(requestedResource, result);
       }
     } catch (_) {
       if (mounted && generation == requestGeneration) {

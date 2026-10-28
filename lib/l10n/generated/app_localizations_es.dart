@@ -198,4 +198,38 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffRevisionUnavailable =>
       'No pudimos consultar esta revisión. Comprueba el identificador y tu acceso.';
+
+  @override
+  String get staffConfirmDecision => 'Confirmar decisión';
+
+  @override
+  String get staffCancel => 'Cancelar';
+
+  @override
+  String get staffApprove => 'Aprobar revisión';
+
+  @override
+  String get staffReject => 'Rechazar revisión';
+
+  @override
+  String get staffPublish => 'Publicar revisión';
+
+  @override
+  String get staffReadAcknowledgement =>
+      'He revisado el contenido completo y su versión exacta.';
+
+  @override
+  String get staffDecisionFailed =>
+      'No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.';
+
+  @override
+  String get staffDecisionCompleted =>
+      'Operación confirmada. Consulta la revisión para ver su estado actualizado.';
+
+  @override
+  String get staffPendingRecovery =>
+      'Hay comandos pendientes de confirmar. Reintenta el mismo comando o vuelve a autenticarte.';
+
+  @override
+  String get staffRetrySameCommand => 'Reintentar el mismo comando';
 }

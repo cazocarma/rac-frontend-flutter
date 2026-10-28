@@ -5,10 +5,11 @@ import '../../l10n/generated/app_localizations.dart';
 import '../../shared/config/env.dart';
 import '../../shared/services/auth_session.dart';
 import 'editorial_api.dart';
-import 'editorial_reader.dart';
+import 'editorial_workspace.dart';
+import 'editorial_journal.dart';
 
 class StaffScreen extends StatefulWidget {
-  const StaffScreen({super.key, required this.api});
+  const StaffScreen({super.key, required this.api, this.journal});
   factory StaffScreen.connected() => StaffScreen(
     api: EditorialApi(
       session: OidcAuthSession.staff(
@@ -20,6 +21,7 @@ class StaffScreen extends StatefulWidget {
     ),
   );
   final EditorialApi api;
+  final EditorialJournal? journal;
   @override
   State<StaffScreen> createState() => _StaffScreenState();
 }
@@ -29,6 +31,9 @@ class _StaffScreenState extends State<StaffScreen> {
   bool verified = false;
   int? failure;
   bool canRead = false;
+  String subject = '';
+  Set<String> permissions = {};
+  late final journal = widget.journal ?? EditorialJournal();
 
   @override
   void initState() {
@@ -53,7 +58,14 @@ class _StaffScreenState extends State<StaffScreen> {
       if (mounted) {
         setState(() {
           verified = true;
-          canRead = (result['permissions'] as List).contains('documents.read');
+          permissions = (result['permissions'] as List)
+              .whereType<String>()
+              .toSet();
+          subject = result['subject'] is String
+              ? result['subject'] as String
+              : '';
+          canRead =
+              permissions.contains('documents.read') && subject.isNotEmpty;
         });
       }
     } on EditorialFailure catch (error) {
@@ -114,7 +126,17 @@ class _StaffScreenState extends State<StaffScreen> {
               if (busy)
                 const Center(child: CircularProgressIndicator())
               else if (verified) ...[
-                if (canRead) EditorialReader(api: widget.api),
+                if (canRead)
+                  EditorialWorkspace(
+                    key: ValueKey(
+                      '$subject|${Env.issuer}|${widget.api.origin}|${(permissions.toList()..sort()).join(',')}',
+                    ),
+                    api: widget.api,
+                    journal: journal,
+                    subject: subject,
+                    issuer: Env.issuer,
+                    permissions: permissions,
+                  ),
                 const SizedBox(height: 20),
                 Text(t.staffPending),
                 const SizedBox(height: 16),

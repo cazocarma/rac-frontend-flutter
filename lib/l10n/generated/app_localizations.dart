@@ -433,6 +433,66 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos consultar esta revisión. Comprueba el identificador y tu acceso.'**
   String get staffRevisionUnavailable;
+
+  /// No description provided for @staffConfirmDecision.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar decisión'**
+  String get staffConfirmDecision;
+
+  /// No description provided for @staffCancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get staffCancel;
+
+  /// No description provided for @staffApprove.
+  ///
+  /// In es, this message translates to:
+  /// **'Aprobar revisión'**
+  String get staffApprove;
+
+  /// No description provided for @staffReject.
+  ///
+  /// In es, this message translates to:
+  /// **'Rechazar revisión'**
+  String get staffReject;
+
+  /// No description provided for @staffPublish.
+  ///
+  /// In es, this message translates to:
+  /// **'Publicar revisión'**
+  String get staffPublish;
+
+  /// No description provided for @staffReadAcknowledgement.
+  ///
+  /// In es, this message translates to:
+  /// **'He revisado el contenido completo y su versión exacta.'**
+  String get staffReadAcknowledgement;
+
+  /// No description provided for @staffDecisionFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.'**
+  String get staffDecisionFailed;
+
+  /// No description provided for @staffDecisionCompleted.
+  ///
+  /// In es, this message translates to:
+  /// **'Operación confirmada. Consulta la revisión para ver su estado actualizado.'**
+  String get staffDecisionCompleted;
+
+  /// No description provided for @staffPendingRecovery.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay comandos pendientes de confirmar. Reintenta el mismo comando o vuelve a autenticarte.'**
+  String get staffPendingRecovery;
+
+  /// No description provided for @staffRetrySameCommand.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar el mismo comando'**
+  String get staffRetrySameCommand;
 }
 
 class _AppLocalizationsDelegate

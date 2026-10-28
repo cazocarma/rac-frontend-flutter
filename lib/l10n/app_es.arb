@@ -72,5 +72,15 @@
   "staffDocument": "Documento",
   "staffAssessment": "Cuestionario privado",
   "staffReference": "Identificador de revisión (UUID)",
-  "staffRevisionUnavailable": "No pudimos consultar esta revisión. Comprueba el identificador y tu acceso."
+  "staffRevisionUnavailable": "No pudimos consultar esta revisión. Comprueba el identificador y tu acceso.",
+  "staffConfirmDecision": "Confirmar decisión",
+  "staffCancel": "Cancelar",
+  "staffApprove": "Aprobar revisión",
+  "staffReject": "Rechazar revisión",
+  "staffPublish": "Publicar revisión",
+  "staffReadAcknowledgement": "He revisado el contenido completo y su versión exacta.",
+  "staffDecisionFailed": "No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.",
+  "staffDecisionCompleted": "Operación confirmada. Consulta la revisión para ver su estado actualizado.",
+  "staffPendingRecovery": "Hay comandos pendientes de confirmar. Reintenta el mismo comando o vuelve a autenticarte.",
+  "staffRetrySameCommand": "Reintentar el mismo comando"
 }

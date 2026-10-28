@@ -198,4 +198,38 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffRevisionUnavailable =>
       'We could not read this revision. Check its identifier and your access.';
+
+  @override
+  String get staffConfirmDecision => 'Confirm decision';
+
+  @override
+  String get staffCancel => 'Cancel';
+
+  @override
+  String get staffApprove => 'Approve revision';
+
+  @override
+  String get staffReject => 'Reject revision';
+
+  @override
+  String get staffPublish => 'Publish revision';
+
+  @override
+  String get staffReadAcknowledgement =>
+      'I reviewed the complete content and its exact version.';
+
+  @override
+  String get staffDecisionFailed =>
+      'We could not complete the operation. Pending commands remain available for review.';
+
+  @override
+  String get staffDecisionCompleted =>
+      'Operation confirmed. Read the revision again to view its current state.';
+
+  @override
+  String get staffPendingRecovery =>
+      'Commands await confirmation. Retry the same command or authenticate again.';
+
+  @override
+  String get staffRetrySameCommand => 'Retry the same command';
 }
