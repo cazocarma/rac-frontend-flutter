@@ -79,7 +79,7 @@
   "staffReject": "Reject revision",
   "staffPublish": "Publish revision",
   "staffReadAcknowledgement": "I reviewed the complete content and its exact version.",
-  "staffDecisionFailed": "We could not complete the operation. Pending commands remain available for review.",
+  "staffDecisionFailed": "We could not complete the operation. Check your access or try again.",
   "staffDecisionCompleted": "Operation confirmed. Read the revision again to view its current state.",
   "staffPendingRecovery": "Commands await confirmation. Retry the same command or authenticate again.",
   "staffRetrySameCommand": "Retry the same command",
@@ -119,5 +119,6 @@
   "staffRegistryVersion": "Bundle version",
   "staffActivationHelp": "Five reviewed and published documents and one assessment will become active. The server supplies the current version; if it changes before confirmation, review and prepare the bundle again.",
   "staffActivationSummary": "Change summary (up to three lines, optional)",
-  "staffActivationInvalid": "We could not prepare this bundle. Check references, language, publications and summary; read again before confirming."
+  "staffActivationInvalid": "We could not prepare this bundle. Check references, language, publications and summary; read again before confirming.",
+  "staffStepUpRequired": "Your security verification expired. Sign in with MFA again to continue with the same command."
 }

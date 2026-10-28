@@ -220,7 +220,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get staffDecisionFailed =>
-      'No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.';
+      'No pudimos completar la operación. Revisa tu acceso o vuelve a intentarlo.';
 
   @override
   String get staffDecisionCompleted =>
@@ -350,4 +350,8 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffActivationInvalid =>
       'No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar.';
+
+  @override
+  String get staffStepUpRequired =>
+      'Tu verificación de seguridad venció. Ingresa nuevamente con MFA para continuar con el mismo comando.';
 }

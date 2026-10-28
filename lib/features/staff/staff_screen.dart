@@ -30,6 +30,7 @@ class _StaffScreenState extends State<StaffScreen> {
   bool busy = true;
   bool verified = false;
   int? failure;
+  bool stepUp = false;
   bool canRead = false;
   String subject = '';
   Set<String> permissions = {};
@@ -45,6 +46,7 @@ class _StaffScreenState extends State<StaffScreen> {
     setState(() {
       busy = true;
       failure = null;
+      stepUp = false;
       verified = false;
       canRead = false;
     });
@@ -69,7 +71,12 @@ class _StaffScreenState extends State<StaffScreen> {
         });
       }
     } on EditorialFailure catch (error) {
-      if (mounted) setState(() => failure = error.status ?? 503);
+      if (mounted) {
+        setState(() {
+          failure = error.status ?? 503;
+          stepUp = error.authenticationRequired;
+        });
+      }
     } catch (_) {
       if (mounted) setState(() => failure = 503);
     } finally {
@@ -138,14 +145,15 @@ class _StaffScreenState extends State<StaffScreen> {
                     permissions: permissions,
                   ),
                 const SizedBox(height: 20),
-                Text(t.staffPending),
+                if (!canRead) Text(t.staffPending),
                 const SizedBox(height: 16),
                 OutlinedButton(onPressed: logout, child: Text(t.staffSignOut)),
               ] else ...[
                 if (failure != null && failure != 401)
                   Text(
-                    failure == 403 ? t.staffDenied : t.staffUnavailable,
-                    semanticsLabel: failure == 403
+                    stepUp
+                        ? t.staffStepUpRequired
+                        : failure == 403
                         ? t.staffDenied
                         : t.staffUnavailable,
                   ),

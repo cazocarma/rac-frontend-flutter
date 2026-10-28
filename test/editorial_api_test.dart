@@ -28,6 +28,39 @@ class StaffFixture implements AuthSession {
 
 void main() {
   test(
+    'MFA expiry uses only an exact approved error code, never upstream diagnostics',
+    () async {
+      for (final body in [
+        '{"error":"staff_step_up_required"}',
+        '{"error":"private diagnostic"}',
+        '{"error":"staff_step_up_required","extra":"private"}',
+      ]) {
+        final api = EditorialApi(
+          session: StaffFixture(),
+          origin: Uri.parse('https://rac.test'),
+          client: MockClient((_) async => http.Response(body, 403)),
+        );
+        await expectLater(
+          api.sessionInfo(),
+          throwsA(
+            isA<EditorialFailure>()
+                .having(
+                  (e) => e.authenticationRequired,
+                  'needs authentication',
+                  body == '{"error":"staff_step_up_required"}',
+                )
+                .having(
+                  (e) => e.toString().contains('private'),
+                  'no diagnostics',
+                  false,
+                ),
+          ),
+        );
+      }
+    },
+  );
+
+  test(
     'registry head is fetched by locale and unsafe browser integers fail closed',
     () async {
       for (final body in [

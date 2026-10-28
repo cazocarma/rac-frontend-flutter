@@ -220,7 +220,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get staffDecisionFailed =>
-      'We could not complete the operation. Pending commands remain available for review.';
+      'We could not complete the operation. Check your access or try again.';
 
   @override
   String get staffDecisionCompleted =>
@@ -350,4 +350,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffActivationInvalid =>
       'We could not prepare this bundle. Check references, language, publications and summary; read again before confirming.';
+
+  @override
+  String get staffStepUpRequired =>
+      'Your security verification expired. Sign in with MFA again to continue with the same command.';
 }

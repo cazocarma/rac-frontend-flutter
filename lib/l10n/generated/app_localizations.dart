@@ -473,7 +473,7 @@ abstract class AppLocalizations {
   /// No description provided for @staffDecisionFailed.
   ///
   /// In es, this message translates to:
-  /// **'No pudimos completar la operación. Conservamos los comandos pendientes para su revisión.'**
+  /// **'No pudimos completar la operación. Revisa tu acceso o vuelve a intentarlo.'**
   String get staffDecisionFailed;
 
   /// No description provided for @staffDecisionCompleted.
@@ -715,6 +715,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar.'**
   String get staffActivationInvalid;
+
+  /// No description provided for @staffStepUpRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu verificación de seguridad venció. Ingresa nuevamente con MFA para continuar con el mismo comando.'**
+  String get staffStepUpRequired;
 }
 
 class _AppLocalizationsDelegate

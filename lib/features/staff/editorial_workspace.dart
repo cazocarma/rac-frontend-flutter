@@ -36,6 +36,7 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
   bool failed = false;
   bool acknowledged = false;
   bool completed = false;
+  bool needsAuthentication = false;
   String? receipt;
 
   String get origin => widget.api.origin.origin;
@@ -79,6 +80,7 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
       busy = true;
       failed = false;
       completed = false;
+      needsAuthentication = false;
     });
     try {
       await item.submit(widget.api);
@@ -96,7 +98,9 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
         });
       }
     } on EditorialFailure catch (error) {
-      if (!item.uncertain && !error.uncertain) {
+      if (!item.uncertain &&
+          !error.uncertain &&
+          !error.authenticationRequired) {
         try {
           await widget.journal.resolve(
             command: item.command,
@@ -109,7 +113,12 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
           // Keep recovery visible if cleanup cannot be confirmed.
         }
       }
-      if (mounted) setState(() => failed = true);
+      if (mounted) {
+        setState(() {
+          failed = true;
+          needsAuthentication = error.authenticationRequired;
+        });
+      }
     } catch (_) {
       if (mounted) setState(() => failed = true);
     } finally {
@@ -193,7 +202,10 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (!ready && !failed) const LinearProgressIndicator(),
-        if (failed) Text(t.staffDecisionFailed),
+        if (failed)
+          Text(
+            needsAuthentication ? t.staffStepUpRequired : t.staffDecisionFailed,
+          ),
         if (completed) ...[
           Text(t.staffDecisionCompleted),
           if (receipt != null) SelectableText(receipt!),
@@ -217,10 +229,6 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
                 ),
               ),
             ),
-          TextButton(
-            onPressed: busy ? null : reauthenticate,
-            child: Text(t.staffSignIn),
-          ),
         ],
         if (ready && attempts.isEmpty) ...[
           if (widget.permissions.contains('documents.draft'))
@@ -291,6 +299,11 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
             ),
           ],
         ],
+        if (ready)
+          TextButton(
+            onPressed: busy ? null : reauthenticate,
+            child: Text(t.staffSignIn),
+          ),
       ],
     );
   }

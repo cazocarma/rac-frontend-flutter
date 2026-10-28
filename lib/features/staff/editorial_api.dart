@@ -47,9 +47,12 @@ class EditorialCommand {
 }
 
 class EditorialFailure implements Exception {
-  const EditorialFailure(this.status, {required this.uncertain});
+  const EditorialFailure(this.status, {required this.uncertain, this.code});
   final int? status;
   final bool uncertain;
+  final String? code;
+  bool get authenticationRequired =>
+      status == 401 || (status == 403 && code == 'staff_step_up_required');
   @override
   String toString() => 'Editorial request failed';
 }
@@ -170,8 +173,20 @@ class EditorialApi {
 
   Map<String, dynamic> _decode(http.Response response, {required bool write}) {
     if (response.statusCode != 200) {
+      String? code;
+      try {
+        final error = jsonDecode(utf8.decode(response.bodyBytes));
+        if (error is Map<String, dynamic> &&
+            error.length == 1 &&
+            error['error'] == 'staff_step_up_required') {
+          code = 'staff_step_up_required';
+        }
+      } catch (_) {
+        // Never retain arbitrary upstream bodies or diagnostics.
+      }
       throw EditorialFailure(
         response.statusCode,
+        code: code,
         uncertain:
             write && !{400, 401, 403, 404, 409}.contains(response.statusCode),
       );
