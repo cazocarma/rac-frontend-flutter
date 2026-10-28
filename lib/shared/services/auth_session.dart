@@ -96,6 +96,7 @@ class OidcAuthSession implements AuthSession {
           originalUri: _returnUri,
           promptOverride: isStaff ? const ['login'] : null,
           maxAgeOverride: isStaff ? Duration.zero : null,
+          includeIdTokenHintFromCurrentUser: !isStaff,
         )
         .timeout(const Duration(seconds: 30));
     if (user == null && kIsWeb) {

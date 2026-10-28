@@ -5,6 +5,7 @@ RUN flutter pub get
 COPY . .
 RUN flutter build web --release && sh docker/version-web-assets.sh
 FROM nginx:1.28-alpine
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/build/web /usr/share/nginx/html
 COPY docker/config.json.template /etc/rac-config.json.template
 COPY docker/40-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
