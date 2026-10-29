@@ -700,5 +700,53 @@
   "navProfileShort": "Perfil",
   "@navProfileShort": {
     "legal_review": "pending"
+  },
+  "accessFailed": "No pudimos iniciar sesión. Inténtalo nuevamente.",
+  "@accessFailed": {
+    "legal_review": "pending"
+  },
+  "accessStory": "Los mejores planes\nse comparten.",
+  "@accessStory": {
+    "legal_review": "pending"
+  },
+  "accessStoryHelp": "Una caminata, un café o algo nuevo.\nEncuentra con quién disfrutarlo.",
+  "@accessStoryHelp": {
+    "legal_review": "pending"
+  },
+  "accessBrandLine": "RENT-A-COMPA · BUENA COMPAÑÍA",
+  "@accessBrandLine": {
+    "legal_review": "pending"
+  },
+  "accessHeading": "Tu próximo plan\nempieza aquí.",
+  "@accessHeading": {
+    "legal_review": "pending"
+  },
+  "accessDescription": "Conoce compas, encuentra intereses en común y organiza tiempo para compartir.",
+  "@accessDescription": {
+    "legal_review": "pending"
+  },
+  "accessMovies": "Cine",
+  "@accessMovies": {
+    "legal_review": "pending"
+  },
+  "accessRunning": "Running",
+  "@accessRunning": {
+    "legal_review": "pending"
+  },
+  "accessKaraoke": "Karaoke",
+  "@accessKaraoke": {
+    "legal_review": "pending"
+  },
+  "accessOpening": "Abriendo inicio de sesión…",
+  "@accessOpening": {
+    "legal_review": "pending"
+  },
+  "accessContinue": "Ingresar o crear cuenta",
+  "@accessContinue": {
+    "legal_review": "pending"
+  },
+  "accessReturn": "Al ingresar, volverás automáticamente a RAC.",
+  "@accessReturn": {
+    "legal_review": "pending"
   }
 }

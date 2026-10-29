@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../shared/di/services.dart';
 import '../../shared/services/auth_api.dart';
@@ -11,6 +12,7 @@ class UnifiedAuthScreen extends StatefulWidget {
 }
 
 class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   bool loading = false;
   String? error;
   Future<void> login() async {
@@ -25,9 +27,7 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
       }
     } catch (_) {
       if (mounted) {
-        setState(
-          () => error = 'No pudimos iniciar sesión. Inténtalo nuevamente.',
-        );
+        setState(() => error = t.accessFailed);
       }
     } finally {
       if (mounted) setState(() => loading = false);
@@ -51,7 +51,7 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
           const RacBrand(inverse: true),
           const SizedBox(height: 38),
           Text(
-            'Los mejores planes\nse comparten.',
+            t.accessStory,
             style: TextStyle(
               fontSize: compact ? 36 : 48,
               fontWeight: FontWeight.w800,
@@ -61,9 +61,9 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
             ),
           ),
           const SizedBox(height: 18),
-          const Text(
-            'Una caminata, un café o algo nuevo.\nEncuentra con quién disfrutarlo.',
-            style: TextStyle(
+          Text(
+            t.accessStoryHelp,
+            style: const TextStyle(
               color: Color(0xFFCEE0D3),
               height: 1.6,
               fontSize: 16,
@@ -74,9 +74,9 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
             const Center(child: ActivityArtwork()),
           ],
           const SizedBox(height: 24),
-          const Text(
-            'RENT-A-COMPA · BUENA COMPAÑÍA',
-            style: TextStyle(
+          Text(
+            t.accessBrandLine,
+            style: const TextStyle(
               color: Color(0xFFC5E8AD),
               fontSize: 10,
               letterSpacing: 2,
@@ -96,7 +96,7 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
           Icon(Icons.waving_hand_outlined, color: colors.primary, size: 32),
           const SizedBox(height: 20),
           Text(
-            'Tu próximo plan\nempieza aquí.',
+            t.accessHeading,
             style: Theme.of(context).textTheme.headlineLarge?.copyWith(
               fontWeight: FontWeight.w800,
               letterSpacing: -1,
@@ -104,25 +104,25 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Conoce compas, encuentra intereses en común y organiza tiempo para compartir.',
+            t.accessDescription,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
           ),
           const SizedBox(height: 28),
-          const Wrap(
+          Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
               Chip(
-                avatar: Icon(Icons.movie_outlined, size: 18),
-                label: Text('Cine'),
+                avatar: const Icon(Icons.movie_outlined, size: 18),
+                label: Text(t.accessMovies),
               ),
               Chip(
-                avatar: Icon(Icons.directions_run, size: 18),
-                label: Text('Running'),
+                avatar: const Icon(Icons.directions_run, size: 18),
+                label: Text(t.accessRunning),
               ),
               Chip(
-                avatar: Icon(Icons.mic_none, size: 18),
-                label: Text('Karaoke'),
+                avatar: const Icon(Icons.mic_none, size: 18),
+                label: Text(t.accessKaraoke),
               ),
             ],
           ),
@@ -134,11 +134,7 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
               icon: Icon(
                 loading ? Icons.hourglass_top : Icons.arrow_forward_rounded,
               ),
-              label: Text(
-                loading
-                    ? 'Abriendo inicio de sesión…'
-                    : 'Ingresar o crear cuenta',
-              ),
+              label: Text(loading ? t.accessOpening : t.accessContinue),
             ),
           ),
           const SizedBox(height: 16),
@@ -147,10 +143,10 @@ class _UnifiedAuthScreenState extends State<UnifiedAuthScreen> {
             children: [
               Icon(Icons.lock_outline_rounded, size: 16, color: colors.primary),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Acceso seguro. Al ingresar, volverás automáticamente a RAC.',
-                  style: TextStyle(fontSize: 12, height: 1.5),
+                  t.accessReturn,
+                  style: const TextStyle(fontSize: 12, height: 1.5),
                 ),
               ),
             ],

@@ -575,4 +575,42 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get navProfileShort => 'Perfil';
+
+  @override
+  String get accessFailed => 'No pudimos iniciar sesión. Inténtalo nuevamente.';
+
+  @override
+  String get accessStory => 'Los mejores planes\nse comparten.';
+
+  @override
+  String get accessStoryHelp =>
+      'Una caminata, un café o algo nuevo.\nEncuentra con quién disfrutarlo.';
+
+  @override
+  String get accessBrandLine => 'RENT-A-COMPA · BUENA COMPAÑÍA';
+
+  @override
+  String get accessHeading => 'Tu próximo plan\nempieza aquí.';
+
+  @override
+  String get accessDescription =>
+      'Conoce compas, encuentra intereses en común y organiza tiempo para compartir.';
+
+  @override
+  String get accessMovies => 'Cine';
+
+  @override
+  String get accessRunning => 'Running';
+
+  @override
+  String get accessKaraoke => 'Karaoke';
+
+  @override
+  String get accessOpening => 'Abriendo inicio de sesión…';
+
+  @override
+  String get accessContinue => 'Ingresar o crear cuenta';
+
+  @override
+  String get accessReturn => 'Al ingresar, volverás automáticamente a RAC.';
 }

@@ -7,6 +7,7 @@ import 'package:rentacompa/shared/services/auth_api.dart';
 import 'package:rentacompa/shared/services/auth_session.dart';
 import 'package:rentacompa/shared/services/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 
 class FakeSession implements AuthSession {
   @override
@@ -140,6 +141,9 @@ void main() {
     );
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: UnifiedAuthScreen(auth: auth),
         routes: {'/home': (_) => const Scaffold(body: Text('Inicio'))},
       ),
@@ -156,6 +160,9 @@ void main() {
     final session = FakeSession()..fail = true;
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: UnifiedAuthScreen(auth: AuthApi(session: session)),
       ),
     );

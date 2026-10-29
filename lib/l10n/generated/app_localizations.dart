@@ -1129,6 +1129,78 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Perfil'**
   String get navProfileShort;
+
+  /// No description provided for @accessFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos iniciar sesión. Inténtalo nuevamente.'**
+  String get accessFailed;
+
+  /// No description provided for @accessStory.
+  ///
+  /// In es, this message translates to:
+  /// **'Los mejores planes\nse comparten.'**
+  String get accessStory;
+
+  /// No description provided for @accessStoryHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Una caminata, un café o algo nuevo.\nEncuentra con quién disfrutarlo.'**
+  String get accessStoryHelp;
+
+  /// No description provided for @accessBrandLine.
+  ///
+  /// In es, this message translates to:
+  /// **'RENT-A-COMPA · BUENA COMPAÑÍA'**
+  String get accessBrandLine;
+
+  /// No description provided for @accessHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu próximo plan\nempieza aquí.'**
+  String get accessHeading;
+
+  /// No description provided for @accessDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Conoce compas, encuentra intereses en común y organiza tiempo para compartir.'**
+  String get accessDescription;
+
+  /// No description provided for @accessMovies.
+  ///
+  /// In es, this message translates to:
+  /// **'Cine'**
+  String get accessMovies;
+
+  /// No description provided for @accessRunning.
+  ///
+  /// In es, this message translates to:
+  /// **'Running'**
+  String get accessRunning;
+
+  /// No description provided for @accessKaraoke.
+  ///
+  /// In es, this message translates to:
+  /// **'Karaoke'**
+  String get accessKaraoke;
+
+  /// No description provided for @accessOpening.
+  ///
+  /// In es, this message translates to:
+  /// **'Abriendo inicio de sesión…'**
+  String get accessOpening;
+
+  /// No description provided for @accessContinue.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresar o crear cuenta'**
+  String get accessContinue;
+
+  /// No description provided for @accessReturn.
+  ///
+  /// In es, this message translates to:
+  /// **'Al ingresar, volverás automáticamente a RAC.'**
+  String get accessReturn;
 }
 
 class _AppLocalizationsDelegate

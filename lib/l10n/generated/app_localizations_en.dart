@@ -571,4 +571,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navProfileShort => 'Profile';
+
+  @override
+  String get accessFailed => 'We could not sign you in. Try again.';
+
+  @override
+  String get accessStory => 'The best plans\nare shared.';
+
+  @override
+  String get accessStoryHelp =>
+      'A walk, a coffee or something new.\nFind someone to enjoy it with.';
+
+  @override
+  String get accessBrandLine => 'RENT-A-COMPA · GOOD COMPANY';
+
+  @override
+  String get accessHeading => 'Your next plan\nstarts here.';
+
+  @override
+  String get accessDescription =>
+      'Meet Compas, find shared interests and make time to spend together.';
+
+  @override
+  String get accessMovies => 'Movies';
+
+  @override
+  String get accessRunning => 'Running';
+
+  @override
+  String get accessKaraoke => 'Karaoke';
+
+  @override
+  String get accessOpening => 'Opening sign-in…';
+
+  @override
+  String get accessContinue => 'Sign in or create an account';
+
+  @override
+  String get accessReturn =>
+      'After signing in, you will return automatically to RAC.';
 }
