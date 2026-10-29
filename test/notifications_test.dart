@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -84,7 +85,14 @@ void main() {
     'global unread counter survives failures and updates after mark all',
     (tester) async {
       final api = FakeInbox()..failed = true;
-      await tester.pumpWidget(MaterialApp(home: NotificationsScreen(api: api)));
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: NotificationsScreen(api: api),
+        ),
+      );
       await tester.pumpAndSettle();
       expect(find.text('3 sin leer en tu bandeja'), findsOneWidget);
       await tester.tap(find.text('Marcar todas como leídas'));
@@ -113,6 +121,9 @@ void main() {
       addTearDown(api.close);
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: NotificationsScreen(api: api),
           routes: {
             '/profile': (_) => const Scaffold(body: Text('Perfil de destino')),

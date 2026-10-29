@@ -857,5 +857,107 @@
         "type": "String"
       }
     }
+  },
+  "notificationsTitle": "Notifications",
+  "@notificationsTitle": {
+    "legal_review": "pending"
+  },
+  "notificationsUpdateFailed": "We could not update the notification. Try again.",
+  "@notificationsUpdateFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsAllFailed": "We could not mark your notifications as read. Refresh to check their status.",
+  "@notificationsAllFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsAccount": "Account",
+  "@notificationsAccount": {
+    "legal_review": "pending"
+  },
+  "notificationsBooking": "Booking",
+  "@notificationsBooking": {
+    "legal_review": "pending"
+  },
+  "notificationsBookingReference": "Booking {reference}",
+  "@notificationsBookingReference": {
+    "legal_review": "pending",
+    "placeholders": {
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsRefresh": "Refresh notifications",
+  "@notificationsRefresh": {
+    "legal_review": "pending"
+  },
+  "notificationsLoadFailed": "We could not load your notifications",
+  "@notificationsLoadFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsRetryMessage": "Check your connection and try again.",
+  "@notificationsRetryMessage": {
+    "legal_review": "pending"
+  },
+  "notificationsRetry": "Try again",
+  "@notificationsRetry": {
+    "legal_review": "pending"
+  },
+  "notificationsHeading": "Account and booking updates",
+  "@notificationsHeading": {
+    "legal_review": "pending"
+  },
+  "notificationsDescription": "Account and booking changes appear here. Email and phone notifications: under construction.",
+  "@notificationsDescription": {
+    "legal_review": "pending"
+  },
+  "notificationsUnread": "{count} unread in your inbox",
+  "@notificationsUnread": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsUpdating": "Updating…",
+  "@notificationsUpdating": {
+    "legal_review": "pending"
+  },
+  "notificationsMarkAll": "Mark all as read",
+  "@notificationsMarkAll": {
+    "legal_review": "pending"
+  },
+  "notificationsCaughtUp": "You are up to date",
+  "@notificationsCaughtUp": {
+    "legal_review": "pending"
+  },
+  "notificationsEmptyMessage": "Future account and booking updates will appear here.",
+  "@notificationsEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "notificationsNew": "New",
+  "@notificationsNew": {
+    "legal_review": "pending"
+  },
+  "notificationsMarkRead": "Mark as read",
+  "@notificationsMarkRead": {
+    "legal_review": "pending"
+  },
+  "notificationsViewAccount": "View my account status",
+  "@notificationsViewAccount": {
+    "legal_review": "pending"
+  },
+  "notificationsViewBookings": "View my bookings",
+  "@notificationsViewBookings": {
+    "legal_review": "pending"
+  },
+  "notificationsNewer": "Newer",
+  "@notificationsNewer": {
+    "legal_review": "pending"
+  },
+  "notificationsOlder": "Older",
+  "@notificationsOlder": {
+    "legal_review": "pending"
   }
 }

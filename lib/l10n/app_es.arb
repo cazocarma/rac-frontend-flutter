@@ -857,5 +857,107 @@
         "type": "String"
       }
     }
+  },
+  "notificationsTitle": "Notificaciones",
+  "@notificationsTitle": {
+    "legal_review": "pending"
+  },
+  "notificationsUpdateFailed": "No pudimos actualizar la notificación. Inténtalo otra vez.",
+  "@notificationsUpdateFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsAllFailed": "No pudimos marcar tus avisos. Actualiza para comprobar su estado.",
+  "@notificationsAllFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsAccount": "Cuenta",
+  "@notificationsAccount": {
+    "legal_review": "pending"
+  },
+  "notificationsBooking": "Reserva",
+  "@notificationsBooking": {
+    "legal_review": "pending"
+  },
+  "notificationsBookingReference": "Reserva {reference}",
+  "@notificationsBookingReference": {
+    "legal_review": "pending",
+    "placeholders": {
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsRefresh": "Actualizar notificaciones",
+  "@notificationsRefresh": {
+    "legal_review": "pending"
+  },
+  "notificationsLoadFailed": "No pudimos cargar tus notificaciones",
+  "@notificationsLoadFailed": {
+    "legal_review": "pending"
+  },
+  "notificationsRetryMessage": "Revisa tu conexión e inténtalo nuevamente.",
+  "@notificationsRetryMessage": {
+    "legal_review": "pending"
+  },
+  "notificationsRetry": "Reintentar",
+  "@notificationsRetry": {
+    "legal_review": "pending"
+  },
+  "notificationsHeading": "Novedades de tu cuenta y reservas",
+  "@notificationsHeading": {
+    "legal_review": "pending"
+  },
+  "notificationsDescription": "Aquí verás cambios de tu cuenta y tus reservas. Avisos por correo y al teléfono: en construcción.",
+  "@notificationsDescription": {
+    "legal_review": "pending"
+  },
+  "notificationsUnread": "{count} sin leer en tu bandeja",
+  "@notificationsUnread": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsUpdating": "Actualizando…",
+  "@notificationsUpdating": {
+    "legal_review": "pending"
+  },
+  "notificationsMarkAll": "Marcar todas como leídas",
+  "@notificationsMarkAll": {
+    "legal_review": "pending"
+  },
+  "notificationsCaughtUp": "Estás al día",
+  "@notificationsCaughtUp": {
+    "legal_review": "pending"
+  },
+  "notificationsEmptyMessage": "Los próximos cambios de tu cuenta y tus reservas aparecerán aquí.",
+  "@notificationsEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "notificationsNew": "Nueva",
+  "@notificationsNew": {
+    "legal_review": "pending"
+  },
+  "notificationsMarkRead": "Marcar como leída",
+  "@notificationsMarkRead": {
+    "legal_review": "pending"
+  },
+  "notificationsViewAccount": "Ver estado de mi cuenta",
+  "@notificationsViewAccount": {
+    "legal_review": "pending"
+  },
+  "notificationsViewBookings": "Ver mis reservas",
+  "@notificationsViewBookings": {
+    "legal_review": "pending"
+  },
+  "notificationsNewer": "Más recientes",
+  "@notificationsNewer": {
+    "legal_review": "pending"
+  },
+  "notificationsOlder": "Anteriores",
+  "@notificationsOlder": {
+    "legal_review": "pending"
   }
 }

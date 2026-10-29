@@ -692,4 +692,82 @@ class AppLocalizationsEn extends AppLocalizations {
   String documentsVersionStatus(String version, String status) {
     return 'Version $version · $status';
   }
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get notificationsUpdateFailed =>
+      'We could not update the notification. Try again.';
+
+  @override
+  String get notificationsAllFailed =>
+      'We could not mark your notifications as read. Refresh to check their status.';
+
+  @override
+  String get notificationsAccount => 'Account';
+
+  @override
+  String get notificationsBooking => 'Booking';
+
+  @override
+  String notificationsBookingReference(String reference) {
+    return 'Booking $reference';
+  }
+
+  @override
+  String get notificationsRefresh => 'Refresh notifications';
+
+  @override
+  String get notificationsLoadFailed => 'We could not load your notifications';
+
+  @override
+  String get notificationsRetryMessage =>
+      'Check your connection and try again.';
+
+  @override
+  String get notificationsRetry => 'Try again';
+
+  @override
+  String get notificationsHeading => 'Account and booking updates';
+
+  @override
+  String get notificationsDescription =>
+      'Account and booking changes appear here. Email and phone notifications: under construction.';
+
+  @override
+  String notificationsUnread(int count) {
+    return '$count unread in your inbox';
+  }
+
+  @override
+  String get notificationsUpdating => 'Updating…';
+
+  @override
+  String get notificationsMarkAll => 'Mark all as read';
+
+  @override
+  String get notificationsCaughtUp => 'You are up to date';
+
+  @override
+  String get notificationsEmptyMessage =>
+      'Future account and booking updates will appear here.';
+
+  @override
+  String get notificationsNew => 'New';
+
+  @override
+  String get notificationsMarkRead => 'Mark as read';
+
+  @override
+  String get notificationsViewAccount => 'View my account status';
+
+  @override
+  String get notificationsViewBookings => 'View my bookings';
+
+  @override
+  String get notificationsNewer => 'Newer';
+
+  @override
+  String get notificationsOlder => 'Older';
 }

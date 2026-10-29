@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../data/alert_api.dart';
@@ -11,6 +12,7 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   late final api = widget.api ?? AlertApi(Env.apiBase);
   late Future<Map<String, dynamic>> data = load();
   bool markingAll = false;
@@ -23,21 +25,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   int offset = 0;
   final busy = <String>{};
   Future<Map<String, dynamic>> load() => api.notifications(offset: offset);
+  void reload({int? nextOffset}) {
+    if (!mounted) return;
+    setState(() {
+      offset = nextOffset ?? offset;
+      data = load();
+    });
+  }
+
   Future<void> markRead(String id) async {
     if (markingAll || busy.contains(id)) return;
     setState(() => busy.add(id));
     try {
       await api.readNotification(id);
-      if (mounted) setState(() => data = load());
+      reload();
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'No pudimos actualizar la notificación. Inténtalo otra vez.',
-            ),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.notificationsUpdateFailed)));
       }
     } finally {
       if (mounted) setState(() => busy.remove(id));
@@ -49,16 +55,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     setState(() => markingAll = true);
     try {
       await api.readAll();
-      if (mounted) setState(() => data = load());
+      reload();
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'No pudimos marcar tus avisos. Actualiza para comprobar su estado.',
-            ),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.notificationsAllFailed)));
       }
     } finally {
       if (mounted) setState(() => markingAll = false);
@@ -66,24 +68,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 
   String contextLabel(Map<dynamic, dynamic> item) {
-    if (item['tipo'] == 'estado_cuenta') return 'Cuenta';
+    if (item['tipo'] == 'estado_cuenta') return t.notificationsAccount;
     final session = item['sesion_id'];
     return session is String && session.length >= 8
-        ? 'Reserva ${session.substring(0, 8)}'
-        : 'Reserva';
+        ? t.notificationsBookingReference(session.substring(0, 8))
+        : t.notificationsBooking;
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Notificaciones'),
+      title: Text(t.notificationsTitle),
       actions: [
         IconButton(
-          tooltip: 'Actualizar notificaciones',
-          onPressed: () => setState(() {
-            offset = 0;
-            data = load();
-          }),
+          tooltip: t.notificationsRefresh,
+          onPressed: () => reload(nextOffset: 0),
           icon: const Icon(Icons.refresh),
         ),
       ],
@@ -95,11 +94,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return EmptyState(
-              title: 'No pudimos cargar tus notificaciones',
-              message: 'Revisa tu conexión e inténtalo nuevamente.',
+              title: t.notificationsLoadFailed,
+              message: t.notificationsRetryMessage,
               action: OutlinedButton(
-                onPressed: () => setState(() => data = load()),
-                child: const Text('Reintentar'),
+                onPressed: reload,
+                child: Text(t.notificationsRetry),
               ),
             );
           }
@@ -110,16 +109,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           return ListView(
             children: [
               Text(
-                'Novedades de tu cuenta y reservas',
+                t.notificationsHeading,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Aquí verás cambios de tu cuenta y tus reservas. Avisos por correo y al teléfono: en construcción.',
-              ),
+              Text(t.notificationsDescription),
               const SizedBox(height: 16),
               Text(
-                '${snapshot.data!['no_leidas'] ?? 0} sin leer en tu bandeja',
+                t.notificationsUnread(
+                  (snapshot.data!['no_leidas'] as num? ?? 0).toInt(),
+                ),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               if ((snapshot.data!['no_leidas'] as num? ?? 0) > 0)
@@ -129,15 +128,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     onPressed: markingAll || busy.isNotEmpty ? null : markAll,
                     icon: const Icon(Icons.done_all),
                     label: Text(
-                      markingAll ? 'Actualizando…' : 'Marcar todas como leídas',
+                      markingAll
+                          ? t.notificationsUpdating
+                          : t.notificationsMarkAll,
                     ),
                   ),
                 ),
               if (items.isEmpty)
-                const EmptyState(
-                  title: 'Estás al día',
-                  message:
-                      'Los próximos cambios de tu cuenta y tus reservas aparecerán aquí.',
+                EmptyState(
+                  title: t.notificationsCaughtUp,
+                  message: t.notificationsEmptyMessage,
                   icon: Icons.notifications_none,
                 ),
               for (final item in items)
@@ -162,7 +162,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               ),
                             ),
                             if (item['leido_en'] == null)
-                              const Chip(label: Text('Nueva')),
+                              Chip(label: Text(t.notificationsNew)),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -178,7 +178,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                     (markingAll || busy.contains(item['id']))
                                     ? null
                                     : () => markRead(item['id'] as String),
-                                child: const Text('Marcar como leída'),
+                                child: Text(t.notificationsMarkRead),
                               ),
                             TextButton(
                               onPressed: () => Navigator.pushNamed(
@@ -189,8 +189,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                               ),
                               child: Text(
                                 item['tipo'] == 'estado_cuenta'
-                                    ? 'Ver estado de mi cuenta'
-                                    : 'Ver mis reservas',
+                                    ? t.notificationsViewAccount
+                                    : t.notificationsViewBookings,
                               ),
                             ),
                           ],
@@ -204,19 +204,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 children: [
                   if (offset > 0)
                     TextButton(
-                      onPressed: () => setState(() {
-                        offset -= 20;
-                        data = load();
-                      }),
-                      child: const Text('Más recientes'),
+                      onPressed: () => reload(nextOffset: offset - 20),
+                      child: Text(t.notificationsNewer),
                     ),
                   if (snapshot.data!['has_more'] == true)
                     TextButton(
-                      onPressed: () => setState(() {
-                        offset += 20;
-                        data = load();
-                      }),
-                      child: const Text('Anteriores'),
+                      onPressed: () => reload(nextOffset: offset + 20),
+                      child: Text(t.notificationsOlder),
                     ),
                 ],
               ),

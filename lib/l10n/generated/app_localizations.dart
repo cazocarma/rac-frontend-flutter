@@ -1345,6 +1345,144 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Versión {version} · {status}'**
   String documentsVersionStatus(String version, String status);
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Notificaciones'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsUpdateFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos actualizar la notificación. Inténtalo otra vez.'**
+  String get notificationsUpdateFailed;
+
+  /// No description provided for @notificationsAllFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos marcar tus avisos. Actualiza para comprobar su estado.'**
+  String get notificationsAllFailed;
+
+  /// No description provided for @notificationsAccount.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuenta'**
+  String get notificationsAccount;
+
+  /// No description provided for @notificationsBooking.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva'**
+  String get notificationsBooking;
+
+  /// No description provided for @notificationsBookingReference.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva {reference}'**
+  String notificationsBookingReference(String reference);
+
+  /// No description provided for @notificationsRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar notificaciones'**
+  String get notificationsRefresh;
+
+  /// No description provided for @notificationsLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tus notificaciones'**
+  String get notificationsLoadFailed;
+
+  /// No description provided for @notificationsRetryMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo nuevamente.'**
+  String get notificationsRetryMessage;
+
+  /// No description provided for @notificationsRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get notificationsRetry;
+
+  /// No description provided for @notificationsHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Novedades de tu cuenta y reservas'**
+  String get notificationsHeading;
+
+  /// No description provided for @notificationsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Aquí verás cambios de tu cuenta y tus reservas. Avisos por correo y al teléfono: en construcción.'**
+  String get notificationsDescription;
+
+  /// No description provided for @notificationsUnread.
+  ///
+  /// In es, this message translates to:
+  /// **'{count} sin leer en tu bandeja'**
+  String notificationsUnread(int count);
+
+  /// No description provided for @notificationsUpdating.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizando…'**
+  String get notificationsUpdating;
+
+  /// No description provided for @notificationsMarkAll.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar todas como leídas'**
+  String get notificationsMarkAll;
+
+  /// No description provided for @notificationsCaughtUp.
+  ///
+  /// In es, this message translates to:
+  /// **'Estás al día'**
+  String get notificationsCaughtUp;
+
+  /// No description provided for @notificationsEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Los próximos cambios de tu cuenta y tus reservas aparecerán aquí.'**
+  String get notificationsEmptyMessage;
+
+  /// No description provided for @notificationsNew.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva'**
+  String get notificationsNew;
+
+  /// No description provided for @notificationsMarkRead.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar como leída'**
+  String get notificationsMarkRead;
+
+  /// No description provided for @notificationsViewAccount.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver estado de mi cuenta'**
+  String get notificationsViewAccount;
+
+  /// No description provided for @notificationsViewBookings.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mis reservas'**
+  String get notificationsViewBookings;
+
+  /// No description provided for @notificationsNewer.
+  ///
+  /// In es, this message translates to:
+  /// **'Más recientes'**
+  String get notificationsNewer;
+
+  /// No description provided for @notificationsOlder.
+  ///
+  /// In es, this message translates to:
+  /// **'Anteriores'**
+  String get notificationsOlder;
 }
 
 class _AppLocalizationsDelegate
