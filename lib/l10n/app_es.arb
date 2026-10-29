@@ -959,5 +959,117 @@
   "notificationsOlder": "Anteriores",
   "@notificationsOlder": {
     "legal_review": "pending"
+  },
+  "plansTitle": "Planes y suscripción",
+  "@plansTitle": {
+    "legal_review": "pending"
+  },
+  "plansEyebrow": "A tu ritmo",
+  "@plansEyebrow": {
+    "legal_review": "pending"
+  },
+  "plansHeading": "Empieza gratis. Crece a tu ritmo.",
+  "@plansHeading": {
+    "legal_review": "pending"
+  },
+  "plansDescription": "La suscripción amplía tu capacidad para aceptar reservas como compa.",
+  "@plansDescription": {
+    "legal_review": "pending"
+  },
+  "plansPending": "Las solicitudes que superen tu cupo permanecen pendientes. Tú decides cuáles confirmar cuando tengas capacidad disponible.",
+  "@plansPending": {
+    "legal_review": "pending"
+  },
+  "plansPaidTitle": "Más espacio para crecer",
+  "@plansPaidTitle": {
+    "legal_review": "pending"
+  },
+  "plansFreeTitle": "Plan gratuito",
+  "@plansFreeTitle": {
+    "legal_review": "pending"
+  },
+  "plansPreparing": "Estamos preparando la suscripción.",
+  "@plansPreparing": {
+    "legal_review": "pending"
+  },
+  "plansWeekly": "3 reservas por semana",
+  "@plansWeekly": {
+    "legal_review": "pending"
+  },
+  "plansRequests": "Recibe solicitudes sin límite de cupos.",
+  "@plansRequests": {
+    "legal_review": "pending"
+  },
+  "plansConfirm": "Confirma hasta 3 reservas cada semana.",
+  "@plansConfirm": {
+    "legal_review": "pending"
+  },
+  "plansProfile": "Publica tu perfil y administra tu agenda.",
+  "@plansProfile": {
+    "legal_review": "pending"
+  },
+  "plansWeekRules": "El cupo se calcula de lunes a domingo, según la fecha de la actividad y la zona horaria de Chile. Si cancelas antes del inicio, recuperas el cupo; después del inicio, se mantiene consumido.",
+  "@plansWeekRules": {
+    "legal_review": "pending"
+  },
+  "plansAcceptMore": "Acepta más reservas con una suscripción activa.",
+  "@plansAcceptMore": {
+    "legal_review": "pending"
+  },
+  "plansControl": "Conserva el control de tus solicitudes pendientes.",
+  "@plansControl": {
+    "legal_review": "pending"
+  },
+  "plansPaymentDetails": "Estamos definiendo el precio, la renovación y el proveedor de pago. No se realizarán cobros ni se simularán suscripciones. Tus solicitudes no se aceptarán automáticamente.",
+  "@plansPaymentDetails": {
+    "legal_review": "pending"
+  },
+  "plansPaymentsConstruction": "Pagos en construcción",
+  "@plansPaymentsConstruction": {
+    "legal_review": "pending"
+  },
+  "allowanceLoadFailed": "No pudimos consultar tus cupos",
+  "@allowanceLoadFailed": {
+    "legal_review": "pending"
+  },
+  "allowanceRetry": "Reintentar cupos",
+  "@allowanceRetry": {
+    "legal_review": "pending"
+  },
+  "allowanceRefresh": "Actualizar cupos",
+  "@allowanceRefresh": {
+    "legal_review": "pending"
+  },
+  "allowanceActive": "Suscripción activa",
+  "@allowanceActive": {
+    "legal_review": "pending"
+  },
+  "allowanceAvailable": "{available} de {limit} cupos gratuitos disponibles",
+  "@allowanceAvailable": {
+    "legal_review": "pending",
+    "placeholders": {
+      "available": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "allowanceWeek": "Semana del {date} · Chile · {used} reservas confirmadas",
+  "@allowanceWeek": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "allowanceSelectWeek": "Consultar otra semana",
+  "@allowanceSelectWeek": {
+    "legal_review": "pending"
   }
 }

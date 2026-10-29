@@ -1,22 +1,38 @@
+import '../../l10n/generated/app_localizations.dart';
+import '../services/user_api.dart';
+import '../../features/match/data/match_api.dart';
 import 'package:flutter/material.dart';
 import '../di/services.dart';
 import '../services/session.dart';
 
 /// The backend owns the Chilean week calculation and subscription entitlement.
 class WeeklyAllowance extends StatefulWidget {
-  const WeeklyAllowance({super.key});
+  const WeeklyAllowance({super.key, this.userApi, this.matchApi});
+  final UserApi? userApi;
+  final MatchApi? matchApi;
   @override
   State<WeeklyAllowance> createState() => _WeeklyAllowanceState();
 }
 
 class _WeeklyAllowanceState extends State<WeeklyAllowance> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   late Future<Map<String, dynamic>?> data = load();
   String? date;
   Future<Map<String, dynamic>?> load() async {
     final role = await Session.role();
     if (role != 'compa' && role != 'admin') return null;
-    final me = await Services.user.me();
-    return Services.match.allowance(me['id'] as String, date: date);
+    final me = await (widget.userApi ?? Services.user).me();
+    return (widget.matchApi ?? Services.match).allowance(
+      me['id'] as String,
+      date: date,
+    );
+  }
+
+  void reload() {
+    if (!mounted) return;
+    setState(() {
+      data = load();
+    });
   }
 
   Future<void> selectWeek() async {
@@ -41,10 +57,10 @@ class _WeeklyAllowanceState extends State<WeeklyAllowance> {
     builder: (context, snapshot) {
       if (snapshot.hasError) {
         return ListTile(
-          title: const Text('No pudimos consultar tus cupos'),
+          title: Text(t.allowanceLoadFailed),
           trailing: IconButton(
-            tooltip: 'Reintentar cupos',
-            onPressed: () => setState(() => data = load()),
+            tooltip: t.allowanceRetry,
+            onPressed: reload,
             icon: const Icon(Icons.refresh),
           ),
         );
@@ -63,13 +79,19 @@ class _WeeklyAllowanceState extends State<WeeklyAllowance> {
             children: [
               Text(
                 subscribed
-                    ? 'Suscripción activa'
-                    : '${value['disponibles']} de ${value['limite_gratuito']} cupos gratuitos disponibles',
+                    ? t.allowanceActive
+                    : t.allowanceAvailable(
+                        (value['disponibles'] as num).toInt(),
+                        (value['limite_gratuito'] as num).toInt(),
+                      ),
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
               Text(
-                'Semana del ${value['semana_inicio']} · Chile · ${value['usados']} reservas confirmadas',
+                t.allowanceWeek(
+                  value['semana_inicio'] as String,
+                  (value['usados'] as num).toInt(),
+                ),
               ),
               const SizedBox(height: 8),
               Wrap(
@@ -78,11 +100,11 @@ class _WeeklyAllowanceState extends State<WeeklyAllowance> {
                   TextButton.icon(
                     onPressed: selectWeek,
                     icon: const Icon(Icons.date_range),
-                    label: const Text('Consultar otra semana'),
+                    label: Text(t.allowanceSelectWeek),
                   ),
                   IconButton(
-                    tooltip: 'Actualizar cupos',
-                    onPressed: () => setState(() => data = load()),
+                    tooltip: t.allowanceRefresh,
+                    onPressed: reload,
                     icon: const Icon(Icons.refresh),
                   ),
                 ],

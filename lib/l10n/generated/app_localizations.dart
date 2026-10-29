@@ -1483,6 +1483,150 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Anteriores'**
   String get notificationsOlder;
+
+  /// No description provided for @plansTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Planes y suscripción'**
+  String get plansTitle;
+
+  /// No description provided for @plansEyebrow.
+  ///
+  /// In es, this message translates to:
+  /// **'A tu ritmo'**
+  String get plansEyebrow;
+
+  /// No description provided for @plansHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Empieza gratis. Crece a tu ritmo.'**
+  String get plansHeading;
+
+  /// No description provided for @plansDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'La suscripción amplía tu capacidad para aceptar reservas como compa.'**
+  String get plansDescription;
+
+  /// No description provided for @plansPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Las solicitudes que superen tu cupo permanecen pendientes. Tú decides cuáles confirmar cuando tengas capacidad disponible.'**
+  String get plansPending;
+
+  /// No description provided for @plansPaidTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Más espacio para crecer'**
+  String get plansPaidTitle;
+
+  /// No description provided for @plansFreeTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Plan gratuito'**
+  String get plansFreeTitle;
+
+  /// No description provided for @plansPreparing.
+  ///
+  /// In es, this message translates to:
+  /// **'Estamos preparando la suscripción.'**
+  String get plansPreparing;
+
+  /// No description provided for @plansWeekly.
+  ///
+  /// In es, this message translates to:
+  /// **'3 reservas por semana'**
+  String get plansWeekly;
+
+  /// No description provided for @plansRequests.
+  ///
+  /// In es, this message translates to:
+  /// **'Recibe solicitudes sin límite de cupos.'**
+  String get plansRequests;
+
+  /// No description provided for @plansConfirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirma hasta 3 reservas cada semana.'**
+  String get plansConfirm;
+
+  /// No description provided for @plansProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Publica tu perfil y administra tu agenda.'**
+  String get plansProfile;
+
+  /// No description provided for @plansWeekRules.
+  ///
+  /// In es, this message translates to:
+  /// **'El cupo se calcula de lunes a domingo, según la fecha de la actividad y la zona horaria de Chile. Si cancelas antes del inicio, recuperas el cupo; después del inicio, se mantiene consumido.'**
+  String get plansWeekRules;
+
+  /// No description provided for @plansAcceptMore.
+  ///
+  /// In es, this message translates to:
+  /// **'Acepta más reservas con una suscripción activa.'**
+  String get plansAcceptMore;
+
+  /// No description provided for @plansControl.
+  ///
+  /// In es, this message translates to:
+  /// **'Conserva el control de tus solicitudes pendientes.'**
+  String get plansControl;
+
+  /// No description provided for @plansPaymentDetails.
+  ///
+  /// In es, this message translates to:
+  /// **'Estamos definiendo el precio, la renovación y el proveedor de pago. No se realizarán cobros ni se simularán suscripciones. Tus solicitudes no se aceptarán automáticamente.'**
+  String get plansPaymentDetails;
+
+  /// No description provided for @plansPaymentsConstruction.
+  ///
+  /// In es, this message translates to:
+  /// **'Pagos en construcción'**
+  String get plansPaymentsConstruction;
+
+  /// No description provided for @allowanceLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar tus cupos'**
+  String get allowanceLoadFailed;
+
+  /// No description provided for @allowanceRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar cupos'**
+  String get allowanceRetry;
+
+  /// No description provided for @allowanceRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar cupos'**
+  String get allowanceRefresh;
+
+  /// No description provided for @allowanceActive.
+  ///
+  /// In es, this message translates to:
+  /// **'Suscripción activa'**
+  String get allowanceActive;
+
+  /// No description provided for @allowanceAvailable.
+  ///
+  /// In es, this message translates to:
+  /// **'{available} de {limit} cupos gratuitos disponibles'**
+  String allowanceAvailable(int available, int limit);
+
+  /// No description provided for @allowanceWeek.
+  ///
+  /// In es, this message translates to:
+  /// **'Semana del {date} · Chile · {used} reservas confirmadas'**
+  String allowanceWeek(String date, int used);
+
+  /// No description provided for @allowanceSelectWeek.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar otra semana'**
+  String get allowanceSelectWeek;
 }
 
 class _AppLocalizationsDelegate

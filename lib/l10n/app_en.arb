@@ -959,5 +959,117 @@
   "notificationsOlder": "Older",
   "@notificationsOlder": {
     "legal_review": "pending"
+  },
+  "plansTitle": "Plans and subscription",
+  "@plansTitle": {
+    "legal_review": "pending"
+  },
+  "plansEyebrow": "At your pace",
+  "@plansEyebrow": {
+    "legal_review": "pending"
+  },
+  "plansHeading": "Start free. Grow at your pace.",
+  "@plansHeading": {
+    "legal_review": "pending"
+  },
+  "plansDescription": "A subscription expands your capacity to accept bookings as a Compa.",
+  "@plansDescription": {
+    "legal_review": "pending"
+  },
+  "plansPending": "Requests beyond your allowance remain pending. You choose which to confirm when capacity is available.",
+  "@plansPending": {
+    "legal_review": "pending"
+  },
+  "plansPaidTitle": "More room to grow",
+  "@plansPaidTitle": {
+    "legal_review": "pending"
+  },
+  "plansFreeTitle": "Free plan",
+  "@plansFreeTitle": {
+    "legal_review": "pending"
+  },
+  "plansPreparing": "We are preparing subscriptions.",
+  "@plansPreparing": {
+    "legal_review": "pending"
+  },
+  "plansWeekly": "3 bookings per week",
+  "@plansWeekly": {
+    "legal_review": "pending"
+  },
+  "plansRequests": "Receive requests without using your booking allowance.",
+  "@plansRequests": {
+    "legal_review": "pending"
+  },
+  "plansConfirm": "Confirm up to 3 bookings each week.",
+  "@plansConfirm": {
+    "legal_review": "pending"
+  },
+  "plansProfile": "Publish your profile and manage your availability.",
+  "@plansProfile": {
+    "legal_review": "pending"
+  },
+  "plansWeekRules": "The allowance runs Monday to Sunday, using the activity date and Chilean time zone. Cancellation before the start restores the allowance; after the start, it remains used.",
+  "@plansWeekRules": {
+    "legal_review": "pending"
+  },
+  "plansAcceptMore": "Accept more bookings with an active subscription.",
+  "@plansAcceptMore": {
+    "legal_review": "pending"
+  },
+  "plansControl": "Keep control of your pending requests.",
+  "@plansControl": {
+    "legal_review": "pending"
+  },
+  "plansPaymentDetails": "Price, renewal and payment provider are being defined. Payments and subscription activation are not available yet. Your requests will not be accepted automatically.",
+  "@plansPaymentDetails": {
+    "legal_review": "pending"
+  },
+  "plansPaymentsConstruction": "Payments under construction",
+  "@plansPaymentsConstruction": {
+    "legal_review": "pending"
+  },
+  "allowanceLoadFailed": "We could not load your allowance",
+  "@allowanceLoadFailed": {
+    "legal_review": "pending"
+  },
+  "allowanceRetry": "Retry allowance",
+  "@allowanceRetry": {
+    "legal_review": "pending"
+  },
+  "allowanceRefresh": "Refresh allowance",
+  "@allowanceRefresh": {
+    "legal_review": "pending"
+  },
+  "allowanceActive": "Subscription active",
+  "@allowanceActive": {
+    "legal_review": "pending"
+  },
+  "allowanceAvailable": "{available} of {limit} free booking slots available",
+  "@allowanceAvailable": {
+    "legal_review": "pending",
+    "placeholders": {
+      "available": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "allowanceWeek": "Week of {date} · Chile · {used} confirmed bookings",
+  "@allowanceWeek": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "allowanceSelectWeek": "View another week",
+  "@allowanceSelectWeek": {
+    "legal_review": "pending"
   }
 }

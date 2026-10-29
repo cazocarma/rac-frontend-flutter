@@ -770,4 +770,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationsOlder => 'Older';
+
+  @override
+  String get plansTitle => 'Plans and subscription';
+
+  @override
+  String get plansEyebrow => 'At your pace';
+
+  @override
+  String get plansHeading => 'Start free. Grow at your pace.';
+
+  @override
+  String get plansDescription =>
+      'A subscription expands your capacity to accept bookings as a Compa.';
+
+  @override
+  String get plansPending =>
+      'Requests beyond your allowance remain pending. You choose which to confirm when capacity is available.';
+
+  @override
+  String get plansPaidTitle => 'More room to grow';
+
+  @override
+  String get plansFreeTitle => 'Free plan';
+
+  @override
+  String get plansPreparing => 'We are preparing subscriptions.';
+
+  @override
+  String get plansWeekly => '3 bookings per week';
+
+  @override
+  String get plansRequests =>
+      'Receive requests without using your booking allowance.';
+
+  @override
+  String get plansConfirm => 'Confirm up to 3 bookings each week.';
+
+  @override
+  String get plansProfile =>
+      'Publish your profile and manage your availability.';
+
+  @override
+  String get plansWeekRules =>
+      'The allowance runs Monday to Sunday, using the activity date and Chilean time zone. Cancellation before the start restores the allowance; after the start, it remains used.';
+
+  @override
+  String get plansAcceptMore =>
+      'Accept more bookings with an active subscription.';
+
+  @override
+  String get plansControl => 'Keep control of your pending requests.';
+
+  @override
+  String get plansPaymentDetails =>
+      'Price, renewal and payment provider are being defined. Payments and subscription activation are not available yet. Your requests will not be accepted automatically.';
+
+  @override
+  String get plansPaymentsConstruction => 'Payments under construction';
+
+  @override
+  String get allowanceLoadFailed => 'We could not load your allowance';
+
+  @override
+  String get allowanceRetry => 'Retry allowance';
+
+  @override
+  String get allowanceRefresh => 'Refresh allowance';
+
+  @override
+  String get allowanceActive => 'Subscription active';
+
+  @override
+  String allowanceAvailable(int available, int limit) {
+    return '$available of $limit free booking slots available';
+  }
+
+  @override
+  String allowanceWeek(String date, int used) {
+    return 'Week of $date · Chile · $used confirmed bookings';
+  }
+
+  @override
+  String get allowanceSelectWeek => 'View another week';
 }

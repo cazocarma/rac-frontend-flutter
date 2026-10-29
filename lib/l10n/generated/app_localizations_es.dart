@@ -772,4 +772,86 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notificationsOlder => 'Anteriores';
+
+  @override
+  String get plansTitle => 'Planes y suscripción';
+
+  @override
+  String get plansEyebrow => 'A tu ritmo';
+
+  @override
+  String get plansHeading => 'Empieza gratis. Crece a tu ritmo.';
+
+  @override
+  String get plansDescription =>
+      'La suscripción amplía tu capacidad para aceptar reservas como compa.';
+
+  @override
+  String get plansPending =>
+      'Las solicitudes que superen tu cupo permanecen pendientes. Tú decides cuáles confirmar cuando tengas capacidad disponible.';
+
+  @override
+  String get plansPaidTitle => 'Más espacio para crecer';
+
+  @override
+  String get plansFreeTitle => 'Plan gratuito';
+
+  @override
+  String get plansPreparing => 'Estamos preparando la suscripción.';
+
+  @override
+  String get plansWeekly => '3 reservas por semana';
+
+  @override
+  String get plansRequests => 'Recibe solicitudes sin límite de cupos.';
+
+  @override
+  String get plansConfirm => 'Confirma hasta 3 reservas cada semana.';
+
+  @override
+  String get plansProfile => 'Publica tu perfil y administra tu agenda.';
+
+  @override
+  String get plansWeekRules =>
+      'El cupo se calcula de lunes a domingo, según la fecha de la actividad y la zona horaria de Chile. Si cancelas antes del inicio, recuperas el cupo; después del inicio, se mantiene consumido.';
+
+  @override
+  String get plansAcceptMore =>
+      'Acepta más reservas con una suscripción activa.';
+
+  @override
+  String get plansControl =>
+      'Conserva el control de tus solicitudes pendientes.';
+
+  @override
+  String get plansPaymentDetails =>
+      'Estamos definiendo el precio, la renovación y el proveedor de pago. No se realizarán cobros ni se simularán suscripciones. Tus solicitudes no se aceptarán automáticamente.';
+
+  @override
+  String get plansPaymentsConstruction => 'Pagos en construcción';
+
+  @override
+  String get allowanceLoadFailed => 'No pudimos consultar tus cupos';
+
+  @override
+  String get allowanceRetry => 'Reintentar cupos';
+
+  @override
+  String get allowanceRefresh => 'Actualizar cupos';
+
+  @override
+  String get allowanceActive => 'Suscripción activa';
+
+  @override
+  String allowanceAvailable(int available, int limit) {
+    return '$available de $limit cupos gratuitos disponibles';
+  }
+
+  @override
+  String allowanceWeek(String date, int used) {
+    return 'Semana del $date · Chile · $used reservas confirmadas';
+  }
+
+  @override
+  String get allowanceSelectWeek => 'Consultar otra semana';
 }
