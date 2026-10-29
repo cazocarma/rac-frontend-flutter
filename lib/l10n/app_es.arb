@@ -437,7 +437,7 @@
   "@compaAddAvailability": {
     "legal_review": "pending"
   },
-  "compaPublished": "¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.",
+  "compaPublished": "Tu perfil compa se guardó correctamente.",
   "@compaPublished": {
     "legal_review": "pending"
   },
@@ -481,7 +481,7 @@
   "@compaStartHeading": {
     "legal_review": "pending"
   },
-  "compaPublishingInfo": "Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.",
+  "compaPublishingInfo": "Configura las actividades que ofreces y tus horarios. Revisa las reglas y los documentos antes de continuar.",
   "@compaPublishingInfo": {
     "legal_review": "pending"
   },
@@ -545,7 +545,7 @@
   "@compaSaveChanges": {
     "legal_review": "pending"
   },
-  "compaActivateProfile": "Activar mi perfil gratis",
+  "compaActivateProfile": "Publicar mi perfil",
   "@compaActivateProfile": {
     "legal_review": "pending"
   },

@@ -363,8 +363,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add at least one time window to receive bookings.';
 
   @override
-  String get compaPublished =>
-      'Your Compa profile is published! You can now receive requests. Your free plan includes 3 confirmed bookings per week.';
+  String get compaPublished => 'Your Compa profile was saved successfully.';
 
   @override
   String get compaSessionPending =>
@@ -401,7 +400,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compaPublishingInfo =>
-      'Publishing is free, with no application or approval. Receive requests and confirm up to 3 bookings per week. A subscription is required to accept more.';
+      'Set up the activities you offer and your availability. Review the rules and documents before continuing.';
 
   @override
   String get compaAboutLabel => 'Tell us about yourself';
@@ -455,7 +454,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get compaSaveChanges => 'Save changes';
 
   @override
-  String get compaActivateProfile => 'Activate my free profile';
+  String get compaActivateProfile => 'Publish my profile';
 
   @override
   String get compaLoginFailed => 'We could not open sign-in. Try again.';

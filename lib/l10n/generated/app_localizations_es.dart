@@ -363,8 +363,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Agrega al menos un horario para recibir reservas.';
 
   @override
-  String get compaPublished =>
-      '¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.';
+  String get compaPublished => 'Tu perfil compa se guardó correctamente.';
 
   @override
   String get compaSessionPending =>
@@ -402,7 +401,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get compaPublishingInfo =>
-      'Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.';
+      'Configura las actividades que ofreces y tus horarios. Revisa las reglas y los documentos antes de continuar.';
 
   @override
   String get compaAboutLabel => 'Cuéntanos sobre ti';
@@ -456,7 +455,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get compaSaveChanges => 'Guardar cambios';
 
   @override
-  String get compaActivateProfile => 'Activar mi perfil gratis';
+  String get compaActivateProfile => 'Publicar mi perfil';
 
   @override
   String get compaLoginFailed =>

@@ -737,7 +737,7 @@ abstract class AppLocalizations {
   /// No description provided for @compaPublished.
   ///
   /// In es, this message translates to:
-  /// **'¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.'**
+  /// **'Tu perfil compa se guardó correctamente.'**
   String get compaPublished;
 
   /// No description provided for @compaSessionPending.
@@ -803,7 +803,7 @@ abstract class AppLocalizations {
   /// No description provided for @compaPublishingInfo.
   ///
   /// In es, this message translates to:
-  /// **'Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.'**
+  /// **'Configura las actividades que ofreces y tus horarios. Revisa las reglas y los documentos antes de continuar.'**
   String get compaPublishingInfo;
 
   /// No description provided for @compaAboutLabel.
@@ -899,7 +899,7 @@ abstract class AppLocalizations {
   /// No description provided for @compaActivateProfile.
   ///
   /// In es, this message translates to:
-  /// **'Activar mi perfil gratis'**
+  /// **'Publicar mi perfil'**
   String get compaActivateProfile;
 
   /// No description provided for @compaLoginFailed.
