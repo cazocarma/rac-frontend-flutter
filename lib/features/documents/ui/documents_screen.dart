@@ -1,3 +1,4 @@
+import 'document_title.dart';
 import 'document_text.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class DocumentsScreen extends StatefulWidget {
 }
 
 class _DocumentsScreenState extends State<DocumentsScreen> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   late final api = widget.api ?? DocumentsApi(Env.apiBase);
   late Future<List<LegalDocument>> data = api.documents();
   void reload() {
@@ -34,7 +36,7 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Documentos y acuerdos'),
+      title: Text(t.settingsDocuments),
       actions: [
         IconButton(
           tooltip: AppLocalizations.of(context)!.documentHistoryTitle,
@@ -51,21 +53,20 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
         }
         if (snapshot.hasError) {
           return EmptyState(
-            title: 'No pudimos cargar los documentos',
-            message: 'Inténtalo otra vez en unos momentos.',
+            title: t.documentsLoadFailed,
+            message: t.documentsRetryLater,
             action: FilledButton(
               onPressed: reload,
-              child: const Text('Reintentar'),
+              child: Text(t.documentsRetry),
             ),
           );
         }
         final items = snapshot.data ?? [];
         if (items.isEmpty) {
-          return const EmptyState(
-            title: 'En construcción',
+          return EmptyState(
+            title: t.commonConstruction,
             icon: Icons.description_outlined,
-            message:
-                'Los documentos estarán disponibles cuando termine su revisión.',
+            message: t.documentsPendingReview,
           );
         }
         return SingleChildScrollView(
@@ -74,11 +75,10 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const PageIntro(
-                  eyebrow: 'Tu cuenta',
-                  title: 'Información y acuerdos',
-                  description:
-                      'Consulta cada versión y revisa cuáles has aceptado.',
+                PageIntro(
+                  eyebrow: t.documentsAccount,
+                  title: t.documentsHeading,
+                  description: t.documentsDescription,
                 ),
                 for (final item in items)
                   Card(
@@ -88,9 +88,14 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
                             ? Icons.description_outlined
                             : Icons.verified_outlined,
                       ),
-                      title: Text(item.title),
+                      title: Text(item.localizedTitle(t)),
                       subtitle: Text(
-                        'Versión ${item.version} · ${item.acceptedAt == null ? 'Sin aceptar' : 'Aceptada'}',
+                        t.documentsVersionStatus(
+                          item.version,
+                          item.acceptedAt == null
+                              ? t.documentsNotAccepted
+                              : t.documentsAccepted,
+                        ),
                       ),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () async {
@@ -122,6 +127,7 @@ class DocumentReader extends StatefulWidget {
 }
 
 class _DocumentReaderState extends State<DocumentReader> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   late Future<LegalDocument> data = widget.api.document(widget.metadata.id);
   bool checked = false, busy = false, stale = false;
   String? error;
@@ -146,9 +152,7 @@ class _DocumentReaderState extends State<DocumentReader> {
         setState(() {
           stale = e is ApiException && e.status == 409;
           if (stale) checked = false;
-          error = stale
-              ? 'Los documentos cambiaron. Vuelve a la lista para actualizarlos.'
-              : 'No pudimos confirmar la aceptación. Puedes reintentar.';
+          error = stale ? t.readerDocumentsChanged : t.documentsAcceptFailed;
         });
       }
     } finally {
@@ -158,7 +162,7 @@ class _DocumentReaderState extends State<DocumentReader> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(widget.metadata.title)),
+    appBar: AppBar(title: Text(widget.metadata.localizedTitle(t))),
     body: FutureBuilder<LegalDocument>(
       future: data,
       builder: (context, snapshot) {
@@ -170,14 +174,17 @@ class _DocumentReaderState extends State<DocumentReader> {
             item == null ||
             item.content == null ||
             item.id != widget.metadata.id ||
-            item.sha256 != widget.metadata.sha256) {
+            item.sha256 != widget.metadata.sha256 ||
+            item.kind != widget.metadata.kind ||
+            item.version != widget.metadata.version ||
+            (widget.metadata.locale != null &&
+                item.locale != widget.metadata.locale)) {
           return EmptyState(
-            title: 'No pudimos abrir esta versión',
-            message:
-                'Vuelve a intentarlo o regresa a la lista para actualizarla.',
+            title: t.documentsOpenFailed,
+            message: t.documentsReturnRefresh,
             action: OutlinedButton(
               onPressed: retry,
-              child: const Text('Reintentar'),
+              child: Text(t.documentsRetry),
             ),
           );
         }
@@ -188,14 +195,14 @@ class _DocumentReaderState extends State<DocumentReader> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Versión ${item.version}',
+                  t.documentVersion(item.version),
                   style: Theme.of(context).textTheme.labelLarge,
                 ),
                 const SizedBox(height: 20),
                 DocumentText(item.content!),
                 const SizedBox(height: 28),
                 if (widget.metadata.acceptedAt != null)
-                  const Text('Ya aceptaste esta versión.')
+                  Text(t.documentsAlreadyAccepted)
                 else ...[
                   CheckboxListTile(
                     contentPadding: EdgeInsets.zero,
@@ -203,7 +210,7 @@ class _DocumentReaderState extends State<DocumentReader> {
                     onChanged: busy || stale
                         ? null
                         : (value) => setState(() => checked = value ?? false),
-                    title: const Text('Acepto esta versión del documento.'),
+                    title: Text(t.documentsConsent),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   if (error != null)
@@ -220,7 +227,7 @@ class _DocumentReaderState extends State<DocumentReader> {
                     onPressed: checked && !busy && !stale
                         ? () => accept(item)
                         : null,
-                    child: Text(busy ? 'Guardando…' : 'Confirmar aceptación'),
+                    child: Text(busy ? t.savingConsent : t.documentsConfirm),
                   ),
                 ],
               ],

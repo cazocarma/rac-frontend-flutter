@@ -1201,6 +1201,150 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Al ingresar, volverás automáticamente a RAC.'**
   String get accessReturn;
+
+  /// No description provided for @documentTermsClient.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos para clientes'**
+  String get documentTermsClient;
+
+  /// No description provided for @documentTermsCompa.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos para compas'**
+  String get documentTermsCompa;
+
+  /// No description provided for @documentCommunity.
+  ///
+  /// In es, this message translates to:
+  /// **'Reglas de la comunidad'**
+  String get documentCommunity;
+
+  /// No description provided for @documentPrivacy.
+  ///
+  /// In es, this message translates to:
+  /// **'Privacidad'**
+  String get documentPrivacy;
+
+  /// No description provided for @documentSafety.
+  ///
+  /// In es, this message translates to:
+  /// **'Reglas de seguridad'**
+  String get documentSafety;
+
+  /// No description provided for @documentGeneric.
+  ///
+  /// In es, this message translates to:
+  /// **'Documento'**
+  String get documentGeneric;
+
+  /// No description provided for @documentsLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar los documentos'**
+  String get documentsLoadFailed;
+
+  /// No description provided for @documentsRetryLater.
+  ///
+  /// In es, this message translates to:
+  /// **'Inténtalo otra vez en unos momentos.'**
+  String get documentsRetryLater;
+
+  /// No description provided for @documentsRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get documentsRetry;
+
+  /// No description provided for @documentsPendingReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Los documentos estarán disponibles cuando termine su revisión.'**
+  String get documentsPendingReview;
+
+  /// No description provided for @documentsAccount.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta'**
+  String get documentsAccount;
+
+  /// No description provided for @documentsHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Información y acuerdos'**
+  String get documentsHeading;
+
+  /// No description provided for @documentsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta cada versión y revisa cuáles has aceptado.'**
+  String get documentsDescription;
+
+  /// No description provided for @documentsNotAccepted.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin aceptar'**
+  String get documentsNotAccepted;
+
+  /// No description provided for @documentsAccepted.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptada'**
+  String get documentsAccepted;
+
+  /// No description provided for @readerDocumentsChanged.
+  ///
+  /// In es, this message translates to:
+  /// **'Los documentos cambiaron. Vuelve a la lista para actualizarlos.'**
+  String get readerDocumentsChanged;
+
+  /// No description provided for @documentsAcceptFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos confirmar la aceptación. Puedes reintentar.'**
+  String get documentsAcceptFailed;
+
+  /// No description provided for @documentsOpenFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos abrir esta versión'**
+  String get documentsOpenFailed;
+
+  /// No description provided for @documentsReturnRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Vuelve a intentarlo o regresa a la lista para actualizarla.'**
+  String get documentsReturnRefresh;
+
+  /// No description provided for @documentsAlreadyAccepted.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya aceptaste esta versión.'**
+  String get documentsAlreadyAccepted;
+
+  /// No description provided for @documentsConsent.
+  ///
+  /// In es, this message translates to:
+  /// **'Acepto esta versión del documento.'**
+  String get documentsConsent;
+
+  /// No description provided for @documentsConfirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar aceptación'**
+  String get documentsConfirm;
+
+  /// No description provided for @documentVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String documentVersion(String version);
+
+  /// No description provided for @documentsVersionStatus.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version} · {status}'**
+  String documentsVersionStatus(String version, String status);
 }
 
 class _AppLocalizationsDelegate

@@ -1,3 +1,4 @@
+import 'document_title.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -72,7 +73,7 @@ class _DocumentHistoryScreenState extends State<DocumentHistoryScreen> {
                 Card(
                   child: ListTile(
                     title: Text(
-                      '${entry.document.title} · ${entry.document.version}',
+                      '${entry.document.localizedTitle(strings)} · ${entry.document.version}',
                     ),
                     subtitle: Text(
                       strings.documentHistoryAt(

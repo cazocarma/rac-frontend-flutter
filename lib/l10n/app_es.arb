@@ -748,5 +748,114 @@
   "accessReturn": "Al ingresar, volverás automáticamente a RAC.",
   "@accessReturn": {
     "legal_review": "pending"
+  },
+  "documentTermsClient": "Términos para clientes",
+  "@documentTermsClient": {
+    "legal_review": "pending"
+  },
+  "documentTermsCompa": "Términos para compas",
+  "@documentTermsCompa": {
+    "legal_review": "pending"
+  },
+  "documentCommunity": "Reglas de la comunidad",
+  "@documentCommunity": {
+    "legal_review": "pending"
+  },
+  "documentPrivacy": "Privacidad",
+  "@documentPrivacy": {
+    "legal_review": "pending"
+  },
+  "documentSafety": "Reglas de seguridad",
+  "@documentSafety": {
+    "legal_review": "pending"
+  },
+  "documentGeneric": "Documento",
+  "@documentGeneric": {
+    "legal_review": "pending"
+  },
+  "documentsLoadFailed": "No pudimos cargar los documentos",
+  "@documentsLoadFailed": {
+    "legal_review": "pending"
+  },
+  "documentsRetryLater": "Inténtalo otra vez en unos momentos.",
+  "@documentsRetryLater": {
+    "legal_review": "pending"
+  },
+  "documentsRetry": "Reintentar",
+  "@documentsRetry": {
+    "legal_review": "pending"
+  },
+  "documentsPendingReview": "Los documentos estarán disponibles cuando termine su revisión.",
+  "@documentsPendingReview": {
+    "legal_review": "pending"
+  },
+  "documentsAccount": "Tu cuenta",
+  "@documentsAccount": {
+    "legal_review": "pending"
+  },
+  "documentsHeading": "Información y acuerdos",
+  "@documentsHeading": {
+    "legal_review": "pending"
+  },
+  "documentsDescription": "Consulta cada versión y revisa cuáles has aceptado.",
+  "@documentsDescription": {
+    "legal_review": "pending"
+  },
+  "documentsNotAccepted": "Sin aceptar",
+  "@documentsNotAccepted": {
+    "legal_review": "pending"
+  },
+  "documentsAccepted": "Aceptada",
+  "@documentsAccepted": {
+    "legal_review": "pending"
+  },
+  "readerDocumentsChanged": "Los documentos cambiaron. Vuelve a la lista para actualizarlos.",
+  "@readerDocumentsChanged": {
+    "legal_review": "pending"
+  },
+  "documentsAcceptFailed": "No pudimos confirmar la aceptación. Puedes reintentar.",
+  "@documentsAcceptFailed": {
+    "legal_review": "pending"
+  },
+  "documentsOpenFailed": "No pudimos abrir esta versión",
+  "@documentsOpenFailed": {
+    "legal_review": "pending"
+  },
+  "documentsReturnRefresh": "Vuelve a intentarlo o regresa a la lista para actualizarla.",
+  "@documentsReturnRefresh": {
+    "legal_review": "pending"
+  },
+  "documentsAlreadyAccepted": "Ya aceptaste esta versión.",
+  "@documentsAlreadyAccepted": {
+    "legal_review": "pending"
+  },
+  "documentsConsent": "Acepto esta versión del documento.",
+  "@documentsConsent": {
+    "legal_review": "pending"
+  },
+  "documentsConfirm": "Confirmar aceptación",
+  "@documentsConfirm": {
+    "legal_review": "pending"
+  },
+  "documentVersion": "Versión {version}",
+  "@documentVersion": {
+    "legal_review": "pending",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "documentsVersionStatus": "Versión {version} · {status}",
+  "@documentsVersionStatus": {
+    "legal_review": "pending",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
   }
 }

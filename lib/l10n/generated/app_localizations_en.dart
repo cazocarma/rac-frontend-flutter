@@ -610,4 +610,86 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get accessReturn =>
       'After signing in, you will return automatically to RAC.';
+
+  @override
+  String get documentTermsClient => 'Client terms';
+
+  @override
+  String get documentTermsCompa => 'Compa terms';
+
+  @override
+  String get documentCommunity => 'Community rules';
+
+  @override
+  String get documentPrivacy => 'Privacy';
+
+  @override
+  String get documentSafety => 'Safety rules';
+
+  @override
+  String get documentGeneric => 'Document';
+
+  @override
+  String get documentsLoadFailed => 'We could not load the documents';
+
+  @override
+  String get documentsRetryLater => 'Try again in a moment.';
+
+  @override
+  String get documentsRetry => 'Retry';
+
+  @override
+  String get documentsPendingReview =>
+      'Documents will be available once their review is complete.';
+
+  @override
+  String get documentsAccount => 'Your account';
+
+  @override
+  String get documentsHeading => 'Information and agreements';
+
+  @override
+  String get documentsDescription =>
+      'View each version and check which ones you have accepted.';
+
+  @override
+  String get documentsNotAccepted => 'Not accepted';
+
+  @override
+  String get documentsAccepted => 'Accepted';
+
+  @override
+  String get readerDocumentsChanged =>
+      'The documents changed. Return to the list to refresh them.';
+
+  @override
+  String get documentsAcceptFailed =>
+      'We could not confirm acceptance. You can retry.';
+
+  @override
+  String get documentsOpenFailed => 'We could not open this version';
+
+  @override
+  String get documentsReturnRefresh =>
+      'Try again or return to the list to refresh it.';
+
+  @override
+  String get documentsAlreadyAccepted =>
+      'You have already accepted this version.';
+
+  @override
+  String get documentsConsent => 'I accept this version of the document.';
+
+  @override
+  String get documentsConfirm => 'Confirm acceptance';
+
+  @override
+  String documentVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String documentsVersionStatus(String version, String status) {
+    return 'Version $version · $status';
+  }
 }

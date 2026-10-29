@@ -65,10 +65,12 @@ class LegalDocument {
     this.acceptedAt,
     this.content,
     this.registry,
+    this.locale,
   });
   final String id, kind, version, sha256;
   final DateTime? acceptedAt;
   final String? content;
+  final String? locale;
   final DocumentRegistry? registry;
 
   factory LegalDocument.fromJson(
@@ -84,15 +86,13 @@ class LegalDocument {
         : DateTime.parse(json['accepted_at'] as String),
     content: json['content'] as String?,
     registry: registry,
+    locale: switch (json['locale']) {
+      'es' => 'es',
+      'en' => 'en',
+      null => null,
+      _ => throw const FormatException('Unsupported document locale'),
+    },
   );
-  String get title => switch (kind) {
-    'terms_client' => 'Términos para clientes',
-    'terms_compa' => 'Términos para compas',
-    'community_rules' => 'Reglas de la comunidad',
-    'privacy' => 'Privacidad',
-    'safety_rules' => 'Reglas de seguridad',
-    _ => 'Documento',
-  };
 }
 
 class DocumentAcceptance {

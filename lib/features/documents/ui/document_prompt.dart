@@ -1,3 +1,4 @@
+import 'document_title.dart';
 import 'document_text.dart';
 import 'package:flutter/material.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -48,13 +49,15 @@ class _DocumentPromptState extends State<DocumentPrompt> {
       if (exact.id != metadata.id ||
           exact.sha256 != metadata.sha256 ||
           exact.kind != metadata.kind ||
+          exact.version != metadata.version ||
+          (metadata.locale != null && exact.locale != metadata.locale) ||
           exact.content == null) {
         throw StateError('Document changed');
       }
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(metadata.title),
+          title: Text(metadata.localizedTitle(strings)),
           content: SizedBox(
             width: 720,
             child: SingleChildScrollView(child: DocumentText(exact.content!)),
@@ -133,7 +136,7 @@ class _DocumentPromptState extends State<DocumentPrompt> {
                       for (final document in documents)
                         Card(
                           child: ListTile(
-                            title: Text(document.title),
+                            title: Text(document.localizedTitle(strings)),
                             subtitle: Text(
                               strings.pendingVersion(document.version),
                             ),

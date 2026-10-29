@@ -748,5 +748,114 @@
   "accessReturn": "After signing in, you will return automatically to RAC.",
   "@accessReturn": {
     "legal_review": "pending"
+  },
+  "documentTermsClient": "Client terms",
+  "@documentTermsClient": {
+    "legal_review": "pending"
+  },
+  "documentTermsCompa": "Compa terms",
+  "@documentTermsCompa": {
+    "legal_review": "pending"
+  },
+  "documentCommunity": "Community rules",
+  "@documentCommunity": {
+    "legal_review": "pending"
+  },
+  "documentPrivacy": "Privacy",
+  "@documentPrivacy": {
+    "legal_review": "pending"
+  },
+  "documentSafety": "Safety rules",
+  "@documentSafety": {
+    "legal_review": "pending"
+  },
+  "documentGeneric": "Document",
+  "@documentGeneric": {
+    "legal_review": "pending"
+  },
+  "documentsLoadFailed": "We could not load the documents",
+  "@documentsLoadFailed": {
+    "legal_review": "pending"
+  },
+  "documentsRetryLater": "Try again in a moment.",
+  "@documentsRetryLater": {
+    "legal_review": "pending"
+  },
+  "documentsRetry": "Retry",
+  "@documentsRetry": {
+    "legal_review": "pending"
+  },
+  "documentsPendingReview": "Documents will be available once their review is complete.",
+  "@documentsPendingReview": {
+    "legal_review": "pending"
+  },
+  "documentsAccount": "Your account",
+  "@documentsAccount": {
+    "legal_review": "pending"
+  },
+  "documentsHeading": "Information and agreements",
+  "@documentsHeading": {
+    "legal_review": "pending"
+  },
+  "documentsDescription": "View each version and check which ones you have accepted.",
+  "@documentsDescription": {
+    "legal_review": "pending"
+  },
+  "documentsNotAccepted": "Not accepted",
+  "@documentsNotAccepted": {
+    "legal_review": "pending"
+  },
+  "documentsAccepted": "Accepted",
+  "@documentsAccepted": {
+    "legal_review": "pending"
+  },
+  "readerDocumentsChanged": "The documents changed. Return to the list to refresh them.",
+  "@readerDocumentsChanged": {
+    "legal_review": "pending"
+  },
+  "documentsAcceptFailed": "We could not confirm acceptance. You can retry.",
+  "@documentsAcceptFailed": {
+    "legal_review": "pending"
+  },
+  "documentsOpenFailed": "We could not open this version",
+  "@documentsOpenFailed": {
+    "legal_review": "pending"
+  },
+  "documentsReturnRefresh": "Try again or return to the list to refresh it.",
+  "@documentsReturnRefresh": {
+    "legal_review": "pending"
+  },
+  "documentsAlreadyAccepted": "You have already accepted this version.",
+  "@documentsAlreadyAccepted": {
+    "legal_review": "pending"
+  },
+  "documentsConsent": "I accept this version of the document.",
+  "@documentsConsent": {
+    "legal_review": "pending"
+  },
+  "documentsConfirm": "Confirm acceptance",
+  "@documentsConfirm": {
+    "legal_review": "pending"
+  },
+  "documentVersion": "Version {version}",
+  "@documentVersion": {
+    "legal_review": "pending",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "documentsVersionStatus": "Version {version} · {status}",
+  "@documentsVersionStatus": {
+    "legal_review": "pending",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
   }
 }

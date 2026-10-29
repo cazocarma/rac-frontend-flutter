@@ -613,4 +613,85 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get accessReturn => 'Al ingresar, volverás automáticamente a RAC.';
+
+  @override
+  String get documentTermsClient => 'Términos para clientes';
+
+  @override
+  String get documentTermsCompa => 'Términos para compas';
+
+  @override
+  String get documentCommunity => 'Reglas de la comunidad';
+
+  @override
+  String get documentPrivacy => 'Privacidad';
+
+  @override
+  String get documentSafety => 'Reglas de seguridad';
+
+  @override
+  String get documentGeneric => 'Documento';
+
+  @override
+  String get documentsLoadFailed => 'No pudimos cargar los documentos';
+
+  @override
+  String get documentsRetryLater => 'Inténtalo otra vez en unos momentos.';
+
+  @override
+  String get documentsRetry => 'Reintentar';
+
+  @override
+  String get documentsPendingReview =>
+      'Los documentos estarán disponibles cuando termine su revisión.';
+
+  @override
+  String get documentsAccount => 'Tu cuenta';
+
+  @override
+  String get documentsHeading => 'Información y acuerdos';
+
+  @override
+  String get documentsDescription =>
+      'Consulta cada versión y revisa cuáles has aceptado.';
+
+  @override
+  String get documentsNotAccepted => 'Sin aceptar';
+
+  @override
+  String get documentsAccepted => 'Aceptada';
+
+  @override
+  String get readerDocumentsChanged =>
+      'Los documentos cambiaron. Vuelve a la lista para actualizarlos.';
+
+  @override
+  String get documentsAcceptFailed =>
+      'No pudimos confirmar la aceptación. Puedes reintentar.';
+
+  @override
+  String get documentsOpenFailed => 'No pudimos abrir esta versión';
+
+  @override
+  String get documentsReturnRefresh =>
+      'Vuelve a intentarlo o regresa a la lista para actualizarla.';
+
+  @override
+  String get documentsAlreadyAccepted => 'Ya aceptaste esta versión.';
+
+  @override
+  String get documentsConsent => 'Acepto esta versión del documento.';
+
+  @override
+  String get documentsConfirm => 'Confirmar aceptación';
+
+  @override
+  String documentVersion(String version) {
+    return 'Versión $version';
+  }
+
+  @override
+  String documentsVersionStatus(String version, String status) {
+    return 'Versión $version · $status';
+  }
 }
