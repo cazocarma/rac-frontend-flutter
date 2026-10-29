@@ -22,7 +22,8 @@
       "version": {
         "type": "String"
       }
-    }
+    },
+    "legal_review": "pending"
   },
   "compaRulesTitle": "Reglas para ser compa",
   "compaRulesIntro": "Revisa cada declaración y responde las tres situaciones. Aprobar este paso no publica tu perfil ni verifica tu identidad.",
@@ -54,7 +55,8 @@
       "context": {
         "type": "String"
       }
-    }
+    },
+    "legal_review": "pending"
   },
   "compaPrerequisitesPending": "Completa los documentos y reglas pendientes. Luego vuelve a activar tu perfil; conservamos lo que escribiste.",
   "staffTitle": "Consola de gestión",
@@ -120,5 +122,311 @@
   "staffActivationHelp": "Se activarán cinco documentos y un cuestionario ya revisados y publicados. La versión se consulta al servidor; si cambia antes de confirmar, debes revisar y preparar nuevamente el conjunto.",
   "staffActivationSummary": "Resumen de cambios (hasta tres líneas, opcional)",
   "staffActivationInvalid": "No pudimos preparar este conjunto. Revisa referencias, idioma, publicaciones y resumen; vuelve a consultar antes de confirmar.",
-  "staffStepUpRequired": "Tu verificación de seguridad venció. Ingresa nuevamente con MFA para continuar con el mismo comando."
+  "staffStepUpRequired": "Tu verificación de seguridad venció. Ingresa nuevamente con MFA para continuar con el mismo comando.",
+  "@updatedRules": {
+    "legal_review": "pending"
+  },
+  "@readDocuments": {
+    "legal_review": "pending"
+  },
+  "@acceptContinue": {
+    "legal_review": "pending"
+  },
+  "@explicitConsent": {
+    "legal_review": "pending"
+  },
+  "@readFullText": {
+    "legal_review": "pending"
+  },
+  "@readDone": {
+    "legal_review": "pending"
+  },
+  "@savingConsent": {
+    "legal_review": "pending"
+  },
+  "@documentsUnavailable": {
+    "legal_review": "pending"
+  },
+  "@consentFailed": {
+    "legal_review": "pending"
+  },
+  "@documentsChanged": {
+    "legal_review": "pending"
+  },
+  "@backToAction": {
+    "legal_review": "pending"
+  },
+  "@privacyEscape": {
+    "legal_review": "pending"
+  },
+  "@privacyTitle": {
+    "legal_review": "pending"
+  },
+  "@privacyPending": {
+    "legal_review": "pending"
+  },
+  "@viewProfile": {
+    "legal_review": "pending"
+  },
+  "@documentReadFailed": {
+    "legal_review": "pending"
+  },
+  "@compaRulesTitle": {
+    "legal_review": "pending"
+  },
+  "@compaRulesIntro": {
+    "legal_review": "pending"
+  },
+  "@compaRulesReview": {
+    "legal_review": "pending"
+  },
+  "@compaRulesSubmit": {
+    "legal_review": "pending"
+  },
+  "@compaRulesPassed": {
+    "legal_review": "pending"
+  },
+  "@compaRulesUnavailable": {
+    "legal_review": "pending"
+  },
+  "@compaRulesRetry": {
+    "legal_review": "pending"
+  },
+  "@compaRulesWrong": {
+    "legal_review": "pending"
+  },
+  "@compaRulesDeclarations": {
+    "legal_review": "pending"
+  },
+  "@compaRulesChanged": {
+    "legal_review": "pending"
+  },
+  "@compaRulesFailed": {
+    "legal_review": "pending"
+  },
+  "@compaRulesContinue": {
+    "legal_review": "pending"
+  },
+  "@compaRulesSaving": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryTitle": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryEmpty": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryFailed": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryMore": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryRetry": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryAccount": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryOnboarding": {
+    "legal_review": "pending"
+  },
+  "@documentHistoryBooking": {
+    "legal_review": "pending"
+  },
+  "@compaPrerequisitesPending": {
+    "legal_review": "pending"
+  },
+  "@staffTitle": {
+    "legal_review": "pending"
+  },
+  "@staffAccess": {
+    "legal_review": "pending"
+  },
+  "@staffAccessHelp": {
+    "legal_review": "pending"
+  },
+  "@staffSignIn": {
+    "legal_review": "pending"
+  },
+  "@staffSignOut": {
+    "legal_review": "pending"
+  },
+  "@staffUnavailable": {
+    "legal_review": "pending"
+  },
+  "@staffDenied": {
+    "legal_review": "pending"
+  },
+  "@staffReady": {
+    "legal_review": "pending"
+  },
+  "@staffRetry": {
+    "legal_review": "pending"
+  },
+  "@staffPending": {
+    "legal_review": "pending"
+  },
+  "@staffReadRevision": {
+    "legal_review": "pending"
+  },
+  "@staffResource": {
+    "legal_review": "pending"
+  },
+  "@staffDocument": {
+    "legal_review": "pending"
+  },
+  "@staffAssessment": {
+    "legal_review": "pending"
+  },
+  "@staffReference": {
+    "legal_review": "pending"
+  },
+  "@staffRevisionUnavailable": {
+    "legal_review": "pending"
+  },
+  "@staffConfirmDecision": {
+    "legal_review": "pending"
+  },
+  "@staffCancel": {
+    "legal_review": "pending"
+  },
+  "@staffApprove": {
+    "legal_review": "pending"
+  },
+  "@staffReject": {
+    "legal_review": "pending"
+  },
+  "@staffPublish": {
+    "legal_review": "pending"
+  },
+  "@staffReadAcknowledgement": {
+    "legal_review": "pending"
+  },
+  "@staffDecisionFailed": {
+    "legal_review": "pending"
+  },
+  "@staffDecisionCompleted": {
+    "legal_review": "pending"
+  },
+  "@staffPendingRecovery": {
+    "legal_review": "pending"
+  },
+  "@staffRetrySameCommand": {
+    "legal_review": "pending"
+  },
+  "@staffCreateDraft": {
+    "legal_review": "pending"
+  },
+  "@staffConfirmDraft": {
+    "legal_review": "pending"
+  },
+  "@staffDraftHelp": {
+    "legal_review": "pending"
+  },
+  "@staffDocumentKind": {
+    "legal_review": "pending"
+  },
+  "@staffClientTerms": {
+    "legal_review": "pending"
+  },
+  "@staffCompaTerms": {
+    "legal_review": "pending"
+  },
+  "@staffCommunityRules": {
+    "legal_review": "pending"
+  },
+  "@staffPrivacy": {
+    "legal_review": "pending"
+  },
+  "@staffSafetyRules": {
+    "legal_review": "pending"
+  },
+  "@staffVersion": {
+    "legal_review": "pending"
+  },
+  "@staffLocale": {
+    "legal_review": "pending"
+  },
+  "@staffMaterialChange": {
+    "legal_review": "pending"
+  },
+  "@staffMaterialYes": {
+    "legal_review": "pending"
+  },
+  "@staffMaterialNo": {
+    "legal_review": "pending"
+  },
+  "@staffDocumentContent": {
+    "legal_review": "pending"
+  },
+  "@staffDraftInvalid": {
+    "legal_review": "pending"
+  },
+  "@staffCreateAssessment": {
+    "legal_review": "pending"
+  },
+  "@staffConfirmAssessment": {
+    "legal_review": "pending"
+  },
+  "@staffPrivateAssessmentHelp": {
+    "legal_review": "pending"
+  },
+  "@staffNoSubstances": {
+    "legal_review": "pending"
+  },
+  "@staffNoSexualServices": {
+    "legal_review": "pending"
+  },
+  "@staffCatalogOnly": {
+    "legal_review": "pending"
+  },
+  "@staffAdultsOnly": {
+    "legal_review": "pending"
+  },
+  "@staffEnforcement": {
+    "legal_review": "pending"
+  },
+  "@staffQuestion": {
+    "legal_review": "pending"
+  },
+  "@staffOption": {
+    "legal_review": "pending"
+  },
+  "@staffCorrectOption": {
+    "legal_review": "pending"
+  },
+  "@staffAddOption": {
+    "legal_review": "pending"
+  },
+  "@staffRemoveOption": {
+    "legal_review": "pending"
+  },
+  "@staffAssessmentInvalid": {
+    "legal_review": "pending"
+  },
+  "@staffActivateBundle": {
+    "legal_review": "pending"
+  },
+  "@staffPrepareActivation": {
+    "legal_review": "pending"
+  },
+  "@staffConfirmActivation": {
+    "legal_review": "pending"
+  },
+  "@staffRegistryVersion": {
+    "legal_review": "pending"
+  },
+  "@staffActivationHelp": {
+    "legal_review": "pending"
+  },
+  "@staffActivationSummary": {
+    "legal_review": "pending"
+  },
+  "@staffActivationInvalid": {
+    "legal_review": "pending"
+  },
+  "@staffStepUpRequired": {
+    "legal_review": "pending"
+  }
 }
