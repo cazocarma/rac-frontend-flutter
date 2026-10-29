@@ -721,6 +721,246 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Tu verificación de seguridad venció. Ingresa nuevamente con MFA para continuar con el mismo comando.'**
   String get staffStepUpRequired;
+
+  /// No description provided for @compaTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Sé Compa'**
+  String get compaTitle;
+
+  /// No description provided for @compaAddAvailability.
+  ///
+  /// In es, this message translates to:
+  /// **'Agrega al menos un horario para recibir reservas.'**
+  String get compaAddAvailability;
+
+  /// No description provided for @compaPublished.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.'**
+  String get compaPublished;
+
+  /// No description provided for @compaSessionPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil se guardó, pero no pudimos actualizar los permisos de tu sesión. Pulsa Actualizar sesión para continuar.'**
+  String get compaSessionPending;
+
+  /// No description provided for @compaSaveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos guardar tu perfil. Revisa tu conexión e inténtalo nuevamente. Tus cambios anteriores se conservan.'**
+  String get compaSaveFailed;
+
+  /// No description provided for @compaWindowsLimit.
+  ///
+  /// In es, this message translates to:
+  /// **'Hasta 3 franjas por día.'**
+  String get compaWindowsLimit;
+
+  /// No description provided for @compaWindowFormat.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa HH:mm-HH:mm, por ejemplo 18:00-22:00.'**
+  String get compaWindowFormat;
+
+  /// No description provided for @compaWindowsOverlap.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa el orden y evita horarios superpuestos.'**
+  String get compaWindowsOverlap;
+
+  /// No description provided for @compaLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu perfil'**
+  String get compaLoadFailed;
+
+  /// No description provided for @compaConnectionRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo nuevamente.'**
+  String get compaConnectionRetry;
+
+  /// No description provided for @compaRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get compaRetry;
+
+  /// No description provided for @compaProfileHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil como compa'**
+  String get compaProfileHeading;
+
+  /// No description provided for @compaStartHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Comparte lo que te gusta hacer'**
+  String get compaStartHeading;
+
+  /// No description provided for @compaPublishingInfo.
+  ///
+  /// In es, this message translates to:
+  /// **'Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.'**
+  String get compaPublishingInfo;
+
+  /// No description provided for @compaAboutLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos sobre ti'**
+  String get compaAboutLabel;
+
+  /// No description provided for @compaAboutHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué actividades ofreces y cómo será compartir contigo'**
+  String get compaAboutHint;
+
+  /// No description provided for @compaAboutShort.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos un poco más: al menos 20 caracteres.'**
+  String get compaAboutShort;
+
+  /// No description provided for @compaRateLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Tarifa por hora (CLP)'**
+  String get compaRateLabel;
+
+  /// No description provided for @compaRateHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Valor referencial. Los cobros están en construcción.'**
+  String get compaRateHelp;
+
+  /// No description provided for @compaRateInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un monto válido, con hasta 2 decimales.'**
+  String get compaRateInvalid;
+
+  /// No description provided for @compaSkillsLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Habilidades'**
+  String get compaSkillsLabel;
+
+  /// No description provided for @compaSkillsHint.
+  ///
+  /// In es, this message translates to:
+  /// **'asado, cine, running'**
+  String get compaSkillsHint;
+
+  /// No description provided for @compaSkillsHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Separa con comas. Entre 1 y 8 habilidades.'**
+  String get compaSkillsHelp;
+
+  /// No description provided for @compaSkillsInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Agrega de 1 a 8 habilidades, de 2 a 40 caracteres cada una.'**
+  String get compaSkillsInvalid;
+
+  /// No description provided for @compaAvailabilityHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu disponibilidad semanal'**
+  String get compaAvailabilityHeading;
+
+  /// No description provided for @compaAvailabilityHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe las horas de tu zona. Deja vacío un día si no estás disponible. Puedes agregar hasta 3 franjas separadas por comas; por ejemplo 15:00-18:00, 20:00-23:00. Las reservas existentes mantienen su fecha y hora.'**
+  String get compaAvailabilityHelp;
+
+  /// No description provided for @compaTimeZone.
+  ///
+  /// In es, this message translates to:
+  /// **'Zona horaria'**
+  String get compaTimeZone;
+
+  /// No description provided for @compaSaving.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardando…'**
+  String get compaSaving;
+
+  /// No description provided for @compaSaveChanges.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar cambios'**
+  String get compaSaveChanges;
+
+  /// No description provided for @compaActivateProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Activar mi perfil gratis'**
+  String get compaActivateProfile;
+
+  /// No description provided for @compaLoginFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos abrir el acceso. Inténtalo otra vez.'**
+  String get compaLoginFailed;
+
+  /// No description provided for @compaRefreshSession.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar sesión'**
+  String get compaRefreshSession;
+
+  /// No description provided for @compaOpenAgenda.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir a mi agenda'**
+  String get compaOpenAgenda;
+
+  /// No description provided for @compaMonday.
+  ///
+  /// In es, this message translates to:
+  /// **'Lunes'**
+  String get compaMonday;
+
+  /// No description provided for @compaTuesday.
+  ///
+  /// In es, this message translates to:
+  /// **'Martes'**
+  String get compaTuesday;
+
+  /// No description provided for @compaWednesday.
+  ///
+  /// In es, this message translates to:
+  /// **'Miércoles'**
+  String get compaWednesday;
+
+  /// No description provided for @compaThursday.
+  ///
+  /// In es, this message translates to:
+  /// **'Jueves'**
+  String get compaThursday;
+
+  /// No description provided for @compaFriday.
+  ///
+  /// In es, this message translates to:
+  /// **'Viernes'**
+  String get compaFriday;
+
+  /// No description provided for @compaSaturday.
+  ///
+  /// In es, this message translates to:
+  /// **'Sábado'**
+  String get compaSaturday;
+
+  /// No description provided for @compaSunday.
+  ///
+  /// In es, this message translates to:
+  /// **'Domingo'**
+  String get compaSunday;
 }
 
 class _AppLocalizationsDelegate

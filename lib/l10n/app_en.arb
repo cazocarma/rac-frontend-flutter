@@ -428,5 +428,165 @@
   },
   "@staffStepUpRequired": {
     "legal_review": "pending"
+  },
+  "compaTitle": "Become a Compa",
+  "@compaTitle": {
+    "legal_review": "pending"
+  },
+  "compaAddAvailability": "Add at least one time window to receive bookings.",
+  "@compaAddAvailability": {
+    "legal_review": "pending"
+  },
+  "compaPublished": "Your Compa profile is published! You can now receive requests. Your free plan includes 3 confirmed bookings per week.",
+  "@compaPublished": {
+    "legal_review": "pending"
+  },
+  "compaSessionPending": "Your profile was saved, but we could not update your session permissions. Select Refresh session to continue.",
+  "@compaSessionPending": {
+    "legal_review": "pending"
+  },
+  "compaSaveFailed": "We could not save your profile. Check your connection and try again. Your previous changes are preserved.",
+  "@compaSaveFailed": {
+    "legal_review": "pending"
+  },
+  "compaWindowsLimit": "Up to 3 time windows per day.",
+  "@compaWindowsLimit": {
+    "legal_review": "pending"
+  },
+  "compaWindowFormat": "Use HH:mm-HH:mm, for example 18:00-22:00.",
+  "@compaWindowFormat": {
+    "legal_review": "pending"
+  },
+  "compaWindowsOverlap": "Check the order and avoid overlapping times.",
+  "@compaWindowsOverlap": {
+    "legal_review": "pending"
+  },
+  "compaLoadFailed": "We could not load your profile",
+  "@compaLoadFailed": {
+    "legal_review": "pending"
+  },
+  "compaConnectionRetry": "Check your connection and try again.",
+  "@compaConnectionRetry": {
+    "legal_review": "pending"
+  },
+  "compaRetry": "Retry",
+  "@compaRetry": {
+    "legal_review": "pending"
+  },
+  "compaProfileHeading": "Your Compa profile",
+  "@compaProfileHeading": {
+    "legal_review": "pending"
+  },
+  "compaStartHeading": "Share what you enjoy doing",
+  "@compaStartHeading": {
+    "legal_review": "pending"
+  },
+  "compaPublishingInfo": "Publishing is free, with no application or approval. Receive requests and confirm up to 3 bookings per week. A subscription is required to accept more.",
+  "@compaPublishingInfo": {
+    "legal_review": "pending"
+  },
+  "compaAboutLabel": "Tell us about yourself",
+  "@compaAboutLabel": {
+    "legal_review": "pending"
+  },
+  "compaAboutHint": "The activities you offer and what spending time with you will be like",
+  "@compaAboutHint": {
+    "legal_review": "pending"
+  },
+  "compaAboutShort": "Tell us a little more: at least 20 characters.",
+  "@compaAboutShort": {
+    "legal_review": "pending"
+  },
+  "compaRateLabel": "Hourly rate (CLP)",
+  "@compaRateLabel": {
+    "legal_review": "pending"
+  },
+  "compaRateHelp": "Reference amount. Payments are under construction.",
+  "@compaRateHelp": {
+    "legal_review": "pending"
+  },
+  "compaRateInvalid": "Enter a valid amount with up to 2 decimal places.",
+  "@compaRateInvalid": {
+    "legal_review": "pending"
+  },
+  "compaSkillsLabel": "Skills",
+  "@compaSkillsLabel": {
+    "legal_review": "pending"
+  },
+  "compaSkillsHint": "barbecue, movies, running",
+  "@compaSkillsHint": {
+    "legal_review": "pending"
+  },
+  "compaSkillsHelp": "Separate with commas. Between 1 and 8 skills.",
+  "@compaSkillsHelp": {
+    "legal_review": "pending"
+  },
+  "compaSkillsInvalid": "Add 1 to 8 skills, each between 2 and 40 characters.",
+  "@compaSkillsInvalid": {
+    "legal_review": "pending"
+  },
+  "compaAvailabilityHeading": "Your weekly availability",
+  "@compaAvailabilityHeading": {
+    "legal_review": "pending"
+  },
+  "compaAvailabilityHelp": "Enter times in your time zone. Leave a day blank if you are unavailable. Add up to 3 comma-separated windows; for example 15:00-18:00, 20:00-23:00. Existing bookings keep their date and time.",
+  "@compaAvailabilityHelp": {
+    "legal_review": "pending"
+  },
+  "compaTimeZone": "Time zone",
+  "@compaTimeZone": {
+    "legal_review": "pending"
+  },
+  "compaSaving": "Saving…",
+  "@compaSaving": {
+    "legal_review": "pending"
+  },
+  "compaSaveChanges": "Save changes",
+  "@compaSaveChanges": {
+    "legal_review": "pending"
+  },
+  "compaActivateProfile": "Activate my free profile",
+  "@compaActivateProfile": {
+    "legal_review": "pending"
+  },
+  "compaLoginFailed": "We could not open sign-in. Try again.",
+  "@compaLoginFailed": {
+    "legal_review": "pending"
+  },
+  "compaRefreshSession": "Refresh session",
+  "@compaRefreshSession": {
+    "legal_review": "pending"
+  },
+  "compaOpenAgenda": "Open my schedule",
+  "@compaOpenAgenda": {
+    "legal_review": "pending"
+  },
+  "compaMonday": "Monday",
+  "@compaMonday": {
+    "legal_review": "pending"
+  },
+  "compaTuesday": "Tuesday",
+  "@compaTuesday": {
+    "legal_review": "pending"
+  },
+  "compaWednesday": "Wednesday",
+  "@compaWednesday": {
+    "legal_review": "pending"
+  },
+  "compaThursday": "Thursday",
+  "@compaThursday": {
+    "legal_review": "pending"
+  },
+  "compaFriday": "Friday",
+  "@compaFriday": {
+    "legal_review": "pending"
+  },
+  "compaSaturday": "Saturday",
+  "@compaSaturday": {
+    "legal_review": "pending"
+  },
+  "compaSunday": "Sunday",
+  "@compaSunday": {
+    "legal_review": "pending"
   }
 }

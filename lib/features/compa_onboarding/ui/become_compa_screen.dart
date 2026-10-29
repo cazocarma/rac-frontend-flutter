@@ -1,4 +1,5 @@
 import '../../../shared/services/json_api.dart';
+import '../../../shared/services/user_api.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/design.dart';
@@ -6,26 +7,38 @@ import '../../../shared/di/services.dart';
 import '../../../shared/services/session.dart';
 
 class BecomeCompaScreen extends StatefulWidget {
-  const BecomeCompaScreen({super.key});
+  const BecomeCompaScreen({super.key, this.api});
+  final UserApi? api;
   @override
   State<BecomeCompaScreen> createState() => _BecomeCompaScreenState();
 }
 
 class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
+  UserApi get api => widget.api ?? Services.user;
+  AppLocalizations get t => AppLocalizations.of(context)!;
   final form = GlobalKey<FormState>();
   final description = TextEditingController();
   final rate = TextEditingController();
   final skills = TextEditingController();
-  static const days = {
-    'lunes': 'Lunes',
-    'martes': 'Martes',
-    'miercoles': 'Miércoles',
-    'jueves': 'Jueves',
-    'viernes': 'Viernes',
-    'sabado': 'Sábado',
-    'domingo': 'Domingo',
+  static const days = [
+    'lunes',
+    'martes',
+    'miercoles',
+    'jueves',
+    'viernes',
+    'sabado',
+    'domingo',
+  ];
+  Map<String, String> get dayLabels => {
+    'lunes': t.compaMonday,
+    'martes': t.compaTuesday,
+    'miercoles': t.compaWednesday,
+    'jueves': t.compaThursday,
+    'viernes': t.compaFriday,
+    'sabado': t.compaSaturday,
+    'domingo': t.compaSunday,
   };
-  final windows = {for (final day in days.keys) day: TextEditingController()};
+  final windows = {for (final day in days) day: TextEditingController()};
   late Future<void> initial = load();
   String zone = 'America/Santiago';
   static const zones = [
@@ -46,8 +59,8 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   String? success;
 
   Future<void> load() async {
-    await Services.user.me();
-    final data = await Services.user.ownCompa();
+    await api.me();
+    final data = await api.ownCompa();
     if (!mounted || data == null) return;
     zone = data['zona_horaria'] as String? ?? 'UTC';
     final profile = data['profile'] as Map;
@@ -55,7 +68,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
     rate.text = '${profile['tarifa_hora']}';
     skills.text = (profile['habilidades'] as List).join(', ');
     final availability = data['availability'] as Map;
-    for (final day in days.keys) {
+    for (final day in days) {
       windows[day]!.text = (availability[day] as List? ?? []).join(', ');
     }
     published = true;
@@ -86,9 +99,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
       if (values.isNotEmpty) availability[entry.key] = values;
     }
     if (availability.isEmpty) {
-      setState(
-        () => error = 'Agrega al menos un horario para recibir reservas.',
-      );
+      setState(() => error = t.compaAddAvailability);
       return;
     }
     setState(() {
@@ -98,7 +109,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
     });
     bool saved = false;
     try {
-      await Services.user.saveCompa({
+      await api.saveCompa({
         'descripcion': description.text.trim(),
         'tarifa_hora': double.parse(rate.text.trim().replaceAll(',', '.')),
         'habilidades': skills.text
@@ -111,7 +122,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
       });
       saved = true;
       await Session.auth.refresh();
-      final me = await Services.user.me();
+      final me = await api.me();
       if (me['role'] != 'compa' && me['role'] != 'admin') {
         throw StateError('La sesión aún no refleja tu rol compa');
       }
@@ -119,8 +130,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
         setState(() {
           published = true;
           needsSession = false;
-          success =
-              '¡Tu perfil compa está publicado! Ya puedes recibir solicitudes. Tu plan gratuito incluye 3 reservas confirmadas por semana.';
+          success = t.compaPublished;
         });
       }
     } catch (e) {
@@ -129,13 +139,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
           if (saved) {
             published = true;
             needsSession = true;
-            error =
-                'Tu perfil se guardó, pero no pudimos actualizar los permisos de tu sesión. Pulsa Actualizar sesión para continuar.';
+            error = t.compaSessionPending;
           } else if (e is ApiException && e.status == 428) {
             error = AppLocalizations.of(context)!.compaPrerequisitesPending;
           } else {
-            error =
-                'No pudimos guardar tu perfil. Revisa tu conexión e inténtalo nuevamente. Tus cambios anteriores se conservan.';
+            error = t.compaSaveFailed;
           }
         });
       }
@@ -147,18 +155,18 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   String? validateWindows(String? input) {
     if (input == null || input.trim().isEmpty) return null;
     final parts = input.split(',').map((s) => s.trim()).toList()..sort();
-    if (parts.length > 3) return 'Hasta 3 franjas por día.';
+    if (parts.length > 3) return t.compaWindowsLimit;
     String? previous;
     for (final part in parts) {
       if (!RegExp(
         r'^(?:[01]\d|2[0-3]):[0-5]\d-(?:[01]\d|2[0-3]):[0-5]\d$',
       ).hasMatch(part)) {
-        return 'Usa HH:mm-HH:mm, por ejemplo 18:00-22:00.';
+        return t.compaWindowFormat;
       }
       final times = part.split('-');
       if (times[0].compareTo(times[1]) >= 0 ||
           (previous != null && times[0].compareTo(previous) < 0)) {
-        return 'Revisa el orden y evita horarios superpuestos.';
+        return t.compaWindowsOverlap;
       }
       previous = times[1];
     }
@@ -167,17 +175,17 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Sé Compa')),
+    appBar: AppBar(title: Text(t.compaTitle)),
     body: FutureBuilder<void>(
       future: initial,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return EmptyState(
-            title: 'No pudimos cargar tu perfil',
-            message: 'Revisa tu conexión e inténtalo nuevamente.',
+            title: t.compaLoadFailed,
+            message: t.compaConnectionRetry,
             action: OutlinedButton(
               onPressed: () => setState(() => initial = load()),
-              child: const Text('Reintentar'),
+              child: Text(t.compaRetry),
             ),
           );
         }
@@ -193,15 +201,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    published
-                        ? 'Tu perfil como compa'
-                        : 'Comparte lo que te gusta hacer',
+                    published ? t.compaProfileHeading : t.compaStartHeading,
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Publicar es gratis, sin postulación ni aprobación. Recibe solicitudes y confirma hasta 3 reservas por semana. Para aceptar más necesitarás una suscripción.',
-                  ),
+                  Text(t.compaPublishingInfo),
                   OutlinedButton.icon(
                     onPressed: busy
                         ? null
@@ -216,14 +220,13 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                     minLines: 3,
                     maxLines: 6,
                     maxLength: 1500,
-                    decoration: const InputDecoration(
-                      labelText: 'Cuéntanos sobre ti',
+                    decoration: InputDecoration(
+                      labelText: t.compaAboutLabel,
                       errorMaxLines: 3,
-                      hintText:
-                          'Qué actividades ofreces y cómo será compartir contigo',
+                      hintText: t.compaAboutHint,
                     ),
                     validator: (v) => (v?.trim().runes.length ?? 0) < 20
-                        ? 'Cuéntanos un poco más: al menos 20 caracteres.'
+                        ? t.compaAboutShort
                         : null,
                   ),
                   const SizedBox(height: 16),
@@ -233,12 +236,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                    decoration: const InputDecoration(
-                      labelText: 'Tarifa por hora (CLP)',
+                    decoration: InputDecoration(
+                      labelText: t.compaRateLabel,
                       helperMaxLines: 3,
                       errorMaxLines: 3,
-                      helperText:
-                          'Valor referencial. Los cobros están en construcción.',
+                      helperText: t.compaRateHelp,
                     ),
                     validator: (v) {
                       final amount = double.tryParse(
@@ -250,7 +252,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                               amount > 99999999.99 ||
                               (amount * 100 - (amount * 100).round()).abs() >
                                   0.00001
-                          ? 'Ingresa un monto válido, con hasta 2 decimales.'
+                          ? t.compaRateInvalid
                           : null;
                     },
                   ),
@@ -259,12 +261,12 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                     controller: skills,
                     enabled: !busy,
                     maxLength: 350,
-                    decoration: const InputDecoration(
-                      labelText: 'Habilidades',
+                    decoration: InputDecoration(
+                      labelText: t.compaSkillsLabel,
                       helperMaxLines: 3,
                       errorMaxLines: 3,
-                      hintText: 'asado, cine, running',
-                      helperText: 'Separa con comas. Entre 1 y 8 habilidades.',
+                      hintText: t.compaSkillsHint,
+                      helperText: t.compaSkillsHelp,
                     ),
                     validator: (v) {
                       final values = (v ?? '')
@@ -280,26 +282,22 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                                     s.runes.length > 40 ||
                                     s.contains(RegExp(r'[\r\n\t]')),
                               )
-                          ? 'Agrega de 1 a 8 habilidades, de 2 a 40 caracteres cada una.'
+                          ? t.compaSkillsInvalid
                           : null;
                     },
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Tu disponibilidad semanal',
+                    t.compaAvailabilityHeading,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Escribe las horas de tu zona. Deja vacío un día si no estás disponible. Puedes agregar hasta 3 franjas separadas por comas; por ejemplo 15:00-18:00, 20:00-23:00. Las reservas existentes mantienen su fecha y hora.',
-                  ),
+                  Text(t.compaAvailabilityHelp),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
                     initialValue: zone,
                     isExpanded: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Zona horaria',
-                    ),
+                    decoration: InputDecoration(labelText: t.compaTimeZone),
                     items: {zone, ...zones}
                         .map(
                           (value) => DropdownMenuItem(
@@ -315,15 +313,15 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                           },
                   ),
                   const SizedBox(height: 16),
-                  for (final day in days.entries)
+                  for (final day in days)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: TextFormField(
-                        controller: windows[day.key],
+                        controller: windows[day],
                         enabled: !busy,
                         maxLength: 40,
                         decoration: InputDecoration(
-                          labelText: day.value,
+                          labelText: dayLabels[day],
                           errorMaxLines: 3,
                           hintText: '18:00-22:00',
                           counterText: '',
@@ -361,10 +359,10 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                         ),
                         label: Text(
                           busy
-                              ? 'Guardando…'
+                              ? t.compaSaving
                               : published
-                              ? 'Guardar cambios'
-                              : 'Activar mi perfil gratis',
+                              ? t.compaSaveChanges
+                              : t.compaActivateProfile,
                         ),
                       ),
                       if (needsSession)
@@ -377,19 +375,18 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                                   } catch (_) {
                                     if (mounted) {
                                       setState(
-                                        () => error =
-                                            'No pudimos abrir el acceso. Inténtalo otra vez.',
+                                        () => error = t.compaLoginFailed,
                                       );
                                     }
                                   }
                                 },
-                          child: const Text('Actualizar sesión'),
+                          child: Text(t.compaRefreshSession),
                         ),
                       if (published && !needsSession)
                         OutlinedButton(
                           onPressed: () =>
                               Navigator.pushNamed(context, '/match'),
-                          child: const Text('Ir a mi agenda'),
+                          child: Text(t.compaOpenAgenda),
                         ),
                     ],
                   ),

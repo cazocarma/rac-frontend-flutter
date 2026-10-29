@@ -354,4 +354,136 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffStepUpRequired =>
       'Your security verification expired. Sign in with MFA again to continue with the same command.';
+
+  @override
+  String get compaTitle => 'Become a Compa';
+
+  @override
+  String get compaAddAvailability =>
+      'Add at least one time window to receive bookings.';
+
+  @override
+  String get compaPublished =>
+      'Your Compa profile is published! You can now receive requests. Your free plan includes 3 confirmed bookings per week.';
+
+  @override
+  String get compaSessionPending =>
+      'Your profile was saved, but we could not update your session permissions. Select Refresh session to continue.';
+
+  @override
+  String get compaSaveFailed =>
+      'We could not save your profile. Check your connection and try again. Your previous changes are preserved.';
+
+  @override
+  String get compaWindowsLimit => 'Up to 3 time windows per day.';
+
+  @override
+  String get compaWindowFormat => 'Use HH:mm-HH:mm, for example 18:00-22:00.';
+
+  @override
+  String get compaWindowsOverlap =>
+      'Check the order and avoid overlapping times.';
+
+  @override
+  String get compaLoadFailed => 'We could not load your profile';
+
+  @override
+  String get compaConnectionRetry => 'Check your connection and try again.';
+
+  @override
+  String get compaRetry => 'Retry';
+
+  @override
+  String get compaProfileHeading => 'Your Compa profile';
+
+  @override
+  String get compaStartHeading => 'Share what you enjoy doing';
+
+  @override
+  String get compaPublishingInfo =>
+      'Publishing is free, with no application or approval. Receive requests and confirm up to 3 bookings per week. A subscription is required to accept more.';
+
+  @override
+  String get compaAboutLabel => 'Tell us about yourself';
+
+  @override
+  String get compaAboutHint =>
+      'The activities you offer and what spending time with you will be like';
+
+  @override
+  String get compaAboutShort =>
+      'Tell us a little more: at least 20 characters.';
+
+  @override
+  String get compaRateLabel => 'Hourly rate (CLP)';
+
+  @override
+  String get compaRateHelp =>
+      'Reference amount. Payments are under construction.';
+
+  @override
+  String get compaRateInvalid =>
+      'Enter a valid amount with up to 2 decimal places.';
+
+  @override
+  String get compaSkillsLabel => 'Skills';
+
+  @override
+  String get compaSkillsHint => 'barbecue, movies, running';
+
+  @override
+  String get compaSkillsHelp => 'Separate with commas. Between 1 and 8 skills.';
+
+  @override
+  String get compaSkillsInvalid =>
+      'Add 1 to 8 skills, each between 2 and 40 characters.';
+
+  @override
+  String get compaAvailabilityHeading => 'Your weekly availability';
+
+  @override
+  String get compaAvailabilityHelp =>
+      'Enter times in your time zone. Leave a day blank if you are unavailable. Add up to 3 comma-separated windows; for example 15:00-18:00, 20:00-23:00. Existing bookings keep their date and time.';
+
+  @override
+  String get compaTimeZone => 'Time zone';
+
+  @override
+  String get compaSaving => 'Saving…';
+
+  @override
+  String get compaSaveChanges => 'Save changes';
+
+  @override
+  String get compaActivateProfile => 'Activate my free profile';
+
+  @override
+  String get compaLoginFailed => 'We could not open sign-in. Try again.';
+
+  @override
+  String get compaRefreshSession => 'Refresh session';
+
+  @override
+  String get compaOpenAgenda => 'Open my schedule';
+
+  @override
+  String get compaMonday => 'Monday';
+
+  @override
+  String get compaTuesday => 'Tuesday';
+
+  @override
+  String get compaWednesday => 'Wednesday';
+
+  @override
+  String get compaThursday => 'Thursday';
+
+  @override
+  String get compaFriday => 'Friday';
+
+  @override
+  String get compaSaturday => 'Saturday';
+
+  @override
+  String get compaSunday => 'Sunday';
 }
