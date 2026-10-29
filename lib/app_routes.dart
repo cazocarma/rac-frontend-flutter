@@ -149,12 +149,12 @@ class HomeShell extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               AppLocalizations.of(context)!.navShare,
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
             ),
             const SizedBox(height: 6),
             Text(
               AppLocalizations.of(context)!.navProfileInfo,
-              style: TextStyle(fontSize: 11, height: 1.5),
+              style: const TextStyle(fontSize: 11, height: 1.5),
             ),
           ],
         ),
@@ -164,7 +164,7 @@ class HomeShell extends StatelessWidget {
         leading: const Icon(Icons.logout, size: 20),
         title: Text(
           AppLocalizations.of(context)!.navLogout,
-          style: TextStyle(fontSize: 13),
+          style: const TextStyle(fontSize: 13),
         ),
         onTap: () => performLogout(context),
       ),
@@ -202,19 +202,19 @@ class HomeShell extends StatelessWidget {
                     open(context, ['/home', '/match', '/chat', '/profile'][i]),
                 destinations: [
                   NavigationDestination(
-                    icon: Icon(Icons.explore_outlined),
+                    icon: const Icon(Icons.explore_outlined),
                     label: AppLocalizations.of(context)!.navExplore,
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.calendar_month_outlined),
+                    icon: const Icon(Icons.calendar_month_outlined),
                     label: AppLocalizations.of(context)!.navBookingsShort,
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.chat_bubble_outline),
+                    icon: const Icon(Icons.chat_bubble_outline),
                     label: AppLocalizations.of(context)!.navMessages,
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.person_outline),
+                    icon: const Icon(Icons.person_outline),
                     label: AppLocalizations.of(context)!.navProfileShort,
                   ),
                 ],

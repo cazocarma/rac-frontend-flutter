@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading: Icon(Icons.palette_outlined),
+                      leading: const Icon(Icons.palette_outlined),
                       title: Text(
                         AppLocalizations.of(context)!.settingsAppearance,
                       ),
@@ -73,8 +73,8 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Card(
               child: ListTile(
-                contentPadding: EdgeInsets.all(20),
-                leading: Icon(Icons.handyman_outlined),
+                contentPadding: const EdgeInsets.all(20),
+                leading: const Icon(Icons.handyman_outlined),
                 title: Text(AppLocalizations.of(context)!.commonConstruction),
                 subtitle: Text(AppLocalizations.of(context)!.settingsPending),
               ),
