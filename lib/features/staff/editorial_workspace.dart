@@ -201,7 +201,7 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (!ready && !failed) const LinearProgressIndicator(),
+        if ((!ready && !failed) || busy) const LinearProgressIndicator(),
         if (failed)
           Text(
             needsAuthentication ? t.staffStepUpRequired : t.staffDecisionFailed,
@@ -211,7 +211,7 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
           if (receipt != null) SelectableText(receipt!),
         ],
         if (attempts.isNotEmpty) ...[
-          Text(t.staffPendingRecovery),
+          if (!busy) Text(t.staffPendingRecovery),
           for (final item in attempts)
             Card(
               child: Padding(
@@ -221,10 +221,11 @@ class _EditorialWorkspaceState extends State<EditorialWorkspace> {
                     SelectableText(
                       '${item.command.path}\n${jsonDecode(item.command.encodedBody)['event_id']}',
                     ),
-                    OutlinedButton(
-                      onPressed: busy ? null : () => submit(item),
-                      child: Text(t.staffRetrySameCommand),
-                    ),
+                    if (!busy)
+                      OutlinedButton(
+                        onPressed: () => submit(item),
+                        child: Text(t.staffRetrySameCommand),
+                      ),
                   ],
                 ),
               ),
