@@ -588,5 +588,117 @@
   "compaSunday": "Sunday",
   "@compaSunday": {
     "legal_review": "pending"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "legal_review": "pending"
+  },
+  "settingsPreferences": "Preferences",
+  "@settingsPreferences": {
+    "legal_review": "pending"
+  },
+  "settingsHeading": "Your way",
+  "@settingsHeading": {
+    "legal_review": "pending"
+  },
+  "settingsDescription": "Customize how RAC looks on this device.",
+  "@settingsDescription": {
+    "legal_review": "pending"
+  },
+  "settingsAppearance": "Appearance",
+  "@settingsAppearance": {
+    "legal_review": "pending"
+  },
+  "settingsSystem": "Use device settings",
+  "@settingsSystem": {
+    "legal_review": "pending"
+  },
+  "settingsLight": "Light",
+  "@settingsLight": {
+    "legal_review": "pending"
+  },
+  "settingsDark": "Dark",
+  "@settingsDark": {
+    "legal_review": "pending"
+  },
+  "settingsDocuments": "Documents and agreements",
+  "@settingsDocuments": {
+    "legal_review": "pending"
+  },
+  "settingsDocumentsHelp": "View versions and your acceptances.",
+  "@settingsDocumentsHelp": {
+    "legal_review": "pending"
+  },
+  "commonConstruction": "Under construction",
+  "@commonConstruction": {
+    "legal_review": "pending"
+  },
+  "settingsPending": "Notification, privacy and language preferences.",
+  "@settingsPending": {
+    "legal_review": "pending"
+  },
+  "navExplore": "Explore",
+  "@navExplore": {
+    "legal_review": "pending"
+  },
+  "navBookings": "My bookings",
+  "@navBookings": {
+    "legal_review": "pending"
+  },
+  "navMessages": "Messages",
+  "@navMessages": {
+    "legal_review": "pending"
+  },
+  "navPayments": "Plans and payments",
+  "@navPayments": {
+    "legal_review": "pending"
+  },
+  "navNotifications": "Notifications",
+  "@navNotifications": {
+    "legal_review": "pending"
+  },
+  "navProfile": "My profile",
+  "@navProfile": {
+    "legal_review": "pending"
+  },
+  "navTagline": "Time to share.",
+  "@navTagline": {
+    "legal_review": "pending"
+  },
+  "navSpace": "YOUR SPACE",
+  "@navSpace": {
+    "legal_review": "pending"
+  },
+  "navAdmin": "Administration",
+  "@navAdmin": {
+    "legal_review": "pending"
+  },
+  "navShare": "Share what you enjoy",
+  "@navShare": {
+    "legal_review": "pending"
+  },
+  "navProfileInfo": "Set up your profile and availability to share activities.",
+  "@navProfileInfo": {
+    "legal_review": "pending"
+  },
+  "navLogout": "Sign out",
+  "@navLogout": {
+    "legal_review": "pending"
+  },
+  "navExploreTitle": "Explore Compas",
+  "@navExploreTitle": {
+    "legal_review": "pending"
+  },
+  "navOpenNotifications": "View notifications",
+  "@navOpenNotifications": {
+    "legal_review": "pending"
+  },
+  "navBookingsShort": "Bookings",
+  "@navBookingsShort": {
+    "legal_review": "pending"
+  },
+  "navProfileShort": "Profile",
+  "@navProfileShort": {
+    "legal_review": "pending"
   }
 }

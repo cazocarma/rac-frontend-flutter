@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'features/staff/staff_screen.dart';
 import 'features/documents/ui/document_history_screen.dart';
 import 'features/compa_onboarding/ui/assessment_screen.dart';
@@ -23,15 +24,39 @@ import 'features/compa_onboarding/ui/become_compa_screen.dart';
 
 class HomeShell extends StatelessWidget {
   const HomeShell({super.key});
-  static const destinations = [
-    ('Explorar', Icons.explore_outlined, '/home'),
-    ('Mis reservas', Icons.calendar_month_outlined, '/match'),
-    ('Mensajes', Icons.chat_bubble_outline, '/chat'),
-    ('Sé Compa', Icons.auto_awesome_outlined, '/become-compa'),
-    ('Planes y pagos', Icons.wallet_outlined, '/payments'),
-    ('Notificaciones', Icons.notifications_outlined, '/alerts'),
-    ('Mi perfil', Icons.person_outline, '/profile'),
-    ('Configuración', Icons.tune, '/settings'),
+  List<(String, IconData, String)> destinations(BuildContext context) => [
+    (AppLocalizations.of(context)!.navExplore, Icons.explore_outlined, '/home'),
+    (
+      AppLocalizations.of(context)!.navBookings,
+      Icons.calendar_month_outlined,
+      '/match',
+    ),
+    (
+      AppLocalizations.of(context)!.navMessages,
+      Icons.chat_bubble_outline,
+      '/chat',
+    ),
+    (
+      AppLocalizations.of(context)!.compaTitle,
+      Icons.auto_awesome_outlined,
+      '/become-compa',
+    ),
+    (
+      AppLocalizations.of(context)!.navPayments,
+      Icons.wallet_outlined,
+      '/payments',
+    ),
+    (
+      AppLocalizations.of(context)!.navNotifications,
+      Icons.notifications_outlined,
+      '/alerts',
+    ),
+    (
+      AppLocalizations.of(context)!.navProfile,
+      Icons.person_outline,
+      '/profile',
+    ),
+    (AppLocalizations.of(context)!.settingsTitle, Icons.tune, '/settings'),
   ];
   void open(BuildContext context, String route) {
     if (route != '/home') Navigator.of(context).pushNamed(route);
@@ -47,7 +72,7 @@ class HomeShell extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.fromLTRB(12, 0, 12, 32),
         child: Text(
-          'Tiempo para compartir.',
+          AppLocalizations.of(context)!.navTagline,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
             fontSize: 11,
@@ -57,7 +82,7 @@ class HomeShell extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(left: 12, bottom: 14),
         child: Text(
-          'TU ESPACIO',
+          AppLocalizations.of(context)!.navSpace,
           style: TextStyle(
             fontSize: 10,
             letterSpacing: 1.8,
@@ -66,7 +91,7 @@ class HomeShell extends StatelessWidget {
           ),
         ),
       ),
-      for (final d in destinations)
+      for (final d in destinations(context))
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
           child: ListTile(
@@ -95,7 +120,7 @@ class HomeShell extends StatelessWidget {
         builder: (context, snapshot) => snapshot.data == 'admin'
             ? ListTile(
                 leading: const Icon(Icons.admin_panel_settings_outlined),
-                title: const Text('Administración'),
+                title: Text(AppLocalizations.of(context)!.navAdmin),
                 onTap: () {
                   if (MediaQuery.sizeOf(context).width < 1000) {
                     Navigator.pop(context);
@@ -122,13 +147,13 @@ class HomeShell extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Comparte lo que te gusta',
+            Text(
+              AppLocalizations.of(context)!.navShare,
               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
             ),
             const SizedBox(height: 6),
-            const Text(
-              'Publica tu perfil de compa y empieza con 3 reservas gratis por semana.',
+            Text(
+              AppLocalizations.of(context)!.navProfileInfo,
               style: TextStyle(fontSize: 11, height: 1.5),
             ),
           ],
@@ -137,7 +162,10 @@ class HomeShell extends StatelessWidget {
       const Divider(height: 32),
       ListTile(
         leading: const Icon(Icons.logout, size: 20),
-        title: const Text('Salir', style: TextStyle(fontSize: 13)),
+        title: Text(
+          AppLocalizations.of(context)!.navLogout,
+          style: TextStyle(fontSize: 13),
+        ),
         onTap: () => performLogout(context),
       ),
     ],
@@ -148,15 +176,17 @@ class HomeShell extends StatelessWidget {
     return AuthGuard(
       child: Scaffold(
         appBar: AppBar(
-          title: wide ? const Text('Explorar compas') : const RacBrand(),
+          title: wide
+              ? Text(AppLocalizations.of(context)!.navExploreTitle)
+              : const RacBrand(),
           actions: [
             IconButton(
-              tooltip: 'Ver notificaciones',
+              tooltip: AppLocalizations.of(context)!.navOpenNotifications,
               onPressed: () => open(context, '/alerts'),
               icon: const Icon(Icons.notifications_outlined),
             ),
             IconButton(
-              tooltip: 'Mi perfil',
+              tooltip: AppLocalizations.of(context)!.navProfile,
               onPressed: () => open(context, '/profile'),
               icon: const Icon(Icons.account_circle_outlined),
             ),
@@ -170,22 +200,22 @@ class HomeShell extends StatelessWidget {
                 selectedIndex: 0,
                 onDestinationSelected: (i) =>
                     open(context, ['/home', '/match', '/chat', '/profile'][i]),
-                destinations: const [
+                destinations: [
                   NavigationDestination(
                     icon: Icon(Icons.explore_outlined),
-                    label: 'Explorar',
+                    label: AppLocalizations.of(context)!.navExplore,
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.calendar_month_outlined),
-                    label: 'Reservas',
+                    label: AppLocalizations.of(context)!.navBookingsShort,
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.chat_bubble_outline),
-                    label: 'Mensajes',
+                    label: AppLocalizations.of(context)!.navMessages,
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.person_outline),
-                    label: 'Perfil',
+                    label: AppLocalizations.of(context)!.navProfileShort,
                   ),
                 ],
               ),

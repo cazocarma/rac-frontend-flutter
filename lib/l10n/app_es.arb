@@ -588,5 +588,117 @@
   "compaSunday": "Domingo",
   "@compaSunday": {
     "legal_review": "pending"
+  },
+  "settingsTitle": "Configuración",
+  "@settingsTitle": {
+    "legal_review": "pending"
+  },
+  "settingsPreferences": "Preferencias",
+  "@settingsPreferences": {
+    "legal_review": "pending"
+  },
+  "settingsHeading": "A tu manera",
+  "@settingsHeading": {
+    "legal_review": "pending"
+  },
+  "settingsDescription": "Personaliza cómo se ve RAC en este dispositivo.",
+  "@settingsDescription": {
+    "legal_review": "pending"
+  },
+  "settingsAppearance": "Apariencia",
+  "@settingsAppearance": {
+    "legal_review": "pending"
+  },
+  "settingsSystem": "Usar configuración del dispositivo",
+  "@settingsSystem": {
+    "legal_review": "pending"
+  },
+  "settingsLight": "Claro",
+  "@settingsLight": {
+    "legal_review": "pending"
+  },
+  "settingsDark": "Oscuro",
+  "@settingsDark": {
+    "legal_review": "pending"
+  },
+  "settingsDocuments": "Documentos y acuerdos",
+  "@settingsDocuments": {
+    "legal_review": "pending"
+  },
+  "settingsDocumentsHelp": "Consulta las versiones y tus aceptaciones.",
+  "@settingsDocumentsHelp": {
+    "legal_review": "pending"
+  },
+  "commonConstruction": "En construcción",
+  "@commonConstruction": {
+    "legal_review": "pending"
+  },
+  "settingsPending": "Preferencias de notificaciones, privacidad e idioma.",
+  "@settingsPending": {
+    "legal_review": "pending"
+  },
+  "navExplore": "Explorar",
+  "@navExplore": {
+    "legal_review": "pending"
+  },
+  "navBookings": "Mis reservas",
+  "@navBookings": {
+    "legal_review": "pending"
+  },
+  "navMessages": "Mensajes",
+  "@navMessages": {
+    "legal_review": "pending"
+  },
+  "navPayments": "Planes y pagos",
+  "@navPayments": {
+    "legal_review": "pending"
+  },
+  "navNotifications": "Notificaciones",
+  "@navNotifications": {
+    "legal_review": "pending"
+  },
+  "navProfile": "Mi perfil",
+  "@navProfile": {
+    "legal_review": "pending"
+  },
+  "navTagline": "Tiempo para compartir.",
+  "@navTagline": {
+    "legal_review": "pending"
+  },
+  "navSpace": "TU ESPACIO",
+  "@navSpace": {
+    "legal_review": "pending"
+  },
+  "navAdmin": "Administración",
+  "@navAdmin": {
+    "legal_review": "pending"
+  },
+  "navShare": "Comparte lo que te gusta",
+  "@navShare": {
+    "legal_review": "pending"
+  },
+  "navProfileInfo": "Configura tu perfil y disponibilidad para compartir actividades.",
+  "@navProfileInfo": {
+    "legal_review": "pending"
+  },
+  "navLogout": "Salir",
+  "@navLogout": {
+    "legal_review": "pending"
+  },
+  "navExploreTitle": "Explorar compas",
+  "@navExploreTitle": {
+    "legal_review": "pending"
+  },
+  "navOpenNotifications": "Ver notificaciones",
+  "@navOpenNotifications": {
+    "legal_review": "pending"
+  },
+  "navBookingsShort": "Reservas",
+  "@navBookingsShort": {
+    "legal_review": "pending"
+  },
+  "navProfileShort": "Perfil",
+  "@navProfileShort": {
+    "legal_review": "pending"
   }
 }

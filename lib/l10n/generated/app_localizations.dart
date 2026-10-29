@@ -961,6 +961,174 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Domingo'**
   String get compaSunday;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Configuración'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsPreferences.
+  ///
+  /// In es, this message translates to:
+  /// **'Preferencias'**
+  String get settingsPreferences;
+
+  /// No description provided for @settingsHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'A tu manera'**
+  String get settingsHeading;
+
+  /// No description provided for @settingsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Personaliza cómo se ve RAC en este dispositivo.'**
+  String get settingsDescription;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In es, this message translates to:
+  /// **'Apariencia'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsSystem.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar configuración del dispositivo'**
+  String get settingsSystem;
+
+  /// No description provided for @settingsLight.
+  ///
+  /// In es, this message translates to:
+  /// **'Claro'**
+  String get settingsLight;
+
+  /// No description provided for @settingsDark.
+  ///
+  /// In es, this message translates to:
+  /// **'Oscuro'**
+  String get settingsDark;
+
+  /// No description provided for @settingsDocuments.
+  ///
+  /// In es, this message translates to:
+  /// **'Documentos y acuerdos'**
+  String get settingsDocuments;
+
+  /// No description provided for @settingsDocumentsHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta las versiones y tus aceptaciones.'**
+  String get settingsDocumentsHelp;
+
+  /// No description provided for @commonConstruction.
+  ///
+  /// In es, this message translates to:
+  /// **'En construcción'**
+  String get commonConstruction;
+
+  /// No description provided for @settingsPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Preferencias de notificaciones, privacidad e idioma.'**
+  String get settingsPending;
+
+  /// No description provided for @navExplore.
+  ///
+  /// In es, this message translates to:
+  /// **'Explorar'**
+  String get navExplore;
+
+  /// No description provided for @navBookings.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis reservas'**
+  String get navBookings;
+
+  /// No description provided for @navMessages.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensajes'**
+  String get navMessages;
+
+  /// No description provided for @navPayments.
+  ///
+  /// In es, this message translates to:
+  /// **'Planes y pagos'**
+  String get navPayments;
+
+  /// No description provided for @navNotifications.
+  ///
+  /// In es, this message translates to:
+  /// **'Notificaciones'**
+  String get navNotifications;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi perfil'**
+  String get navProfile;
+
+  /// No description provided for @navTagline.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo para compartir.'**
+  String get navTagline;
+
+  /// No description provided for @navSpace.
+  ///
+  /// In es, this message translates to:
+  /// **'TU ESPACIO'**
+  String get navSpace;
+
+  /// No description provided for @navAdmin.
+  ///
+  /// In es, this message translates to:
+  /// **'Administración'**
+  String get navAdmin;
+
+  /// No description provided for @navShare.
+  ///
+  /// In es, this message translates to:
+  /// **'Comparte lo que te gusta'**
+  String get navShare;
+
+  /// No description provided for @navProfileInfo.
+  ///
+  /// In es, this message translates to:
+  /// **'Configura tu perfil y disponibilidad para compartir actividades.'**
+  String get navProfileInfo;
+
+  /// No description provided for @navLogout.
+  ///
+  /// In es, this message translates to:
+  /// **'Salir'**
+  String get navLogout;
+
+  /// No description provided for @navExploreTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Explorar compas'**
+  String get navExploreTitle;
+
+  /// No description provided for @navOpenNotifications.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver notificaciones'**
+  String get navOpenNotifications;
+
+  /// No description provided for @navBookingsShort.
+  ///
+  /// In es, this message translates to:
+  /// **'Reservas'**
+  String get navBookingsShort;
+
+  /// No description provided for @navProfileShort.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil'**
+  String get navProfileShort;
 }
 
 class _AppLocalizationsDelegate

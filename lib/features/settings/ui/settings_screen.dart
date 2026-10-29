@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/services/theme.dart';
 import '../../../shared/widgets/design.dart';
@@ -7,17 +8,17 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Configuración')),
+    appBar: AppBar(title: Text(AppLocalizations.of(context)!.settingsTitle)),
     body: SingleChildScrollView(
       child: PageContent(
         width: 720,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const PageIntro(
-              eyebrow: 'Preferencias',
-              title: 'A tu manera',
-              description: 'Personaliza cómo se ve RAC en este dispositivo.',
+            PageIntro(
+              eyebrow: AppLocalizations.of(context)!.settingsPreferences,
+              title: AppLocalizations.of(context)!.settingsHeading,
+              description: AppLocalizations.of(context)!.settingsDescription,
             ),
             Card(
               child: Padding(
@@ -25,10 +26,12 @@ class SettingsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ListTile(
+                    ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: Icon(Icons.palette_outlined),
-                      title: Text('Apariencia'),
+                      title: Text(
+                        AppLocalizations.of(context)!.settingsAppearance,
+                      ),
                     ),
                     for (final mode in ThemeMode.values)
                       ListTile(
@@ -38,10 +41,15 @@ class SettingsScreen extends StatelessWidget {
                               : Icons.radio_button_off,
                         ),
                         title: Text(switch (mode) {
-                          ThemeMode.system =>
-                            'Usar configuración del dispositivo',
-                          ThemeMode.light => 'Claro',
-                          ThemeMode.dark => 'Oscuro',
+                          ThemeMode.system => AppLocalizations.of(
+                            context,
+                          )!.settingsSystem,
+                          ThemeMode.light => AppLocalizations.of(
+                            context,
+                          )!.settingsLight,
+                          ThemeMode.dark => AppLocalizations.of(
+                            context,
+                          )!.settingsDark,
                         }),
                         onTap: () => appTheme.setMode(mode),
                       ),
@@ -54,23 +62,21 @@ class SettingsScreen extends StatelessWidget {
               child: ListTile(
                 contentPadding: const EdgeInsets.all(20),
                 leading: const Icon(Icons.description_outlined),
-                title: const Text('Documentos y acuerdos'),
-                subtitle: const Text(
-                  'Consulta las versiones y tus aceptaciones.',
+                title: Text(AppLocalizations.of(context)!.settingsDocuments),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.settingsDocumentsHelp,
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => Navigator.of(context).pushNamed('/documents'),
               ),
             ),
             const SizedBox(height: 16),
-            const Card(
+            Card(
               child: ListTile(
                 contentPadding: EdgeInsets.all(20),
                 leading: Icon(Icons.handyman_outlined),
-                title: Text('En construcción'),
-                subtitle: Text(
-                  'Preferencias de notificaciones, privacidad e idioma.',
-                ),
+                title: Text(AppLocalizations.of(context)!.commonConstruction),
+                subtitle: Text(AppLocalizations.of(context)!.settingsPending),
               ),
             ),
           ],

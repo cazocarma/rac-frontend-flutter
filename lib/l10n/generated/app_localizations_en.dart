@@ -485,4 +485,90 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compaSunday => 'Sunday';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsPreferences => 'Preferences';
+
+  @override
+  String get settingsHeading => 'Your way';
+
+  @override
+  String get settingsDescription => 'Customize how RAC looks on this device.';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsSystem => 'Use device settings';
+
+  @override
+  String get settingsLight => 'Light';
+
+  @override
+  String get settingsDark => 'Dark';
+
+  @override
+  String get settingsDocuments => 'Documents and agreements';
+
+  @override
+  String get settingsDocumentsHelp => 'View versions and your acceptances.';
+
+  @override
+  String get commonConstruction => 'Under construction';
+
+  @override
+  String get settingsPending =>
+      'Notification, privacy and language preferences.';
+
+  @override
+  String get navExplore => 'Explore';
+
+  @override
+  String get navBookings => 'My bookings';
+
+  @override
+  String get navMessages => 'Messages';
+
+  @override
+  String get navPayments => 'Plans and payments';
+
+  @override
+  String get navNotifications => 'Notifications';
+
+  @override
+  String get navProfile => 'My profile';
+
+  @override
+  String get navTagline => 'Time to share.';
+
+  @override
+  String get navSpace => 'YOUR SPACE';
+
+  @override
+  String get navAdmin => 'Administration';
+
+  @override
+  String get navShare => 'Share what you enjoy';
+
+  @override
+  String get navProfileInfo =>
+      'Set up your profile and availability to share activities.';
+
+  @override
+  String get navLogout => 'Sign out';
+
+  @override
+  String get navExploreTitle => 'Explore Compas';
+
+  @override
+  String get navOpenNotifications => 'View notifications';
+
+  @override
+  String get navBookingsShort => 'Bookings';
+
+  @override
+  String get navProfileShort => 'Profile';
 }

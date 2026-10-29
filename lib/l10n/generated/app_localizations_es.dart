@@ -487,4 +487,92 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get compaSunday => 'Domingo';
+
+  @override
+  String get settingsTitle => 'Configuración';
+
+  @override
+  String get settingsPreferences => 'Preferencias';
+
+  @override
+  String get settingsHeading => 'A tu manera';
+
+  @override
+  String get settingsDescription =>
+      'Personaliza cómo se ve RAC en este dispositivo.';
+
+  @override
+  String get settingsAppearance => 'Apariencia';
+
+  @override
+  String get settingsSystem => 'Usar configuración del dispositivo';
+
+  @override
+  String get settingsLight => 'Claro';
+
+  @override
+  String get settingsDark => 'Oscuro';
+
+  @override
+  String get settingsDocuments => 'Documentos y acuerdos';
+
+  @override
+  String get settingsDocumentsHelp =>
+      'Consulta las versiones y tus aceptaciones.';
+
+  @override
+  String get commonConstruction => 'En construcción';
+
+  @override
+  String get settingsPending =>
+      'Preferencias de notificaciones, privacidad e idioma.';
+
+  @override
+  String get navExplore => 'Explorar';
+
+  @override
+  String get navBookings => 'Mis reservas';
+
+  @override
+  String get navMessages => 'Mensajes';
+
+  @override
+  String get navPayments => 'Planes y pagos';
+
+  @override
+  String get navNotifications => 'Notificaciones';
+
+  @override
+  String get navProfile => 'Mi perfil';
+
+  @override
+  String get navTagline => 'Tiempo para compartir.';
+
+  @override
+  String get navSpace => 'TU ESPACIO';
+
+  @override
+  String get navAdmin => 'Administración';
+
+  @override
+  String get navShare => 'Comparte lo que te gusta';
+
+  @override
+  String get navProfileInfo =>
+      'Configura tu perfil y disponibilidad para compartir actividades.';
+
+  @override
+  String get navLogout => 'Salir';
+
+  @override
+  String get navExploreTitle => 'Explorar compas';
+
+  @override
+  String get navOpenNotifications => 'Ver notificaciones';
+
+  @override
+  String get navBookingsShort => 'Reservas';
+
+  @override
+  String get navProfileShort => 'Perfil';
 }
