@@ -1,3 +1,4 @@
+import '../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 ThemeData racTheme(Brightness brightness) {
@@ -186,23 +187,19 @@ class EmptyState extends StatelessWidget {
 }
 
 class ConstructionScreen extends StatelessWidget {
-  const ConstructionScreen({
-    super.key,
-    required this.title,
-    this.message =
-        'Estamos preparando esta sección. Pronto podrás usarla desde aquí.',
-  });
-  final String title, message;
+  const ConstructionScreen({super.key, required this.title, this.message});
+  final String title;
+  final String? message;
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: Text(title)),
     body: EmptyState(
-      title: 'En construcción',
-      message: message,
+      title: AppLocalizations.of(context)!.commonConstruction,
+      message: message ?? AppLocalizations.of(context)!.constructionDescription,
       icon: Icons.handyman_outlined,
       action: OutlinedButton(
         onPressed: () => Navigator.of(context).maybePop(),
-        child: const Text('Volver'),
+        child: Text(AppLocalizations.of(context)!.constructionBack),
       ),
     ),
   );

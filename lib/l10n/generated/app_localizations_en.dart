@@ -1139,4 +1139,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String timeOffFullDays(String zone) {
     return 'Full days · $zone';
   }
+
+  @override
+  String get standingLoadFailed => 'We could not check your account status';
+
+  @override
+  String get standingSuspended => 'Some account activities are suspended';
+
+  @override
+  String get standingRestricted => 'Your account has restrictions';
+
+  @override
+  String get standingUnavailableHelp =>
+      'Some operations may be unavailable. You can still view your bookings and safety tools.';
+
+  @override
+  String get standingRestrictedHelp =>
+      'Some actions are limited. You retain access to your bookings and available protection tools.';
+
+  @override
+  String get standingRetry => 'Try again';
+
+  @override
+  String get constructionDescription => 'This section is not available yet.';
+
+  @override
+  String get constructionBack => 'Go back';
 }

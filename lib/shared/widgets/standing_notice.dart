@@ -1,3 +1,4 @@
+import '../../l10n/generated/app_localizations.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../services/account_standing.dart';
@@ -71,6 +72,7 @@ class _StandingNoticeState extends State<StandingNotice>
     if (!_failed && !(_standing?.hasRestrictions ?? false)) {
       return const SizedBox.shrink();
     }
+    final t = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
     final suspended = ['suspended', 'banned'].contains(_standing?.status);
     return Material(
@@ -92,10 +94,10 @@ class _StandingNoticeState extends State<StandingNotice>
                     children: [
                       Text(
                         _failed
-                            ? 'No pudimos consultar el estado de tu cuenta'
+                            ? t.standingLoadFailed
                             : suspended
-                            ? 'Tu cuenta tiene actividades suspendidas'
-                            : 'Tu cuenta tiene restricciones',
+                            ? t.standingSuspended
+                            : t.standingRestricted,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           color: colors.onErrorContainer,
@@ -104,14 +106,14 @@ class _StandingNoticeState extends State<StandingNotice>
                       const SizedBox(height: 4),
                       Text(
                         _failed
-                            ? 'Algunas operaciones pueden no estar disponibles. Puedes seguir consultando tus reservas y las herramientas de seguridad.'
-                            : 'Algunas acciones están limitadas. Conservas el acceso a tus reservas y a las herramientas de protección disponibles.',
+                            ? t.standingUnavailableHelp
+                            : t.standingRestrictedHelp,
                         style: TextStyle(color: colors.onErrorContainer),
                       ),
                       if (_failed)
                         TextButton(
                           onPressed: _refresh,
-                          child: const Text('Reintentar'),
+                          child: Text(t.standingRetry),
                         ),
                     ],
                   ),

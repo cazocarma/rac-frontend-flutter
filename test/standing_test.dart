@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -60,68 +61,105 @@ void main() {
       expect((Session.auth as FakeSession).cleared, isFalse);
     },
   );
-  for (final width in [360.0, 1200.0]) {
-    testWidgets('standing notice preserves content at width $width', (
-      tester,
-    ) async {
-      tester.view.physicalSize = Size(width, 800);
-      tester.view.devicePixelRatio = 1;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      var current = AccountStanding.fromJson(snapshot('suspended'));
-      var unavailable = false;
-      var calls = 0;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Column(
-              children: [
-                StandingNotice(
-                  load: () async {
-                    calls++;
-                    if (unavailable) throw StateError('offline');
-                    return current;
-                  },
+  for (final locale in ['es', 'en']) {
+    for (final width in [360.0, 1200.0]) {
+      testWidgets(
+        'standing notice $locale $width localizes states and preserves protective navigation',
+        (tester) async {
+          tester.view.physicalSize = Size(width, 800);
+          tester.view.devicePixelRatio = 1;
+          addTearDown(tester.view.resetPhysicalSize);
+          addTearDown(tester.view.resetDevicePixelRatio);
+          var current = AccountStanding.fromJson(snapshot('suspended'));
+          var unavailable = false;
+          var calls = 0;
+          final opened = <String>[];
+          await tester.pumpWidget(
+            MaterialApp(
+              locale: Locale(locale),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              home: Scaffold(
+                body: Column(
+                  children: [
+                    StandingNotice(
+                      load: () async {
+                        calls++;
+                        if (unavailable) throw StateError('private offline');
+                        return current;
+                      },
+                    ),
+                    TextButton(
+                      key: const Key('bookings'),
+                      onPressed: () => opened.add('bookings'),
+                      child: const Text('bookings'),
+                    ),
+                    TextButton(
+                      key: const Key('safety'),
+                      onPressed: () => opened.add('safety'),
+                      child: const Text('safety'),
+                    ),
+                  ],
                 ),
-                TextButton(onPressed: () {}, child: const Text('Mis reservas')),
-                TextButton(onPressed: () {}, child: const Text('Seguridad')),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+          await tester.pump();
+          final t = AppLocalizations.of(
+            tester.element(find.byType(StandingNotice)),
+          )!;
+          Future<void> poll() async {
+            await tester.pump(const Duration(seconds: 5));
+            await tester.pump();
+          }
+
+          expect(find.text(t.standingSuspended), findsOneWidget);
+          expect(find.text(t.standingRestrictedHelp), findsOneWidget);
+          expect(find.text(t.standingRetry), findsNothing);
+          current = AccountStanding.fromJson(snapshot('restricted'));
+          await poll();
+          expect(find.text(t.standingRestricted), findsOneWidget);
+          expect(find.text(t.standingSuspended), findsNothing);
+          current = AccountStanding.fromJson(snapshot('banned'));
+          await poll();
+          expect(find.text(t.standingSuspended), findsOneWidget);
+          unavailable = true;
+          await poll();
+          expect(find.text(t.standingLoadFailed), findsOneWidget);
+          expect(find.text(t.standingUnavailableHelp), findsOneWidget);
+          expect(find.text(t.standingSuspended), findsNothing);
+          expect(find.textContaining('private offline'), findsNothing);
+          expect(
+            find.text('Reintentar'),
+            locale == 'es' ? findsOneWidget : findsNothing,
+          );
+          await tester.tap(find.byKey(const Key('bookings')));
+          await tester.tap(find.byKey(const Key('safety')));
+          expect(opened, ['bookings', 'safety']);
+          final beforeRetry = calls;
+          await tester.tap(find.text(t.standingRetry));
+          await tester.pump();
+          expect(calls, beforeRetry + 1);
+          expect(find.text(t.standingLoadFailed), findsOneWidget);
+          unavailable = false;
+          current = AccountStanding.fromJson(snapshot('active'));
+          await tester.tap(find.text(t.standingRetry));
+          await tester.pump();
+          expect(find.text(t.standingLoadFailed), findsNothing);
+          expect(find.text(t.standingSuspended), findsNothing);
+          expect(find.text(t.standingRestricted), findsNothing);
+          current = AccountStanding.fromJson({'enforcement_enabled': false});
+          await poll();
+          expect(find.text(t.standingRestricted), findsNothing);
+          expect(find.byKey(const Key('bookings')), findsOneWidget);
+          expect(tester.takeException(), isNull);
+          await tester.pumpWidget(const SizedBox.shrink());
+          final before = calls;
+          await tester.pump(const Duration(seconds: 10));
+          expect(calls, before);
+          expect(tester.takeException(), isNull);
+        },
       );
-      await tester.pump();
-      expect(
-        find.text('Tu cuenta tiene actividades suspendidas'),
-        findsOneWidget,
-      );
-      expect(find.text('Mis reservas'), findsOneWidget);
-      expect(find.text('Seguridad'), findsOneWidget);
-      expect(tester.takeException(), isNull);
-      unavailable = true;
-      await tester.pump(const Duration(seconds: 5));
-      await tester.pump();
-      expect(
-        find.text('No pudimos consultar el estado de tu cuenta'),
-        findsOneWidget,
-      );
-      unavailable = false;
-      current = AccountStanding.fromJson(snapshot('active'));
-      await tester.tap(find.text('Reintentar'));
-      await tester.pump();
-      expect(
-        find.text('No pudimos consultar el estado de tu cuenta'),
-        findsNothing,
-      );
-      expect(
-        find.text('Tu cuenta tiene actividades suspendidas'),
-        findsNothing,
-      );
-      await tester.pumpWidget(const SizedBox.shrink());
-      final before = calls;
-      await tester.pump(const Duration(seconds: 10));
-      expect(calls, before);
-      expect(tester.takeException(), isNull);
-    });
+    }
   }
 }

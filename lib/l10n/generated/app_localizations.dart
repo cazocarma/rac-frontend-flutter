@@ -2137,6 +2137,54 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Días completos · {zone}'**
   String timeOffFullDays(String zone);
+
+  /// No description provided for @standingLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar el estado de tu cuenta'**
+  String get standingLoadFailed;
+
+  /// No description provided for @standingSuspended.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta tiene actividades suspendidas'**
+  String get standingSuspended;
+
+  /// No description provided for @standingRestricted.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta tiene restricciones'**
+  String get standingRestricted;
+
+  /// No description provided for @standingUnavailableHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Algunas operaciones pueden no estar disponibles. Puedes seguir consultando tus reservas y las herramientas de seguridad.'**
+  String get standingUnavailableHelp;
+
+  /// No description provided for @standingRestrictedHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Algunas acciones están limitadas. Conservas el acceso a tus reservas y a las herramientas de protección disponibles.'**
+  String get standingRestrictedHelp;
+
+  /// No description provided for @standingRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get standingRetry;
+
+  /// No description provided for @constructionDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta sección todavía no está disponible.'**
+  String get constructionDescription;
+
+  /// No description provided for @constructionBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver'**
+  String get constructionBack;
 }
 
 class _AppLocalizationsDelegate

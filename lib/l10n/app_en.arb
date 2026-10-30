@@ -1434,5 +1434,37 @@
         "type": "String"
       }
     }
+  },
+  "standingLoadFailed": "We could not check your account status",
+  "@standingLoadFailed": {
+    "legal_review": "pending"
+  },
+  "standingSuspended": "Some account activities are suspended",
+  "@standingSuspended": {
+    "legal_review": "pending"
+  },
+  "standingRestricted": "Your account has restrictions",
+  "@standingRestricted": {
+    "legal_review": "pending"
+  },
+  "standingUnavailableHelp": "Some operations may be unavailable. You can still view your bookings and safety tools.",
+  "@standingUnavailableHelp": {
+    "legal_review": "pending"
+  },
+  "standingRestrictedHelp": "Some actions are limited. You retain access to your bookings and available protection tools.",
+  "@standingRestrictedHelp": {
+    "legal_review": "pending"
+  },
+  "standingRetry": "Try again",
+  "@standingRetry": {
+    "legal_review": "pending"
+  },
+  "constructionDescription": "This section is not available yet.",
+  "@constructionDescription": {
+    "legal_review": "pending"
+  },
+  "constructionBack": "Go back",
+  "@constructionBack": {
+    "legal_review": "pending"
   }
 }

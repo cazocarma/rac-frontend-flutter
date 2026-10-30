@@ -1434,5 +1434,37 @@
         "type": "String"
       }
     }
+  },
+  "standingLoadFailed": "No pudimos consultar el estado de tu cuenta",
+  "@standingLoadFailed": {
+    "legal_review": "pending"
+  },
+  "standingSuspended": "Tu cuenta tiene actividades suspendidas",
+  "@standingSuspended": {
+    "legal_review": "pending"
+  },
+  "standingRestricted": "Tu cuenta tiene restricciones",
+  "@standingRestricted": {
+    "legal_review": "pending"
+  },
+  "standingUnavailableHelp": "Algunas operaciones pueden no estar disponibles. Puedes seguir consultando tus reservas y las herramientas de seguridad.",
+  "@standingUnavailableHelp": {
+    "legal_review": "pending"
+  },
+  "standingRestrictedHelp": "Algunas acciones están limitadas. Conservas el acceso a tus reservas y a las herramientas de protección disponibles.",
+  "@standingRestrictedHelp": {
+    "legal_review": "pending"
+  },
+  "standingRetry": "Reintentar",
+  "@standingRetry": {
+    "legal_review": "pending"
+  },
+  "constructionDescription": "Esta sección todavía no está disponible.",
+  "@constructionDescription": {
+    "legal_review": "pending"
+  },
+  "constructionBack": "Volver",
+  "@constructionBack": {
+    "legal_review": "pending"
   }
 }
