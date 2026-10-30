@@ -14,8 +14,22 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   AppLocalizations get t => AppLocalizations.of(context)!;
   late final api = widget.api ?? AlertApi(Env.apiBase);
-  late Future<Map<String, dynamic>> data = load();
+  late Future<Map<String, dynamic>> data;
+  String? locale;
   bool markingAll = false;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Titles are rendered by the server per locale, so a change reloads them.
+    final current = Localizations.localeOf(context).languageCode == 'en'
+        ? 'en'
+        : 'es';
+    if (current != locale) {
+      locale = current;
+      data = load();
+    }
+  }
+
   @override
   void dispose() {
     if (widget.api == null) api.close();
@@ -24,7 +38,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   int offset = 0;
   final busy = <String>{};
-  Future<Map<String, dynamic>> load() => api.notifications(offset: offset);
+  Future<Map<String, dynamic>> load() =>
+      api.notifications(offset: offset, locale: locale!);
   void reload({int? nextOffset}) {
     if (!mounted) return;
     setState(() {

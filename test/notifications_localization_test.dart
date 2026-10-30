@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
 import 'package:rentacompa/features/alerts/data/alert_api.dart';
 import 'package:rentacompa/features/alerts/ui/notifications_screen.dart';
 import 'package:rentacompa/l10n/generated/app_localizations.dart';
@@ -10,9 +12,14 @@ class LocalizedInbox extends AlertApi {
   bool unread = true;
   bool rejectRead = true;
   final offsets = <int>[];
+  final locales = <String>[];
   @override
-  Future<Map<String, dynamic>> notifications({int offset = 0}) async {
+  Future<Map<String, dynamic>> notifications({
+    int offset = 0,
+    String locale = 'es',
+  }) async {
     offsets.add(offset);
+    locales.add(locale);
     if (unavailable) throw StateError('fixture unavailable');
     return {
       'items': [
@@ -38,6 +45,27 @@ class LocalizedInbox extends AlertApi {
 }
 
 void main() {
+  test('inbox requests titles in the given locale', () async {
+    final seen = <Uri>[];
+    final api = AlertApi(
+      'https://api.example',
+      token: () async => 'fixture-token',
+      client: MockClient((request) async {
+        seen.add(request.url);
+        return http.Response(
+          '{"items":[],"has_more":false,"no_leidas":0}',
+          200,
+        );
+      }),
+    );
+    await api.notifications(offset: 20, locale: 'en');
+    await api.notifications();
+    expect(seen.map((u) => u.queryParameters).toList(), [
+      {'limit': '20', 'offset': '20', 'locale': 'en'},
+      {'limit': '20', 'offset': '0', 'locale': 'es'},
+    ]);
+    api.close();
+  });
   for (final locale in ['es', 'en']) {
     for (final width in [360.0, 1200.0]) {
       testWidgets('inbox $locale $width retries, preserves history and pages', (
@@ -100,6 +128,7 @@ void main() {
         await tester.tap(find.text(t.notificationsNewer));
         await tester.pumpAndSettle();
         expect(api.offsets.last, 0);
+        expect(api.locales.toSet(), {locale});
         await tester.ensureVisible(find.text(t.notificationsViewBookings));
         await tester.tap(find.text(t.notificationsViewBookings));
         await tester.pumpAndSettle();

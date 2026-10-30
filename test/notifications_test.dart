@@ -12,11 +12,10 @@ class FakeInbox extends AlertApi {
   bool failed = false;
   int unread = 3;
   @override
-  Future<Map<String, dynamic>> notifications({int offset = 0}) async => {
-    'items': [],
-    'has_more': false,
-    'no_leidas': unread,
-  };
+  Future<Map<String, dynamic>> notifications({
+    int offset = 0,
+    String locale = 'es',
+  }) async => {'items': [], 'has_more': false, 'no_leidas': unread};
   @override
   Future<void> readAll() async {
     if (failed) throw StateError('unavailable');
@@ -28,7 +27,10 @@ class AccountInbox extends AlertApi {
   AccountInbox() : super('http://fixture.invalid');
   bool read = false;
   @override
-  Future<Map<String, dynamic>> notifications({int offset = 0}) async => {
+  Future<Map<String, dynamic>> notifications({
+    int offset = 0,
+    String locale = 'es',
+  }) async => {
     'items': [
       {
         'id': 'notice-1',
