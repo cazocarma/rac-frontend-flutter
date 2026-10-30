@@ -2044,4 +2044,85 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get moderationDismiss => 'Desestimar reporte';
+
+  @override
+  String get adminTitle => 'Administración';
+
+  @override
+  String get adminRefresh => 'Actualizar resumen';
+
+  @override
+  String get adminForbiddenTitle => 'Acceso reservado a administradores';
+
+  @override
+  String get adminForbiddenMessage =>
+      'Tu cuenta no tiene permiso para consultar este panel.';
+
+  @override
+  String get adminLoadFailed => 'No pudimos cargar el resumen';
+
+  @override
+  String get adminLoadHelp =>
+      'No mostramos cifras parciales. Revisa la conexión e inténtalo nuevamente.';
+
+  @override
+  String get adminRetry => 'Reintentar';
+
+  @override
+  String get adminHeadline => 'El pulso de RAC';
+
+  @override
+  String get adminIntro =>
+      'Resumen acumulado de la aplicación. Cada servicio conserva la propiedad de sus datos.';
+
+  @override
+  String adminQueriedAt(String date) {
+    return 'Consulta: $date';
+  }
+
+  @override
+  String get adminCommunity => 'Comunidad';
+
+  @override
+  String get adminUsers => 'Usuarios con perfil';
+
+  @override
+  String get adminCompas => 'Perfiles compa';
+
+  @override
+  String get adminBookings => 'Reservas';
+
+  @override
+  String get adminPending => 'Pendientes';
+
+  @override
+  String get adminConfirmed => 'Confirmadas';
+
+  @override
+  String get adminFinished => 'Finalizadas';
+
+  @override
+  String get adminCancelled => 'Canceladas';
+
+  @override
+  String get adminExpired => 'Vencidas';
+
+  @override
+  String get adminModeration => 'Moderación';
+
+  @override
+  String get adminModerationNote =>
+      'Los conteos de moderación excluyen las reservas donde participas. Las cifras se consultan por servicio y pueden cambiar durante la consulta.';
+
+  @override
+  String get adminReviewReports => 'Revisar reportes';
+
+  @override
+  String get artworkCoffee => 'Un café y una charla';
+
+  @override
+  String get artworkRunning => 'Kilómetros en compañía';
+
+  @override
+  String get artworkMovie => 'Una buena película';
 }

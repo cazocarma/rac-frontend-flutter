@@ -2033,4 +2033,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moderationDismiss => 'Dismiss report';
+
+  @override
+  String get adminTitle => 'Administration';
+
+  @override
+  String get adminRefresh => 'Refresh summary';
+
+  @override
+  String get adminForbiddenTitle => 'Access restricted to administrators';
+
+  @override
+  String get adminForbiddenMessage =>
+      'Your account is not allowed to view this panel.';
+
+  @override
+  String get adminLoadFailed => 'We could not load the summary';
+
+  @override
+  String get adminLoadHelp =>
+      'We do not show partial figures. Check the connection and try again.';
+
+  @override
+  String get adminRetry => 'Try again';
+
+  @override
+  String get adminHeadline => 'RAC at a glance';
+
+  @override
+  String get adminIntro =>
+      'Cumulative summary of the application. Each service keeps ownership of its data.';
+
+  @override
+  String adminQueriedAt(String date) {
+    return 'Queried: $date';
+  }
+
+  @override
+  String get adminCommunity => 'Community';
+
+  @override
+  String get adminUsers => 'Users with a profile';
+
+  @override
+  String get adminCompas => 'Compa profiles';
+
+  @override
+  String get adminBookings => 'Bookings';
+
+  @override
+  String get adminPending => 'Pending';
+
+  @override
+  String get adminConfirmed => 'Confirmed';
+
+  @override
+  String get adminFinished => 'Finished';
+
+  @override
+  String get adminCancelled => 'Cancelled';
+
+  @override
+  String get adminExpired => 'Expired';
+
+  @override
+  String get adminModeration => 'Moderation';
+
+  @override
+  String get adminModerationNote =>
+      'Moderation counts exclude bookings you take part in. Figures are queried per service and may change during the query.';
+
+  @override
+  String get adminReviewReports => 'Review reports';
+
+  @override
+  String get artworkCoffee => 'A coffee and a chat';
+
+  @override
+  String get artworkRunning => 'Kilometres together';
+
+  @override
+  String get artworkMovie => 'A good movie';
 }

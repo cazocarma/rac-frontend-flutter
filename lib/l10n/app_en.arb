@@ -2597,5 +2597,110 @@
   "moderationDismiss": "Dismiss report",
   "@moderationDismiss": {
     "legal_review": "pending"
+  },
+  "adminTitle": "Administration",
+  "@adminTitle": {
+    "legal_review": "pending"
+  },
+  "adminRefresh": "Refresh summary",
+  "@adminRefresh": {
+    "legal_review": "pending"
+  },
+  "adminForbiddenTitle": "Access restricted to administrators",
+  "@adminForbiddenTitle": {
+    "legal_review": "pending"
+  },
+  "adminForbiddenMessage": "Your account is not allowed to view this panel.",
+  "@adminForbiddenMessage": {
+    "legal_review": "pending"
+  },
+  "adminLoadFailed": "We could not load the summary",
+  "@adminLoadFailed": {
+    "legal_review": "pending"
+  },
+  "adminLoadHelp": "We do not show partial figures. Check the connection and try again.",
+  "@adminLoadHelp": {
+    "legal_review": "pending"
+  },
+  "adminRetry": "Try again",
+  "@adminRetry": {
+    "legal_review": "pending"
+  },
+  "adminHeadline": "RAC at a glance",
+  "@adminHeadline": {
+    "legal_review": "pending"
+  },
+  "adminIntro": "Cumulative summary of the application. Each service keeps ownership of its data.",
+  "@adminIntro": {
+    "legal_review": "pending"
+  },
+  "adminQueriedAt": "Queried: {date}",
+  "@adminQueriedAt": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "adminCommunity": "Community",
+  "@adminCommunity": {
+    "legal_review": "pending"
+  },
+  "adminUsers": "Users with a profile",
+  "@adminUsers": {
+    "legal_review": "pending"
+  },
+  "adminCompas": "Compa profiles",
+  "@adminCompas": {
+    "legal_review": "pending"
+  },
+  "adminBookings": "Bookings",
+  "@adminBookings": {
+    "legal_review": "pending"
+  },
+  "adminPending": "Pending",
+  "@adminPending": {
+    "legal_review": "pending"
+  },
+  "adminConfirmed": "Confirmed",
+  "@adminConfirmed": {
+    "legal_review": "pending"
+  },
+  "adminFinished": "Finished",
+  "@adminFinished": {
+    "legal_review": "pending"
+  },
+  "adminCancelled": "Cancelled",
+  "@adminCancelled": {
+    "legal_review": "pending"
+  },
+  "adminExpired": "Expired",
+  "@adminExpired": {
+    "legal_review": "pending"
+  },
+  "adminModeration": "Moderation",
+  "@adminModeration": {
+    "legal_review": "pending"
+  },
+  "adminModerationNote": "Moderation counts exclude bookings you take part in. Figures are queried per service and may change during the query.",
+  "@adminModerationNote": {
+    "legal_review": "pending"
+  },
+  "adminReviewReports": "Review reports",
+  "@adminReviewReports": {
+    "legal_review": "pending"
+  },
+  "artworkCoffee": "A coffee and a chat",
+  "@artworkCoffee": {
+    "legal_review": "pending"
+  },
+  "artworkRunning": "Kilometres together",
+  "@artworkRunning": {
+    "legal_review": "pending"
+  },
+  "artworkMovie": "A good movie",
+  "@artworkMovie": {
+    "legal_review": "pending"
   }
 }

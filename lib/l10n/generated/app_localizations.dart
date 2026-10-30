@@ -3672,6 +3672,156 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Desestimar reporte'**
   String get moderationDismiss;
+
+  /// No description provided for @adminTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Administración'**
+  String get adminTitle;
+
+  /// No description provided for @adminRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar resumen'**
+  String get adminRefresh;
+
+  /// No description provided for @adminForbiddenTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Acceso reservado a administradores'**
+  String get adminForbiddenTitle;
+
+  /// No description provided for @adminForbiddenMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta no tiene permiso para consultar este panel.'**
+  String get adminForbiddenMessage;
+
+  /// No description provided for @adminLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el resumen'**
+  String get adminLoadFailed;
+
+  /// No description provided for @adminLoadHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'No mostramos cifras parciales. Revisa la conexión e inténtalo nuevamente.'**
+  String get adminLoadHelp;
+
+  /// No description provided for @adminRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get adminRetry;
+
+  /// No description provided for @adminHeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'El pulso de RAC'**
+  String get adminHeadline;
+
+  /// No description provided for @adminIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen acumulado de la aplicación. Cada servicio conserva la propiedad de sus datos.'**
+  String get adminIntro;
+
+  /// No description provided for @adminQueriedAt.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta: {date}'**
+  String adminQueriedAt(String date);
+
+  /// No description provided for @adminCommunity.
+  ///
+  /// In es, this message translates to:
+  /// **'Comunidad'**
+  String get adminCommunity;
+
+  /// No description provided for @adminUsers.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuarios con perfil'**
+  String get adminUsers;
+
+  /// No description provided for @adminCompas.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfiles compa'**
+  String get adminCompas;
+
+  /// No description provided for @adminBookings.
+  ///
+  /// In es, this message translates to:
+  /// **'Reservas'**
+  String get adminBookings;
+
+  /// No description provided for @adminPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendientes'**
+  String get adminPending;
+
+  /// No description provided for @adminConfirmed.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmadas'**
+  String get adminConfirmed;
+
+  /// No description provided for @adminFinished.
+  ///
+  /// In es, this message translates to:
+  /// **'Finalizadas'**
+  String get adminFinished;
+
+  /// No description provided for @adminCancelled.
+  ///
+  /// In es, this message translates to:
+  /// **'Canceladas'**
+  String get adminCancelled;
+
+  /// No description provided for @adminExpired.
+  ///
+  /// In es, this message translates to:
+  /// **'Vencidas'**
+  String get adminExpired;
+
+  /// No description provided for @adminModeration.
+  ///
+  /// In es, this message translates to:
+  /// **'Moderación'**
+  String get adminModeration;
+
+  /// No description provided for @adminModerationNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Los conteos de moderación excluyen las reservas donde participas. Las cifras se consultan por servicio y pueden cambiar durante la consulta.'**
+  String get adminModerationNote;
+
+  /// No description provided for @adminReviewReports.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisar reportes'**
+  String get adminReviewReports;
+
+  /// No description provided for @artworkCoffee.
+  ///
+  /// In es, this message translates to:
+  /// **'Un café y una charla'**
+  String get artworkCoffee;
+
+  /// No description provided for @artworkRunning.
+  ///
+  /// In es, this message translates to:
+  /// **'Kilómetros en compañía'**
+  String get artworkRunning;
+
+  /// No description provided for @artworkMovie.
+  ///
+  /// In es, this message translates to:
+  /// **'Una buena película'**
+  String get artworkMovie;
 }
 
 class _AppLocalizationsDelegate

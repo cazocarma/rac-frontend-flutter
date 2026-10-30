@@ -1,3 +1,4 @@
+import '../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class RacBrand extends StatelessWidget {
@@ -42,56 +43,60 @@ class RacBrand extends StatelessWidget {
 class ActivityArtwork extends StatelessWidget {
   const ActivityArtwork({super.key});
   @override
-  Widget build(BuildContext context) => ExcludeSemantics(
-    child: SizedBox(
-      height: 244,
-      width: 285,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            top: 12,
-            left: 10,
-            child: Transform.rotate(
-              angle: -.10,
-              child: _tile(
-                Icons.local_cafe_outlined,
-                'Un café y una charla',
-                const Color(0xFFF0CCA9),
-                225,
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return ExcludeSemantics(
+      child: SizedBox(
+        height: 244,
+        width: 285,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+              top: 12,
+              left: 10,
+              child: Transform.rotate(
+                angle: -.10,
+                child: _tile(
+                  Icons.local_cafe_outlined,
+                  t.artworkCoffee,
+                  const Color(0xFFF0CCA9),
+                  225,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top: 88,
-            right: 0,
-            child: Transform.rotate(
-              angle: .07,
-              child: _tile(
-                Icons.directions_run_rounded,
-                'Kilómetros en compañía',
-                const Color(0xFFC5E8AD),
-                240,
+            Positioned(
+              top: 88,
+              right: 0,
+              child: Transform.rotate(
+                angle: .07,
+                child: _tile(
+                  Icons.directions_run_rounded,
+                  t.artworkRunning,
+                  const Color(0xFFC5E8AD),
+                  240,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 4,
-            left: 12,
-            child: Transform.rotate(
-              angle: -.04,
-              child: _tile(
-                Icons.movie_outlined,
-                'Una buena película',
-                const Color(0xFFE8E5F5),
-                230,
+            Positioned(
+              bottom: 4,
+              left: 12,
+              child: Transform.rotate(
+                angle: -.04,
+                child: _tile(
+                  Icons.movie_outlined,
+                  t.artworkMovie,
+                  const Color(0xFFE8E5F5),
+                  230,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
+
   Widget _tile(IconData icon, String text, Color color, double width) =>
       Container(
         width: width,

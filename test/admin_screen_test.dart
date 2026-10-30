@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:rentacompa/features/admin/ui/admin_screen.dart';
 import 'package:rentacompa/shared/services/json_api.dart';
 
@@ -41,7 +42,14 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final api = AdminApi();
-    await tester.pumpWidget(MaterialApp(home: AdminScreen(api: api)));
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AdminScreen(api: api),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.text('12'), findsOneWidget);
     expect(find.text('Usuarios con perfil'), findsOneWidget);
@@ -49,7 +57,14 @@ void main() {
   });
   testWidgets('failure hides prior counts and can retry', (tester) async {
     final api = AdminApi();
-    await tester.pumpWidget(MaterialApp(home: AdminScreen(api: api)));
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AdminScreen(api: api),
+      ),
+    );
     await tester.pumpAndSettle();
     api.status = 503;
     await tester.tap(find.byTooltip('Actualizar resumen'));
@@ -63,7 +78,14 @@ void main() {
   });
   testWidgets('forbidden shows access message without retry', (tester) async {
     final api = AdminApi()..status = 403;
-    await tester.pumpWidget(MaterialApp(home: AdminScreen(api: api)));
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: AdminScreen(api: api),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Acceso reservado a administradores'), findsOneWidget);
     expect(find.text('Reintentar'), findsNothing);

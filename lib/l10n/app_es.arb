@@ -2597,5 +2597,110 @@
   "moderationDismiss": "Desestimar reporte",
   "@moderationDismiss": {
     "legal_review": "pending"
+  },
+  "adminTitle": "Administración",
+  "@adminTitle": {
+    "legal_review": "pending"
+  },
+  "adminRefresh": "Actualizar resumen",
+  "@adminRefresh": {
+    "legal_review": "pending"
+  },
+  "adminForbiddenTitle": "Acceso reservado a administradores",
+  "@adminForbiddenTitle": {
+    "legal_review": "pending"
+  },
+  "adminForbiddenMessage": "Tu cuenta no tiene permiso para consultar este panel.",
+  "@adminForbiddenMessage": {
+    "legal_review": "pending"
+  },
+  "adminLoadFailed": "No pudimos cargar el resumen",
+  "@adminLoadFailed": {
+    "legal_review": "pending"
+  },
+  "adminLoadHelp": "No mostramos cifras parciales. Revisa la conexión e inténtalo nuevamente.",
+  "@adminLoadHelp": {
+    "legal_review": "pending"
+  },
+  "adminRetry": "Reintentar",
+  "@adminRetry": {
+    "legal_review": "pending"
+  },
+  "adminHeadline": "El pulso de RAC",
+  "@adminHeadline": {
+    "legal_review": "pending"
+  },
+  "adminIntro": "Resumen acumulado de la aplicación. Cada servicio conserva la propiedad de sus datos.",
+  "@adminIntro": {
+    "legal_review": "pending"
+  },
+  "adminQueriedAt": "Consulta: {date}",
+  "@adminQueriedAt": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "adminCommunity": "Comunidad",
+  "@adminCommunity": {
+    "legal_review": "pending"
+  },
+  "adminUsers": "Usuarios con perfil",
+  "@adminUsers": {
+    "legal_review": "pending"
+  },
+  "adminCompas": "Perfiles compa",
+  "@adminCompas": {
+    "legal_review": "pending"
+  },
+  "adminBookings": "Reservas",
+  "@adminBookings": {
+    "legal_review": "pending"
+  },
+  "adminPending": "Pendientes",
+  "@adminPending": {
+    "legal_review": "pending"
+  },
+  "adminConfirmed": "Confirmadas",
+  "@adminConfirmed": {
+    "legal_review": "pending"
+  },
+  "adminFinished": "Finalizadas",
+  "@adminFinished": {
+    "legal_review": "pending"
+  },
+  "adminCancelled": "Canceladas",
+  "@adminCancelled": {
+    "legal_review": "pending"
+  },
+  "adminExpired": "Vencidas",
+  "@adminExpired": {
+    "legal_review": "pending"
+  },
+  "adminModeration": "Moderación",
+  "@adminModeration": {
+    "legal_review": "pending"
+  },
+  "adminModerationNote": "Los conteos de moderación excluyen las reservas donde participas. Las cifras se consultan por servicio y pueden cambiar durante la consulta.",
+  "@adminModerationNote": {
+    "legal_review": "pending"
+  },
+  "adminReviewReports": "Revisar reportes",
+  "@adminReviewReports": {
+    "legal_review": "pending"
+  },
+  "artworkCoffee": "Un café y una charla",
+  "@artworkCoffee": {
+    "legal_review": "pending"
+  },
+  "artworkRunning": "Kilómetros en compañía",
+  "@artworkRunning": {
+    "legal_review": "pending"
+  },
+  "artworkMovie": "Una buena película",
+  "@artworkMovie": {
+    "legal_review": "pending"
   }
 }
