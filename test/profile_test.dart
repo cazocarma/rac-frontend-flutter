@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rentacompa/features/profile/ui/profile_screen.dart';
@@ -39,6 +40,9 @@ void main() {
       final api = ProfileApi();
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: racTheme(Brightness.light),
           home: ProfileScreen(api: api),
         ),
@@ -78,6 +82,9 @@ void main() {
       final api = ProfileApi();
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: racTheme(Brightness.light),
           home: ProfileScreen(api: api),
         ),
@@ -119,6 +126,9 @@ void main() {
     final api = ProfileApi();
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: racTheme(Brightness.dark),
         home: ProfileScreen(api: api),
       ),

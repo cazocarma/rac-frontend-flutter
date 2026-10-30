@@ -853,4 +853,213 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allowanceSelectWeek => 'View another week';
+
+  @override
+  String get profileTitle => 'My profile';
+
+  @override
+  String get profileLoadFailed => 'We could not load your profile.';
+
+  @override
+  String get profileSaved => 'Your profile was saved';
+
+  @override
+  String get profileSaveFailed =>
+      'We could not save your changes. They remain in the form; try again.';
+
+  @override
+  String get profilePhotoLoadFailed =>
+      'We could not load your photo. You can try again.';
+
+  @override
+  String get profilePhotoTooLarge => 'The image must be no larger than 5 MB.';
+
+  @override
+  String get profilePhotoFormat => 'Choose a JPG or PNG photo.';
+
+  @override
+  String get profilePhotoInvalid =>
+      'Choose a valid JPG or PNG image, between 32 and 4096 pixels per side and up to 12 megapixels.';
+
+  @override
+  String get profilePhotoBusy =>
+      'Other photos are being processed. Try again in a few seconds.';
+
+  @override
+  String get profilePhotoSaveFailed =>
+      'We could not confirm that your photo was saved. Try again.';
+
+  @override
+  String get profilePhotoConfirm => 'Confirm your photo';
+
+  @override
+  String get profilePhotoPreviewNote =>
+      'The photo will be cropped to a square from the center. It will be public when your Compa profile is active.';
+
+  @override
+  String get profileCancel => 'Cancel';
+
+  @override
+  String get profilePhotoSave => 'Save photo';
+
+  @override
+  String get profilePhotoSaved => 'Your photo was saved';
+
+  @override
+  String get profilePhotoProcessFailed =>
+      'We could not process the photo. Try again.';
+
+  @override
+  String get profilePhotoRemoveTitle => 'Remove your photo?';
+
+  @override
+  String get profilePhotoRemoveNote =>
+      'Your profile will show your initial again.';
+
+  @override
+  String get profilePhotoKeep => 'Keep photo';
+
+  @override
+  String get profilePhotoRemove => 'Remove photo';
+
+  @override
+  String get profilePhotoRemoveFailed =>
+      'We could not remove your photo. Try again.';
+
+  @override
+  String get profilePublicPreview => 'Public preview';
+
+  @override
+  String get profilePreviewTitle => 'This is how your introduction will look';
+
+  @override
+  String get profilePreviewNote =>
+      'This preview includes your unsaved changes. It does not publish or activate your Compa profile.';
+
+  @override
+  String get profileNameValidation => 'Enter at least two characters';
+
+  @override
+  String get profilePhoneValidation => 'Enter a valid phone number';
+
+  @override
+  String get profileInterestsValidation =>
+      'At most 15 interests of 40 characters each';
+
+  @override
+  String get profileRetryMessage => 'Try again.';
+
+  @override
+  String get profileRetry => 'Try again';
+
+  @override
+  String get profileAccount => 'Your account';
+
+  @override
+  String get profileHeading => 'Make your profile your own';
+
+  @override
+  String get profileDescription =>
+      'Tell us your name and what you enjoy doing.';
+
+  @override
+  String get profileBaseRole => 'Member';
+
+  @override
+  String get profileCompaRole => 'Compa';
+
+  @override
+  String get profileAdminRole => 'Administrator';
+
+  @override
+  String get profilePhotoProcessing => 'Processing photo…';
+
+  @override
+  String get profilePhotoChange => 'Change photo';
+
+  @override
+  String get profilePhotoHelp =>
+      'Your photo and biography will be public when your Compa profile is active. JPG or PNG, up to 5 MB. The photo is saved separately.';
+
+  @override
+  String get profileName => 'Display name';
+
+  @override
+  String get profileNameHelp =>
+      'This name appears on your Compa profile and bookings.';
+
+  @override
+  String get profileBiography => 'Public biography (optional)';
+
+  @override
+  String get profileBiographyHelp =>
+      'Describe what you enjoy sharing. Avoid including private contact details.';
+
+  @override
+  String get profileEmail => 'Sign-in email';
+
+  @override
+  String get profileEmailHelp => 'Managed by your sign-in account.';
+
+  @override
+  String get profileContact => 'Contact details';
+
+  @override
+  String get profileContactHelp =>
+      'These are optional. Your phone number and general location are not shown in the public catalogue.';
+
+  @override
+  String get profilePhone => 'Phone (optional)';
+
+  @override
+  String get profileCountry => 'Country (optional)';
+
+  @override
+  String get profileRegion => 'Region (optional)';
+
+  @override
+  String get profileCity => 'City (optional)';
+
+  @override
+  String get profileInterests => 'Your interests (optional)';
+
+  @override
+  String get profileInterestsHelp =>
+      'Separate them with commas. For example: cinema, hiking, video games.';
+
+  @override
+  String get profileSaving => 'Saving…';
+
+  @override
+  String get profileSave => 'Save changes';
+
+  @override
+  String get profileDiscard => 'Discard changes';
+
+  @override
+  String get profileUnsaved => 'You have unsaved changes.';
+
+  @override
+  String get profileBookings => 'View my bookings';
+
+  @override
+  String get publicProfileName => 'Your display name';
+
+  @override
+  String get publicProfileTagline =>
+      'A shared interest. A plan to enjoy together.';
+
+  @override
+  String get publicProfileAbout => 'About me';
+
+  @override
+  String get publicProfileEmptyBiography => 'There is no biography yet.';
+
+  @override
+  String get publicProfileInterests => 'I enjoy';
+
+  @override
+  String publicProfilePhotoLabel(String name) {
+    return 'Photo of $name';
+  }
 }

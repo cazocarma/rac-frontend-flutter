@@ -6,9 +6,20 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
 
+enum ProfilePhotoFailure {
+  load,
+  tooLarge,
+  unsupportedFormat,
+  invalidImage,
+  busy,
+  save,
+  remove,
+  process,
+}
+
 class ProfilePhotoException implements Exception {
-  const ProfilePhotoException(this.message);
-  final String message;
+  const ProfilePhotoException(this.failure);
+  final ProfilePhotoFailure failure;
 }
 
 /// API para operaciones del servicio de usuarios.
@@ -89,7 +100,7 @@ class UserApi {
         .timeout(const Duration(seconds: 20));
     if (response.statusCode == 404) return null;
     if (response.statusCode != 200) {
-      throw const ProfilePhotoException('No pudimos cargar tu foto.');
+      throw const ProfilePhotoException(ProfilePhotoFailure.load);
     }
     return response.bodyBytes;
   }
@@ -108,12 +119,10 @@ class UserApi {
         .timeout(const Duration(seconds: 30));
     if (response.statusCode != 200) {
       throw ProfilePhotoException(switch (response.statusCode) {
-        413 => 'La imagen debe pesar como máximo 5 MB.',
-        400 || 415 =>
-          'Elige una imagen JPG o PNG válida, entre 32 y 4096 píxeles por lado y hasta 12 megapíxeles.',
-        429 => 'Estamos procesando otras fotos. Inténtalo en unos segundos.',
-        _ =>
-          'No pudimos confirmar el guardado de tu foto. Inténtalo nuevamente.',
+        413 => ProfilePhotoFailure.tooLarge,
+        400 || 415 => ProfilePhotoFailure.invalidImage,
+        429 => ProfilePhotoFailure.busy,
+        _ => ProfilePhotoFailure.save,
       });
     }
   }
@@ -127,9 +136,7 @@ class UserApi {
         )
         .timeout(const Duration(seconds: 20));
     if (response.statusCode != 200) {
-      throw const ProfilePhotoException(
-        'No pudimos quitar tu foto. Inténtalo nuevamente.',
-      );
+      throw const ProfilePhotoException(ProfilePhotoFailure.remove);
     }
   }
 

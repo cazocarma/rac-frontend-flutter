@@ -1,3 +1,4 @@
+import '../../l10n/generated/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../config/env.dart';
@@ -43,13 +44,17 @@ class ProfileAvatar extends StatelessWidget {
             ? Image.memory(
                 bytes!,
                 fit: BoxFit.cover,
-                semanticLabel: 'Foto de $name',
+                semanticLabel: AppLocalizations.of(
+                  context,
+                )!.publicProfilePhotoLabel(name),
                 errorBuilder: (_, e, s) => fallback,
               )
             : Image.network(
                 url!,
                 fit: BoxFit.cover,
-                semanticLabel: 'Foto de $name',
+                semanticLabel: AppLocalizations.of(
+                  context,
+                )!.publicProfilePhotoLabel(name),
                 errorBuilder: (_, e, s) => fallback,
               ),
       ),
@@ -92,21 +97,33 @@ class PublicProfilePresentation extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              name.isEmpty ? 'Tu nombre visible' : name,
+              name.isEmpty
+                  ? AppLocalizations.of(context)!.publicProfileName
+                  : name,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
-            const Text('Un interés en común. Un plan para compartir.'),
+            Text(AppLocalizations.of(context)!.publicProfileTagline),
           ],
         ),
       ),
       const SizedBox(height: 24),
-      Text('Sobre mí', style: Theme.of(context).textTheme.titleLarge),
+      Text(
+        AppLocalizations.of(context)!.publicProfileAbout,
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
       const SizedBox(height: 10),
-      Text(biography.isEmpty ? 'Todavía no hay una biografía.' : biography),
+      Text(
+        biography.isEmpty
+            ? AppLocalizations.of(context)!.publicProfileEmptyBiography
+            : biography,
+      ),
       if (interests.isNotEmpty) ...[
         const SizedBox(height: 20),
-        Text('Me gusta', style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context)!.publicProfileInterests,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,

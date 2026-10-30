@@ -1071,5 +1071,262 @@
   "allowanceSelectWeek": "Consultar otra semana",
   "@allowanceSelectWeek": {
     "legal_review": "pending"
+  },
+  "profileTitle": "Mi perfil",
+  "@profileTitle": {
+    "legal_review": "pending"
+  },
+  "profileLoadFailed": "No pudimos cargar tu perfil.",
+  "@profileLoadFailed": {
+    "legal_review": "pending"
+  },
+  "profileSaved": "Tu perfil se guardó correctamente",
+  "@profileSaved": {
+    "legal_review": "pending"
+  },
+  "profileSaveFailed": "No pudimos guardar tus cambios. Se conservan en el formulario; vuelve a intentarlo.",
+  "@profileSaveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoLoadFailed": "No pudimos cargar tu foto. Puedes volver a intentarlo.",
+  "@profilePhotoLoadFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoTooLarge": "La imagen debe pesar como máximo 5 MB.",
+  "@profilePhotoTooLarge": {
+    "legal_review": "pending"
+  },
+  "profilePhotoFormat": "Elige una foto JPG o PNG.",
+  "@profilePhotoFormat": {
+    "legal_review": "pending"
+  },
+  "profilePhotoInvalid": "Elige una imagen JPG o PNG válida, entre 32 y 4096 píxeles por lado y hasta 12 megapíxeles.",
+  "@profilePhotoInvalid": {
+    "legal_review": "pending"
+  },
+  "profilePhotoBusy": "Estamos procesando otras fotos. Inténtalo en unos segundos.",
+  "@profilePhotoBusy": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSaveFailed": "No pudimos confirmar el guardado de tu foto. Inténtalo nuevamente.",
+  "@profilePhotoSaveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoConfirm": "Confirma tu foto",
+  "@profilePhotoConfirm": {
+    "legal_review": "pending"
+  },
+  "profilePhotoPreviewNote": "Se recortará al centro en formato cuadrado. Será pública al activar tu perfil compa.",
+  "@profilePhotoPreviewNote": {
+    "legal_review": "pending"
+  },
+  "profileCancel": "Cancelar",
+  "@profileCancel": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSave": "Guardar foto",
+  "@profilePhotoSave": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSaved": "Tu foto se guardó correctamente",
+  "@profilePhotoSaved": {
+    "legal_review": "pending"
+  },
+  "profilePhotoProcessFailed": "No pudimos procesar la foto. Inténtalo nuevamente.",
+  "@profilePhotoProcessFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveTitle": "¿Quitar tu foto?",
+  "@profilePhotoRemoveTitle": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveNote": "Tu perfil volverá a mostrar tu inicial.",
+  "@profilePhotoRemoveNote": {
+    "legal_review": "pending"
+  },
+  "profilePhotoKeep": "Conservar",
+  "@profilePhotoKeep": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemove": "Quitar foto",
+  "@profilePhotoRemove": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveFailed": "No pudimos quitar tu foto. Inténtalo nuevamente.",
+  "@profilePhotoRemoveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePublicPreview": "Vista previa pública",
+  "@profilePublicPreview": {
+    "legal_review": "pending"
+  },
+  "profilePreviewTitle": "Así se verá tu presentación",
+  "@profilePreviewTitle": {
+    "legal_review": "pending"
+  },
+  "profilePreviewNote": "Esta vista incluye tus cambios sin guardar. No publica ni activa tu perfil compa.",
+  "@profilePreviewNote": {
+    "legal_review": "pending"
+  },
+  "profileNameValidation": "Ingresa al menos dos caracteres",
+  "@profileNameValidation": {
+    "legal_review": "pending"
+  },
+  "profilePhoneValidation": "Ingresa un teléfono válido",
+  "@profilePhoneValidation": {
+    "legal_review": "pending"
+  },
+  "profileInterestsValidation": "Máximo 15 intereses de 40 caracteres",
+  "@profileInterestsValidation": {
+    "legal_review": "pending"
+  },
+  "profileRetryMessage": "Inténtalo nuevamente.",
+  "@profileRetryMessage": {
+    "legal_review": "pending"
+  },
+  "profileRetry": "Reintentar",
+  "@profileRetry": {
+    "legal_review": "pending"
+  },
+  "profileAccount": "Tu cuenta",
+  "@profileAccount": {
+    "legal_review": "pending"
+  },
+  "profileHeading": "Hagamos tu perfil más tuyo",
+  "@profileHeading": {
+    "legal_review": "pending"
+  },
+  "profileDescription": "Cuéntanos cómo te llamas y qué te gusta hacer.",
+  "@profileDescription": {
+    "legal_review": "pending"
+  },
+  "profileBaseRole": "Usuario base",
+  "@profileBaseRole": {
+    "legal_review": "pending"
+  },
+  "profileCompaRole": "Compa",
+  "@profileCompaRole": {
+    "legal_review": "pending"
+  },
+  "profileAdminRole": "Administrador",
+  "@profileAdminRole": {
+    "legal_review": "pending"
+  },
+  "profilePhotoProcessing": "Procesando foto…",
+  "@profilePhotoProcessing": {
+    "legal_review": "pending"
+  },
+  "profilePhotoChange": "Cambiar foto",
+  "@profilePhotoChange": {
+    "legal_review": "pending"
+  },
+  "profilePhotoHelp": "Foto y biografía serán públicas al activar tu perfil compa. JPG o PNG, máximo 5 MB. La foto se guarda por separado.",
+  "@profilePhotoHelp": {
+    "legal_review": "pending"
+  },
+  "profileName": "Nombre visible",
+  "@profileName": {
+    "legal_review": "pending"
+  },
+  "profileNameHelp": "Este nombre aparece en tu perfil compa y tus reservas.",
+  "@profileNameHelp": {
+    "legal_review": "pending"
+  },
+  "profileBiography": "Biografía pública (opcional)",
+  "@profileBiography": {
+    "legal_review": "pending"
+  },
+  "profileBiographyHelp": "Cuenta qué te gusta compartir. Evita incluir datos de contacto privados.",
+  "@profileBiographyHelp": {
+    "legal_review": "pending"
+  },
+  "profileEmail": "Correo de acceso",
+  "@profileEmail": {
+    "legal_review": "pending"
+  },
+  "profileEmailHelp": "Gestionado por tu cuenta de acceso.",
+  "@profileEmailHelp": {
+    "legal_review": "pending"
+  },
+  "profileContact": "Datos de contacto",
+  "@profileContact": {
+    "legal_review": "pending"
+  },
+  "profileContactHelp": "Son opcionales. Tu teléfono y ubicación general no se muestran en el catálogo público.",
+  "@profileContactHelp": {
+    "legal_review": "pending"
+  },
+  "profilePhone": "Teléfono (opcional)",
+  "@profilePhone": {
+    "legal_review": "pending"
+  },
+  "profileCountry": "País (opcional)",
+  "@profileCountry": {
+    "legal_review": "pending"
+  },
+  "profileRegion": "Región (opcional)",
+  "@profileRegion": {
+    "legal_review": "pending"
+  },
+  "profileCity": "Ciudad (opcional)",
+  "@profileCity": {
+    "legal_review": "pending"
+  },
+  "profileInterests": "Tus intereses (opcionales)",
+  "@profileInterests": {
+    "legal_review": "pending"
+  },
+  "profileInterestsHelp": "Sepáralos con comas. Por ejemplo: cine, trekking, videojuegos.",
+  "@profileInterestsHelp": {
+    "legal_review": "pending"
+  },
+  "profileSaving": "Guardando…",
+  "@profileSaving": {
+    "legal_review": "pending"
+  },
+  "profileSave": "Guardar cambios",
+  "@profileSave": {
+    "legal_review": "pending"
+  },
+  "profileDiscard": "Descartar cambios",
+  "@profileDiscard": {
+    "legal_review": "pending"
+  },
+  "profileUnsaved": "Tienes cambios sin guardar.",
+  "@profileUnsaved": {
+    "legal_review": "pending"
+  },
+  "profileBookings": "Ver mis reservas",
+  "@profileBookings": {
+    "legal_review": "pending"
+  },
+  "publicProfileName": "Tu nombre visible",
+  "@publicProfileName": {
+    "legal_review": "pending"
+  },
+  "publicProfileTagline": "Un interés en común. Un plan para compartir.",
+  "@publicProfileTagline": {
+    "legal_review": "pending"
+  },
+  "publicProfileAbout": "Sobre mí",
+  "@publicProfileAbout": {
+    "legal_review": "pending"
+  },
+  "publicProfileEmptyBiography": "Todavía no hay una biografía.",
+  "@publicProfileEmptyBiography": {
+    "legal_review": "pending"
+  },
+  "publicProfileInterests": "Me gusta",
+  "@publicProfileInterests": {
+    "legal_review": "pending"
+  },
+  "publicProfilePhotoLabel": "Foto de {name}",
+  "@publicProfilePhotoLabel": {
+    "legal_review": "pending",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

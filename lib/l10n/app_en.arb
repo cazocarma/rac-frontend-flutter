@@ -1071,5 +1071,262 @@
   "allowanceSelectWeek": "View another week",
   "@allowanceSelectWeek": {
     "legal_review": "pending"
+  },
+  "profileTitle": "My profile",
+  "@profileTitle": {
+    "legal_review": "pending"
+  },
+  "profileLoadFailed": "We could not load your profile.",
+  "@profileLoadFailed": {
+    "legal_review": "pending"
+  },
+  "profileSaved": "Your profile was saved",
+  "@profileSaved": {
+    "legal_review": "pending"
+  },
+  "profileSaveFailed": "We could not save your changes. They remain in the form; try again.",
+  "@profileSaveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoLoadFailed": "We could not load your photo. You can try again.",
+  "@profilePhotoLoadFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoTooLarge": "The image must be no larger than 5 MB.",
+  "@profilePhotoTooLarge": {
+    "legal_review": "pending"
+  },
+  "profilePhotoFormat": "Choose a JPG or PNG photo.",
+  "@profilePhotoFormat": {
+    "legal_review": "pending"
+  },
+  "profilePhotoInvalid": "Choose a valid JPG or PNG image, between 32 and 4096 pixels per side and up to 12 megapixels.",
+  "@profilePhotoInvalid": {
+    "legal_review": "pending"
+  },
+  "profilePhotoBusy": "Other photos are being processed. Try again in a few seconds.",
+  "@profilePhotoBusy": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSaveFailed": "We could not confirm that your photo was saved. Try again.",
+  "@profilePhotoSaveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoConfirm": "Confirm your photo",
+  "@profilePhotoConfirm": {
+    "legal_review": "pending"
+  },
+  "profilePhotoPreviewNote": "The photo will be cropped to a square from the center. It will be public when your Compa profile is active.",
+  "@profilePhotoPreviewNote": {
+    "legal_review": "pending"
+  },
+  "profileCancel": "Cancel",
+  "@profileCancel": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSave": "Save photo",
+  "@profilePhotoSave": {
+    "legal_review": "pending"
+  },
+  "profilePhotoSaved": "Your photo was saved",
+  "@profilePhotoSaved": {
+    "legal_review": "pending"
+  },
+  "profilePhotoProcessFailed": "We could not process the photo. Try again.",
+  "@profilePhotoProcessFailed": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveTitle": "Remove your photo?",
+  "@profilePhotoRemoveTitle": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveNote": "Your profile will show your initial again.",
+  "@profilePhotoRemoveNote": {
+    "legal_review": "pending"
+  },
+  "profilePhotoKeep": "Keep photo",
+  "@profilePhotoKeep": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemove": "Remove photo",
+  "@profilePhotoRemove": {
+    "legal_review": "pending"
+  },
+  "profilePhotoRemoveFailed": "We could not remove your photo. Try again.",
+  "@profilePhotoRemoveFailed": {
+    "legal_review": "pending"
+  },
+  "profilePublicPreview": "Public preview",
+  "@profilePublicPreview": {
+    "legal_review": "pending"
+  },
+  "profilePreviewTitle": "This is how your introduction will look",
+  "@profilePreviewTitle": {
+    "legal_review": "pending"
+  },
+  "profilePreviewNote": "This preview includes your unsaved changes. It does not publish or activate your Compa profile.",
+  "@profilePreviewNote": {
+    "legal_review": "pending"
+  },
+  "profileNameValidation": "Enter at least two characters",
+  "@profileNameValidation": {
+    "legal_review": "pending"
+  },
+  "profilePhoneValidation": "Enter a valid phone number",
+  "@profilePhoneValidation": {
+    "legal_review": "pending"
+  },
+  "profileInterestsValidation": "At most 15 interests of 40 characters each",
+  "@profileInterestsValidation": {
+    "legal_review": "pending"
+  },
+  "profileRetryMessage": "Try again.",
+  "@profileRetryMessage": {
+    "legal_review": "pending"
+  },
+  "profileRetry": "Try again",
+  "@profileRetry": {
+    "legal_review": "pending"
+  },
+  "profileAccount": "Your account",
+  "@profileAccount": {
+    "legal_review": "pending"
+  },
+  "profileHeading": "Make your profile your own",
+  "@profileHeading": {
+    "legal_review": "pending"
+  },
+  "profileDescription": "Tell us your name and what you enjoy doing.",
+  "@profileDescription": {
+    "legal_review": "pending"
+  },
+  "profileBaseRole": "Member",
+  "@profileBaseRole": {
+    "legal_review": "pending"
+  },
+  "profileCompaRole": "Compa",
+  "@profileCompaRole": {
+    "legal_review": "pending"
+  },
+  "profileAdminRole": "Administrator",
+  "@profileAdminRole": {
+    "legal_review": "pending"
+  },
+  "profilePhotoProcessing": "Processing photo…",
+  "@profilePhotoProcessing": {
+    "legal_review": "pending"
+  },
+  "profilePhotoChange": "Change photo",
+  "@profilePhotoChange": {
+    "legal_review": "pending"
+  },
+  "profilePhotoHelp": "Your photo and biography will be public when your Compa profile is active. JPG or PNG, up to 5 MB. The photo is saved separately.",
+  "@profilePhotoHelp": {
+    "legal_review": "pending"
+  },
+  "profileName": "Display name",
+  "@profileName": {
+    "legal_review": "pending"
+  },
+  "profileNameHelp": "This name appears on your Compa profile and bookings.",
+  "@profileNameHelp": {
+    "legal_review": "pending"
+  },
+  "profileBiography": "Public biography (optional)",
+  "@profileBiography": {
+    "legal_review": "pending"
+  },
+  "profileBiographyHelp": "Describe what you enjoy sharing. Avoid including private contact details.",
+  "@profileBiographyHelp": {
+    "legal_review": "pending"
+  },
+  "profileEmail": "Sign-in email",
+  "@profileEmail": {
+    "legal_review": "pending"
+  },
+  "profileEmailHelp": "Managed by your sign-in account.",
+  "@profileEmailHelp": {
+    "legal_review": "pending"
+  },
+  "profileContact": "Contact details",
+  "@profileContact": {
+    "legal_review": "pending"
+  },
+  "profileContactHelp": "These are optional. Your phone number and general location are not shown in the public catalogue.",
+  "@profileContactHelp": {
+    "legal_review": "pending"
+  },
+  "profilePhone": "Phone (optional)",
+  "@profilePhone": {
+    "legal_review": "pending"
+  },
+  "profileCountry": "Country (optional)",
+  "@profileCountry": {
+    "legal_review": "pending"
+  },
+  "profileRegion": "Region (optional)",
+  "@profileRegion": {
+    "legal_review": "pending"
+  },
+  "profileCity": "City (optional)",
+  "@profileCity": {
+    "legal_review": "pending"
+  },
+  "profileInterests": "Your interests (optional)",
+  "@profileInterests": {
+    "legal_review": "pending"
+  },
+  "profileInterestsHelp": "Separate them with commas. For example: cinema, hiking, video games.",
+  "@profileInterestsHelp": {
+    "legal_review": "pending"
+  },
+  "profileSaving": "Saving…",
+  "@profileSaving": {
+    "legal_review": "pending"
+  },
+  "profileSave": "Save changes",
+  "@profileSave": {
+    "legal_review": "pending"
+  },
+  "profileDiscard": "Discard changes",
+  "@profileDiscard": {
+    "legal_review": "pending"
+  },
+  "profileUnsaved": "You have unsaved changes.",
+  "@profileUnsaved": {
+    "legal_review": "pending"
+  },
+  "profileBookings": "View my bookings",
+  "@profileBookings": {
+    "legal_review": "pending"
+  },
+  "publicProfileName": "Your display name",
+  "@publicProfileName": {
+    "legal_review": "pending"
+  },
+  "publicProfileTagline": "A shared interest. A plan to enjoy together.",
+  "@publicProfileTagline": {
+    "legal_review": "pending"
+  },
+  "publicProfileAbout": "About me",
+  "@publicProfileAbout": {
+    "legal_review": "pending"
+  },
+  "publicProfileEmptyBiography": "There is no biography yet.",
+  "@publicProfileEmptyBiography": {
+    "legal_review": "pending"
+  },
+  "publicProfileInterests": "I enjoy",
+  "@publicProfileInterests": {
+    "legal_review": "pending"
+  },
+  "publicProfilePhotoLabel": "Photo of {name}",
+  "@publicProfilePhotoLabel": {
+    "legal_review": "pending",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

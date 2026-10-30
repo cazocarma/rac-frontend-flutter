@@ -1,3 +1,5 @@
+import 'profile_text.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +17,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   UserApi get api => widget.api ?? Services.user;
   final form = GlobalKey<FormState>();
   final fields = {
@@ -31,7 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   };
   Map<String, dynamic>? me;
   bool loading = true, saving = false, dirty = false;
-  String? loadError, saveError, photoError;
+  bool loadFailed = false, saveFailed = false;
+  ProfilePhotoFailure? photoError;
   Uint8List? photo;
   bool photoBusy = false;
   @override
@@ -51,18 +55,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> load() async {
     setState(() {
       loading = true;
-      loadError = null;
+      loadFailed = false;
     });
     try {
       final value = await api.me();
       Uint8List? loadedPhoto;
-      String? photoFailure;
+      ProfilePhotoFailure? photoFailure;
       if ((value['foto_version'] as String? ?? '').isNotEmpty) {
         try {
           loadedPhoto = await api.ownPhoto();
         } catch (_) {
-          photoFailure =
-              'No pudimos cargar tu foto. Puedes volver a intentarlo.';
+          photoFailure = ProfilePhotoFailure.load;
         }
       }
       if (!mounted) return;
@@ -82,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted) {
         setState(() {
           loading = false;
-          loadError = 'No pudimos cargar tu perfil.';
+          loadFailed = true;
         });
       }
     }
@@ -93,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     FocusScope.of(context).unfocus();
     setState(() {
       saving = true;
-      saveError = null;
+      saveFailed = false;
     });
     final payload = <String, dynamic>{
       for (final key in fields.keys) key: fields[key]!.text.trim(),
@@ -111,15 +114,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         me = {...me!, ...payload};
         dirty = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tu perfil se guardó correctamente')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.profileSaved)));
     } catch (_) {
       if (mounted) {
-        setState(
-          () => saveError =
-              'No pudimos guardar tus cambios. Se conservan en el formulario; vuelve a intentarlo.',
-        );
+        setState(() => saveFailed = true);
       }
     } finally {
       if (mounted) setState(() => saving = false);
@@ -141,9 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
       if (selected == null || !mounted) return;
       if (await selected.length() > 5 * 1024 * 1024) {
-        throw const ProfilePhotoException(
-          'La imagen debe pesar como máximo 5 MB.',
-        );
+        throw const ProfilePhotoException(ProfilePhotoFailure.tooLarge);
       }
       final bytes = await selected.readAsBytes();
       final png =
@@ -154,13 +152,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           bytes[3] == 71;
       final jpeg = bytes.length > 2 && bytes[0] == 255 && bytes[1] == 216;
       if (!png && !jpeg) {
-        throw const ProfilePhotoException('Elige una foto JPG o PNG.');
+        throw const ProfilePhotoException(
+          ProfilePhotoFailure.unsupportedFormat,
+        );
       }
       if (!mounted) return;
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Confirma tu foto'),
+          title: Text(t.profilePhotoConfirm),
           content: SizedBox(
             width: 300,
             child: SingleChildScrollView(
@@ -176,9 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Se recortará al centro en formato cuadrado. Será pública al activar tu perfil compa.',
-                  ),
+                  Text(t.profilePhotoPreviewNote),
                 ],
               ),
             ),
@@ -186,11 +184,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancelar'),
+              child: Text(t.profileCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Guardar foto'),
+              child: Text(t.profilePhotoSave),
             ),
           ],
         ),
@@ -205,15 +203,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       if (!mounted) return;
       setState(() => photo = normalized ?? bytes);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tu foto se guardó correctamente')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.profilePhotoSaved)));
     } catch (error) {
       if (mounted) {
         setState(
           () => photoError = error is ProfilePhotoException
-              ? error.message
-              : 'No pudimos procesar la foto. Inténtalo nuevamente.',
+              ? error.failure
+              : ProfilePhotoFailure.process,
         );
       }
     } finally {
@@ -225,16 +223,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Quitar tu foto?'),
-        content: const Text('Tu perfil volverá a mostrar tu inicial.'),
+        title: Text(t.profilePhotoRemoveTitle),
+        content: Text(t.profilePhotoRemoveNote),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Conservar'),
+            child: Text(t.profilePhotoKeep),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Quitar foto'),
+            child: Text(t.profilePhotoRemove),
           ),
         ],
       ),
@@ -249,9 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted) setState(() => photo = null);
     } catch (error) {
       if (mounted) {
-        setState(
-          () => photoError = 'No pudimos quitar tu foto. Inténtalo nuevamente.',
-        );
+        setState(() => photoError = ProfilePhotoFailure.remove);
       }
     } finally {
       if (mounted) setState(() => photoBusy = false);
@@ -268,20 +264,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => Scaffold(
-          appBar: AppBar(title: const Text('Vista previa pública')),
+          appBar: AppBar(title: Text(t.profilePublicPreview)),
           body: SingleChildScrollView(
             child: PageContent(
               width: 800,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Card(
+                  Card(
                     child: ListTile(
-                      leading: Icon(Icons.visibility_outlined),
-                      title: Text('Así se verá tu presentación'),
-                      subtitle: Text(
-                        'Esta vista incluye tus cambios sin guardar. No publica ni activa tu perfil compa.',
-                      ),
+                      leading: const Icon(Icons.visibility_outlined),
+                      title: Text(t.profilePreviewTitle),
+                      subtitle: Text(t.profilePreviewNote),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -322,18 +316,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ),
     onChanged: (_) => setState(() {
       dirty = true;
-      saveError = null;
+      saveFailed = false;
     }),
     validator: (value) {
       final text = value?.trim() ?? '';
       if (required && text.runes.length < 2) {
-        return 'Ingresa al menos dos caracteres';
+        return t.profileNameValidation;
       }
       if (key == 'telefono' &&
           text.isNotEmpty &&
           (RegExp(r'[0-9]').allMatches(text).length < 6 ||
               !RegExp(r'^[0-9+() -]+$').hasMatch(text))) {
-        return 'Ingresa un teléfono válido';
+        return t.profilePhoneValidation;
       }
       if (key == 'intereses') {
         final interests = text
@@ -343,7 +337,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             .toList();
         if (interests.length > 15 ||
             interests.any((e) => e.runes.length > 40)) {
-          return 'Máximo 15 intereses de 40 caracteres';
+          return t.profileInterestsValidation;
         }
       }
       return null;
@@ -354,16 +348,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) => PopScope(
     canPop: !saving && !photoBusy,
     child: Scaffold(
-      appBar: AppBar(title: const Text('Mi perfil')),
+      appBar: AppBar(title: Text(t.profileTitle)),
       body: loading
           ? const Center(child: CircularProgressIndicator())
-          : loadError != null
+          : loadFailed
           ? EmptyState(
-              title: loadError!,
-              message: 'Inténtalo nuevamente.',
+              title: t.profileLoadFailed,
+              message: t.profileRetryMessage,
               action: OutlinedButton(
                 onPressed: load,
-                child: const Text('Reintentar'),
+                child: Text(t.profileRetry),
               ),
             )
           : SingleChildScrollView(
@@ -374,11 +368,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const PageIntro(
-                        eyebrow: 'Tu cuenta',
-                        title: 'Hagamos tu perfil más tuyo',
-                        description:
-                            'Cuéntanos cómo te llamas y qué te gusta hacer.',
+                      PageIntro(
+                        eyebrow: t.profileAccount,
+                        title: t.profileHeading,
+                        description: t.profileDescription,
                       ),
                       Card(
                         margin: EdgeInsets.zero,
@@ -409,11 +402,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         const SizedBox(height: 4),
                                         Text(
                                           {
-                                                'cliente': 'Usuario base',
-                                                'compa': 'Compa',
-                                                'admin': 'Administrador',
+                                                'cliente': t.profileBaseRole,
+                                                'compa': t.profileCompaRole,
+                                                'admin': t.profileAdminRole,
                                               }[me!['role']] ??
-                                              'Usuario base',
+                                              t.profileBaseRole,
                                         ),
                                       ],
                                     ),
@@ -434,8 +427,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                     label: Text(
                                       photoBusy
-                                          ? 'Procesando foto…'
-                                          : 'Cambiar foto',
+                                          ? t.profilePhotoProcessing
+                                          : t.profilePhotoChange,
                                     ),
                                   ),
                                   if (photo != null)
@@ -443,26 +436,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onPressed: saving || photoBusy
                                           ? null
                                           : removePhoto,
-                                      child: const Text('Quitar foto'),
+                                      child: Text(t.profilePhotoRemove),
                                     ),
                                   TextButton.icon(
                                     onPressed: saving || photoBusy
                                         ? null
                                         : preview,
                                     icon: const Icon(Icons.visibility_outlined),
-                                    label: const Text('Vista previa pública'),
+                                    label: Text(t.profilePublicPreview),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                'Foto y biografía serán públicas al activar tu perfil compa. JPG o PNG, máximo 5 MB. La foto se guarda por separado.',
-                              ),
+                              Text(t.profilePhotoHelp),
                               if (photoError != null)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 8),
                                   child: Text(
-                                    photoError!,
+                                    photoError!.localized(t),
                                     style: TextStyle(
                                       color: Theme.of(
                                         context,
@@ -473,45 +464,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(height: 24),
                               field(
                                 'nombre',
-                                'Nombre visible',
+                                t.profileName,
                                 120,
                                 required: true,
-                                helper:
-                                    'Este nombre aparece en tu perfil compa y tus reservas.',
+                                helper: t.profileNameHelp,
                               ),
                               const SizedBox(height: 12),
                               field(
                                 'biografia',
-                                'Biografía pública (opcional)',
+                                t.profileBiography,
                                 600,
                                 lines: 4,
-                                helper:
-                                    'Cuenta qué te gusta compartir. Evita incluir datos de contacto privados.',
+                                helper: t.profileBiographyHelp,
                               ),
                               const SizedBox(height: 12),
                               TextFormField(
                                 initialValue: me!['correo'] as String? ?? '',
                                 readOnly: true,
-                                decoration: const InputDecoration(
-                                  labelText: 'Correo de acceso',
-                                  helperText:
-                                      'Gestionado por tu cuenta de acceso.',
-                                  prefixIcon: Icon(Icons.lock_outline),
+                                decoration: InputDecoration(
+                                  labelText: t.profileEmail,
+                                  helperText: t.profileEmailHelp,
+                                  prefixIcon: const Icon(Icons.lock_outline),
                                 ),
                               ),
                               const SizedBox(height: 24),
                               Text(
-                                'Datos de contacto',
+                                t.profileContact,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                'Son opcionales. Tu teléfono y ubicación general no se muestran en el catálogo público.',
-                              ),
+                              Text(t.profileContactHelp),
                               const SizedBox(height: 16),
                               field(
                                 'telefono',
-                                'Teléfono (opcional)',
+                                t.profilePhone,
                                 30,
                                 keyboard: TextInputType.phone,
                               ),
@@ -519,9 +505,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               LayoutBuilder(
                                 builder: (context, constraints) {
                                   final items = [
-                                    field('pais', 'País (opcional)', 80),
-                                    field('region', 'Región (opcional)', 100),
-                                    field('ciudad', 'Ciudad (opcional)', 100),
+                                    field('pais', t.profileCountry, 80),
+                                    field('region', t.profileRegion, 100),
+                                    field('ciudad', t.profileCity, 100),
                                   ];
                                   return constraints.maxWidth < 600
                                       ? Column(
@@ -556,19 +542,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(height: 12),
                               field(
                                 'intereses',
-                                'Tus intereses (opcionales)',
+                                t.profileInterests,
                                 628,
-                                helper:
-                                    'Sepáralos con comas. Por ejemplo: cine, trekking, videojuegos.',
+                                helper: t.profileInterestsHelp,
                               ),
-                              if (saveError != null)
+                              if (saveFailed)
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 16,
                                   ),
                                   child: Text(
-                                    saveError!,
-                                    semanticsLabel: saveError,
+                                    t.profileSaveFailed,
+                                    semanticsLabel: t.profileSaveFailed,
                                     style: TextStyle(
                                       color: Theme.of(
                                         context,
@@ -595,21 +580,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           )
                                         : const Icon(Icons.check),
                                     label: Text(
-                                      saving ? 'Guardando…' : 'Guardar cambios',
+                                      saving ? t.profileSaving : t.profileSave,
                                     ),
                                   ),
                                   OutlinedButton(
                                     onPressed: saving || photoBusy || !dirty
                                         ? null
                                         : load,
-                                    child: const Text('Descartar cambios'),
+                                    child: Text(t.profileDiscard),
                                   ),
                                 ],
                               ),
                               if (dirty)
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 12),
-                                  child: Text('Tienes cambios sin guardar.'),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 12),
+                                  child: Text(t.profileUnsaved),
                                 ),
                             ],
                           ),
@@ -621,7 +606,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onPressed: () =>
                             Navigator.of(context).pushNamed('/match'),
                         icon: const Icon(Icons.calendar_month_outlined),
-                        label: const Text('Ver mis reservas'),
+                        label: Text(t.profileBookings),
                       ),
                     ],
                   ),

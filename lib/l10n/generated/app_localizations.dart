@@ -1627,6 +1627,384 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Consultar otra semana'**
   String get allowanceSelectWeek;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi perfil'**
+  String get profileTitle;
+
+  /// No description provided for @profileLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu perfil.'**
+  String get profileLoadFailed;
+
+  /// No description provided for @profileSaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil se guardó correctamente'**
+  String get profileSaved;
+
+  /// No description provided for @profileSaveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos guardar tus cambios. Se conservan en el formulario; vuelve a intentarlo.'**
+  String get profileSaveFailed;
+
+  /// No description provided for @profilePhotoLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu foto. Puedes volver a intentarlo.'**
+  String get profilePhotoLoadFailed;
+
+  /// No description provided for @profilePhotoTooLarge.
+  ///
+  /// In es, this message translates to:
+  /// **'La imagen debe pesar como máximo 5 MB.'**
+  String get profilePhotoTooLarge;
+
+  /// No description provided for @profilePhotoFormat.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una foto JPG o PNG.'**
+  String get profilePhotoFormat;
+
+  /// No description provided for @profilePhotoInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una imagen JPG o PNG válida, entre 32 y 4096 píxeles por lado y hasta 12 megapíxeles.'**
+  String get profilePhotoInvalid;
+
+  /// No description provided for @profilePhotoBusy.
+  ///
+  /// In es, this message translates to:
+  /// **'Estamos procesando otras fotos. Inténtalo en unos segundos.'**
+  String get profilePhotoBusy;
+
+  /// No description provided for @profilePhotoSaveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos confirmar el guardado de tu foto. Inténtalo nuevamente.'**
+  String get profilePhotoSaveFailed;
+
+  /// No description provided for @profilePhotoConfirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirma tu foto'**
+  String get profilePhotoConfirm;
+
+  /// No description provided for @profilePhotoPreviewNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Se recortará al centro en formato cuadrado. Será pública al activar tu perfil compa.'**
+  String get profilePhotoPreviewNote;
+
+  /// No description provided for @profileCancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get profileCancel;
+
+  /// No description provided for @profilePhotoSave.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar foto'**
+  String get profilePhotoSave;
+
+  /// No description provided for @profilePhotoSaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu foto se guardó correctamente'**
+  String get profilePhotoSaved;
+
+  /// No description provided for @profilePhotoProcessFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos procesar la foto. Inténtalo nuevamente.'**
+  String get profilePhotoProcessFailed;
+
+  /// No description provided for @profilePhotoRemoveTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Quitar tu foto?'**
+  String get profilePhotoRemoveTitle;
+
+  /// No description provided for @profilePhotoRemoveNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil volverá a mostrar tu inicial.'**
+  String get profilePhotoRemoveNote;
+
+  /// No description provided for @profilePhotoKeep.
+  ///
+  /// In es, this message translates to:
+  /// **'Conservar'**
+  String get profilePhotoKeep;
+
+  /// No description provided for @profilePhotoRemove.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar foto'**
+  String get profilePhotoRemove;
+
+  /// No description provided for @profilePhotoRemoveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos quitar tu foto. Inténtalo nuevamente.'**
+  String get profilePhotoRemoveFailed;
+
+  /// No description provided for @profilePublicPreview.
+  ///
+  /// In es, this message translates to:
+  /// **'Vista previa pública'**
+  String get profilePublicPreview;
+
+  /// No description provided for @profilePreviewTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Así se verá tu presentación'**
+  String get profilePreviewTitle;
+
+  /// No description provided for @profilePreviewNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta vista incluye tus cambios sin guardar. No publica ni activa tu perfil compa.'**
+  String get profilePreviewNote;
+
+  /// No description provided for @profileNameValidation.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa al menos dos caracteres'**
+  String get profileNameValidation;
+
+  /// No description provided for @profilePhoneValidation.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un teléfono válido'**
+  String get profilePhoneValidation;
+
+  /// No description provided for @profileInterestsValidation.
+  ///
+  /// In es, this message translates to:
+  /// **'Máximo 15 intereses de 40 caracteres'**
+  String get profileInterestsValidation;
+
+  /// No description provided for @profileRetryMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Inténtalo nuevamente.'**
+  String get profileRetryMessage;
+
+  /// No description provided for @profileRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get profileRetry;
+
+  /// No description provided for @profileAccount.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta'**
+  String get profileAccount;
+
+  /// No description provided for @profileHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Hagamos tu perfil más tuyo'**
+  String get profileHeading;
+
+  /// No description provided for @profileDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos cómo te llamas y qué te gusta hacer.'**
+  String get profileDescription;
+
+  /// No description provided for @profileBaseRole.
+  ///
+  /// In es, this message translates to:
+  /// **'Usuario base'**
+  String get profileBaseRole;
+
+  /// No description provided for @profileCompaRole.
+  ///
+  /// In es, this message translates to:
+  /// **'Compa'**
+  String get profileCompaRole;
+
+  /// No description provided for @profileAdminRole.
+  ///
+  /// In es, this message translates to:
+  /// **'Administrador'**
+  String get profileAdminRole;
+
+  /// No description provided for @profilePhotoProcessing.
+  ///
+  /// In es, this message translates to:
+  /// **'Procesando foto…'**
+  String get profilePhotoProcessing;
+
+  /// No description provided for @profilePhotoChange.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar foto'**
+  String get profilePhotoChange;
+
+  /// No description provided for @profilePhotoHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto y biografía serán públicas al activar tu perfil compa. JPG o PNG, máximo 5 MB. La foto se guarda por separado.'**
+  String get profilePhotoHelp;
+
+  /// No description provided for @profileName.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre visible'**
+  String get profileName;
+
+  /// No description provided for @profileNameHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Este nombre aparece en tu perfil compa y tus reservas.'**
+  String get profileNameHelp;
+
+  /// No description provided for @profileBiography.
+  ///
+  /// In es, this message translates to:
+  /// **'Biografía pública (opcional)'**
+  String get profileBiography;
+
+  /// No description provided for @profileBiographyHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuenta qué te gusta compartir. Evita incluir datos de contacto privados.'**
+  String get profileBiographyHelp;
+
+  /// No description provided for @profileEmail.
+  ///
+  /// In es, this message translates to:
+  /// **'Correo de acceso'**
+  String get profileEmail;
+
+  /// No description provided for @profileEmailHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Gestionado por tu cuenta de acceso.'**
+  String get profileEmailHelp;
+
+  /// No description provided for @profileContact.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos de contacto'**
+  String get profileContact;
+
+  /// No description provided for @profileContactHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Son opcionales. Tu teléfono y ubicación general no se muestran en el catálogo público.'**
+  String get profileContactHelp;
+
+  /// No description provided for @profilePhone.
+  ///
+  /// In es, this message translates to:
+  /// **'Teléfono (opcional)'**
+  String get profilePhone;
+
+  /// No description provided for @profileCountry.
+  ///
+  /// In es, this message translates to:
+  /// **'País (opcional)'**
+  String get profileCountry;
+
+  /// No description provided for @profileRegion.
+  ///
+  /// In es, this message translates to:
+  /// **'Región (opcional)'**
+  String get profileRegion;
+
+  /// No description provided for @profileCity.
+  ///
+  /// In es, this message translates to:
+  /// **'Ciudad (opcional)'**
+  String get profileCity;
+
+  /// No description provided for @profileInterests.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus intereses (opcionales)'**
+  String get profileInterests;
+
+  /// No description provided for @profileInterestsHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Sepáralos con comas. Por ejemplo: cine, trekking, videojuegos.'**
+  String get profileInterestsHelp;
+
+  /// No description provided for @profileSaving.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardando…'**
+  String get profileSaving;
+
+  /// No description provided for @profileSave.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar cambios'**
+  String get profileSave;
+
+  /// No description provided for @profileDiscard.
+  ///
+  /// In es, this message translates to:
+  /// **'Descartar cambios'**
+  String get profileDiscard;
+
+  /// No description provided for @profileUnsaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tienes cambios sin guardar.'**
+  String get profileUnsaved;
+
+  /// No description provided for @profileBookings.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mis reservas'**
+  String get profileBookings;
+
+  /// No description provided for @publicProfileName.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nombre visible'**
+  String get publicProfileName;
+
+  /// No description provided for @publicProfileTagline.
+  ///
+  /// In es, this message translates to:
+  /// **'Un interés en común. Un plan para compartir.'**
+  String get publicProfileTagline;
+
+  /// No description provided for @publicProfileAbout.
+  ///
+  /// In es, this message translates to:
+  /// **'Sobre mí'**
+  String get publicProfileAbout;
+
+  /// No description provided for @publicProfileEmptyBiography.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay una biografía.'**
+  String get publicProfileEmptyBiography;
+
+  /// No description provided for @publicProfileInterests.
+  ///
+  /// In es, this message translates to:
+  /// **'Me gusta'**
+  String get publicProfileInterests;
+
+  /// No description provided for @publicProfilePhotoLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto de {name}'**
+  String publicProfilePhotoLabel(String name);
 }
 
 class _AppLocalizationsDelegate
