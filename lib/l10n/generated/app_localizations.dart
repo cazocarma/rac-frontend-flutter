@@ -2185,6 +2185,371 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Volver'**
   String get constructionBack;
+
+  /// No description provided for @exploreHeroEyebrow.
+  ///
+  /// In es, this message translates to:
+  /// **'HAZ ESPACIO PARA UN BUEN PLAN'**
+  String get exploreHeroEyebrow;
+
+  /// No description provided for @exploreHeroTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Un buen plan empieza\ncon buena compañía.'**
+  String get exploreHeroTitle;
+
+  /// No description provided for @exploreHeroBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Descubre personas con quienes compartir lo que te gusta.'**
+  String get exploreHeroBody;
+
+  /// No description provided for @exploreHeroHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Tú eliges el plan. Encuentra tu compa.'**
+  String get exploreHeroHint;
+
+  /// No description provided for @exploreQuestion.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué te gustaría hacer?'**
+  String get exploreQuestion;
+
+  /// No description provided for @exploreQuestionHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Busca por habilidad o explora algo diferente.'**
+  String get exploreQuestionHelp;
+
+  /// No description provided for @exploreSearchHintCompact.
+  ///
+  /// In es, this message translates to:
+  /// **'Cine, running, café…'**
+  String get exploreSearchHintCompact;
+
+  /// No description provided for @exploreSearchHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Busca una habilidad: cine, running, café…'**
+  String get exploreSearchHint;
+
+  /// No description provided for @exploreClearSearch.
+  ///
+  /// In es, this message translates to:
+  /// **'Limpiar búsqueda'**
+  String get exploreClearSearch;
+
+  /// No description provided for @exploreSearch.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar'**
+  String get exploreSearch;
+
+  /// No description provided for @exploreAllSkills.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get exploreAllSkills;
+
+  /// No description provided for @exploreTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Encuentra tu compa'**
+  String get exploreTitle;
+
+  /// No description provided for @exploreRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar'**
+  String get exploreRefresh;
+
+  /// No description provided for @exploreCount.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{amount} compa para conocer} other{{amount} compas para conocer}}'**
+  String exploreCount(int count, String amount);
+
+  /// No description provided for @exploreLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar los compas. Inténtalo otra vez.'**
+  String get exploreLoadFailed;
+
+  /// No description provided for @exploreRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get exploreRetry;
+
+  /// No description provided for @exploreEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos compas'**
+  String get exploreEmptyTitle;
+
+  /// No description provided for @exploreEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Prueba otra habilidad o selecciona Todos.'**
+  String get exploreEmptyMessage;
+
+  /// No description provided for @exploreShowAll.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver todos los compas'**
+  String get exploreShowAll;
+
+  /// No description provided for @exploreShowMore.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver más compas'**
+  String get exploreShowMore;
+
+  /// No description provided for @exploreFooter.
+  ///
+  /// In es, this message translates to:
+  /// **'Encuentra un interés en común. Revisa el perfil y acuerda tu próxima experiencia.'**
+  String get exploreFooter;
+
+  /// No description provided for @exploreCardSemantics.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver perfil de {name}. {skills}. {rate} CLP por hora. {rating}.'**
+  String exploreCardSemantics(
+    String name,
+    String skills,
+    String rate,
+    String rating,
+  );
+
+  /// No description provided for @exploreCardRating.
+  ///
+  /// In es, this message translates to:
+  /// **'Calificación {rating}'**
+  String exploreCardRating(String rating);
+
+  /// No description provided for @exploreNewInRac.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo en RAC'**
+  String get exploreNewInRac;
+
+  /// No description provided for @exploreNoSkills.
+  ///
+  /// In es, this message translates to:
+  /// **'Conoce sus intereses'**
+  String get exploreNoSkills;
+
+  /// No description provided for @exploreNoDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Comparte una nueva experiencia.'**
+  String get exploreNoDescription;
+
+  /// No description provided for @explorePerHour.
+  ///
+  /// In es, this message translates to:
+  /// **'/ hora'**
+  String get explorePerHour;
+
+  /// No description provided for @compaDetailTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Conoce a tu compa'**
+  String get compaDetailTitle;
+
+  /// No description provided for @compaDetailLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el perfil'**
+  String get compaDetailLoadFailed;
+
+  /// No description provided for @compaDetailLoadHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo nuevamente.'**
+  String get compaDetailLoadHelp;
+
+  /// No description provided for @compaDetailRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get compaDetailRetry;
+
+  /// No description provided for @compaDetailRating.
+  ///
+  /// In es, this message translates to:
+  /// **'★ {rating} · {count, plural, =1{{count} reseña verificada} other{{count} reseñas verificadas}}'**
+  String compaDetailRating(String rating, int count);
+
+  /// No description provided for @compaDetailUnrated.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo en RAC · Aún sin calificaciones'**
+  String get compaDetailUnrated;
+
+  /// No description provided for @compaDetailActivities.
+  ///
+  /// In es, this message translates to:
+  /// **'Lo que podemos hacer'**
+  String get compaDetailActivities;
+
+  /// No description provided for @compaDetailNoDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Este compa todavía no agregó una descripción.'**
+  String get compaDetailNoDescription;
+
+  /// No description provided for @compaDetailRate.
+  ///
+  /// In es, this message translates to:
+  /// **'{amount} CLP / hora'**
+  String compaDetailRate(String amount);
+
+  /// No description provided for @compaDetailBookingHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta horarios y envía una solicitud. Sin cobro por ahora.'**
+  String get compaDetailBookingHelp;
+
+  /// No description provided for @compaDetailBook.
+  ///
+  /// In es, this message translates to:
+  /// **'Reservar'**
+  String get compaDetailBook;
+
+  /// No description provided for @bookingTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu próxima experiencia'**
+  String get bookingTitle;
+
+  /// No description provided for @bookingWith.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva con {name}'**
+  String bookingWith(String name);
+
+  /// No description provided for @bookingIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige cuándo y por cuánto tiempo. El compa debe aceptar tu solicitud.'**
+  String get bookingIntro;
+
+  /// No description provided for @bookingStepDate.
+  ///
+  /// In es, this message translates to:
+  /// **'1. Fecha y duración'**
+  String get bookingStepDate;
+
+  /// No description provided for @bookingHours.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{count} hora} other{{count} horas}}'**
+  String bookingHours(int count);
+
+  /// No description provided for @bookingStepTime.
+  ///
+  /// In es, this message translates to:
+  /// **'2. Hora de inicio'**
+  String get bookingStepTime;
+
+  /// No description provided for @bookingZones.
+  ///
+  /// In es, this message translates to:
+  /// **'Horarios en tu zona local ({local}). Agenda del compa: {zone}. Se confirma disponibilidad al enviar.'**
+  String bookingZones(String local, String zone);
+
+  /// No description provided for @bookingNoSchedule.
+  ///
+  /// In es, this message translates to:
+  /// **'Este compa aún no publicó horarios. Puedes explorar otros compas.'**
+  String get bookingNoSchedule;
+
+  /// No description provided for @bookingNoSlots.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay horarios disponibles para esta fecha y duración. Prueba otro día o una duración menor.'**
+  String get bookingNoSlots;
+
+  /// No description provided for @bookingStepReview.
+  ///
+  /// In es, this message translates to:
+  /// **'3. Revisa tu solicitud'**
+  String get bookingStepReview;
+
+  /// No description provided for @bookingSelectSlot.
+  ///
+  /// In es, this message translates to:
+  /// **'Selecciona un horario para continuar.'**
+  String get bookingSelectSlot;
+
+  /// No description provided for @bookingReferenceValue.
+  ///
+  /// In es, this message translates to:
+  /// **'Valor referencial: {amount} CLP'**
+  String bookingReferenceValue(String amount);
+
+  /// No description provided for @bookingNoCharge.
+  ///
+  /// In es, this message translates to:
+  /// **'No se realizará ningún cobro. Pagos en construcción.'**
+  String get bookingNoCharge;
+
+  /// No description provided for @bookingSending.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviando…'**
+  String get bookingSending;
+
+  /// No description provided for @bookingSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicitar reserva'**
+  String get bookingSubmit;
+
+  /// No description provided for @bookingRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar disponibilidad'**
+  String get bookingRefresh;
+
+  /// No description provided for @bookingSent.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicitud enviada. Puedes seguir su estado en Mis reservas.'**
+  String get bookingSent;
+
+  /// No description provided for @bookingLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar la disponibilidad. Vuelve a intentarlo.'**
+  String get bookingLoadFailed;
+
+  /// No description provided for @bookingSlotPast.
+  ///
+  /// In es, this message translates to:
+  /// **'Ese horario ya pasó. Selecciona otro horario disponible.'**
+  String get bookingSlotPast;
+
+  /// No description provided for @bookingSlotTaken.
+  ///
+  /// In es, this message translates to:
+  /// **'Ese horario acaba de ocuparse. Elige otro e inténtalo nuevamente.'**
+  String get bookingSlotTaken;
+
+  /// No description provided for @bookingAvailabilityChanged.
+  ///
+  /// In es, this message translates to:
+  /// **'La disponibilidad cambió. Selecciona otro horario.'**
+  String get bookingAvailabilityChanged;
+
+  /// No description provided for @bookingSubmitFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos enviar la solicitud. Inténtalo nuevamente.'**
+  String get bookingSubmitFailed;
 }
 
 class _AppLocalizationsDelegate

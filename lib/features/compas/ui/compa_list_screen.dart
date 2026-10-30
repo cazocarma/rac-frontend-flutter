@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/widgets/public_profile.dart';
 import '../../compas/data/compa_api.dart';
@@ -7,7 +8,8 @@ import 'compa_detail_screen.dart';
 import '../../../shared/widgets/brand.dart';
 
 class CompaListScreen extends StatefulWidget {
-  const CompaListScreen({super.key});
+  const CompaListScreen({super.key, this.api});
+  final CompaApi? api;
   @override
   State<CompaListScreen> createState() => _CompaListScreenState();
 }
@@ -17,9 +19,10 @@ class _CompaListScreenState extends State<CompaListScreen> {
   List<CompaCard> items = [];
   List<String> skills = [];
   bool loading = true, more = true;
-  String? error;
+  bool failed = false;
   String filter = '';
   int request = 0;
+  CompaApi get api => widget.api ?? Services.compas;
   @override
   void initState() {
     super.initState();
@@ -35,7 +38,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
 
   Future<void> loadSkills() async {
     try {
-      final data = await Services.compas.listSkills(limit: 20);
+      final data = await api.listSkills(limit: 20);
       if (mounted) setState(() => skills = data);
     } catch (_) {}
   }
@@ -44,10 +47,10 @@ class _CompaListScreenState extends State<CompaListScreen> {
     final id = ++request;
     setState(() {
       loading = true;
-      error = null;
+      failed = false;
     });
     try {
-      final data = await Services.compas.list(
+      final data = await api.list(
         skill: filter,
         limit: 12,
         offset: append ? items.length : 0,
@@ -59,9 +62,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
       });
     } catch (_) {
       if (mounted && id == request) {
-        setState(
-          () => error = 'No pudimos cargar los compas. Inténtalo otra vez.',
-        );
+        setState(() => failed = true);
       }
     } finally {
       if (mounted && id == request) setState(() => loading = false);
@@ -78,6 +79,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
     final compact = MediaQuery.sizeOf(context).width < 600;
     return SingleChildScrollView(
@@ -97,9 +99,9 @@ class _CompaListScreenState extends State<CompaListScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'HAZ ESPACIO PARA UN BUEN PLAN',
-                          style: TextStyle(
+                        Text(
+                          t.exploreHeroEyebrow,
+                          style: const TextStyle(
                             color: Color(0xFFC5E8AD),
                             fontSize: 10,
                             letterSpacing: 1.6,
@@ -108,7 +110,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                         ),
                         const SizedBox(height: 18),
                         Text(
-                          'Un buen plan empieza\ncon buena compañía.',
+                          t.exploreHeroTitle,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: compact ? 29 : 38,
@@ -118,27 +120,27 @@ class _CompaListScreenState extends State<CompaListScreen> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text(
-                          'Descubre personas con quienes compartir lo que te gusta.',
-                          style: TextStyle(
+                        Text(
+                          t.exploreHeroBody,
+                          style: const TextStyle(
                             color: Color(0xFFCEE0D3),
                             height: 1.6,
                             fontSize: 15,
                           ),
                         ),
                         const SizedBox(height: 22),
-                        const Row(
+                        Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.explore_outlined,
                               color: Color(0xFFC5E8AD),
                               size: 18,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Flexible(
                               child: Text(
-                                'Tú eliges el plan. Encuentra tu compa.',
-                                style: TextStyle(
+                                t.exploreHeroHint,
+                                style: const TextStyle(
                                   color: Color(0xFFC5E8AD),
                                   fontSize: 12,
                                 ),
@@ -159,13 +161,13 @@ class _CompaListScreenState extends State<CompaListScreen> {
           ),
           const SizedBox(height: 30),
           Text(
-            '¿Qué te gustaría hacer?',
+            t.exploreQuestion,
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 6),
-          const Text('Busca por habilidad o explora algo diferente.'),
+          Text(t.exploreQuestionHelp),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -175,13 +177,13 @@ class _CompaListScreenState extends State<CompaListScreen> {
                   textInputAction: TextInputAction.search,
                   decoration: InputDecoration(
                     hintText: compact
-                        ? 'Cine, running, café…'
-                        : 'Busca una habilidad: cine, running, café…',
+                        ? t.exploreSearchHintCompact
+                        : t.exploreSearchHint,
                     prefixIcon: const Icon(Icons.search_rounded),
                     suffixIcon: search.text.isEmpty
                         ? null
                         : IconButton(
-                            tooltip: 'Limpiar búsqueda',
+                            tooltip: t.exploreClearSearch,
                             onPressed: () => applyFilter(''),
                             icon: const Icon(Icons.close, size: 18),
                           ),
@@ -193,7 +195,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
               const SizedBox(width: 10),
               FilledButton(
                 onPressed: loading ? null : () => applyFilter(search.text),
-                child: const Text('Buscar'),
+                child: Text(t.exploreSearch),
               ),
             ],
           ),
@@ -207,7 +209,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: ChoiceChip(
-                      label: Text(skill.isEmpty ? 'Todos' : skill),
+                      label: Text(skill.isEmpty ? t.exploreAllSkills : skill),
                       selected: filter == skill,
                       onSelected: (_) => applyFilter(skill),
                     ),
@@ -220,14 +222,14 @@ class _CompaListScreenState extends State<CompaListScreen> {
             children: [
               Expanded(
                 child: Text(
-                  'Encuentra tu compa',
+                  t.exploreTitle,
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
                 ),
               ),
               IconButton(
-                tooltip: 'Actualizar',
+                tooltip: t.exploreRefresh,
                 onPressed: loading ? null : () => load(),
                 icon: const Icon(Icons.refresh_rounded),
               ),
@@ -235,7 +237,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
           ),
           if (!loading && items.isNotEmpty)
             Text(
-              '${items.length}${more ? '+' : ''} ${items.length == 1 ? 'compa para conocer' : 'compas para conocer'}',
+              t.exploreCount(items.length, '${items.length}${more ? '+' : ''}'),
               style: TextStyle(color: colors.onSurfaceVariant, fontSize: 13),
             ),
           const SizedBox(height: 16),
@@ -244,23 +246,23 @@ class _CompaListScreenState extends State<CompaListScreen> {
               padding: EdgeInsets.only(bottom: 16),
               child: LinearProgressIndicator(minHeight: 2),
             ),
-          if (error != null)
+          if (failed)
             MaterialBanner(
-              content: Text(error!),
+              content: Text(t.exploreLoadFailed),
               actions: [
                 TextButton(
                   onPressed: () => load(),
-                  child: const Text('Reintentar'),
+                  child: Text(t.exploreRetry),
                 ),
               ],
             ),
-          if (items.isEmpty && !loading && error == null)
+          if (items.isEmpty && !loading && !failed)
             EmptyState(
-              title: 'No encontramos compas',
-              message: 'Prueba otra habilidad o selecciona Todos.',
+              title: t.exploreEmptyTitle,
+              message: t.exploreEmptyMessage,
               action: OutlinedButton(
                 onPressed: () => applyFilter(''),
-                child: const Text('Ver todos los compas'),
+                child: Text(t.exploreShowAll),
               ),
             )
           else
@@ -283,19 +285,19 @@ class _CompaListScreenState extends State<CompaListScreen> {
                     _compaCard(context, items[index], index),
               ),
             ),
-          if (more && !loading && error == null)
+          if (more && !loading && !failed)
             Padding(
               padding: const EdgeInsets.only(top: 24),
               child: Center(
                 child: OutlinedButton(
                   onPressed: () => load(append: true),
-                  child: const Text('Ver más compas'),
+                  child: Text(t.exploreShowMore),
                 ),
               ),
             ),
           const SizedBox(height: 24),
           Text(
-            'Encuentra un interés en común. Revisa el perfil y acuerda tu próxima experiencia.',
+            t.exploreFooter,
             style: TextStyle(
               color: colors.onSurfaceVariant,
               fontSize: 12,
@@ -309,6 +311,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
   }
 
   Widget _compaCard(BuildContext context, CompaCard compa, int index) {
+    final t = AppLocalizations.of(context)!;
     final colors = Theme.of(context).colorScheme;
     const tints = [
       Color(0xFFE0EFE7),
@@ -320,7 +323,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
     void openProfile() {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CompaDetailScreen(api: Services.compas, id: compa.id),
+          builder: (_) => CompaDetailScreen(api: api, id: compa.id),
         ),
       );
     }
@@ -328,8 +331,14 @@ class _CompaListScreenState extends State<CompaListScreen> {
     return Semantics(
       button: true,
       excludeSemantics: true,
-      label:
-          'Ver perfil de ${compa.nombre}. ${compa.habilidades.join(', ')}. ${money(compa.tarifaHora)} CLP por hora. ${compa.ratingPromedio > 0 ? 'Calificación ${compa.ratingPromedio.toStringAsFixed(1)}' : 'Nuevo en RAC'}.',
+      label: t.exploreCardSemantics(
+        compa.nombre,
+        compa.habilidades.join(', '),
+        money(compa.tarifaHora),
+        compa.ratingPromedio > 0
+            ? t.exploreCardRating(compa.ratingPromedio.toStringAsFixed(1))
+            : t.exploreNewInRac,
+      ),
       onTap: openProfile,
       child: Card(
         clipBehavior: Clip.antiAlias,
@@ -372,7 +381,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                           Text(
                             compa.ratingPromedio > 0
                                 ? compa.ratingPromedio.toStringAsFixed(1)
-                                : 'Nuevo en RAC',
+                                : t.exploreNewInRac,
                             style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
@@ -403,7 +412,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                       const SizedBox(height: 6),
                       Text(
                         compa.habilidades.isEmpty
-                            ? 'Conoce sus intereses'
+                            ? t.exploreNoSkills
                             : compa.habilidades.join(' · '),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -416,7 +425,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                       const SizedBox(height: 12),
                       Text(
                         (compa.descripcion ?? '').isEmpty
-                            ? 'Comparte una nueva experiencia.'
+                            ? t.exploreNoDescription
                             : compa.descripcion!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -441,7 +450,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: ' / hora',
+                                    text: ' ${t.explorePerHour}',
                                     style: TextStyle(
                                       color: colors.onSurfaceVariant,
                                       fontSize: 11,

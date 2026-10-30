@@ -1165,4 +1165,240 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get constructionBack => 'Go back';
+
+  @override
+  String get exploreHeroEyebrow => 'MAKE ROOM FOR A GOOD PLAN';
+
+  @override
+  String get exploreHeroTitle => 'A good plan starts\nwith good company.';
+
+  @override
+  String get exploreHeroBody => 'Discover people to share what you enjoy.';
+
+  @override
+  String get exploreHeroHint => 'You choose the plan. Find your compa.';
+
+  @override
+  String get exploreQuestion => 'What would you like to do?';
+
+  @override
+  String get exploreQuestionHelp =>
+      'Search by skill or explore something different.';
+
+  @override
+  String get exploreSearchHintCompact => 'Movies, running, coffee…';
+
+  @override
+  String get exploreSearchHint =>
+      'Search for a skill: movies, running, coffee…';
+
+  @override
+  String get exploreClearSearch => 'Clear search';
+
+  @override
+  String get exploreSearch => 'Search';
+
+  @override
+  String get exploreAllSkills => 'All';
+
+  @override
+  String get exploreTitle => 'Find your compa';
+
+  @override
+  String get exploreRefresh => 'Refresh';
+
+  @override
+  String exploreCount(int count, String amount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$amount compas to meet',
+      one: '$amount compa to meet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get exploreLoadFailed => 'We could not load compas. Please try again.';
+
+  @override
+  String get exploreRetry => 'Try again';
+
+  @override
+  String get exploreEmptyTitle => 'No compas found';
+
+  @override
+  String get exploreEmptyMessage => 'Try another skill or select All.';
+
+  @override
+  String get exploreShowAll => 'See all compas';
+
+  @override
+  String get exploreShowMore => 'See more compas';
+
+  @override
+  String get exploreFooter =>
+      'Find a shared interest. Review the profile and arrange your next experience.';
+
+  @override
+  String exploreCardSemantics(
+    String name,
+    String skills,
+    String rate,
+    String rating,
+  ) {
+    return 'View profile of $name. $skills. $rate CLP per hour. $rating.';
+  }
+
+  @override
+  String exploreCardRating(String rating) {
+    return 'Rating $rating';
+  }
+
+  @override
+  String get exploreNewInRac => 'New on RAC';
+
+  @override
+  String get exploreNoSkills => 'Get to know their interests';
+
+  @override
+  String get exploreNoDescription => 'Share a new experience.';
+
+  @override
+  String get explorePerHour => '/ hour';
+
+  @override
+  String get compaDetailTitle => 'Meet your compa';
+
+  @override
+  String get compaDetailLoadFailed => 'We could not load the profile';
+
+  @override
+  String get compaDetailLoadHelp => 'Check your connection and try again.';
+
+  @override
+  String get compaDetailRetry => 'Try again';
+
+  @override
+  String compaDetailRating(String rating, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count verified reviews',
+      one: '$count verified review',
+    );
+    return '★ $rating · $_temp0';
+  }
+
+  @override
+  String get compaDetailUnrated => 'New on RAC · No ratings yet';
+
+  @override
+  String get compaDetailActivities => 'What we can do';
+
+  @override
+  String get compaDetailNoDescription =>
+      'This compa has not added a description yet.';
+
+  @override
+  String compaDetailRate(String amount) {
+    return '$amount CLP / hour';
+  }
+
+  @override
+  String get compaDetailBookingHelp =>
+      'Check available times and send a request. No charge for now.';
+
+  @override
+  String get compaDetailBook => 'Book';
+
+  @override
+  String get bookingTitle => 'Your next experience';
+
+  @override
+  String bookingWith(String name) {
+    return 'Book with $name';
+  }
+
+  @override
+  String get bookingIntro =>
+      'Choose when and for how long. The compa must accept your request.';
+
+  @override
+  String get bookingStepDate => '1. Date and duration';
+
+  @override
+  String bookingHours(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hours',
+      one: '$count hour',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get bookingStepTime => '2. Start time';
+
+  @override
+  String bookingZones(String local, String zone) {
+    return 'Times in your local zone ($local). Compa schedule: $zone. Availability is confirmed when you send.';
+  }
+
+  @override
+  String get bookingNoSchedule =>
+      'This compa has not published any times yet. You can explore other compas.';
+
+  @override
+  String get bookingNoSlots =>
+      'No times are available for this date and duration. Try another day or a shorter duration.';
+
+  @override
+  String get bookingStepReview => '3. Review your request';
+
+  @override
+  String get bookingSelectSlot => 'Select a time to continue.';
+
+  @override
+  String bookingReferenceValue(String amount) {
+    return 'Reference value: $amount CLP';
+  }
+
+  @override
+  String get bookingNoCharge =>
+      'No charge will be made. Payments are under construction.';
+
+  @override
+  String get bookingSending => 'Sending…';
+
+  @override
+  String get bookingSubmit => 'Request booking';
+
+  @override
+  String get bookingRefresh => 'Refresh availability';
+
+  @override
+  String get bookingSent =>
+      'Request sent. You can follow its status in My bookings.';
+
+  @override
+  String get bookingLoadFailed =>
+      'We could not check availability. Please try again.';
+
+  @override
+  String get bookingSlotPast =>
+      'That time has already passed. Select another available time.';
+
+  @override
+  String get bookingSlotTaken =>
+      'That time was just taken. Choose another one and try again.';
+
+  @override
+  String get bookingAvailabilityChanged =>
+      'Availability changed. Select another time.';
+
+  @override
+  String get bookingSubmitFailed =>
+      'We could not send the request. Please try again.';
 }

@@ -1169,4 +1169,242 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get constructionBack => 'Volver';
+
+  @override
+  String get exploreHeroEyebrow => 'HAZ ESPACIO PARA UN BUEN PLAN';
+
+  @override
+  String get exploreHeroTitle => 'Un buen plan empieza\ncon buena compañía.';
+
+  @override
+  String get exploreHeroBody =>
+      'Descubre personas con quienes compartir lo que te gusta.';
+
+  @override
+  String get exploreHeroHint => 'Tú eliges el plan. Encuentra tu compa.';
+
+  @override
+  String get exploreQuestion => '¿Qué te gustaría hacer?';
+
+  @override
+  String get exploreQuestionHelp =>
+      'Busca por habilidad o explora algo diferente.';
+
+  @override
+  String get exploreSearchHintCompact => 'Cine, running, café…';
+
+  @override
+  String get exploreSearchHint => 'Busca una habilidad: cine, running, café…';
+
+  @override
+  String get exploreClearSearch => 'Limpiar búsqueda';
+
+  @override
+  String get exploreSearch => 'Buscar';
+
+  @override
+  String get exploreAllSkills => 'Todos';
+
+  @override
+  String get exploreTitle => 'Encuentra tu compa';
+
+  @override
+  String get exploreRefresh => 'Actualizar';
+
+  @override
+  String exploreCount(int count, String amount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$amount compas para conocer',
+      one: '$amount compa para conocer',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get exploreLoadFailed =>
+      'No pudimos cargar los compas. Inténtalo otra vez.';
+
+  @override
+  String get exploreRetry => 'Reintentar';
+
+  @override
+  String get exploreEmptyTitle => 'No encontramos compas';
+
+  @override
+  String get exploreEmptyMessage => 'Prueba otra habilidad o selecciona Todos.';
+
+  @override
+  String get exploreShowAll => 'Ver todos los compas';
+
+  @override
+  String get exploreShowMore => 'Ver más compas';
+
+  @override
+  String get exploreFooter =>
+      'Encuentra un interés en común. Revisa el perfil y acuerda tu próxima experiencia.';
+
+  @override
+  String exploreCardSemantics(
+    String name,
+    String skills,
+    String rate,
+    String rating,
+  ) {
+    return 'Ver perfil de $name. $skills. $rate CLP por hora. $rating.';
+  }
+
+  @override
+  String exploreCardRating(String rating) {
+    return 'Calificación $rating';
+  }
+
+  @override
+  String get exploreNewInRac => 'Nuevo en RAC';
+
+  @override
+  String get exploreNoSkills => 'Conoce sus intereses';
+
+  @override
+  String get exploreNoDescription => 'Comparte una nueva experiencia.';
+
+  @override
+  String get explorePerHour => '/ hora';
+
+  @override
+  String get compaDetailTitle => 'Conoce a tu compa';
+
+  @override
+  String get compaDetailLoadFailed => 'No pudimos cargar el perfil';
+
+  @override
+  String get compaDetailLoadHelp =>
+      'Revisa tu conexión e inténtalo nuevamente.';
+
+  @override
+  String get compaDetailRetry => 'Reintentar';
+
+  @override
+  String compaDetailRating(String rating, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count reseñas verificadas',
+      one: '$count reseña verificada',
+    );
+    return '★ $rating · $_temp0';
+  }
+
+  @override
+  String get compaDetailUnrated => 'Nuevo en RAC · Aún sin calificaciones';
+
+  @override
+  String get compaDetailActivities => 'Lo que podemos hacer';
+
+  @override
+  String get compaDetailNoDescription =>
+      'Este compa todavía no agregó una descripción.';
+
+  @override
+  String compaDetailRate(String amount) {
+    return '$amount CLP / hora';
+  }
+
+  @override
+  String get compaDetailBookingHelp =>
+      'Consulta horarios y envía una solicitud. Sin cobro por ahora.';
+
+  @override
+  String get compaDetailBook => 'Reservar';
+
+  @override
+  String get bookingTitle => 'Tu próxima experiencia';
+
+  @override
+  String bookingWith(String name) {
+    return 'Reserva con $name';
+  }
+
+  @override
+  String get bookingIntro =>
+      'Elige cuándo y por cuánto tiempo. El compa debe aceptar tu solicitud.';
+
+  @override
+  String get bookingStepDate => '1. Fecha y duración';
+
+  @override
+  String bookingHours(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count horas',
+      one: '$count hora',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get bookingStepTime => '2. Hora de inicio';
+
+  @override
+  String bookingZones(String local, String zone) {
+    return 'Horarios en tu zona local ($local). Agenda del compa: $zone. Se confirma disponibilidad al enviar.';
+  }
+
+  @override
+  String get bookingNoSchedule =>
+      'Este compa aún no publicó horarios. Puedes explorar otros compas.';
+
+  @override
+  String get bookingNoSlots =>
+      'No hay horarios disponibles para esta fecha y duración. Prueba otro día o una duración menor.';
+
+  @override
+  String get bookingStepReview => '3. Revisa tu solicitud';
+
+  @override
+  String get bookingSelectSlot => 'Selecciona un horario para continuar.';
+
+  @override
+  String bookingReferenceValue(String amount) {
+    return 'Valor referencial: $amount CLP';
+  }
+
+  @override
+  String get bookingNoCharge =>
+      'No se realizará ningún cobro. Pagos en construcción.';
+
+  @override
+  String get bookingSending => 'Enviando…';
+
+  @override
+  String get bookingSubmit => 'Solicitar reserva';
+
+  @override
+  String get bookingRefresh => 'Actualizar disponibilidad';
+
+  @override
+  String get bookingSent =>
+      'Solicitud enviada. Puedes seguir su estado en Mis reservas.';
+
+  @override
+  String get bookingLoadFailed =>
+      'No pudimos consultar la disponibilidad. Vuelve a intentarlo.';
+
+  @override
+  String get bookingSlotPast =>
+      'Ese horario ya pasó. Selecciona otro horario disponible.';
+
+  @override
+  String get bookingSlotTaken =>
+      'Ese horario acaba de ocuparse. Elige otro e inténtalo nuevamente.';
+
+  @override
+  String get bookingAvailabilityChanged =>
+      'La disponibilidad cambió. Selecciona otro horario.';
+
+  @override
+  String get bookingSubmitFailed =>
+      'No pudimos enviar la solicitud. Inténtalo nuevamente.';
 }

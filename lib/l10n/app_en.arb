@@ -1466,5 +1466,308 @@
   "constructionBack": "Go back",
   "@constructionBack": {
     "legal_review": "pending"
+  },
+  "exploreHeroEyebrow": "MAKE ROOM FOR A GOOD PLAN",
+  "@exploreHeroEyebrow": {
+    "legal_review": "pending"
+  },
+  "exploreHeroTitle": "A good plan starts\nwith good company.",
+  "@exploreHeroTitle": {
+    "legal_review": "pending"
+  },
+  "exploreHeroBody": "Discover people to share what you enjoy.",
+  "@exploreHeroBody": {
+    "legal_review": "pending"
+  },
+  "exploreHeroHint": "You choose the plan. Find your compa.",
+  "@exploreHeroHint": {
+    "legal_review": "pending"
+  },
+  "exploreQuestion": "What would you like to do?",
+  "@exploreQuestion": {
+    "legal_review": "pending"
+  },
+  "exploreQuestionHelp": "Search by skill or explore something different.",
+  "@exploreQuestionHelp": {
+    "legal_review": "pending"
+  },
+  "exploreSearchHintCompact": "Movies, running, coffee…",
+  "@exploreSearchHintCompact": {
+    "legal_review": "pending"
+  },
+  "exploreSearchHint": "Search for a skill: movies, running, coffee…",
+  "@exploreSearchHint": {
+    "legal_review": "pending"
+  },
+  "exploreClearSearch": "Clear search",
+  "@exploreClearSearch": {
+    "legal_review": "pending"
+  },
+  "exploreSearch": "Search",
+  "@exploreSearch": {
+    "legal_review": "pending"
+  },
+  "exploreAllSkills": "All",
+  "@exploreAllSkills": {
+    "legal_review": "pending"
+  },
+  "exploreTitle": "Find your compa",
+  "@exploreTitle": {
+    "legal_review": "pending"
+  },
+  "exploreRefresh": "Refresh",
+  "@exploreRefresh": {
+    "legal_review": "pending"
+  },
+  "exploreCount": "{count, plural, =1{{amount} compa to meet} other{{amount} compas to meet}}",
+  "@exploreCount": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "exploreLoadFailed": "We could not load compas. Please try again.",
+  "@exploreLoadFailed": {
+    "legal_review": "pending"
+  },
+  "exploreRetry": "Try again",
+  "@exploreRetry": {
+    "legal_review": "pending"
+  },
+  "exploreEmptyTitle": "No compas found",
+  "@exploreEmptyTitle": {
+    "legal_review": "pending"
+  },
+  "exploreEmptyMessage": "Try another skill or select All.",
+  "@exploreEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "exploreShowAll": "See all compas",
+  "@exploreShowAll": {
+    "legal_review": "pending"
+  },
+  "exploreShowMore": "See more compas",
+  "@exploreShowMore": {
+    "legal_review": "pending"
+  },
+  "exploreFooter": "Find a shared interest. Review the profile and arrange your next experience.",
+  "@exploreFooter": {
+    "legal_review": "pending"
+  },
+  "exploreCardSemantics": "View profile of {name}. {skills}. {rate} CLP per hour. {rating}.",
+  "@exploreCardSemantics": {
+    "legal_review": "pending",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "skills": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "exploreCardRating": "Rating {rating}",
+  "@exploreCardRating": {
+    "legal_review": "pending",
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "exploreNewInRac": "New on RAC",
+  "@exploreNewInRac": {
+    "legal_review": "pending"
+  },
+  "exploreNoSkills": "Get to know their interests",
+  "@exploreNoSkills": {
+    "legal_review": "pending"
+  },
+  "exploreNoDescription": "Share a new experience.",
+  "@exploreNoDescription": {
+    "legal_review": "pending"
+  },
+  "explorePerHour": "/ hour",
+  "@explorePerHour": {
+    "legal_review": "pending"
+  },
+  "compaDetailTitle": "Meet your compa",
+  "@compaDetailTitle": {
+    "legal_review": "pending"
+  },
+  "compaDetailLoadFailed": "We could not load the profile",
+  "@compaDetailLoadFailed": {
+    "legal_review": "pending"
+  },
+  "compaDetailLoadHelp": "Check your connection and try again.",
+  "@compaDetailLoadHelp": {
+    "legal_review": "pending"
+  },
+  "compaDetailRetry": "Try again",
+  "@compaDetailRetry": {
+    "legal_review": "pending"
+  },
+  "compaDetailRating": "★ {rating} · {count, plural, =1{{count} verified review} other{{count} verified reviews}}",
+  "@compaDetailRating": {
+    "legal_review": "pending",
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "compaDetailUnrated": "New on RAC · No ratings yet",
+  "@compaDetailUnrated": {
+    "legal_review": "pending"
+  },
+  "compaDetailActivities": "What we can do",
+  "@compaDetailActivities": {
+    "legal_review": "pending"
+  },
+  "compaDetailNoDescription": "This compa has not added a description yet.",
+  "@compaDetailNoDescription": {
+    "legal_review": "pending"
+  },
+  "compaDetailRate": "{amount} CLP / hour",
+  "@compaDetailRate": {
+    "legal_review": "pending",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "compaDetailBookingHelp": "Check available times and send a request. No charge for now.",
+  "@compaDetailBookingHelp": {
+    "legal_review": "pending"
+  },
+  "compaDetailBook": "Book",
+  "@compaDetailBook": {
+    "legal_review": "pending"
+  },
+  "bookingTitle": "Your next experience",
+  "@bookingTitle": {
+    "legal_review": "pending"
+  },
+  "bookingWith": "Book with {name}",
+  "@bookingWith": {
+    "legal_review": "pending",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingIntro": "Choose when and for how long. The compa must accept your request.",
+  "@bookingIntro": {
+    "legal_review": "pending"
+  },
+  "bookingStepDate": "1. Date and duration",
+  "@bookingStepDate": {
+    "legal_review": "pending"
+  },
+  "bookingHours": "{count, plural, =1{{count} hour} other{{count} hours}}",
+  "@bookingHours": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingStepTime": "2. Start time",
+  "@bookingStepTime": {
+    "legal_review": "pending"
+  },
+  "bookingZones": "Times in your local zone ({local}). Compa schedule: {zone}. Availability is confirmed when you send.",
+  "@bookingZones": {
+    "legal_review": "pending",
+    "placeholders": {
+      "local": {
+        "type": "String"
+      },
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingNoSchedule": "This compa has not published any times yet. You can explore other compas.",
+  "@bookingNoSchedule": {
+    "legal_review": "pending"
+  },
+  "bookingNoSlots": "No times are available for this date and duration. Try another day or a shorter duration.",
+  "@bookingNoSlots": {
+    "legal_review": "pending"
+  },
+  "bookingStepReview": "3. Review your request",
+  "@bookingStepReview": {
+    "legal_review": "pending"
+  },
+  "bookingSelectSlot": "Select a time to continue.",
+  "@bookingSelectSlot": {
+    "legal_review": "pending"
+  },
+  "bookingReferenceValue": "Reference value: {amount} CLP",
+  "@bookingReferenceValue": {
+    "legal_review": "pending",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingNoCharge": "No charge will be made. Payments are under construction.",
+  "@bookingNoCharge": {
+    "legal_review": "pending"
+  },
+  "bookingSending": "Sending…",
+  "@bookingSending": {
+    "legal_review": "pending"
+  },
+  "bookingSubmit": "Request booking",
+  "@bookingSubmit": {
+    "legal_review": "pending"
+  },
+  "bookingRefresh": "Refresh availability",
+  "@bookingRefresh": {
+    "legal_review": "pending"
+  },
+  "bookingSent": "Request sent. You can follow its status in My bookings.",
+  "@bookingSent": {
+    "legal_review": "pending"
+  },
+  "bookingLoadFailed": "We could not check availability. Please try again.",
+  "@bookingLoadFailed": {
+    "legal_review": "pending"
+  },
+  "bookingSlotPast": "That time has already passed. Select another available time.",
+  "@bookingSlotPast": {
+    "legal_review": "pending"
+  },
+  "bookingSlotTaken": "That time was just taken. Choose another one and try again.",
+  "@bookingSlotTaken": {
+    "legal_review": "pending"
+  },
+  "bookingAvailabilityChanged": "Availability changed. Select another time.",
+  "@bookingAvailabilityChanged": {
+    "legal_review": "pending"
+  },
+  "bookingSubmitFailed": "We could not send the request. Please try again.",
+  "@bookingSubmitFailed": {
+    "legal_review": "pending"
   }
 }
