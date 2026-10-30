@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:rentacompa/shared/widgets/reviews.dart';
 import 'package:rentacompa/shared/widgets/design.dart';
 
@@ -16,6 +17,9 @@ void main() {
       var saved = '';
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           theme: racTheme(Brightness.light),
           home: Builder(
             builder: (context) => Scaffold(

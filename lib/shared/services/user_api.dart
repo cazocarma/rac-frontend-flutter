@@ -63,7 +63,7 @@ class UserApi {
         )
         .timeout(const Duration(seconds: 20));
     if (response.statusCode != 200) {
-      throw StateError('No pudimos cargar la reseña.');
+      throw ApiException(response.statusCode, 'review_load_failed');
     }
     return (jsonDecode(response.body) as Map<String, dynamic>)['resena']
         as Map<String, dynamic>?;
@@ -82,11 +82,8 @@ class UserApi {
         )
         .timeout(const Duration(seconds: 20));
     if (response.statusCode != 200 && response.statusCode != 201) {
-      throw StateError(
-        response.statusCode == 409
-            ? 'Esta reserva todavía no permite reseñas o ya tiene una. Actualiza para comprobar su estado.'
-            : 'No pudimos confirmar el envío. Puedes reintentar sin duplicar tu reseña.',
-      );
+      // The dialog localizes by status; 409 means not reviewable or already reviewed.
+      throw ApiException(response.statusCode, 'review_save_failed');
     }
   }
 

@@ -1,5 +1,7 @@
+import '../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../di/services.dart';
+import '../services/json_api.dart';
 import '../services/user_api.dart';
 import '../../features/compas/data/compa_api.dart';
 
@@ -26,6 +28,10 @@ class _BookingReviewState extends State<BookingReview> {
     data = api.bookingReview(widget.id);
   }
 
+  void reload() => setState(() {
+    data = api.bookingReview(widget.id);
+  });
+
   Future<void> write() async {
     final sent = await showDialog<bool>(
       context: context,
@@ -33,15 +39,14 @@ class _BookingReviewState extends State<BookingReview> {
         submit: (score, comment) => api.saveReview(widget.id, score, comment),
       ),
     );
-    if (mounted && sent == true) {
-      setState(() => data = api.bookingReview(widget.id));
-    }
+    if (mounted && sent == true) reload();
   }
 
   @override
   Widget build(BuildContext context) => FutureBuilder<Map<String, dynamic>?>(
     future: data,
     builder: (context, snapshot) {
+      final t = AppLocalizations.of(context)!;
       if (snapshot.connectionState != ConnectionState.done) {
         return const Padding(
           padding: EdgeInsets.all(8),
@@ -50,9 +55,9 @@ class _BookingReviewState extends State<BookingReview> {
       }
       if (snapshot.hasError) {
         return TextButton.icon(
-          onPressed: () => setState(() => data = api.bookingReview(widget.id)),
+          onPressed: reload,
           icon: const Icon(Icons.refresh),
-          label: const Text('Reintentar carga de reseña'),
+          label: Text(t.reviewRetryLoad),
         );
       }
       final review = snapshot.data;
@@ -63,7 +68,7 @@ class _BookingReviewState extends State<BookingReview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '★ ${review['puntuacion']}/5 · Reseña verificada',
+                t.reviewVerified('${review['puntuacion']}'),
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               if ((review['comentario'] as String).isNotEmpty)
@@ -78,7 +83,7 @@ class _BookingReviewState extends State<BookingReview> {
         child: OutlinedButton.icon(
           onPressed: write,
           icon: const Icon(Icons.rate_review_outlined),
-          label: const Text('Dejar una reseña'),
+          label: Text(t.reviewWrite),
         ),
       );
     },
@@ -96,7 +101,8 @@ class _ReviewDialogState extends State<ReviewDialog> {
   final comment = TextEditingController();
   int score = 0;
   bool busy = false;
-  String? error;
+  // null: no failure; true: 409 (not reviewable or already reviewed).
+  bool? conflict;
   @override
   void dispose() {
     comment.dispose();
@@ -107,17 +113,14 @@ class _ReviewDialogState extends State<ReviewDialog> {
     if (score == 0 || busy) return;
     setState(() {
       busy = true;
-      error = null;
+      conflict = null;
     });
     try {
       await widget.submit(score, comment.text.trim());
       if (mounted) Navigator.pop(context, true);
-    } catch (_) {
+    } catch (e) {
       if (mounted) {
-        setState(
-          () => error =
-              'No pudimos confirmar el envío. Reintenta o vuelve a la reserva para comprobar si se guardó.',
-        );
+        setState(() => conflict = e is ApiException && e.status == 409);
       }
     } finally {
       if (mounted) setState(() => busy = false);
@@ -125,70 +128,72 @@ class _ReviewDialogState extends State<ReviewDialog> {
   }
 
   @override
-  Widget build(BuildContext context) => PopScope(
-    canPop: !busy,
-    child: AlertDialog(
-      title: const Text('¿Cómo estuvo la experiencia?'),
-      content: SizedBox(
-        width: 460,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Tu reseña será pública y quedará vinculada a una reserva verificada. Se envía una sola vez y no se puede editar.',
-              ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (var n = 1; n <= 5; n++)
-                    ChoiceChip(
-                      label: Text('$n ★'),
-                      tooltip: '$n de 5 estrellas',
-                      selected: score == n,
-                      onSelected: busy
-                          ? null
-                          : (_) => setState(() => score = n),
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return PopScope(
+      canPop: !busy,
+      child: AlertDialog(
+        title: Text(t.reviewDialogTitle),
+        content: SizedBox(
+          width: 460,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(t.reviewDialogIntro),
+                const SizedBox(height: 16),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (var n = 1; n <= 5; n++)
+                      ChoiceChip(
+                        label: Text('$n ★'),
+                        tooltip: t.reviewStars(n),
+                        selected: score == n,
+                        onSelected: busy
+                            ? null
+                            : (_) => setState(() => score = n),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: comment,
+                  enabled: !busy,
+                  maxLength: 1000,
+                  minLines: 3,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    labelText: t.reviewComment,
+                    helperText: t.reviewCommentHelp,
+                  ),
+                ),
+                if (conflict != null)
+                  Text(
+                    conflict! ? t.reviewConflict : t.reviewSendFailed,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
                     ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: comment,
-                enabled: !busy,
-                maxLength: 1000,
-                minLines: 3,
-                maxLines: 5,
-                decoration: const InputDecoration(
-                  labelText: 'Comentario (opcional)',
-                  helperText:
-                      'Evita incluir datos de contacto o información privada.',
-                ),
-              ),
-              if (error != null)
-                Text(
-                  error!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
-            ],
+                  ),
+              ],
+            ),
           ),
         ),
+        actions: [
+          TextButton(
+            onPressed: busy ? null : () => Navigator.pop(context),
+            child: Text(t.reviewBack),
+          ),
+          FilledButton(
+            onPressed: score == 0 || busy ? null : send,
+            child: Text(busy ? t.reviewSending : t.reviewPublish),
+          ),
+        ],
       ),
-      actions: [
-        TextButton(
-          onPressed: busy ? null : () => Navigator.pop(context),
-          child: const Text('Volver'),
-        ),
-        FilledButton(
-          onPressed: score == 0 || busy ? null : send,
-          child: Text(busy ? 'Enviando…' : 'Publicar reseña'),
-        ),
-      ],
-    ),
-  );
+    );
+  }
 }
 
 class PublicReviews extends StatefulWidget {
@@ -230,44 +235,41 @@ class _PublicReviewsState extends State<PublicReviews> {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const SizedBox(height: 28),
-      const Divider(),
-      const SizedBox(height: 16),
-      Text(
-        'Reseñas de reservas verificadas',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
-      const SizedBox(height: 12),
-      if (!busy && !failed && items.isEmpty)
-        const Text(
-          'Todavía no hay reseñas. Solo pueden valorar quienes completaron una reserva.',
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 28),
+        const Divider(),
+        const SizedBox(height: 16),
+        Text(
+          t.reviewsPublicTitle,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
-      for (final review in items)
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '★ ${review['puntuacion']}/5 · Reserva verificada',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              if ((review['comentario'] as String).isNotEmpty)
-                Text(review['comentario'] as String),
-            ],
+        const SizedBox(height: 12),
+        if (!busy && !failed && items.isEmpty) Text(t.reviewsPublicEmpty),
+        for (final review in items)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.reviewsPublicItem('${review['puntuacion']}'),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                if ((review['comentario'] as String).isNotEmpty)
+                  Text(review['comentario'] as String),
+              ],
+            ),
           ),
-        ),
-      if (busy) const LinearProgressIndicator(),
-      if (failed)
-        TextButton(
-          onPressed: load,
-          child: const Text('No pudimos cargar las reseñas. Reintentar'),
-        ),
-      if (!busy && !failed && items.length < total)
-        TextButton(onPressed: load, child: const Text('Ver más reseñas')),
-    ],
-  );
+        if (busy) const LinearProgressIndicator(),
+        if (failed)
+          TextButton(onPressed: load, child: Text(t.reviewsPublicLoadFailed)),
+        if (!busy && !failed && items.length < total)
+          TextButton(onPressed: load, child: Text(t.reviewsPublicMore)),
+      ],
+    );
+  }
 }

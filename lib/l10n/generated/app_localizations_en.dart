@@ -1401,4 +1401,199 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get bookingSubmitFailed =>
       'We could not send the request. Please try again.';
+
+  @override
+  String get bookingsTitle => 'My bookings';
+
+  @override
+  String get bookingsRefresh => 'Refresh bookings';
+
+  @override
+  String get bookingsHeadline => 'Your plans, all in one place.';
+
+  @override
+  String get bookingsIntro =>
+      'Follow your requests and manage confirmed experiences.';
+
+  @override
+  String get bookingsLoadFailed => 'We could not load your bookings';
+
+  @override
+  String get bookingsLoadHelp => 'Check your connection and try again.';
+
+  @override
+  String get bookingsRetry => 'Try again';
+
+  @override
+  String get bookingsTabHired => 'Booked by me';
+
+  @override
+  String get bookingsTabReceived => 'Received requests';
+
+  @override
+  String get bookingsEmptyReceivedTitle => 'Your schedule is free';
+
+  @override
+  String get bookingsEmptyReceivedMessage =>
+      'Requests you receive will appear here.';
+
+  @override
+  String get bookingsEmptyTitle => 'Your next plan is waiting';
+
+  @override
+  String get bookingsEmptyMessage =>
+      'Explore compas and find an experience to share.';
+
+  @override
+  String get bookingsExplore => 'Explore compas';
+
+  @override
+  String get bookingsStatusPending => 'Awaiting acceptance';
+
+  @override
+  String get bookingsStatusActive => 'Confirmed';
+
+  @override
+  String get bookingsStatusCancelled => 'Cancelled';
+
+  @override
+  String get bookingsStatusExpired => 'Expired without acceptance';
+
+  @override
+  String get bookingsStatusFinished => 'Finished';
+
+  @override
+  String get bookingsStatusUnknown => 'Unrecognized status';
+
+  @override
+  String get bookingsNoCharge => 'Payments under construction · No charge';
+
+  @override
+  String bookingsReference(String id, String role) {
+    return 'Booking $id · $role';
+  }
+
+  @override
+  String get bookingsRoleReceived => 'Received request';
+
+  @override
+  String get bookingsRoleHired => 'Your booking';
+
+  @override
+  String get bookingsOpenChat => 'Open conversation';
+
+  @override
+  String get bookingsReviewLater =>
+      'You can leave a review when the booked time ends.';
+
+  @override
+  String get bookingsAccept => 'Accept';
+
+  @override
+  String get bookingsFinish => 'Finish';
+
+  @override
+  String get bookingsCancel => 'Cancel';
+
+  @override
+  String get bookingsUpdating => 'Updating…';
+
+  @override
+  String get bookingsUpdateFailed =>
+      'The booking could not be updated. Check its status and try again.';
+
+  @override
+  String get bookingsCancelTitle => 'Cancel this booking?';
+
+  @override
+  String get bookingsCancelMessage =>
+      'The request will be cancelled. You can create another booking whenever you want.';
+
+  @override
+  String get bookingsTimeOff => 'My time off';
+
+  @override
+  String get bookingsKeep => 'Keep';
+
+  @override
+  String get bookingsConfirmCancel => 'Cancel booking';
+
+  @override
+  String get bookingsLimitTitle => 'You reached your 3 free bookings';
+
+  @override
+  String bookingsLimitMessage(String used, String weekStart) {
+    return 'You already used $used slots in the week starting $weekStart (Chile).\n\nThis request remains pending. To accept more you will need a subscription. Payments are still under construction.';
+  }
+
+  @override
+  String get bookingsLimitOk => 'Got it';
+
+  @override
+  String get bookingsLimitPlans => 'See plans';
+
+  @override
+  String get reviewRetryLoad => 'Retry loading review';
+
+  @override
+  String reviewVerified(String score) {
+    return '★ $score/5 · Verified review';
+  }
+
+  @override
+  String get reviewWrite => 'Leave a review';
+
+  @override
+  String get reviewDialogTitle => 'How was the experience?';
+
+  @override
+  String get reviewDialogIntro =>
+      'Your review will be public and linked to a verified booking. It is sent only once and cannot be edited.';
+
+  @override
+  String reviewStars(int count) {
+    return '$count of 5 stars';
+  }
+
+  @override
+  String get reviewComment => 'Comment (optional)';
+
+  @override
+  String get reviewCommentHelp =>
+      'Avoid including contact details or private information.';
+
+  @override
+  String get reviewSendFailed =>
+      'We could not confirm it was sent. Try again or go back to the booking to check whether it was saved.';
+
+  @override
+  String get reviewConflict =>
+      'This booking does not accept reviews yet or already has one. Go back to the booking to check its status.';
+
+  @override
+  String get reviewBack => 'Back';
+
+  @override
+  String get reviewSending => 'Sending…';
+
+  @override
+  String get reviewPublish => 'Publish review';
+
+  @override
+  String get reviewsPublicTitle => 'Reviews from verified bookings';
+
+  @override
+  String get reviewsPublicEmpty =>
+      'No reviews yet. Only people who completed a booking can rate.';
+
+  @override
+  String reviewsPublicItem(String score) {
+    return '★ $score/5 · Verified booking';
+  }
+
+  @override
+  String get reviewsPublicLoadFailed => 'We could not load reviews. Try again';
+
+  @override
+  String get reviewsPublicMore => 'See more reviews';
 }

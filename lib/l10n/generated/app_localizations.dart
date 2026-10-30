@@ -2550,6 +2550,354 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos enviar la solicitud. Inténtalo nuevamente.'**
   String get bookingSubmitFailed;
+
+  /// No description provided for @bookingsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis reservas'**
+  String get bookingsTitle;
+
+  /// No description provided for @bookingsRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar reservas'**
+  String get bookingsRefresh;
+
+  /// No description provided for @bookingsHeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus planes, en un solo lugar.'**
+  String get bookingsHeadline;
+
+  /// No description provided for @bookingsIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Sigue tus solicitudes y gestiona las experiencias confirmadas.'**
+  String get bookingsIntro;
+
+  /// No description provided for @bookingsLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tus reservas'**
+  String get bookingsLoadFailed;
+
+  /// No description provided for @bookingsLoadHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo nuevamente.'**
+  String get bookingsLoadHelp;
+
+  /// No description provided for @bookingsRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get bookingsRetry;
+
+  /// No description provided for @bookingsTabHired.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis contrataciones'**
+  String get bookingsTabHired;
+
+  /// No description provided for @bookingsTabReceived.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicitudes recibidas'**
+  String get bookingsTabReceived;
+
+  /// No description provided for @bookingsEmptyReceivedTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu agenda está libre'**
+  String get bookingsEmptyReceivedTitle;
+
+  /// No description provided for @bookingsEmptyReceivedMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Las solicitudes que recibas aparecerán aquí.'**
+  String get bookingsEmptyReceivedMessage;
+
+  /// No description provided for @bookingsEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu próximo plan te espera'**
+  String get bookingsEmptyTitle;
+
+  /// No description provided for @bookingsEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Explora los compas y encuentra una experiencia para compartir.'**
+  String get bookingsEmptyMessage;
+
+  /// No description provided for @bookingsExplore.
+  ///
+  /// In es, this message translates to:
+  /// **'Explorar compas'**
+  String get bookingsExplore;
+
+  /// No description provided for @bookingsStatusPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de aceptación'**
+  String get bookingsStatusPending;
+
+  /// No description provided for @bookingsStatusActive.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmada'**
+  String get bookingsStatusActive;
+
+  /// No description provided for @bookingsStatusCancelled.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelada'**
+  String get bookingsStatusCancelled;
+
+  /// No description provided for @bookingsStatusExpired.
+  ///
+  /// In es, this message translates to:
+  /// **'Vencida sin aceptación'**
+  String get bookingsStatusExpired;
+
+  /// No description provided for @bookingsStatusFinished.
+  ///
+  /// In es, this message translates to:
+  /// **'Finalizada'**
+  String get bookingsStatusFinished;
+
+  /// No description provided for @bookingsStatusUnknown.
+  ///
+  /// In es, this message translates to:
+  /// **'Estado no reconocido'**
+  String get bookingsStatusUnknown;
+
+  /// No description provided for @bookingsNoCharge.
+  ///
+  /// In es, this message translates to:
+  /// **'Pagos en construcción · Sin cobro'**
+  String get bookingsNoCharge;
+
+  /// No description provided for @bookingsReference.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva {id} · {role}'**
+  String bookingsReference(String id, String role);
+
+  /// No description provided for @bookingsRoleReceived.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicitud recibida'**
+  String get bookingsRoleReceived;
+
+  /// No description provided for @bookingsRoleHired.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu contratación'**
+  String get bookingsRoleHired;
+
+  /// No description provided for @bookingsOpenChat.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir conversación'**
+  String get bookingsOpenChat;
+
+  /// No description provided for @bookingsReviewLater.
+  ///
+  /// In es, this message translates to:
+  /// **'Podrás dejar una reseña cuando termine el horario reservado.'**
+  String get bookingsReviewLater;
+
+  /// No description provided for @bookingsAccept.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptar'**
+  String get bookingsAccept;
+
+  /// No description provided for @bookingsFinish.
+  ///
+  /// In es, this message translates to:
+  /// **'Finalizar'**
+  String get bookingsFinish;
+
+  /// No description provided for @bookingsCancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get bookingsCancel;
+
+  /// No description provided for @bookingsUpdating.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizando…'**
+  String get bookingsUpdating;
+
+  /// No description provided for @bookingsUpdateFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo actualizar la reserva. Revisa su estado e inténtalo nuevamente.'**
+  String get bookingsUpdateFailed;
+
+  /// No description provided for @bookingsCancelTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cancelar esta reserva?'**
+  String get bookingsCancelTitle;
+
+  /// No description provided for @bookingsCancelMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'La solicitud quedará cancelada. Puedes crear otra reserva cuando quieras.'**
+  String get bookingsCancelMessage;
+
+  /// No description provided for @bookingsTimeOff.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis días libres'**
+  String get bookingsTimeOff;
+
+  /// No description provided for @bookingsKeep.
+  ///
+  /// In es, this message translates to:
+  /// **'Conservar'**
+  String get bookingsKeep;
+
+  /// No description provided for @bookingsConfirmCancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar reserva'**
+  String get bookingsConfirmCancel;
+
+  /// No description provided for @bookingsLimitTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Alcanzaste tus 3 reservas gratis'**
+  String get bookingsLimitTitle;
+
+  /// No description provided for @bookingsLimitMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya utilizaste {used} cupos en la semana que empieza el {weekStart} (Chile).\n\nEsta solicitud sigue pendiente. Para aceptar más necesitarás una suscripción. Los pagos todavía están en construcción.'**
+  String bookingsLimitMessage(String used, String weekStart);
+
+  /// No description provided for @bookingsLimitOk.
+  ///
+  /// In es, this message translates to:
+  /// **'Entendido'**
+  String get bookingsLimitOk;
+
+  /// No description provided for @bookingsLimitPlans.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver planes'**
+  String get bookingsLimitPlans;
+
+  /// No description provided for @reviewRetryLoad.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar carga de reseña'**
+  String get reviewRetryLoad;
+
+  /// No description provided for @reviewVerified.
+  ///
+  /// In es, this message translates to:
+  /// **'★ {score}/5 · Reseña verificada'**
+  String reviewVerified(String score);
+
+  /// No description provided for @reviewWrite.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejar una reseña'**
+  String get reviewWrite;
+
+  /// No description provided for @reviewDialogTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo estuvo la experiencia?'**
+  String get reviewDialogTitle;
+
+  /// No description provided for @reviewDialogIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu reseña será pública y quedará vinculada a una reserva verificada. Se envía una sola vez y no se puede editar.'**
+  String get reviewDialogIntro;
+
+  /// No description provided for @reviewStars.
+  ///
+  /// In es, this message translates to:
+  /// **'{count} de 5 estrellas'**
+  String reviewStars(int count);
+
+  /// No description provided for @reviewComment.
+  ///
+  /// In es, this message translates to:
+  /// **'Comentario (opcional)'**
+  String get reviewComment;
+
+  /// No description provided for @reviewCommentHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Evita incluir datos de contacto o información privada.'**
+  String get reviewCommentHelp;
+
+  /// No description provided for @reviewSendFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos confirmar el envío. Reintenta o vuelve a la reserva para comprobar si se guardó.'**
+  String get reviewSendFailed;
+
+  /// No description provided for @reviewConflict.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta reserva todavía no permite reseñas o ya tiene una. Vuelve a la reserva para comprobar su estado.'**
+  String get reviewConflict;
+
+  /// No description provided for @reviewBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver'**
+  String get reviewBack;
+
+  /// No description provided for @reviewSending.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviando…'**
+  String get reviewSending;
+
+  /// No description provided for @reviewPublish.
+  ///
+  /// In es, this message translates to:
+  /// **'Publicar reseña'**
+  String get reviewPublish;
+
+  /// No description provided for @reviewsPublicTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Reseñas de reservas verificadas'**
+  String get reviewsPublicTitle;
+
+  /// No description provided for @reviewsPublicEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay reseñas. Solo pueden valorar quienes completaron una reserva.'**
+  String get reviewsPublicEmpty;
+
+  /// No description provided for @reviewsPublicItem.
+  ///
+  /// In es, this message translates to:
+  /// **'★ {score}/5 · Reserva verificada'**
+  String reviewsPublicItem(String score);
+
+  /// No description provided for @reviewsPublicLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar las reseñas. Reintentar'**
+  String get reviewsPublicLoadFailed;
+
+  /// No description provided for @reviewsPublicMore.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver más reseñas'**
+  String get reviewsPublicMore;
 }
 
 class _AppLocalizationsDelegate

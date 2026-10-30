@@ -1769,5 +1769,268 @@
   "bookingSubmitFailed": "We could not send the request. Please try again.",
   "@bookingSubmitFailed": {
     "legal_review": "pending"
+  },
+  "bookingsTitle": "My bookings",
+  "@bookingsTitle": {
+    "legal_review": "pending"
+  },
+  "bookingsRefresh": "Refresh bookings",
+  "@bookingsRefresh": {
+    "legal_review": "pending"
+  },
+  "bookingsHeadline": "Your plans, all in one place.",
+  "@bookingsHeadline": {
+    "legal_review": "pending"
+  },
+  "bookingsIntro": "Follow your requests and manage confirmed experiences.",
+  "@bookingsIntro": {
+    "legal_review": "pending"
+  },
+  "bookingsLoadFailed": "We could not load your bookings",
+  "@bookingsLoadFailed": {
+    "legal_review": "pending"
+  },
+  "bookingsLoadHelp": "Check your connection and try again.",
+  "@bookingsLoadHelp": {
+    "legal_review": "pending"
+  },
+  "bookingsRetry": "Try again",
+  "@bookingsRetry": {
+    "legal_review": "pending"
+  },
+  "bookingsTabHired": "Booked by me",
+  "@bookingsTabHired": {
+    "legal_review": "pending"
+  },
+  "bookingsTabReceived": "Received requests",
+  "@bookingsTabReceived": {
+    "legal_review": "pending"
+  },
+  "bookingsEmptyReceivedTitle": "Your schedule is free",
+  "@bookingsEmptyReceivedTitle": {
+    "legal_review": "pending"
+  },
+  "bookingsEmptyReceivedMessage": "Requests you receive will appear here.",
+  "@bookingsEmptyReceivedMessage": {
+    "legal_review": "pending"
+  },
+  "bookingsEmptyTitle": "Your next plan is waiting",
+  "@bookingsEmptyTitle": {
+    "legal_review": "pending"
+  },
+  "bookingsEmptyMessage": "Explore compas and find an experience to share.",
+  "@bookingsEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "bookingsExplore": "Explore compas",
+  "@bookingsExplore": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusPending": "Awaiting acceptance",
+  "@bookingsStatusPending": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusActive": "Confirmed",
+  "@bookingsStatusActive": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusCancelled": "Cancelled",
+  "@bookingsStatusCancelled": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusExpired": "Expired without acceptance",
+  "@bookingsStatusExpired": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusFinished": "Finished",
+  "@bookingsStatusFinished": {
+    "legal_review": "pending"
+  },
+  "bookingsStatusUnknown": "Unrecognized status",
+  "@bookingsStatusUnknown": {
+    "legal_review": "pending"
+  },
+  "bookingsNoCharge": "Payments under construction · No charge",
+  "@bookingsNoCharge": {
+    "legal_review": "pending"
+  },
+  "bookingsReference": "Booking {id} · {role}",
+  "@bookingsReference": {
+    "legal_review": "pending",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      },
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingsRoleReceived": "Received request",
+  "@bookingsRoleReceived": {
+    "legal_review": "pending"
+  },
+  "bookingsRoleHired": "Your booking",
+  "@bookingsRoleHired": {
+    "legal_review": "pending"
+  },
+  "bookingsOpenChat": "Open conversation",
+  "@bookingsOpenChat": {
+    "legal_review": "pending"
+  },
+  "bookingsReviewLater": "You can leave a review when the booked time ends.",
+  "@bookingsReviewLater": {
+    "legal_review": "pending"
+  },
+  "bookingsAccept": "Accept",
+  "@bookingsAccept": {
+    "legal_review": "pending"
+  },
+  "bookingsFinish": "Finish",
+  "@bookingsFinish": {
+    "legal_review": "pending"
+  },
+  "bookingsCancel": "Cancel",
+  "@bookingsCancel": {
+    "legal_review": "pending"
+  },
+  "bookingsUpdating": "Updating…",
+  "@bookingsUpdating": {
+    "legal_review": "pending"
+  },
+  "bookingsUpdateFailed": "The booking could not be updated. Check its status and try again.",
+  "@bookingsUpdateFailed": {
+    "legal_review": "pending"
+  },
+  "bookingsCancelTitle": "Cancel this booking?",
+  "@bookingsCancelTitle": {
+    "legal_review": "pending"
+  },
+  "bookingsCancelMessage": "The request will be cancelled. You can create another booking whenever you want.",
+  "@bookingsCancelMessage": {
+    "legal_review": "pending"
+  },
+  "bookingsTimeOff": "My time off",
+  "@bookingsTimeOff": {
+    "legal_review": "pending"
+  },
+  "bookingsKeep": "Keep",
+  "@bookingsKeep": {
+    "legal_review": "pending"
+  },
+  "bookingsConfirmCancel": "Cancel booking",
+  "@bookingsConfirmCancel": {
+    "legal_review": "pending"
+  },
+  "bookingsLimitTitle": "You reached your 3 free bookings",
+  "@bookingsLimitTitle": {
+    "legal_review": "pending"
+  },
+  "bookingsLimitMessage": "You already used {used} slots in the week starting {weekStart} (Chile).\n\nThis request remains pending. To accept more you will need a subscription. Payments are still under construction.",
+  "@bookingsLimitMessage": {
+    "legal_review": "pending",
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "weekStart": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingsLimitOk": "Got it",
+  "@bookingsLimitOk": {
+    "legal_review": "pending"
+  },
+  "bookingsLimitPlans": "See plans",
+  "@bookingsLimitPlans": {
+    "legal_review": "pending"
+  },
+  "reviewRetryLoad": "Retry loading review",
+  "@reviewRetryLoad": {
+    "legal_review": "pending"
+  },
+  "reviewVerified": "★ {score}/5 · Verified review",
+  "@reviewVerified": {
+    "legal_review": "pending",
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewWrite": "Leave a review",
+  "@reviewWrite": {
+    "legal_review": "pending"
+  },
+  "reviewDialogTitle": "How was the experience?",
+  "@reviewDialogTitle": {
+    "legal_review": "pending"
+  },
+  "reviewDialogIntro": "Your review will be public and linked to a verified booking. It is sent only once and cannot be edited.",
+  "@reviewDialogIntro": {
+    "legal_review": "pending"
+  },
+  "reviewStars": "{count} of 5 stars",
+  "@reviewStars": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewComment": "Comment (optional)",
+  "@reviewComment": {
+    "legal_review": "pending"
+  },
+  "reviewCommentHelp": "Avoid including contact details or private information.",
+  "@reviewCommentHelp": {
+    "legal_review": "pending"
+  },
+  "reviewSendFailed": "We could not confirm it was sent. Try again or go back to the booking to check whether it was saved.",
+  "@reviewSendFailed": {
+    "legal_review": "pending"
+  },
+  "reviewConflict": "This booking does not accept reviews yet or already has one. Go back to the booking to check its status.",
+  "@reviewConflict": {
+    "legal_review": "pending"
+  },
+  "reviewBack": "Back",
+  "@reviewBack": {
+    "legal_review": "pending"
+  },
+  "reviewSending": "Sending…",
+  "@reviewSending": {
+    "legal_review": "pending"
+  },
+  "reviewPublish": "Publish review",
+  "@reviewPublish": {
+    "legal_review": "pending"
+  },
+  "reviewsPublicTitle": "Reviews from verified bookings",
+  "@reviewsPublicTitle": {
+    "legal_review": "pending"
+  },
+  "reviewsPublicEmpty": "No reviews yet. Only people who completed a booking can rate.",
+  "@reviewsPublicEmpty": {
+    "legal_review": "pending"
+  },
+  "reviewsPublicItem": "★ {score}/5 · Verified booking",
+  "@reviewsPublicItem": {
+    "legal_review": "pending",
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "reviewsPublicLoadFailed": "We could not load reviews. Try again",
+  "@reviewsPublicLoadFailed": {
+    "legal_review": "pending"
+  },
+  "reviewsPublicMore": "See more reviews",
+  "@reviewsPublicMore": {
+    "legal_review": "pending"
   }
 }
