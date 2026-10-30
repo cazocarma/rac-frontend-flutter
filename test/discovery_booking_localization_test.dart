@@ -224,7 +224,14 @@ void main() {
                 rate: 12000,
                 api: fixture.api,
               ),
-              routes: {'/match': (_) => const Scaffold(body: Text('bookings'))},
+              routes: {
+                '/match': (_) => const Scaffold(body: Text('bookings')),
+                '/identity': (context) => Scaffold(
+                  body: Text(
+                    'identity ${ModalRoute.of(context)!.settings.arguments}',
+                  ),
+                ),
+              },
             ),
           );
           await tester.pumpAndSettle();
@@ -300,8 +307,27 @@ void main() {
             t.bookingSubmitFailed,
           );
           await attempt(http.Response('{}', 409), t.bookingSlotTaken);
+          // Only a 428 with the identity code sends the person to verify.
+          await attempt(
+            http.Response('{"error":"IDENTITY_VERIFICATION_REQUIRED"}', 400),
+            t.bookingSubmitFailed,
+          );
+          expect(find.text(t.identityGo), findsNothing);
+          await attempt(
+            http.Response(
+              '{"error":"IDENTITY_VERIFICATION_REQUIRED","purpose":"client_booking","flow":"/identity?purpose=client_booking"}',
+              428,
+            ),
+            t.identityRequiredBooking,
+          );
+          await tapVisible(find.text(t.identityGo));
+          expect(find.text('identity client_booking'), findsOneWidget);
+          Navigator.of(
+            tester.element(find.text('identity client_booking')),
+          ).pop();
+          await tester.pumpAndSettle();
           expect(find.textContaining('colision'), findsNothing);
-          expect(fixture.submissions, 7);
+          expect(fixture.submissions, 9);
           fixture.submit = http.Response('{"id":"session-1"}', 201);
           await tapVisible(slot);
           await tester.ensureVisible(find.text(t.bookingSubmit));

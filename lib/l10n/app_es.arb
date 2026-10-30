@@ -2702,5 +2702,93 @@
   "artworkMovie": "Una buena película",
   "@artworkMovie": {
     "legal_review": "pending"
+  },
+  "identityTitle": "Verificación de identidad",
+  "@identityTitle": {
+    "legal_review": "pending"
+  },
+  "identityWhy": "RAC es solo para mayores de edad y queremos evitar cuentas falsas.",
+  "@identityWhy": {
+    "legal_review": "pending"
+  },
+  "identityStored": "Guardamos el resultado y el país de tu documento. No guardamos fotos de tu documento.",
+  "@identityStored": {
+    "legal_review": "pending"
+  },
+  "identityProcessor": "La verificación la realiza un proveedor externo según su propia política.",
+  "@identityProcessor": {
+    "legal_review": "pending"
+  },
+  "identityDuration": "Suele tardar unos minutos.",
+  "@identityDuration": {
+    "legal_review": "pending"
+  },
+  "identityNoGuarantee": "La verificación confirma identidad y mayoría de edad. No constituye antecedentes ni garantía de conducta.",
+  "@identityNoGuarantee": {
+    "legal_review": "pending"
+  },
+  "identityStart": "Verificar mi identidad",
+  "@identityStart": {
+    "legal_review": "pending"
+  },
+  "identityPending": "Estamos verificando…",
+  "@identityPending": {
+    "legal_review": "pending"
+  },
+  "identityPendingHelp": "Completa los pasos en la página del proveedor y luego actualiza el estado aquí.",
+  "@identityPendingHelp": {
+    "legal_review": "pending"
+  },
+  "identityApproved": "Identidad verificada",
+  "@identityApproved": {
+    "legal_review": "pending"
+  },
+  "identityRejected": "No pudimos verificar tu identidad. Puede deberse a un documento ilegible, a datos que no coinciden o al requisito de edad.",
+  "@identityRejected": {
+    "legal_review": "pending"
+  },
+  "identityReview": "Tu verificación necesita una revisión adicional antes de completarse.",
+  "@identityReview": {
+    "legal_review": "pending"
+  },
+  "identityExpired": "La verificación anterior venció. Puedes iniciar una nueva.",
+  "@identityExpired": {
+    "legal_review": "pending"
+  },
+  "identityRetry": "Intentar de nuevo",
+  "@identityRetry": {
+    "legal_review": "pending"
+  },
+  "identityRefresh": "Actualizar estado",
+  "@identityRefresh": {
+    "legal_review": "pending"
+  },
+  "identityUnavailable": "La verificación de identidad todavía no está disponible.",
+  "@identityUnavailable": {
+    "legal_review": "pending"
+  },
+  "identityLoadFailed": "No pudimos consultar tu verificación. Inténtalo nuevamente.",
+  "@identityLoadFailed": {
+    "legal_review": "pending"
+  },
+  "identityStartFailed": "No pudimos iniciar la verificación. Inténtalo nuevamente.",
+  "@identityStartFailed": {
+    "legal_review": "pending"
+  },
+  "identityOpenFailed": "No pudimos abrir la página del proveedor. Inténtalo nuevamente.",
+  "@identityOpenFailed": {
+    "legal_review": "pending"
+  },
+  "identityRequiredBooking": "Para solicitar reservas necesitas verificar tu identidad.",
+  "@identityRequiredBooking": {
+    "legal_review": "pending"
+  },
+  "identityRequiredCompa": "Para publicar tu perfil compa necesitas verificar tu identidad.",
+  "@identityRequiredCompa": {
+    "legal_review": "pending"
+  },
+  "identityGo": "Verificar identidad",
+  "@identityGo": {
+    "legal_review": "pending"
   }
 }

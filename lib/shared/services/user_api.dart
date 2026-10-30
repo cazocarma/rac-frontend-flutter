@@ -166,6 +166,7 @@ class UserApi {
           const {
             'DOCUMENT_ACCEPTANCE_REQUIRED',
             'COMPA_ATTESTATION_REQUIRED',
+            'IDENTITY_VERIFICATION_REQUIRED',
           }.contains(decoded['error'])) {
         throw ApiException(428, decoded['error'] as String);
       }

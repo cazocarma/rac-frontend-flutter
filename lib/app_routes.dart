@@ -18,6 +18,7 @@ import 'package:rentacompa/shared/services/logout.dart';
 import 'package:rentacompa/shared/widgets/design.dart';
 import 'main.dart';
 import 'shared/widgets/brand.dart';
+import 'features/identity/ui/identity_screen.dart';
 import 'features/plans/ui/plans_screen.dart';
 import 'features/alerts/ui/notifications_screen.dart';
 import 'features/compa_onboarding/ui/become_compa_screen.dart';
@@ -253,6 +254,14 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   '/document-history': (_) => const AuthGuard(child: DocumentHistoryScreen()),
   '/documents': (_) => const AuthGuard(child: DocumentsScreen()),
   '/compa-rules': (_) => const AuthGuard(child: AssessmentScreen()),
+  // The purpose comes from the 428 that sent the person here.
+  '/identity': (context) => AuthGuard(
+    child: IdentityScreen(
+      purpose: ModalRoute.of(context)?.settings.arguments == 'compa_onboarding'
+          ? 'compa_onboarding'
+          : 'client_booking',
+    ),
+  ),
   '/become-compa': (_) => const BecomeCompaScreen(),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),

@@ -2702,5 +2702,93 @@
   "artworkMovie": "A good movie",
   "@artworkMovie": {
     "legal_review": "pending"
+  },
+  "identityTitle": "Identity verification",
+  "@identityTitle": {
+    "legal_review": "pending"
+  },
+  "identityWhy": "RAC is for adults only and we want to prevent fake accounts.",
+  "@identityWhy": {
+    "legal_review": "pending"
+  },
+  "identityStored": "We keep the result and your document's country. We do not keep photos of your document.",
+  "@identityStored": {
+    "legal_review": "pending"
+  },
+  "identityProcessor": "An external provider performs the verification under its own policy.",
+  "@identityProcessor": {
+    "legal_review": "pending"
+  },
+  "identityDuration": "It usually takes a few minutes.",
+  "@identityDuration": {
+    "legal_review": "pending"
+  },
+  "identityNoGuarantee": "Verification confirms identity and age of majority. It is not a background check or a guarantee of conduct.",
+  "@identityNoGuarantee": {
+    "legal_review": "pending"
+  },
+  "identityStart": "Verify my identity",
+  "@identityStart": {
+    "legal_review": "pending"
+  },
+  "identityPending": "We are verifying…",
+  "@identityPending": {
+    "legal_review": "pending"
+  },
+  "identityPendingHelp": "Complete the steps on the provider's page, then refresh the status here.",
+  "@identityPendingHelp": {
+    "legal_review": "pending"
+  },
+  "identityApproved": "Identity verified",
+  "@identityApproved": {
+    "legal_review": "pending"
+  },
+  "identityRejected": "We could not verify your identity. This may be due to an unreadable document, data that does not match, or the age requirement.",
+  "@identityRejected": {
+    "legal_review": "pending"
+  },
+  "identityReview": "Your verification needs an additional review before it can be completed.",
+  "@identityReview": {
+    "legal_review": "pending"
+  },
+  "identityExpired": "Your previous verification expired. You can start a new one.",
+  "@identityExpired": {
+    "legal_review": "pending"
+  },
+  "identityRetry": "Try again",
+  "@identityRetry": {
+    "legal_review": "pending"
+  },
+  "identityRefresh": "Refresh status",
+  "@identityRefresh": {
+    "legal_review": "pending"
+  },
+  "identityUnavailable": "Identity verification is not available yet.",
+  "@identityUnavailable": {
+    "legal_review": "pending"
+  },
+  "identityLoadFailed": "We could not check your verification. Please try again.",
+  "@identityLoadFailed": {
+    "legal_review": "pending"
+  },
+  "identityStartFailed": "We could not start the verification. Please try again.",
+  "@identityStartFailed": {
+    "legal_review": "pending"
+  },
+  "identityOpenFailed": "We could not open the provider's page. Please try again.",
+  "@identityOpenFailed": {
+    "legal_review": "pending"
+  },
+  "identityRequiredBooking": "You need to verify your identity to request bookings.",
+  "@identityRequiredBooking": {
+    "legal_review": "pending"
+  },
+  "identityRequiredCompa": "You need to verify your identity to publish your compa profile.",
+  "@identityRequiredCompa": {
+    "legal_review": "pending"
+  },
+  "identityGo": "Verify identity",
+  "@identityGo": {
+    "legal_review": "pending"
   }
 }

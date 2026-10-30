@@ -3822,6 +3822,138 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Una buena película'**
   String get artworkMovie;
+
+  /// No description provided for @identityTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Verificación de identidad'**
+  String get identityTitle;
+
+  /// No description provided for @identityWhy.
+  ///
+  /// In es, this message translates to:
+  /// **'RAC es solo para mayores de edad y queremos evitar cuentas falsas.'**
+  String get identityWhy;
+
+  /// No description provided for @identityStored.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardamos el resultado y el país de tu documento. No guardamos fotos de tu documento.'**
+  String get identityStored;
+
+  /// No description provided for @identityProcessor.
+  ///
+  /// In es, this message translates to:
+  /// **'La verificación la realiza un proveedor externo según su propia política.'**
+  String get identityProcessor;
+
+  /// No description provided for @identityDuration.
+  ///
+  /// In es, this message translates to:
+  /// **'Suele tardar unos minutos.'**
+  String get identityDuration;
+
+  /// No description provided for @identityNoGuarantee.
+  ///
+  /// In es, this message translates to:
+  /// **'La verificación confirma identidad y mayoría de edad. No constituye antecedentes ni garantía de conducta.'**
+  String get identityNoGuarantee;
+
+  /// No description provided for @identityStart.
+  ///
+  /// In es, this message translates to:
+  /// **'Verificar mi identidad'**
+  String get identityStart;
+
+  /// No description provided for @identityPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Estamos verificando…'**
+  String get identityPending;
+
+  /// No description provided for @identityPendingHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa los pasos en la página del proveedor y luego actualiza el estado aquí.'**
+  String get identityPendingHelp;
+
+  /// No description provided for @identityApproved.
+  ///
+  /// In es, this message translates to:
+  /// **'Identidad verificada'**
+  String get identityApproved;
+
+  /// No description provided for @identityRejected.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos verificar tu identidad. Puede deberse a un documento ilegible, a datos que no coinciden o al requisito de edad.'**
+  String get identityRejected;
+
+  /// No description provided for @identityReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu verificación necesita una revisión adicional antes de completarse.'**
+  String get identityReview;
+
+  /// No description provided for @identityExpired.
+  ///
+  /// In es, this message translates to:
+  /// **'La verificación anterior venció. Puedes iniciar una nueva.'**
+  String get identityExpired;
+
+  /// No description provided for @identityRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Intentar de nuevo'**
+  String get identityRetry;
+
+  /// No description provided for @identityRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar estado'**
+  String get identityRefresh;
+
+  /// No description provided for @identityUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'La verificación de identidad todavía no está disponible.'**
+  String get identityUnavailable;
+
+  /// No description provided for @identityLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar tu verificación. Inténtalo nuevamente.'**
+  String get identityLoadFailed;
+
+  /// No description provided for @identityStartFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos iniciar la verificación. Inténtalo nuevamente.'**
+  String get identityStartFailed;
+
+  /// No description provided for @identityOpenFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos abrir la página del proveedor. Inténtalo nuevamente.'**
+  String get identityOpenFailed;
+
+  /// No description provided for @identityRequiredBooking.
+  ///
+  /// In es, this message translates to:
+  /// **'Para solicitar reservas necesitas verificar tu identidad.'**
+  String get identityRequiredBooking;
+
+  /// No description provided for @identityRequiredCompa.
+  ///
+  /// In es, this message translates to:
+  /// **'Para publicar tu perfil compa necesitas verificar tu identidad.'**
+  String get identityRequiredCompa;
+
+  /// No description provided for @identityGo.
+  ///
+  /// In es, this message translates to:
+  /// **'Verificar identidad'**
+  String get identityGo;
 }
 
 class _AppLocalizationsDelegate

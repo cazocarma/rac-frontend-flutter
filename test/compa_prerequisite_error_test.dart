@@ -9,6 +9,7 @@ void main() {
   for (final code in [
     'DOCUMENT_ACCEPTANCE_REQUIRED',
     'COMPA_ATTESTATION_REQUIRED',
+    'IDENTITY_VERIFICATION_REQUIRED',
   ]) {
     test(
       'compa save preserves $code instead of claiming a network failure',

@@ -2114,4 +2114,84 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get artworkMovie => 'A good movie';
+
+  @override
+  String get identityTitle => 'Identity verification';
+
+  @override
+  String get identityWhy =>
+      'RAC is for adults only and we want to prevent fake accounts.';
+
+  @override
+  String get identityStored =>
+      'We keep the result and your document\'s country. We do not keep photos of your document.';
+
+  @override
+  String get identityProcessor =>
+      'An external provider performs the verification under its own policy.';
+
+  @override
+  String get identityDuration => 'It usually takes a few minutes.';
+
+  @override
+  String get identityNoGuarantee =>
+      'Verification confirms identity and age of majority. It is not a background check or a guarantee of conduct.';
+
+  @override
+  String get identityStart => 'Verify my identity';
+
+  @override
+  String get identityPending => 'We are verifying…';
+
+  @override
+  String get identityPendingHelp =>
+      'Complete the steps on the provider\'s page, then refresh the status here.';
+
+  @override
+  String get identityApproved => 'Identity verified';
+
+  @override
+  String get identityRejected =>
+      'We could not verify your identity. This may be due to an unreadable document, data that does not match, or the age requirement.';
+
+  @override
+  String get identityReview =>
+      'Your verification needs an additional review before it can be completed.';
+
+  @override
+  String get identityExpired =>
+      'Your previous verification expired. You can start a new one.';
+
+  @override
+  String get identityRetry => 'Try again';
+
+  @override
+  String get identityRefresh => 'Refresh status';
+
+  @override
+  String get identityUnavailable =>
+      'Identity verification is not available yet.';
+
+  @override
+  String get identityLoadFailed =>
+      'We could not check your verification. Please try again.';
+
+  @override
+  String get identityStartFailed =>
+      'We could not start the verification. Please try again.';
+
+  @override
+  String get identityOpenFailed =>
+      'We could not open the provider\'s page. Please try again.';
+
+  @override
+  String get identityRequiredBooking =>
+      'You need to verify your identity to request bookings.';
+
+  @override
+  String get identityRequiredCompa =>
+      'You need to verify your identity to publish your compa profile.';
+
+  @override
+  String get identityGo => 'Verify identity';
 }

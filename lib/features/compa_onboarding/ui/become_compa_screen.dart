@@ -56,6 +56,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   bool published = false;
   bool needsSession = false;
   String? error;
+  bool identityRequired = false;
   String? success;
 
   Future<void> load() async {
@@ -105,6 +106,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
     setState(() {
       busy = true;
       error = null;
+      identityRequired = false;
       success = null;
     });
     bool saved = false;
@@ -140,6 +142,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
             published = true;
             needsSession = true;
             error = t.compaSessionPending;
+          } else if (e is ApiException &&
+              e.status == 428 &&
+              e.code == 'IDENTITY_VERIFICATION_REQUIRED') {
+            identityRequired = true;
+            error = t.identityRequiredCompa;
           } else if (e is ApiException && e.status == 428) {
             error = AppLocalizations.of(context)!.compaPrerequisitesPending;
           } else {
@@ -337,6 +344,17 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.error,
                         ),
+                      ),
+                    ),
+                  if (identityRequired && error == t.identityRequiredCompa)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: OutlinedButton.icon(
+                        onPressed: () => Navigator.of(
+                          context,
+                        ).pushNamed('/identity', arguments: 'compa_onboarding'),
+                        icon: const Icon(Icons.badge_outlined),
+                        label: Text(t.identityGo),
                       ),
                     ),
                   if (success != null)

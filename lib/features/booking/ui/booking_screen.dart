@@ -5,7 +5,7 @@ import 'package:rentacompa/features/match/data/match_api.dart';
 import 'package:rentacompa/shared/di/services.dart';
 import 'package:rentacompa/shared/widgets/design.dart';
 
-enum _BookingFailure { load, past, taken, availability, submit }
+enum _BookingFailure { load, past, taken, availability, identity, submit }
 
 /// MatchApi reports `HTTP <status>: <body>`; only exact codes change guidance.
 _BookingFailure _submitFailure(Object error) {
@@ -15,12 +15,16 @@ _BookingFailure _submitFailure(Object error) {
   ).firstMatch('$error');
   if (match == null) return _BookingFailure.submit;
   if (match[1] == '409') return _BookingFailure.taken;
+  final identityRequired = match[1] == '428';
   Object? code;
   try {
     final body = jsonDecode(match[2]!);
     if (body is Map) code = body['error'];
   } on FormatException {
     return _BookingFailure.submit;
+  }
+  if (identityRequired && code == 'IDENTITY_VERIFICATION_REQUIRED') {
+    return _BookingFailure.identity;
   }
   return switch (code) {
     'colision_horaria' => _BookingFailure.taken,
@@ -137,6 +141,7 @@ class _BookingScreenState extends State<BookingScreen> {
         _BookingFailure.past => t.bookingSlotPast,
         _BookingFailure.taken => t.bookingSlotTaken,
         _BookingFailure.availability => t.bookingAvailabilityChanged,
+        _BookingFailure.identity => t.identityRequiredBooking,
         _BookingFailure.submit => t.bookingSubmitFailed,
       };
 
@@ -291,6 +296,18 @@ class _BookingScreenState extends State<BookingScreen> {
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.error,
                             ),
+                          ),
+                        ),
+                      if (error == _BookingFailure.identity)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: OutlinedButton.icon(
+                            onPressed: () => Navigator.of(context).pushNamed(
+                              '/identity',
+                              arguments: 'client_booking',
+                            ),
+                            icon: const Icon(Icons.badge_outlined),
+                            label: Text(t.identityGo),
                           ),
                         ),
                       const SizedBox(height: 24),
