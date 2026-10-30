@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../../../shared/widgets/design.dart';
@@ -13,14 +14,10 @@ class ModerationScreen extends StatefulWidget {
 
 class _ModerationScreenState extends State<ModerationScreen> {
   late final api = widget.api ?? ChatApi(Env.apiBase);
-  static const filters = {
-    'abierto': 'Abiertos',
-    'atendido': 'Atendidos',
-    'desestimado': 'Desestimados',
-    'todos': 'Todos',
-  };
+  static const filters = ['abierto', 'atendido', 'desestimado', 'todos'];
   Map<String, dynamic>? data;
-  String? error;
+  // null: no failure; true: the account is not a moderator.
+  bool? forbidden;
   String selectedState = 'abierto';
   final cursors = <String>[''];
   bool loading = false;
@@ -48,7 +45,7 @@ class _ModerationScreenState extends State<ModerationScreen> {
     setState(() {
       loading = true;
       data = null;
-      error = null;
+      forbidden = null;
     });
     try {
       final result = await api.request('/moderation/reports?$query');
@@ -62,9 +59,7 @@ class _ModerationScreenState extends State<ModerationScreen> {
       if (mounted && version == requestVersion) {
         setState(() {
           loading = false;
-          error = e is ChatException && e.status == 403
-              ? 'Acceso reservado al equipo de moderación.'
-              : 'No pudimos cargar los reportes. Inténtalo de nuevo.';
+          forbidden = e is ChatException && e.status == 403;
         });
       }
     }
@@ -79,9 +74,18 @@ class _ModerationScreenState extends State<ModerationScreen> {
     load();
   }
 
+  String filterLabel(AppLocalizations t, String code) => switch (code) {
+    'abierto' => t.moderationFilterOpen,
+    'atendido' => t.moderationFilterHandled,
+    'desestimado' => t.moderationFilterDismissed,
+    _ => t.moderationFilterAll,
+  };
+
   String dateLabel(BuildContext context, dynamic value) {
     final date = value is String ? DateTime.tryParse(value)?.toLocal() : null;
-    if (date == null) return 'Fecha no disponible';
+    if (date == null) {
+      return AppLocalizations.of(context)!.moderationDateUnavailable;
+    }
     final localizations = MaterialLocalizations.of(context);
     String two(int value) => value.toString().padLeft(2, '0');
     final day = '${two(date.day)}/${two(date.month)}/${date.year}';
@@ -89,159 +93,162 @@ class _ModerationScreenState extends State<ModerationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Moderación de reportes'),
-      actions: [
-        IconButton(
-          onPressed: loading
-              ? null
-              : () {
-                  cursors
-                    ..clear()
-                    ..add('');
-                  load();
-                },
-          tooltip: 'Actualizar reportes',
-          icon: const Icon(Icons.refresh),
-        ),
-      ],
-    ),
-    body: PageContent(
-      width: 900,
-      child: ListView(
-        children: [
-          Text(
-            selectedState == 'abierto'
-                ? 'Casos pendientes'
-                : 'Historial de reportes',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'Consulta el estado y las fechas de cada reporte. Los casos donde participas quedan excluidos. El contenido de un caso abierto requiere una consulta justificada y registrada.',
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final filter in filters.entries)
-                ChoiceChip(
-                  label: Text(filter.value),
-                  selected: selectedState == filter.key,
-                  onSelected: (selected) {
-                    if (selected) selectState(filter.key);
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(t.chatModeration),
+        actions: [
+          IconButton(
+            onPressed: loading
+                ? null
+                : () {
+                    cursors
+                      ..clear()
+                      ..add('');
+                    load();
                   },
-                ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'Ordenados por fecha del reporte, del más antiguo al más reciente.',
-          ),
-          const SizedBox(height: 20),
-          if (loading) const LinearProgressIndicator(),
-          if (error != null) ...[
-            Text(error!, semanticsLabel: error),
-            OutlinedButton(onPressed: load, child: const Text('Reintentar')),
-          ],
-          if (data != null) ...[
-            if ((data!['items'] as List).isEmpty)
-              const Text('No hay reportes para este filtro en esta página.'),
-            for (final item in data!['items'] as List)
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    item['estado'] == 'abierto'
-                        ? Icons.flag_outlined
-                        : Icons.task_alt,
-                  ),
-                  title: Wrap(
-                    spacing: 12,
-                    runSpacing: 6,
-                    children: [
-                      Text(reportReasons[item['motivo']] ?? 'Reporte'),
-                      Chip(
-                        label: Text(
-                          reportStatuses[item['estado']] ??
-                              'Estado no disponible',
-                        ),
-                      ),
-                    ],
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Caso ${(item['id'] as String).substring(0, 8)} · Reserva ${(item['sesion_id'] as String).substring(0, 8)}',
-                      ),
-                      Text(
-                        'Reportado: ${dateLabel(context, item['creado_en'])}',
-                      ),
-                      if (item['estado'] != 'abierto') ...[
-                        Text(
-                          'Cierre: ${dateLabel(context, item['resuelto_en'])}',
-                        ),
-                        const Text(
-                          'Caso cerrado. La consulta del contenido está deshabilitada.',
-                        ),
-                      ],
-                    ],
-                  ),
-                  trailing: item['estado'] == 'abierto'
-                      ? const Icon(Icons.chevron_right)
-                      : null,
-                  onTap: item['estado'] == 'abierto'
-                      ? () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (_) => ModerationCaseScreen(
-                                id: item['id'] as String,
-                              ),
-                            ),
-                          );
-                          if (mounted) await load();
-                        }
-                      : null,
-                ),
-              ),
-          ],
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 8,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Text('Página ${cursors.length}'),
-              if (cursors.length > 1)
-                OutlinedButton(
-                  onPressed: loading
-                      ? null
-                      : () {
-                          cursors.removeLast();
-                          load();
-                        },
-                  child: const Text('Anteriores'),
-                ),
-              if (data?['has_more'] == true &&
-                  (data?['next_cursor'] as String? ?? '').isNotEmpty)
-                OutlinedButton(
-                  onPressed: loading
-                      ? null
-                      : () {
-                          cursors.add(data!['next_cursor'] as String);
-                          load();
-                        },
-                  child: const Text('Siguientes'),
-                ),
-            ],
+            tooltip: t.moderationRefresh,
+            icon: const Icon(Icons.refresh),
           ),
         ],
       ),
-    ),
-  );
+      body: PageContent(
+        width: 900,
+        child: ListView(
+          children: [
+            Text(
+              selectedState == 'abierto'
+                  ? t.moderationPending
+                  : t.moderationHistory,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 12),
+            Text(t.moderationIntro),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final filter in filters)
+                  ChoiceChip(
+                    label: Text(filterLabel(t, filter)),
+                    selected: selectedState == filter,
+                    onSelected: (selected) {
+                      if (selected) selectState(filter);
+                    },
+                  ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(t.moderationOrder),
+            const SizedBox(height: 20),
+            if (loading) const LinearProgressIndicator(),
+            if (forbidden != null) ...[
+              Text(forbidden! ? t.moderationForbidden : t.moderationLoadFailed),
+              OutlinedButton(onPressed: load, child: Text(t.moderationRetry)),
+            ],
+            if (data != null) ...[
+              if ((data!['items'] as List).isEmpty) Text(t.moderationEmpty),
+              for (final item in data!['items'] as List)
+                Card(
+                  child: ListTile(
+                    leading: Icon(
+                      item['estado'] == 'abierto'
+                          ? Icons.flag_outlined
+                          : Icons.task_alt,
+                    ),
+                    title: Wrap(
+                      spacing: 12,
+                      runSpacing: 6,
+                      children: [
+                        Text(reportReasonLabel(t, item['motivo'])),
+                        Chip(
+                          label: Text(
+                            reportStatusLabel(t, item['estado']) ??
+                                t.moderationStatusUnavailable,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          t.moderationCaseRef(
+                            (item['id'] as String).substring(0, 8),
+                            (item['sesion_id'] as String).substring(0, 8),
+                          ),
+                        ),
+                        Text(
+                          t.moderationReported(
+                            dateLabel(context, item['creado_en']),
+                          ),
+                        ),
+                        if (item['estado'] != 'abierto') ...[
+                          Text(
+                            t.moderationClosedAt(
+                              dateLabel(context, item['resuelto_en']),
+                            ),
+                          ),
+                          Text(t.moderationClosedNote),
+                        ],
+                      ],
+                    ),
+                    trailing: item['estado'] == 'abierto'
+                        ? const Icon(Icons.chevron_right)
+                        : null,
+                    onTap: item['estado'] == 'abierto'
+                        ? () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => ModerationCaseScreen(
+                                  id: item['id'] as String,
+                                ),
+                              ),
+                            );
+                            if (mounted) await load();
+                          }
+                        : null,
+                  ),
+                ),
+            ],
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(t.moderationPage(cursors.length)),
+                if (cursors.length > 1)
+                  OutlinedButton(
+                    onPressed: loading
+                        ? null
+                        : () {
+                            cursors.removeLast();
+                            load();
+                          },
+                    child: Text(t.moderationPrevious),
+                  ),
+                if (data?['has_more'] == true &&
+                    (data?['next_cursor'] as String? ?? '').isNotEmpty)
+                  OutlinedButton(
+                    onPressed: loading
+                        ? null
+                        : () {
+                            cursors.add(data!['next_cursor'] as String);
+                            load();
+                          },
+                    child: Text(t.moderationNext),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class ModerationCaseScreen extends StatefulWidget {
@@ -257,7 +264,8 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
   final justification = TextEditingController();
   final form = GlobalKey<FormState>();
   Map<String, dynamic>? data;
-  String? error;
+  // null: no failure; true: closing failed; false: access failed.
+  bool? closeFailed;
   bool busy = false;
   @override
   void dispose() {
@@ -270,7 +278,7 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
     if (!form.currentState!.validate()) return;
     setState(() {
       busy = true;
-      error = null;
+      closeFailed = null;
     });
     try {
       final result = await api.request(
@@ -280,10 +288,7 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
       if (mounted) setState(() => data = result);
     } catch (_) {
       if (mounted) {
-        setState(
-          () => error =
-              'No pudimos autorizar la consulta. El caso puede estar cerrado o fuera de tu acceso.',
-        );
+        setState(() => closeFailed = false);
       }
     } finally {
       if (mounted) setState(() => busy = false);
@@ -292,21 +297,24 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
 
   Future<void> resolve(String state) async {
     if (!form.currentState!.validate()) return;
+    final t = AppLocalizations.of(context)!;
     final accepted = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Cerrar este caso?'),
+        title: Text(t.moderationCloseTitle),
         content: Text(
-          'Se registrará como ${state == 'atendido' ? 'atendido' : 'desestimado'} junto a tu justificación. El cierre no aplica sanciones ni retira bloqueos.',
+          state == 'atendido'
+              ? t.moderationCloseHandled
+              : t.moderationCloseDismissed,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Volver'),
+            child: Text(t.moderationBack),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Confirmar cierre'),
+            child: Text(t.moderationConfirmClose),
           ),
         ],
       ),
@@ -321,10 +329,7 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
       if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) {
-        setState(
-          () => error =
-              'No pudimos confirmar el cierre. Actualiza la cola para comprobar su estado.',
-        );
+        setState(() => closeFailed = true);
       }
     } finally {
       if (mounted) setState(() => busy = false);
@@ -332,116 +337,122 @@ class _ModerationCaseScreenState extends State<ModerationCaseScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text('Caso ${widget.id.substring(0, 8)}')),
-    body: PageContent(
-      width: 900,
-      child: ListView(
-        children: [
-          const Icon(Icons.policy_outlined, size: 40),
-          const SizedBox(height: 16),
-          Text(
-            'Consulta con responsabilidad',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 12),
-          const Text(
-            'Solo se permite revisar el historial existente al enviar este reporte. Cada consulta y cada cierre registran tu identidad, justificación y hora. No copies información fuera del proceso de moderación.',
-          ),
-          const SizedBox(height: 20),
-          Form(
-            key: form,
-            child: TextFormField(
-              controller: justification,
-              enabled: !busy,
-              minLines: 2,
-              maxLines: 4,
-              maxLength: 500,
-              decoration: const InputDecoration(
-                labelText: 'Justificación de la consulta o resolución',
-              ),
-              validator: (value) => (value?.trim().runes.length ?? 0) < 10
-                  ? 'Escribe una justificación de al menos 10 caracteres.'
-                  : null,
-            ),
-          ),
-          FilledButton.icon(
-            onPressed: busy ? null : () => access(),
-            icon: const Icon(Icons.visibility_outlined),
-            label: const Text('Consultar y registrar acceso'),
-          ),
-          if (busy) const LinearProgressIndicator(),
-          if (error != null)
-            Padding(padding: const EdgeInsets.all(16), child: Text(error!)),
-          if (data != null) ...[
-            const SizedBox(height: 24),
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(t.moderationCaseTitle(widget.id.substring(0, 8))),
+      ),
+      body: PageContent(
+        width: 900,
+        child: ListView(
+          children: [
+            const Icon(Icons.policy_outlined, size: 40),
+            const SizedBox(height: 16),
             Text(
-              reportReasons[data!['motivo']] ?? 'Reporte',
-              style: Theme.of(context).textTheme.titleLarge,
+              t.moderationHeadline,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 12),
-            Semantics(
-              container: true,
-              label: data!['detalle'] as String,
-              excludeSemantics: true,
-              child: SelectableText(data!['detalle'] as String),
+            Text(t.moderationCaseIntro),
+            const SizedBox(height: 20),
+            Form(
+              key: form,
+              child: TextFormField(
+                controller: justification,
+                enabled: !busy,
+                minLines: 2,
+                maxLines: 4,
+                maxLength: 500,
+                decoration: InputDecoration(
+                  labelText: t.moderationJustification,
+                ),
+                validator: (value) => (value?.trim().runes.length ?? 0) < 10
+                    ? t.moderationJustificationTooShort
+                    : null,
+              ),
             ),
-            const Divider(height: 32),
-            const Text('Historial asociado al reporte'),
-            for (final item in (data!['items'] as List).reversed)
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${item['propio'] == true ? 'Quien reportó' : 'Otra persona'} · ${item['enviado_en']}',
-                        style: Theme.of(context).textTheme.labelSmall,
-                      ),
-                      const SizedBox(height: 8),
-                      Semantics(
-                        container: true,
-                        label: item['contenido'] as String,
-                        excludeSemantics: true,
-                        child: SelectableText(item['contenido'] as String),
-                      ),
-                    ],
+            FilledButton.icon(
+              onPressed: busy ? null : () => access(),
+              icon: const Icon(Icons.visibility_outlined),
+              label: Text(t.moderationAccess),
+            ),
+            if (busy) const LinearProgressIndicator(),
+            if (closeFailed != null)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  closeFailed!
+                      ? t.moderationCloseFailed
+                      : t.moderationAccessFailed,
+                ),
+              ),
+            if (data != null) ...[
+              const SizedBox(height: 24),
+              Text(
+                reportReasonLabel(t, data!['motivo']),
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 12),
+              Semantics(
+                container: true,
+                label: data!['detalle'] as String,
+                excludeSemantics: true,
+                child: SelectableText(data!['detalle'] as String),
+              ),
+              const Divider(height: 32),
+              Text(t.moderationLinkedHistory),
+              for (final item in (data!['items'] as List).reversed)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${item['propio'] == true ? t.moderationReporter : t.moderationOtherPerson} · ${item['enviado_en']}',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        const SizedBox(height: 8),
+                        Semantics(
+                          container: true,
+                          label: item['contenido'] as String,
+                          excludeSemantics: true,
+                          child: SelectableText(item['contenido'] as String),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            if (data!['has_more'] == true)
-              OutlinedButton(
-                onPressed: busy
-                    ? null
-                    : () => access(before: data!['before'] as String),
-                child: const Text(
-                  'Consultar mensajes anteriores y registrar acceso',
-                ),
-              ),
-            const Divider(height: 32),
-            const Text(
-              'Describe la gestión realizada en la justificación antes de cerrar el caso.',
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: [
-                FilledButton(
-                  onPressed: busy ? null : () => resolve('atendido'),
-                  child: const Text('Marcar atendido'),
-                ),
+              if (data!['has_more'] == true)
                 OutlinedButton(
-                  onPressed: busy ? null : () => resolve('desestimado'),
-                  child: const Text('Desestimar reporte'),
+                  onPressed: busy
+                      ? null
+                      : () => access(before: data!['before'] as String),
+                  child: Text(t.moderationOlder),
                 ),
-              ],
-            ),
+              const Divider(height: 32),
+              Text(t.moderationResolveHint),
+              const SizedBox(height: 12),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  FilledButton(
+                    onPressed: busy ? null : () => resolve('atendido'),
+                    child: Text(t.moderationMarkHandled),
+                  ),
+                  OutlinedButton(
+                    onPressed: busy ? null : () => resolve('desestimado'),
+                    child: Text(t.moderationDismiss),
+                  ),
+                ],
+              ),
+            ],
+            const SizedBox(height: 32),
           ],
-          const SizedBox(height: 32),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

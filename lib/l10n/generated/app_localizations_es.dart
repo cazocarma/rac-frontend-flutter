@@ -1603,4 +1603,445 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reviewsPublicMore => 'Ver más reseñas';
+
+  @override
+  String get chatStateActive => 'Confirmada';
+
+  @override
+  String get chatStateFinished => 'Finalizada · Solo lectura';
+
+  @override
+  String get chatStateClosed => 'Cancelada · Solo lectura';
+
+  @override
+  String get chatTitle => 'Mensajes';
+
+  @override
+  String get chatModeration => 'Moderación de reportes';
+
+  @override
+  String get chatRefreshList => 'Actualizar conversaciones';
+
+  @override
+  String get chatListLoadFailed => 'No pudimos cargar tus conversaciones';
+
+  @override
+  String get chatCheckConnection =>
+      'Revisa tu conexión e inténtalo nuevamente.';
+
+  @override
+  String get chatRetry => 'Reintentar';
+
+  @override
+  String get chatListHeadline => 'Conversemos el próximo plan';
+
+  @override
+  String get chatListIntro =>
+      'Cada conversación pertenece a una reserva confirmada. Solo sus dos participantes pueden acceder.';
+
+  @override
+  String get chatListEmptyTitle => 'Todavía no tienes conversaciones';
+
+  @override
+  String get chatListEmptyMessage =>
+      'Al confirmar una reserva podrás coordinar los detalles con tu compa.';
+
+  @override
+  String get chatListBookings => 'Ver mis reservas';
+
+  @override
+  String chatListSubtitle(String state, String booking, String preview) {
+    return '$state · Reserva $booking\n$preview';
+  }
+
+  @override
+  String get chatListFirstHello => 'Sé el primero en saludar';
+
+  @override
+  String get chatListNewer => 'Más recientes';
+
+  @override
+  String get chatListOlder => 'Anteriores';
+
+  @override
+  String get chatDefaultName => 'Tu conversación';
+
+  @override
+  String get chatSafety => 'Seguridad de la conversación';
+
+  @override
+  String get chatRefresh => 'Actualizar conversación';
+
+  @override
+  String get chatPrivate => 'Conversación privada';
+
+  @override
+  String get chatLinkConnecting => 'Conectando…';
+
+  @override
+  String get chatLinkPaused => 'En pausa';
+
+  @override
+  String get chatLinkConnected => 'Conectado';
+
+  @override
+  String get chatLinkReadOnly => 'Solo lectura';
+
+  @override
+  String get chatLinkOffline => 'Sin conexión';
+
+  @override
+  String get chatLinkReconnecting => 'Reconectando…';
+
+  @override
+  String chatBookingWritable(String booking) {
+    return 'Reserva $booking · Coordina los detalles de tu plan.';
+  }
+
+  @override
+  String chatBookingReadOnly(String booking) {
+    return 'Reserva $booking · El historial se conserva en solo lectura.';
+  }
+
+  @override
+  String get chatRetryConnection => 'Reintentar conexión';
+
+  @override
+  String get chatEmptyTitle => 'Un saludo abre la conversación';
+
+  @override
+  String get chatEmptyMessage =>
+      'Los mensajes de esta reserva aparecerán aquí.';
+
+  @override
+  String get chatLoading => 'Cargando…';
+
+  @override
+  String get chatLoadOlder => 'Cargar mensajes anteriores';
+
+  @override
+  String get chatYou => 'Tú';
+
+  @override
+  String get chatSaved => 'Guardado';
+
+  @override
+  String get chatMessage => 'Mensaje';
+
+  @override
+  String get chatMessageHint => 'Escribe un mensaje…';
+
+  @override
+  String get chatRetrySend => 'Reintentar envío';
+
+  @override
+  String get chatSend => 'Enviar mensaje';
+
+  @override
+  String get chatTooLong => 'Usa hasta 2000 caracteres por mensaje.';
+
+  @override
+  String get chatInterrupted =>
+      'Se interrumpió la conexión. Reintentaremos sin perder el historial.';
+
+  @override
+  String get chatErrorInvalid =>
+      'Revisa el motivo y la descripción antes de continuar.';
+
+  @override
+  String get chatErrorForbidden =>
+      'Tu cuenta no tiene permiso para esta acción.';
+
+  @override
+  String get chatErrorSession =>
+      'Tu sesión venció. Vuelve a ingresar para continuar.';
+
+  @override
+  String get chatErrorGone =>
+      'Esta conversación ya no está disponible para tu cuenta.';
+
+  @override
+  String get chatErrorChanged =>
+      'La reserva cambió de estado. Actualiza la conversación.';
+
+  @override
+  String get chatErrorBusy =>
+      'Hay demasiadas conexiones. Reintentaremos en unos momentos.';
+
+  @override
+  String get chatErrorUnavailable =>
+      'No pudimos conectar. Conservamos tu mensaje para reintentar aquí.';
+
+  @override
+  String get reportStatusOpen => 'Pendiente de revisión';
+
+  @override
+  String get reportStatusHandled => 'Reporte atendido';
+
+  @override
+  String get reportStatusDismissed => 'Reporte desestimado';
+
+  @override
+  String get reportStatusReceived => 'Reporte recibido';
+
+  @override
+  String get reportReasonHarassment => 'Acoso o amenazas';
+
+  @override
+  String get reportReasonSpam => 'Spam o publicidad';
+
+  @override
+  String get reportReasonInappropriate => 'Contenido inapropiado';
+
+  @override
+  String get reportReasonOther => 'Otro motivo';
+
+  @override
+  String get reportReasonGeneric => 'Reporte';
+
+  @override
+  String get safetyLoadFailed =>
+      'No pudimos cargar las opciones de seguridad. Inténtalo de nuevo.';
+
+  @override
+  String get safetyChangeFailed =>
+      'No pudimos confirmar el cambio. Actualiza para comprobar su estado antes de reintentar.';
+
+  @override
+  String get safetyUnblockTitle => '¿Retirar tu bloqueo?';
+
+  @override
+  String get safetyBlockTitle => '¿Bloquear esta conversación?';
+
+  @override
+  String get safetyUnblockMessage =>
+      'Se podrá conversar si la otra persona tampoco mantiene un bloqueo y la reserva sigue activa.';
+
+  @override
+  String get safetyBlockMessage =>
+      'Se detendrán los mensajes nuevos de ambos participantes. Conservarás el historial. La reserva y sus condiciones siguen vigentes.';
+
+  @override
+  String get safetyBack => 'Volver';
+
+  @override
+  String get safetyConfirmUnblock => 'Retirar bloqueo';
+
+  @override
+  String get safetyConfirmBlock => 'Confirmar bloqueo';
+
+  @override
+  String get safetyRefresh => 'Actualizar seguridad';
+
+  @override
+  String get safetyHeadline => 'Tu tranquilidad importa';
+
+  @override
+  String get safetyIntro =>
+      'Estas opciones se aplican a esta conversación. Bloquear y reportar son decisiones independientes.';
+
+  @override
+  String get safetyRetry => 'Reintentar';
+
+  @override
+  String get safetyBlocked => 'Conversación bloqueada';
+
+  @override
+  String get safetyControl => 'Controla quién puede escribirte';
+
+  @override
+  String get safetyOwnBlock =>
+      'Mantienes un bloqueo activo. Puedes retirarlo cuando quieras.';
+
+  @override
+  String get safetyOtherBlock =>
+      'Hay un bloqueo activo de la otra persona. El historial sigue disponible.';
+
+  @override
+  String get safetyCanBlock =>
+      'Puedes detener los mensajes nuevos sin borrar el historial.';
+
+  @override
+  String get safetyRemoveOwnBlock => 'Retirar mi bloqueo';
+
+  @override
+  String get safetyBlock => 'Bloquear conversación';
+
+  @override
+  String get safetyReportPending =>
+      'Puedes actualizar esta pantalla para consultar el estado de tu reporte. No necesitas enviarlo otra vez.';
+
+  @override
+  String get safetyReportTitle => 'Reportar un problema';
+
+  @override
+  String get safetyReportNotice =>
+      'El equipo de moderación podrá consultar tu descripción y el historial existente al enviar el reporte. Cada consulta requiere una justificación y queda registrada. No incluyas contraseñas ni información privada ajena al incidente.';
+
+  @override
+  String get safetyReason => 'Motivo del reporte';
+
+  @override
+  String get safetyDetail => 'Describe qué ocurrió';
+
+  @override
+  String get safetyDetailTooShort =>
+      'Cuéntanos lo ocurrido en al menos 10 caracteres.';
+
+  @override
+  String get safetySendReport => 'Enviar reporte';
+
+  @override
+  String get safetyManualReview =>
+      'Los reportes se revisan manualmente. Su envío no cancela la reserva ni modifica sus condiciones.';
+
+  @override
+  String get moderationRefresh => 'Actualizar reportes';
+
+  @override
+  String get moderationFilterOpen => 'Abiertos';
+
+  @override
+  String get moderationFilterHandled => 'Atendidos';
+
+  @override
+  String get moderationFilterDismissed => 'Desestimados';
+
+  @override
+  String get moderationFilterAll => 'Todos';
+
+  @override
+  String get moderationForbidden => 'Acceso reservado al equipo de moderación.';
+
+  @override
+  String get moderationLoadFailed =>
+      'No pudimos cargar los reportes. Inténtalo de nuevo.';
+
+  @override
+  String get moderationDateUnavailable => 'Fecha no disponible';
+
+  @override
+  String get moderationPending => 'Casos pendientes';
+
+  @override
+  String get moderationHistory => 'Historial de reportes';
+
+  @override
+  String get moderationIntro =>
+      'Consulta el estado y las fechas de cada reporte. Los casos donde participas quedan excluidos. El contenido de un caso abierto requiere una consulta justificada y registrada.';
+
+  @override
+  String get moderationOrder =>
+      'Ordenados por fecha del reporte, del más antiguo al más reciente.';
+
+  @override
+  String get moderationRetry => 'Reintentar';
+
+  @override
+  String get moderationEmpty =>
+      'No hay reportes para este filtro en esta página.';
+
+  @override
+  String get moderationStatusUnavailable => 'Estado no disponible';
+
+  @override
+  String moderationCaseRef(String caseId, String booking) {
+    return 'Caso $caseId · Reserva $booking';
+  }
+
+  @override
+  String moderationReported(String date) {
+    return 'Reportado: $date';
+  }
+
+  @override
+  String moderationClosedAt(String date) {
+    return 'Cierre: $date';
+  }
+
+  @override
+  String get moderationClosedNote =>
+      'Caso cerrado. La consulta del contenido está deshabilitada.';
+
+  @override
+  String moderationPage(int page) {
+    return 'Página $page';
+  }
+
+  @override
+  String get moderationPrevious => 'Anteriores';
+
+  @override
+  String get moderationNext => 'Siguientes';
+
+  @override
+  String get moderationAccessFailed =>
+      'No pudimos autorizar la consulta. El caso puede estar cerrado o fuera de tu acceso.';
+
+  @override
+  String get moderationCloseTitle => '¿Cerrar este caso?';
+
+  @override
+  String get moderationCloseHandled =>
+      'Se registrará como atendido junto a tu justificación. El cierre no aplica sanciones ni retira bloqueos.';
+
+  @override
+  String get moderationCloseDismissed =>
+      'Se registrará como desestimado junto a tu justificación. El cierre no aplica sanciones ni retira bloqueos.';
+
+  @override
+  String get moderationBack => 'Volver';
+
+  @override
+  String get moderationConfirmClose => 'Confirmar cierre';
+
+  @override
+  String get moderationCloseFailed =>
+      'No pudimos confirmar el cierre. Actualiza la cola para comprobar su estado.';
+
+  @override
+  String moderationCaseTitle(String caseId) {
+    return 'Caso $caseId';
+  }
+
+  @override
+  String get moderationHeadline => 'Consulta con responsabilidad';
+
+  @override
+  String get moderationCaseIntro =>
+      'Solo se permite revisar el historial existente al enviar este reporte. Cada consulta y cada cierre registran tu identidad, justificación y hora. No copies información fuera del proceso de moderación.';
+
+  @override
+  String get moderationJustification =>
+      'Justificación de la consulta o resolución';
+
+  @override
+  String get moderationJustificationTooShort =>
+      'Escribe una justificación de al menos 10 caracteres.';
+
+  @override
+  String get moderationAccess => 'Consultar y registrar acceso';
+
+  @override
+  String get moderationLinkedHistory => 'Historial asociado al reporte';
+
+  @override
+  String get moderationReporter => 'Quien reportó';
+
+  @override
+  String get moderationOtherPerson => 'Otra persona';
+
+  @override
+  String get moderationOlder =>
+      'Consultar mensajes anteriores y registrar acceso';
+
+  @override
+  String get moderationResolveHint =>
+      'Describe la gestión realizada en la justificación antes de cerrar el caso.';
+
+  @override
+  String get moderationMarkHandled => 'Marcar atendido';
+
+  @override
+  String get moderationDismiss => 'Desestimar reporte';
 }

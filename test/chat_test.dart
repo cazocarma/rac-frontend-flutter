@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:rentacompa/features/chat/data/chat_api.dart';
@@ -75,6 +76,9 @@ void main() {
       ];
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatConversationScreen(bookingId: booking, apiFactory: () => api),
       ),
     );
@@ -153,6 +157,9 @@ void main() {
     final api = FakeChat();
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatConversationScreen(bookingId: booking, apiFactory: () => api),
       ),
     );
@@ -178,6 +185,9 @@ void main() {
       final api = FakeChat();
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: ChatConversationScreen(
             bookingId: booking,
             apiFactory: () => api,
@@ -207,6 +217,9 @@ void main() {
     final api = FakeChat(writable: false);
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatConversationScreen(bookingId: booking, apiFactory: () => api),
       ),
     );

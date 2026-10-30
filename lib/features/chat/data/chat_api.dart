@@ -3,15 +3,6 @@ import '../../../shared/services/json_api.dart';
 
 class ChatException extends ApiException {
   const ChatException(super.status, super.code);
-  String get message => switch (status) {
-    400 => 'Revisa el motivo y la descripción antes de continuar.',
-    403 => 'Tu cuenta no tiene permiso para esta acción.',
-    401 => 'Tu sesión venció. Vuelve a ingresar para continuar.',
-    404 => 'Esta conversación ya no está disponible para tu cuenta.',
-    409 => 'La reserva cambió de estado. Actualiza la conversación.',
-    429 => 'Hay demasiadas conexiones. Reintentaremos en unos momentos.',
-    _ => 'No pudimos conectar. Conservamos tu mensaje para reintentar aquí.',
-  };
 }
 
 class ChatApi extends JsonApi {

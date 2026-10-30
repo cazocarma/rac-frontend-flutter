@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:rentacompa/features/chat/data/chat_api.dart';
 import 'package:rentacompa/features/chat/ui/chat_safety_screen.dart';
 import 'package:rentacompa/features/chat/ui/moderation_screen.dart';
@@ -60,6 +61,9 @@ void main() {
     final api = SafetyApi();
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatSafetyScreen(bookingId: 'booking', api: api),
       ),
     );
@@ -83,6 +87,9 @@ void main() {
     final api = SafetyApi();
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatSafetyScreen(bookingId: 'booking', api: api),
       ),
     );
@@ -115,15 +122,21 @@ void main() {
     final api = SafetyApi()..reported = true;
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: ChatSafetyScreen(bookingId: 'booking', api: api),
       ),
     );
     await tester.pumpAndSettle();
-    for (final entry in reportStatuses.entries) {
-      api.reportState = entry.key;
+    final t = AppLocalizations.of(
+      tester.element(find.byType(ChatSafetyScreen)),
+    )!;
+    for (final code in reportStatusCodes) {
+      api.reportState = code;
       await tester.tap(find.byTooltip('Actualizar seguridad'));
       await tester.pumpAndSettle();
-      expect(find.text(entry.value), findsOneWidget);
+      expect(find.text(reportStatusLabel(t, code)!), findsOneWidget);
       expect(find.text('Enviar reporte'), findsNothing);
     }
     api.reportState = 'future-status';
@@ -138,6 +151,9 @@ void main() {
       final api = SafetyApi();
       await tester.pumpWidget(
         MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: ModerationCaseScreen(
             id: 'c817cc70-1020-4ef7-9311-130000000003',
             api: api,

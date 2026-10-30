@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:rentacompa/features/chat/data/chat_api.dart';
 import 'package:rentacompa/features/chat/ui/moderation_screen.dart';
 
@@ -44,7 +45,14 @@ void main() {
     tester,
   ) async {
     final api = HistoryApi();
-    await tester.pumpWidget(MaterialApp(home: ModerationScreen(api: api)));
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ModerationScreen(api: api),
+      ),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(ChoiceChip, 'Atendidos'));
     await tester.pumpAndSettle();
@@ -64,7 +72,14 @@ void main() {
           'has_more': !uri.queryParameters.containsKey('despues'),
           'next_cursor': 'opaque-cursor',
         };
-      await tester.pumpWidget(MaterialApp(home: ModerationScreen(api: api)));
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: ModerationScreen(api: api),
+        ),
+      );
       await tester.pumpAndSettle();
       await tester.ensureVisible(find.text('Siguientes'));
       await tester.tap(find.text('Siguientes'));
@@ -104,7 +119,14 @@ void main() {
               };
           }
         };
-      await tester.pumpWidget(MaterialApp(home: ModerationScreen(api: api)));
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('es'),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: ModerationScreen(api: api),
+        ),
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.widgetWithText(ChoiceChip, 'Atendidos'));
       await tester.pump();
@@ -132,7 +154,12 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(
-      MaterialApp(home: ModerationScreen(api: HistoryApi())),
+      MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: ModerationScreen(api: HistoryApi()),
+      ),
     );
     await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(ChoiceChip, 'Desestimados'));

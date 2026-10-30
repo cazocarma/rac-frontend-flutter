@@ -1596,4 +1596,441 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewsPublicMore => 'See more reviews';
+
+  @override
+  String get chatStateActive => 'Confirmed';
+
+  @override
+  String get chatStateFinished => 'Finished · Read only';
+
+  @override
+  String get chatStateClosed => 'Cancelled · Read only';
+
+  @override
+  String get chatTitle => 'Messages';
+
+  @override
+  String get chatModeration => 'Report moderation';
+
+  @override
+  String get chatRefreshList => 'Refresh conversations';
+
+  @override
+  String get chatListLoadFailed => 'We could not load your conversations';
+
+  @override
+  String get chatCheckConnection => 'Check your connection and try again.';
+
+  @override
+  String get chatRetry => 'Try again';
+
+  @override
+  String get chatListHeadline => 'Let\'s talk about the next plan';
+
+  @override
+  String get chatListIntro =>
+      'Each conversation belongs to a confirmed booking. Only its two participants can access it.';
+
+  @override
+  String get chatListEmptyTitle => 'You have no conversations yet';
+
+  @override
+  String get chatListEmptyMessage =>
+      'Once a booking is confirmed you can coordinate the details with your compa.';
+
+  @override
+  String get chatListBookings => 'See my bookings';
+
+  @override
+  String chatListSubtitle(String state, String booking, String preview) {
+    return '$state · Booking $booking\n$preview';
+  }
+
+  @override
+  String get chatListFirstHello => 'Be the first to say hello';
+
+  @override
+  String get chatListNewer => 'Newer';
+
+  @override
+  String get chatListOlder => 'Older';
+
+  @override
+  String get chatDefaultName => 'Your conversation';
+
+  @override
+  String get chatSafety => 'Conversation safety';
+
+  @override
+  String get chatRefresh => 'Refresh conversation';
+
+  @override
+  String get chatPrivate => 'Private conversation';
+
+  @override
+  String get chatLinkConnecting => 'Connecting…';
+
+  @override
+  String get chatLinkPaused => 'Paused';
+
+  @override
+  String get chatLinkConnected => 'Connected';
+
+  @override
+  String get chatLinkReadOnly => 'Read only';
+
+  @override
+  String get chatLinkOffline => 'Offline';
+
+  @override
+  String get chatLinkReconnecting => 'Reconnecting…';
+
+  @override
+  String chatBookingWritable(String booking) {
+    return 'Booking $booking · Coordinate the details of your plan.';
+  }
+
+  @override
+  String chatBookingReadOnly(String booking) {
+    return 'Booking $booking · The history is kept read-only.';
+  }
+
+  @override
+  String get chatRetryConnection => 'Retry connection';
+
+  @override
+  String get chatEmptyTitle => 'A greeting opens the conversation';
+
+  @override
+  String get chatEmptyMessage => 'Messages for this booking will appear here.';
+
+  @override
+  String get chatLoading => 'Loading…';
+
+  @override
+  String get chatLoadOlder => 'Load earlier messages';
+
+  @override
+  String get chatYou => 'You';
+
+  @override
+  String get chatSaved => 'Saved';
+
+  @override
+  String get chatMessage => 'Message';
+
+  @override
+  String get chatMessageHint => 'Write a message…';
+
+  @override
+  String get chatRetrySend => 'Retry sending';
+
+  @override
+  String get chatSend => 'Send message';
+
+  @override
+  String get chatTooLong => 'Use up to 2000 characters per message.';
+
+  @override
+  String get chatInterrupted =>
+      'The connection was interrupted. We will retry without losing the history.';
+
+  @override
+  String get chatErrorInvalid =>
+      'Check the reason and description before continuing.';
+
+  @override
+  String get chatErrorForbidden =>
+      'Your account is not allowed to perform this action.';
+
+  @override
+  String get chatErrorSession =>
+      'Your session expired. Sign in again to continue.';
+
+  @override
+  String get chatErrorGone =>
+      'This conversation is no longer available to your account.';
+
+  @override
+  String get chatErrorChanged =>
+      'The booking changed status. Refresh the conversation.';
+
+  @override
+  String get chatErrorBusy =>
+      'There are too many connections. We will retry in a moment.';
+
+  @override
+  String get chatErrorUnavailable =>
+      'We could not connect. We kept your message so you can retry here.';
+
+  @override
+  String get reportStatusOpen => 'Pending review';
+
+  @override
+  String get reportStatusHandled => 'Report handled';
+
+  @override
+  String get reportStatusDismissed => 'Report dismissed';
+
+  @override
+  String get reportStatusReceived => 'Report received';
+
+  @override
+  String get reportReasonHarassment => 'Harassment or threats';
+
+  @override
+  String get reportReasonSpam => 'Spam or advertising';
+
+  @override
+  String get reportReasonInappropriate => 'Inappropriate content';
+
+  @override
+  String get reportReasonOther => 'Other reason';
+
+  @override
+  String get reportReasonGeneric => 'Report';
+
+  @override
+  String get safetyLoadFailed =>
+      'We could not load the safety options. Please try again.';
+
+  @override
+  String get safetyChangeFailed =>
+      'We could not confirm the change. Refresh to check its status before retrying.';
+
+  @override
+  String get safetyUnblockTitle => 'Remove your block?';
+
+  @override
+  String get safetyBlockTitle => 'Block this conversation?';
+
+  @override
+  String get safetyUnblockMessage =>
+      'You can chat again if the other person has no block either and the booking is still active.';
+
+  @override
+  String get safetyBlockMessage =>
+      'New messages from both participants will stop. You keep the history. The booking and its terms remain in effect.';
+
+  @override
+  String get safetyBack => 'Back';
+
+  @override
+  String get safetyConfirmUnblock => 'Remove block';
+
+  @override
+  String get safetyConfirmBlock => 'Confirm block';
+
+  @override
+  String get safetyRefresh => 'Refresh safety';
+
+  @override
+  String get safetyHeadline => 'Your peace of mind matters';
+
+  @override
+  String get safetyIntro =>
+      'These options apply to this conversation. Blocking and reporting are independent decisions.';
+
+  @override
+  String get safetyRetry => 'Try again';
+
+  @override
+  String get safetyBlocked => 'Conversation blocked';
+
+  @override
+  String get safetyControl => 'Control who can write to you';
+
+  @override
+  String get safetyOwnBlock =>
+      'You have an active block. You can remove it whenever you want.';
+
+  @override
+  String get safetyOtherBlock =>
+      'The other person has an active block. The history remains available.';
+
+  @override
+  String get safetyCanBlock =>
+      'You can stop new messages without deleting the history.';
+
+  @override
+  String get safetyRemoveOwnBlock => 'Remove my block';
+
+  @override
+  String get safetyBlock => 'Block conversation';
+
+  @override
+  String get safetyReportPending =>
+      'You can refresh this screen to check your report status. You do not need to send it again.';
+
+  @override
+  String get safetyReportTitle => 'Report a problem';
+
+  @override
+  String get safetyReportNotice =>
+      'The moderation team will be able to view your description and the history that existed when you sent the report. Each access requires a justification and is recorded. Do not include passwords or private information unrelated to the incident.';
+
+  @override
+  String get safetyReason => 'Reason for the report';
+
+  @override
+  String get safetyDetail => 'Describe what happened';
+
+  @override
+  String get safetyDetailTooShort =>
+      'Tell us what happened in at least 10 characters.';
+
+  @override
+  String get safetySendReport => 'Send report';
+
+  @override
+  String get safetyManualReview =>
+      'Reports are reviewed manually. Sending one does not cancel the booking or change its terms.';
+
+  @override
+  String get moderationRefresh => 'Refresh reports';
+
+  @override
+  String get moderationFilterOpen => 'Open';
+
+  @override
+  String get moderationFilterHandled => 'Handled';
+
+  @override
+  String get moderationFilterDismissed => 'Dismissed';
+
+  @override
+  String get moderationFilterAll => 'All';
+
+  @override
+  String get moderationForbidden =>
+      'Access is restricted to the moderation team.';
+
+  @override
+  String get moderationLoadFailed =>
+      'We could not load the reports. Please try again.';
+
+  @override
+  String get moderationDateUnavailable => 'Date unavailable';
+
+  @override
+  String get moderationPending => 'Pending cases';
+
+  @override
+  String get moderationHistory => 'Report history';
+
+  @override
+  String get moderationIntro =>
+      'Check the status and dates of each report. Cases you take part in are excluded. The content of an open case requires a justified, recorded access.';
+
+  @override
+  String get moderationOrder => 'Sorted by report date, oldest first.';
+
+  @override
+  String get moderationRetry => 'Try again';
+
+  @override
+  String get moderationEmpty =>
+      'There are no reports for this filter on this page.';
+
+  @override
+  String get moderationStatusUnavailable => 'Status unavailable';
+
+  @override
+  String moderationCaseRef(String caseId, String booking) {
+    return 'Case $caseId · Booking $booking';
+  }
+
+  @override
+  String moderationReported(String date) {
+    return 'Reported: $date';
+  }
+
+  @override
+  String moderationClosedAt(String date) {
+    return 'Closed: $date';
+  }
+
+  @override
+  String get moderationClosedNote => 'Case closed. Content access is disabled.';
+
+  @override
+  String moderationPage(int page) {
+    return 'Page $page';
+  }
+
+  @override
+  String get moderationPrevious => 'Previous';
+
+  @override
+  String get moderationNext => 'Next';
+
+  @override
+  String get moderationAccessFailed =>
+      'We could not authorize the access. The case may be closed or outside your access.';
+
+  @override
+  String get moderationCloseTitle => 'Close this case?';
+
+  @override
+  String get moderationCloseHandled =>
+      'It will be recorded as handled together with your justification. Closing does not apply sanctions or remove blocks.';
+
+  @override
+  String get moderationCloseDismissed =>
+      'It will be recorded as dismissed together with your justification. Closing does not apply sanctions or remove blocks.';
+
+  @override
+  String get moderationBack => 'Back';
+
+  @override
+  String get moderationConfirmClose => 'Confirm closure';
+
+  @override
+  String get moderationCloseFailed =>
+      'We could not confirm the closure. Refresh the queue to check its status.';
+
+  @override
+  String moderationCaseTitle(String caseId) {
+    return 'Case $caseId';
+  }
+
+  @override
+  String get moderationHeadline => 'Access responsibly';
+
+  @override
+  String get moderationCaseIntro =>
+      'Only the history that existed when this report was sent can be reviewed. Each access and each closure records your identity, justification and time. Do not copy information outside the moderation process.';
+
+  @override
+  String get moderationJustification =>
+      'Justification for the access or resolution';
+
+  @override
+  String get moderationJustificationTooShort =>
+      'Write a justification of at least 10 characters.';
+
+  @override
+  String get moderationAccess => 'View and record access';
+
+  @override
+  String get moderationLinkedHistory => 'History linked to the report';
+
+  @override
+  String get moderationReporter => 'Reporter';
+
+  @override
+  String get moderationOtherPerson => 'Other person';
+
+  @override
+  String get moderationOlder => 'View earlier messages and record access';
+
+  @override
+  String get moderationResolveHint =>
+      'Describe the action taken in the justification before closing the case.';
+
+  @override
+  String get moderationMarkHandled => 'Mark as handled';
+
+  @override
+  String get moderationDismiss => 'Dismiss report';
 }

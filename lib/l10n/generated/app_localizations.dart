@@ -2898,6 +2898,780 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ver más reseñas'**
   String get reviewsPublicMore;
+
+  /// No description provided for @chatStateActive.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmada'**
+  String get chatStateActive;
+
+  /// No description provided for @chatStateFinished.
+  ///
+  /// In es, this message translates to:
+  /// **'Finalizada · Solo lectura'**
+  String get chatStateFinished;
+
+  /// No description provided for @chatStateClosed.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelada · Solo lectura'**
+  String get chatStateClosed;
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensajes'**
+  String get chatTitle;
+
+  /// No description provided for @chatModeration.
+  ///
+  /// In es, this message translates to:
+  /// **'Moderación de reportes'**
+  String get chatModeration;
+
+  /// No description provided for @chatRefreshList.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar conversaciones'**
+  String get chatRefreshList;
+
+  /// No description provided for @chatListLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tus conversaciones'**
+  String get chatListLoadFailed;
+
+  /// No description provided for @chatCheckConnection.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo nuevamente.'**
+  String get chatCheckConnection;
+
+  /// No description provided for @chatRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get chatRetry;
+
+  /// No description provided for @chatListHeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'Conversemos el próximo plan'**
+  String get chatListHeadline;
+
+  /// No description provided for @chatListIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada conversación pertenece a una reserva confirmada. Solo sus dos participantes pueden acceder.'**
+  String get chatListIntro;
+
+  /// No description provided for @chatListEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no tienes conversaciones'**
+  String get chatListEmptyTitle;
+
+  /// No description provided for @chatListEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Al confirmar una reserva podrás coordinar los detalles con tu compa.'**
+  String get chatListEmptyMessage;
+
+  /// No description provided for @chatListBookings.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mis reservas'**
+  String get chatListBookings;
+
+  /// No description provided for @chatListSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'{state} · Reserva {booking}\n{preview}'**
+  String chatListSubtitle(String state, String booking, String preview);
+
+  /// No description provided for @chatListFirstHello.
+  ///
+  /// In es, this message translates to:
+  /// **'Sé el primero en saludar'**
+  String get chatListFirstHello;
+
+  /// No description provided for @chatListNewer.
+  ///
+  /// In es, this message translates to:
+  /// **'Más recientes'**
+  String get chatListNewer;
+
+  /// No description provided for @chatListOlder.
+  ///
+  /// In es, this message translates to:
+  /// **'Anteriores'**
+  String get chatListOlder;
+
+  /// No description provided for @chatDefaultName.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu conversación'**
+  String get chatDefaultName;
+
+  /// No description provided for @chatSafety.
+  ///
+  /// In es, this message translates to:
+  /// **'Seguridad de la conversación'**
+  String get chatSafety;
+
+  /// No description provided for @chatRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar conversación'**
+  String get chatRefresh;
+
+  /// No description provided for @chatPrivate.
+  ///
+  /// In es, this message translates to:
+  /// **'Conversación privada'**
+  String get chatPrivate;
+
+  /// No description provided for @chatLinkConnecting.
+  ///
+  /// In es, this message translates to:
+  /// **'Conectando…'**
+  String get chatLinkConnecting;
+
+  /// No description provided for @chatLinkPaused.
+  ///
+  /// In es, this message translates to:
+  /// **'En pausa'**
+  String get chatLinkPaused;
+
+  /// No description provided for @chatLinkConnected.
+  ///
+  /// In es, this message translates to:
+  /// **'Conectado'**
+  String get chatLinkConnected;
+
+  /// No description provided for @chatLinkReadOnly.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo lectura'**
+  String get chatLinkReadOnly;
+
+  /// No description provided for @chatLinkOffline.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin conexión'**
+  String get chatLinkOffline;
+
+  /// No description provided for @chatLinkReconnecting.
+  ///
+  /// In es, this message translates to:
+  /// **'Reconectando…'**
+  String get chatLinkReconnecting;
+
+  /// No description provided for @chatBookingWritable.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva {booking} · Coordina los detalles de tu plan.'**
+  String chatBookingWritable(String booking);
+
+  /// No description provided for @chatBookingReadOnly.
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva {booking} · El historial se conserva en solo lectura.'**
+  String chatBookingReadOnly(String booking);
+
+  /// No description provided for @chatRetryConnection.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar conexión'**
+  String get chatRetryConnection;
+
+  /// No description provided for @chatEmptyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Un saludo abre la conversación'**
+  String get chatEmptyTitle;
+
+  /// No description provided for @chatEmptyMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Los mensajes de esta reserva aparecerán aquí.'**
+  String get chatEmptyMessage;
+
+  /// No description provided for @chatLoading.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando…'**
+  String get chatLoading;
+
+  /// No description provided for @chatLoadOlder.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargar mensajes anteriores'**
+  String get chatLoadOlder;
+
+  /// No description provided for @chatYou.
+  ///
+  /// In es, this message translates to:
+  /// **'Tú'**
+  String get chatYou;
+
+  /// No description provided for @chatSaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardado'**
+  String get chatSaved;
+
+  /// No description provided for @chatMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensaje'**
+  String get chatMessage;
+
+  /// No description provided for @chatMessageHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe un mensaje…'**
+  String get chatMessageHint;
+
+  /// No description provided for @chatRetrySend.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar envío'**
+  String get chatRetrySend;
+
+  /// No description provided for @chatSend.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar mensaje'**
+  String get chatSend;
+
+  /// No description provided for @chatTooLong.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa hasta 2000 caracteres por mensaje.'**
+  String get chatTooLong;
+
+  /// No description provided for @chatInterrupted.
+  ///
+  /// In es, this message translates to:
+  /// **'Se interrumpió la conexión. Reintentaremos sin perder el historial.'**
+  String get chatInterrupted;
+
+  /// No description provided for @chatErrorInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa el motivo y la descripción antes de continuar.'**
+  String get chatErrorInvalid;
+
+  /// No description provided for @chatErrorForbidden.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta no tiene permiso para esta acción.'**
+  String get chatErrorForbidden;
+
+  /// No description provided for @chatErrorSession.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión venció. Vuelve a ingresar para continuar.'**
+  String get chatErrorSession;
+
+  /// No description provided for @chatErrorGone.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta conversación ya no está disponible para tu cuenta.'**
+  String get chatErrorGone;
+
+  /// No description provided for @chatErrorChanged.
+  ///
+  /// In es, this message translates to:
+  /// **'La reserva cambió de estado. Actualiza la conversación.'**
+  String get chatErrorChanged;
+
+  /// No description provided for @chatErrorBusy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay demasiadas conexiones. Reintentaremos en unos momentos.'**
+  String get chatErrorBusy;
+
+  /// No description provided for @chatErrorUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos conectar. Conservamos tu mensaje para reintentar aquí.'**
+  String get chatErrorUnavailable;
+
+  /// No description provided for @reportStatusOpen.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de revisión'**
+  String get reportStatusOpen;
+
+  /// No description provided for @reportStatusHandled.
+  ///
+  /// In es, this message translates to:
+  /// **'Reporte atendido'**
+  String get reportStatusHandled;
+
+  /// No description provided for @reportStatusDismissed.
+  ///
+  /// In es, this message translates to:
+  /// **'Reporte desestimado'**
+  String get reportStatusDismissed;
+
+  /// No description provided for @reportStatusReceived.
+  ///
+  /// In es, this message translates to:
+  /// **'Reporte recibido'**
+  String get reportStatusReceived;
+
+  /// No description provided for @reportReasonHarassment.
+  ///
+  /// In es, this message translates to:
+  /// **'Acoso o amenazas'**
+  String get reportReasonHarassment;
+
+  /// No description provided for @reportReasonSpam.
+  ///
+  /// In es, this message translates to:
+  /// **'Spam o publicidad'**
+  String get reportReasonSpam;
+
+  /// No description provided for @reportReasonInappropriate.
+  ///
+  /// In es, this message translates to:
+  /// **'Contenido inapropiado'**
+  String get reportReasonInappropriate;
+
+  /// No description provided for @reportReasonOther.
+  ///
+  /// In es, this message translates to:
+  /// **'Otro motivo'**
+  String get reportReasonOther;
+
+  /// No description provided for @reportReasonGeneric.
+  ///
+  /// In es, this message translates to:
+  /// **'Reporte'**
+  String get reportReasonGeneric;
+
+  /// No description provided for @safetyLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar las opciones de seguridad. Inténtalo de nuevo.'**
+  String get safetyLoadFailed;
+
+  /// No description provided for @safetyChangeFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos confirmar el cambio. Actualiza para comprobar su estado antes de reintentar.'**
+  String get safetyChangeFailed;
+
+  /// No description provided for @safetyUnblockTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Retirar tu bloqueo?'**
+  String get safetyUnblockTitle;
+
+  /// No description provided for @safetyBlockTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Bloquear esta conversación?'**
+  String get safetyBlockTitle;
+
+  /// No description provided for @safetyUnblockMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Se podrá conversar si la otra persona tampoco mantiene un bloqueo y la reserva sigue activa.'**
+  String get safetyUnblockMessage;
+
+  /// No description provided for @safetyBlockMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Se detendrán los mensajes nuevos de ambos participantes. Conservarás el historial. La reserva y sus condiciones siguen vigentes.'**
+  String get safetyBlockMessage;
+
+  /// No description provided for @safetyBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver'**
+  String get safetyBack;
+
+  /// No description provided for @safetyConfirmUnblock.
+  ///
+  /// In es, this message translates to:
+  /// **'Retirar bloqueo'**
+  String get safetyConfirmUnblock;
+
+  /// No description provided for @safetyConfirmBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar bloqueo'**
+  String get safetyConfirmBlock;
+
+  /// No description provided for @safetyRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar seguridad'**
+  String get safetyRefresh;
+
+  /// No description provided for @safetyHeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu tranquilidad importa'**
+  String get safetyHeadline;
+
+  /// No description provided for @safetyIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Estas opciones se aplican a esta conversación. Bloquear y reportar son decisiones independientes.'**
+  String get safetyIntro;
+
+  /// No description provided for @safetyRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get safetyRetry;
+
+  /// No description provided for @safetyBlocked.
+  ///
+  /// In es, this message translates to:
+  /// **'Conversación bloqueada'**
+  String get safetyBlocked;
+
+  /// No description provided for @safetyControl.
+  ///
+  /// In es, this message translates to:
+  /// **'Controla quién puede escribirte'**
+  String get safetyControl;
+
+  /// No description provided for @safetyOwnBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantienes un bloqueo activo. Puedes retirarlo cuando quieras.'**
+  String get safetyOwnBlock;
+
+  /// No description provided for @safetyOtherBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay un bloqueo activo de la otra persona. El historial sigue disponible.'**
+  String get safetyOtherBlock;
+
+  /// No description provided for @safetyCanBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes detener los mensajes nuevos sin borrar el historial.'**
+  String get safetyCanBlock;
+
+  /// No description provided for @safetyRemoveOwnBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Retirar mi bloqueo'**
+  String get safetyRemoveOwnBlock;
+
+  /// No description provided for @safetyBlock.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloquear conversación'**
+  String get safetyBlock;
+
+  /// No description provided for @safetyReportPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes actualizar esta pantalla para consultar el estado de tu reporte. No necesitas enviarlo otra vez.'**
+  String get safetyReportPending;
+
+  /// No description provided for @safetyReportTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Reportar un problema'**
+  String get safetyReportTitle;
+
+  /// No description provided for @safetyReportNotice.
+  ///
+  /// In es, this message translates to:
+  /// **'El equipo de moderación podrá consultar tu descripción y el historial existente al enviar el reporte. Cada consulta requiere una justificación y queda registrada. No incluyas contraseñas ni información privada ajena al incidente.'**
+  String get safetyReportNotice;
+
+  /// No description provided for @safetyReason.
+  ///
+  /// In es, this message translates to:
+  /// **'Motivo del reporte'**
+  String get safetyReason;
+
+  /// No description provided for @safetyDetail.
+  ///
+  /// In es, this message translates to:
+  /// **'Describe qué ocurrió'**
+  String get safetyDetail;
+
+  /// No description provided for @safetyDetailTooShort.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos lo ocurrido en al menos 10 caracteres.'**
+  String get safetyDetailTooShort;
+
+  /// No description provided for @safetySendReport.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar reporte'**
+  String get safetySendReport;
+
+  /// No description provided for @safetyManualReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Los reportes se revisan manualmente. Su envío no cancela la reserva ni modifica sus condiciones.'**
+  String get safetyManualReview;
+
+  /// No description provided for @moderationRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar reportes'**
+  String get moderationRefresh;
+
+  /// No description provided for @moderationFilterOpen.
+  ///
+  /// In es, this message translates to:
+  /// **'Abiertos'**
+  String get moderationFilterOpen;
+
+  /// No description provided for @moderationFilterHandled.
+  ///
+  /// In es, this message translates to:
+  /// **'Atendidos'**
+  String get moderationFilterHandled;
+
+  /// No description provided for @moderationFilterDismissed.
+  ///
+  /// In es, this message translates to:
+  /// **'Desestimados'**
+  String get moderationFilterDismissed;
+
+  /// No description provided for @moderationFilterAll.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos'**
+  String get moderationFilterAll;
+
+  /// No description provided for @moderationForbidden.
+  ///
+  /// In es, this message translates to:
+  /// **'Acceso reservado al equipo de moderación.'**
+  String get moderationForbidden;
+
+  /// No description provided for @moderationLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar los reportes. Inténtalo de nuevo.'**
+  String get moderationLoadFailed;
+
+  /// No description provided for @moderationDateUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha no disponible'**
+  String get moderationDateUnavailable;
+
+  /// No description provided for @moderationPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Casos pendientes'**
+  String get moderationPending;
+
+  /// No description provided for @moderationHistory.
+  ///
+  /// In es, this message translates to:
+  /// **'Historial de reportes'**
+  String get moderationHistory;
+
+  /// No description provided for @moderationIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta el estado y las fechas de cada reporte. Los casos donde participas quedan excluidos. El contenido de un caso abierto requiere una consulta justificada y registrada.'**
+  String get moderationIntro;
+
+  /// No description provided for @moderationOrder.
+  ///
+  /// In es, this message translates to:
+  /// **'Ordenados por fecha del reporte, del más antiguo al más reciente.'**
+  String get moderationOrder;
+
+  /// No description provided for @moderationRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get moderationRetry;
+
+  /// No description provided for @moderationEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay reportes para este filtro en esta página.'**
+  String get moderationEmpty;
+
+  /// No description provided for @moderationStatusUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'Estado no disponible'**
+  String get moderationStatusUnavailable;
+
+  /// No description provided for @moderationCaseRef.
+  ///
+  /// In es, this message translates to:
+  /// **'Caso {caseId} · Reserva {booking}'**
+  String moderationCaseRef(String caseId, String booking);
+
+  /// No description provided for @moderationReported.
+  ///
+  /// In es, this message translates to:
+  /// **'Reportado: {date}'**
+  String moderationReported(String date);
+
+  /// No description provided for @moderationClosedAt.
+  ///
+  /// In es, this message translates to:
+  /// **'Cierre: {date}'**
+  String moderationClosedAt(String date);
+
+  /// No description provided for @moderationClosedNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Caso cerrado. La consulta del contenido está deshabilitada.'**
+  String get moderationClosedNote;
+
+  /// No description provided for @moderationPage.
+  ///
+  /// In es, this message translates to:
+  /// **'Página {page}'**
+  String moderationPage(int page);
+
+  /// No description provided for @moderationPrevious.
+  ///
+  /// In es, this message translates to:
+  /// **'Anteriores'**
+  String get moderationPrevious;
+
+  /// No description provided for @moderationNext.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguientes'**
+  String get moderationNext;
+
+  /// No description provided for @moderationAccessFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos autorizar la consulta. El caso puede estar cerrado o fuera de tu acceso.'**
+  String get moderationAccessFailed;
+
+  /// No description provided for @moderationCloseTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cerrar este caso?'**
+  String get moderationCloseTitle;
+
+  /// No description provided for @moderationCloseHandled.
+  ///
+  /// In es, this message translates to:
+  /// **'Se registrará como atendido junto a tu justificación. El cierre no aplica sanciones ni retira bloqueos.'**
+  String get moderationCloseHandled;
+
+  /// No description provided for @moderationCloseDismissed.
+  ///
+  /// In es, this message translates to:
+  /// **'Se registrará como desestimado junto a tu justificación. El cierre no aplica sanciones ni retira bloqueos.'**
+  String get moderationCloseDismissed;
+
+  /// No description provided for @moderationBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver'**
+  String get moderationBack;
+
+  /// No description provided for @moderationConfirmClose.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar cierre'**
+  String get moderationConfirmClose;
+
+  /// No description provided for @moderationCloseFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos confirmar el cierre. Actualiza la cola para comprobar su estado.'**
+  String get moderationCloseFailed;
+
+  /// No description provided for @moderationCaseTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Caso {caseId}'**
+  String moderationCaseTitle(String caseId);
+
+  /// No description provided for @moderationHeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta con responsabilidad'**
+  String get moderationHeadline;
+
+  /// No description provided for @moderationCaseIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo se permite revisar el historial existente al enviar este reporte. Cada consulta y cada cierre registran tu identidad, justificación y hora. No copies información fuera del proceso de moderación.'**
+  String get moderationCaseIntro;
+
+  /// No description provided for @moderationJustification.
+  ///
+  /// In es, this message translates to:
+  /// **'Justificación de la consulta o resolución'**
+  String get moderationJustification;
+
+  /// No description provided for @moderationJustificationTooShort.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe una justificación de al menos 10 caracteres.'**
+  String get moderationJustificationTooShort;
+
+  /// No description provided for @moderationAccess.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar y registrar acceso'**
+  String get moderationAccess;
+
+  /// No description provided for @moderationLinkedHistory.
+  ///
+  /// In es, this message translates to:
+  /// **'Historial asociado al reporte'**
+  String get moderationLinkedHistory;
+
+  /// No description provided for @moderationReporter.
+  ///
+  /// In es, this message translates to:
+  /// **'Quien reportó'**
+  String get moderationReporter;
+
+  /// No description provided for @moderationOtherPerson.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra persona'**
+  String get moderationOtherPerson;
+
+  /// No description provided for @moderationOlder.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar mensajes anteriores y registrar acceso'**
+  String get moderationOlder;
+
+  /// No description provided for @moderationResolveHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Describe la gestión realizada en la justificación antes de cerrar el caso.'**
+  String get moderationResolveHint;
+
+  /// No description provided for @moderationMarkHandled.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar atendido'**
+  String get moderationMarkHandled;
+
+  /// No description provided for @moderationDismiss.
+  ///
+  /// In es, this message translates to:
+  /// **'Desestimar reporte'**
+  String get moderationDismiss;
 }
 
 class _AppLocalizationsDelegate

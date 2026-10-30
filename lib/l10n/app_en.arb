@@ -2032,5 +2032,570 @@
   "reviewsPublicMore": "See more reviews",
   "@reviewsPublicMore": {
     "legal_review": "pending"
+  },
+  "chatStateActive": "Confirmed",
+  "@chatStateActive": {
+    "legal_review": "pending"
+  },
+  "chatStateFinished": "Finished · Read only",
+  "@chatStateFinished": {
+    "legal_review": "pending"
+  },
+  "chatStateClosed": "Cancelled · Read only",
+  "@chatStateClosed": {
+    "legal_review": "pending"
+  },
+  "chatTitle": "Messages",
+  "@chatTitle": {
+    "legal_review": "pending"
+  },
+  "chatModeration": "Report moderation",
+  "@chatModeration": {
+    "legal_review": "pending"
+  },
+  "chatRefreshList": "Refresh conversations",
+  "@chatRefreshList": {
+    "legal_review": "pending"
+  },
+  "chatListLoadFailed": "We could not load your conversations",
+  "@chatListLoadFailed": {
+    "legal_review": "pending"
+  },
+  "chatCheckConnection": "Check your connection and try again.",
+  "@chatCheckConnection": {
+    "legal_review": "pending"
+  },
+  "chatRetry": "Try again",
+  "@chatRetry": {
+    "legal_review": "pending"
+  },
+  "chatListHeadline": "Let's talk about the next plan",
+  "@chatListHeadline": {
+    "legal_review": "pending"
+  },
+  "chatListIntro": "Each conversation belongs to a confirmed booking. Only its two participants can access it.",
+  "@chatListIntro": {
+    "legal_review": "pending"
+  },
+  "chatListEmptyTitle": "You have no conversations yet",
+  "@chatListEmptyTitle": {
+    "legal_review": "pending"
+  },
+  "chatListEmptyMessage": "Once a booking is confirmed you can coordinate the details with your compa.",
+  "@chatListEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "chatListBookings": "See my bookings",
+  "@chatListBookings": {
+    "legal_review": "pending"
+  },
+  "chatListSubtitle": "{state} · Booking {booking}\n{preview}",
+  "@chatListSubtitle": {
+    "legal_review": "pending",
+    "placeholders": {
+      "state": {
+        "type": "String"
+      },
+      "booking": {
+        "type": "String"
+      },
+      "preview": {
+        "type": "String"
+      }
+    }
+  },
+  "chatListFirstHello": "Be the first to say hello",
+  "@chatListFirstHello": {
+    "legal_review": "pending"
+  },
+  "chatListNewer": "Newer",
+  "@chatListNewer": {
+    "legal_review": "pending"
+  },
+  "chatListOlder": "Older",
+  "@chatListOlder": {
+    "legal_review": "pending"
+  },
+  "chatDefaultName": "Your conversation",
+  "@chatDefaultName": {
+    "legal_review": "pending"
+  },
+  "chatSafety": "Conversation safety",
+  "@chatSafety": {
+    "legal_review": "pending"
+  },
+  "chatRefresh": "Refresh conversation",
+  "@chatRefresh": {
+    "legal_review": "pending"
+  },
+  "chatPrivate": "Private conversation",
+  "@chatPrivate": {
+    "legal_review": "pending"
+  },
+  "chatLinkConnecting": "Connecting…",
+  "@chatLinkConnecting": {
+    "legal_review": "pending"
+  },
+  "chatLinkPaused": "Paused",
+  "@chatLinkPaused": {
+    "legal_review": "pending"
+  },
+  "chatLinkConnected": "Connected",
+  "@chatLinkConnected": {
+    "legal_review": "pending"
+  },
+  "chatLinkReadOnly": "Read only",
+  "@chatLinkReadOnly": {
+    "legal_review": "pending"
+  },
+  "chatLinkOffline": "Offline",
+  "@chatLinkOffline": {
+    "legal_review": "pending"
+  },
+  "chatLinkReconnecting": "Reconnecting…",
+  "@chatLinkReconnecting": {
+    "legal_review": "pending"
+  },
+  "chatBookingWritable": "Booking {booking} · Coordinate the details of your plan.",
+  "@chatBookingWritable": {
+    "legal_review": "pending",
+    "placeholders": {
+      "booking": {
+        "type": "String"
+      }
+    }
+  },
+  "chatBookingReadOnly": "Booking {booking} · The history is kept read-only.",
+  "@chatBookingReadOnly": {
+    "legal_review": "pending",
+    "placeholders": {
+      "booking": {
+        "type": "String"
+      }
+    }
+  },
+  "chatRetryConnection": "Retry connection",
+  "@chatRetryConnection": {
+    "legal_review": "pending"
+  },
+  "chatEmptyTitle": "A greeting opens the conversation",
+  "@chatEmptyTitle": {
+    "legal_review": "pending"
+  },
+  "chatEmptyMessage": "Messages for this booking will appear here.",
+  "@chatEmptyMessage": {
+    "legal_review": "pending"
+  },
+  "chatLoading": "Loading…",
+  "@chatLoading": {
+    "legal_review": "pending"
+  },
+  "chatLoadOlder": "Load earlier messages",
+  "@chatLoadOlder": {
+    "legal_review": "pending"
+  },
+  "chatYou": "You",
+  "@chatYou": {
+    "legal_review": "pending"
+  },
+  "chatSaved": "Saved",
+  "@chatSaved": {
+    "legal_review": "pending"
+  },
+  "chatMessage": "Message",
+  "@chatMessage": {
+    "legal_review": "pending"
+  },
+  "chatMessageHint": "Write a message…",
+  "@chatMessageHint": {
+    "legal_review": "pending"
+  },
+  "chatRetrySend": "Retry sending",
+  "@chatRetrySend": {
+    "legal_review": "pending"
+  },
+  "chatSend": "Send message",
+  "@chatSend": {
+    "legal_review": "pending"
+  },
+  "chatTooLong": "Use up to 2000 characters per message.",
+  "@chatTooLong": {
+    "legal_review": "pending"
+  },
+  "chatInterrupted": "The connection was interrupted. We will retry without losing the history.",
+  "@chatInterrupted": {
+    "legal_review": "pending"
+  },
+  "chatErrorInvalid": "Check the reason and description before continuing.",
+  "@chatErrorInvalid": {
+    "legal_review": "pending"
+  },
+  "chatErrorForbidden": "Your account is not allowed to perform this action.",
+  "@chatErrorForbidden": {
+    "legal_review": "pending"
+  },
+  "chatErrorSession": "Your session expired. Sign in again to continue.",
+  "@chatErrorSession": {
+    "legal_review": "pending"
+  },
+  "chatErrorGone": "This conversation is no longer available to your account.",
+  "@chatErrorGone": {
+    "legal_review": "pending"
+  },
+  "chatErrorChanged": "The booking changed status. Refresh the conversation.",
+  "@chatErrorChanged": {
+    "legal_review": "pending"
+  },
+  "chatErrorBusy": "There are too many connections. We will retry in a moment.",
+  "@chatErrorBusy": {
+    "legal_review": "pending"
+  },
+  "chatErrorUnavailable": "We could not connect. We kept your message so you can retry here.",
+  "@chatErrorUnavailable": {
+    "legal_review": "pending"
+  },
+  "reportStatusOpen": "Pending review",
+  "@reportStatusOpen": {
+    "legal_review": "pending"
+  },
+  "reportStatusHandled": "Report handled",
+  "@reportStatusHandled": {
+    "legal_review": "pending"
+  },
+  "reportStatusDismissed": "Report dismissed",
+  "@reportStatusDismissed": {
+    "legal_review": "pending"
+  },
+  "reportStatusReceived": "Report received",
+  "@reportStatusReceived": {
+    "legal_review": "pending"
+  },
+  "reportReasonHarassment": "Harassment or threats",
+  "@reportReasonHarassment": {
+    "legal_review": "pending"
+  },
+  "reportReasonSpam": "Spam or advertising",
+  "@reportReasonSpam": {
+    "legal_review": "pending"
+  },
+  "reportReasonInappropriate": "Inappropriate content",
+  "@reportReasonInappropriate": {
+    "legal_review": "pending"
+  },
+  "reportReasonOther": "Other reason",
+  "@reportReasonOther": {
+    "legal_review": "pending"
+  },
+  "reportReasonGeneric": "Report",
+  "@reportReasonGeneric": {
+    "legal_review": "pending"
+  },
+  "safetyLoadFailed": "We could not load the safety options. Please try again.",
+  "@safetyLoadFailed": {
+    "legal_review": "pending"
+  },
+  "safetyChangeFailed": "We could not confirm the change. Refresh to check its status before retrying.",
+  "@safetyChangeFailed": {
+    "legal_review": "pending"
+  },
+  "safetyUnblockTitle": "Remove your block?",
+  "@safetyUnblockTitle": {
+    "legal_review": "pending"
+  },
+  "safetyBlockTitle": "Block this conversation?",
+  "@safetyBlockTitle": {
+    "legal_review": "pending"
+  },
+  "safetyUnblockMessage": "You can chat again if the other person has no block either and the booking is still active.",
+  "@safetyUnblockMessage": {
+    "legal_review": "pending"
+  },
+  "safetyBlockMessage": "New messages from both participants will stop. You keep the history. The booking and its terms remain in effect.",
+  "@safetyBlockMessage": {
+    "legal_review": "pending"
+  },
+  "safetyBack": "Back",
+  "@safetyBack": {
+    "legal_review": "pending"
+  },
+  "safetyConfirmUnblock": "Remove block",
+  "@safetyConfirmUnblock": {
+    "legal_review": "pending"
+  },
+  "safetyConfirmBlock": "Confirm block",
+  "@safetyConfirmBlock": {
+    "legal_review": "pending"
+  },
+  "safetyRefresh": "Refresh safety",
+  "@safetyRefresh": {
+    "legal_review": "pending"
+  },
+  "safetyHeadline": "Your peace of mind matters",
+  "@safetyHeadline": {
+    "legal_review": "pending"
+  },
+  "safetyIntro": "These options apply to this conversation. Blocking and reporting are independent decisions.",
+  "@safetyIntro": {
+    "legal_review": "pending"
+  },
+  "safetyRetry": "Try again",
+  "@safetyRetry": {
+    "legal_review": "pending"
+  },
+  "safetyBlocked": "Conversation blocked",
+  "@safetyBlocked": {
+    "legal_review": "pending"
+  },
+  "safetyControl": "Control who can write to you",
+  "@safetyControl": {
+    "legal_review": "pending"
+  },
+  "safetyOwnBlock": "You have an active block. You can remove it whenever you want.",
+  "@safetyOwnBlock": {
+    "legal_review": "pending"
+  },
+  "safetyOtherBlock": "The other person has an active block. The history remains available.",
+  "@safetyOtherBlock": {
+    "legal_review": "pending"
+  },
+  "safetyCanBlock": "You can stop new messages without deleting the history.",
+  "@safetyCanBlock": {
+    "legal_review": "pending"
+  },
+  "safetyRemoveOwnBlock": "Remove my block",
+  "@safetyRemoveOwnBlock": {
+    "legal_review": "pending"
+  },
+  "safetyBlock": "Block conversation",
+  "@safetyBlock": {
+    "legal_review": "pending"
+  },
+  "safetyReportPending": "You can refresh this screen to check your report status. You do not need to send it again.",
+  "@safetyReportPending": {
+    "legal_review": "pending"
+  },
+  "safetyReportTitle": "Report a problem",
+  "@safetyReportTitle": {
+    "legal_review": "pending"
+  },
+  "safetyReportNotice": "The moderation team will be able to view your description and the history that existed when you sent the report. Each access requires a justification and is recorded. Do not include passwords or private information unrelated to the incident.",
+  "@safetyReportNotice": {
+    "legal_review": "pending"
+  },
+  "safetyReason": "Reason for the report",
+  "@safetyReason": {
+    "legal_review": "pending"
+  },
+  "safetyDetail": "Describe what happened",
+  "@safetyDetail": {
+    "legal_review": "pending"
+  },
+  "safetyDetailTooShort": "Tell us what happened in at least 10 characters.",
+  "@safetyDetailTooShort": {
+    "legal_review": "pending"
+  },
+  "safetySendReport": "Send report",
+  "@safetySendReport": {
+    "legal_review": "pending"
+  },
+  "safetyManualReview": "Reports are reviewed manually. Sending one does not cancel the booking or change its terms.",
+  "@safetyManualReview": {
+    "legal_review": "pending"
+  },
+  "moderationRefresh": "Refresh reports",
+  "@moderationRefresh": {
+    "legal_review": "pending"
+  },
+  "moderationFilterOpen": "Open",
+  "@moderationFilterOpen": {
+    "legal_review": "pending"
+  },
+  "moderationFilterHandled": "Handled",
+  "@moderationFilterHandled": {
+    "legal_review": "pending"
+  },
+  "moderationFilterDismissed": "Dismissed",
+  "@moderationFilterDismissed": {
+    "legal_review": "pending"
+  },
+  "moderationFilterAll": "All",
+  "@moderationFilterAll": {
+    "legal_review": "pending"
+  },
+  "moderationForbidden": "Access is restricted to the moderation team.",
+  "@moderationForbidden": {
+    "legal_review": "pending"
+  },
+  "moderationLoadFailed": "We could not load the reports. Please try again.",
+  "@moderationLoadFailed": {
+    "legal_review": "pending"
+  },
+  "moderationDateUnavailable": "Date unavailable",
+  "@moderationDateUnavailable": {
+    "legal_review": "pending"
+  },
+  "moderationPending": "Pending cases",
+  "@moderationPending": {
+    "legal_review": "pending"
+  },
+  "moderationHistory": "Report history",
+  "@moderationHistory": {
+    "legal_review": "pending"
+  },
+  "moderationIntro": "Check the status and dates of each report. Cases you take part in are excluded. The content of an open case requires a justified, recorded access.",
+  "@moderationIntro": {
+    "legal_review": "pending"
+  },
+  "moderationOrder": "Sorted by report date, oldest first.",
+  "@moderationOrder": {
+    "legal_review": "pending"
+  },
+  "moderationRetry": "Try again",
+  "@moderationRetry": {
+    "legal_review": "pending"
+  },
+  "moderationEmpty": "There are no reports for this filter on this page.",
+  "@moderationEmpty": {
+    "legal_review": "pending"
+  },
+  "moderationStatusUnavailable": "Status unavailable",
+  "@moderationStatusUnavailable": {
+    "legal_review": "pending"
+  },
+  "moderationCaseRef": "Case {caseId} · Booking {booking}",
+  "@moderationCaseRef": {
+    "legal_review": "pending",
+    "placeholders": {
+      "caseId": {
+        "type": "String"
+      },
+      "booking": {
+        "type": "String"
+      }
+    }
+  },
+  "moderationReported": "Reported: {date}",
+  "@moderationReported": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "moderationClosedAt": "Closed: {date}",
+  "@moderationClosedAt": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "moderationClosedNote": "Case closed. Content access is disabled.",
+  "@moderationClosedNote": {
+    "legal_review": "pending"
+  },
+  "moderationPage": "Page {page}",
+  "@moderationPage": {
+    "legal_review": "pending",
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "moderationPrevious": "Previous",
+  "@moderationPrevious": {
+    "legal_review": "pending"
+  },
+  "moderationNext": "Next",
+  "@moderationNext": {
+    "legal_review": "pending"
+  },
+  "moderationAccessFailed": "We could not authorize the access. The case may be closed or outside your access.",
+  "@moderationAccessFailed": {
+    "legal_review": "pending"
+  },
+  "moderationCloseTitle": "Close this case?",
+  "@moderationCloseTitle": {
+    "legal_review": "pending"
+  },
+  "moderationCloseHandled": "It will be recorded as handled together with your justification. Closing does not apply sanctions or remove blocks.",
+  "@moderationCloseHandled": {
+    "legal_review": "pending"
+  },
+  "moderationCloseDismissed": "It will be recorded as dismissed together with your justification. Closing does not apply sanctions or remove blocks.",
+  "@moderationCloseDismissed": {
+    "legal_review": "pending"
+  },
+  "moderationBack": "Back",
+  "@moderationBack": {
+    "legal_review": "pending"
+  },
+  "moderationConfirmClose": "Confirm closure",
+  "@moderationConfirmClose": {
+    "legal_review": "pending"
+  },
+  "moderationCloseFailed": "We could not confirm the closure. Refresh the queue to check its status.",
+  "@moderationCloseFailed": {
+    "legal_review": "pending"
+  },
+  "moderationCaseTitle": "Case {caseId}",
+  "@moderationCaseTitle": {
+    "legal_review": "pending",
+    "placeholders": {
+      "caseId": {
+        "type": "String"
+      }
+    }
+  },
+  "moderationHeadline": "Access responsibly",
+  "@moderationHeadline": {
+    "legal_review": "pending"
+  },
+  "moderationCaseIntro": "Only the history that existed when this report was sent can be reviewed. Each access and each closure records your identity, justification and time. Do not copy information outside the moderation process.",
+  "@moderationCaseIntro": {
+    "legal_review": "pending"
+  },
+  "moderationJustification": "Justification for the access or resolution",
+  "@moderationJustification": {
+    "legal_review": "pending"
+  },
+  "moderationJustificationTooShort": "Write a justification of at least 10 characters.",
+  "@moderationJustificationTooShort": {
+    "legal_review": "pending"
+  },
+  "moderationAccess": "View and record access",
+  "@moderationAccess": {
+    "legal_review": "pending"
+  },
+  "moderationLinkedHistory": "History linked to the report",
+  "@moderationLinkedHistory": {
+    "legal_review": "pending"
+  },
+  "moderationReporter": "Reporter",
+  "@moderationReporter": {
+    "legal_review": "pending"
+  },
+  "moderationOtherPerson": "Other person",
+  "@moderationOtherPerson": {
+    "legal_review": "pending"
+  },
+  "moderationOlder": "View earlier messages and record access",
+  "@moderationOlder": {
+    "legal_review": "pending"
+  },
+  "moderationResolveHint": "Describe the action taken in the justification before closing the case.",
+  "@moderationResolveHint": {
+    "legal_review": "pending"
+  },
+  "moderationMarkHandled": "Mark as handled",
+  "@moderationMarkHandled": {
+    "legal_review": "pending"
+  },
+  "moderationDismiss": "Dismiss report",
+  "@moderationDismiss": {
+    "legal_review": "pending"
   }
 }

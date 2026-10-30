@@ -1,3 +1,4 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -8,26 +9,48 @@ import 'chat_safety_screen.dart';
 import 'moderation_screen.dart';
 import '../../../shared/services/session.dart';
 
-String chatState(String state) => switch (state) {
-  'activa' => 'Confirmada',
-  'finalizada' => 'Finalizada · Solo lectura',
-  _ => 'Cancelada · Solo lectura',
+String chatState(AppLocalizations t, String state) => switch (state) {
+  'activa' => t.chatStateActive,
+  'finalizada' => t.chatStateFinished,
+  _ => t.chatStateClosed,
 };
 
+/// Localizes a chat failure; non-HTTP failures use [fallback].
+String chatFailure(AppLocalizations t, Object? error, String fallback) =>
+    error is! ChatException
+    ? fallback
+    : switch (error.status) {
+        400 => t.chatErrorInvalid,
+        403 => t.chatErrorForbidden,
+        401 => t.chatErrorSession,
+        404 => t.chatErrorGone,
+        409 => t.chatErrorChanged,
+        429 => t.chatErrorBusy,
+        _ => t.chatErrorUnavailable,
+      };
+
+enum _Link { connecting, paused, connected, readOnly, offline, reconnecting }
+
+/// Marks a draft rejected locally for exceeding the message limit.
+class _TooLong {
+  const _TooLong();
+}
+
 class ChatListScreen extends StatefulWidget {
-  const ChatListScreen({super.key});
+  const ChatListScreen({super.key, this.api});
+  final ChatApi? api;
   @override
   State<ChatListScreen> createState() => _ChatListScreenState();
 }
 
 class _ChatListScreenState extends State<ChatListScreen> {
   late final role = Session.role();
-  late final api = ChatApi(Env.apiBase);
+  late final api = widget.api ?? ChatApi(Env.apiBase);
   late Future<Map<String, dynamic>> data = api.conversations();
   int offset = 0;
   @override
   void dispose() {
-    api.close();
+    if (widget.api == null) api.close();
     super.dispose();
   }
 
@@ -36,141 +59,146 @@ class _ChatListScreenState extends State<ChatListScreen> {
     data = api.conversations(offset: offset);
   });
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: const Text('Mensajes'),
-      actions: [
-        FutureBuilder<String>(
-          future: role,
-          builder: (context, snapshot) => snapshot.data == 'admin'
-              ? IconButton(
-                  tooltip: 'Moderación de reportes',
-                  icon: const Icon(Icons.admin_panel_settings_outlined),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => const ModerationScreen(),
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ),
-        IconButton(
-          tooltip: 'Actualizar conversaciones',
-          onPressed: () => load(0),
-          icon: const Icon(Icons.refresh),
-        ),
-      ],
-    ),
-    body: PageContent(
-      width: 900,
-      child: FutureBuilder<Map<String, dynamic>>(
-        future: data,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return EmptyState(
-              title: 'No pudimos cargar tus conversaciones',
-              message: snapshot.error is ChatException
-                  ? (snapshot.error as ChatException).message
-                  : 'Revisa tu conexión e inténtalo nuevamente.',
-              action: OutlinedButton(
-                onPressed: () => load(offset),
-                child: const Text('Reintentar'),
-              ),
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final items = snapshot.data!['items'] as List;
-          return ListView(
-            children: [
-              Text(
-                'Conversemos el próximo plan',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Cada conversación pertenece a una reserva confirmada. Solo sus dos participantes pueden acceder.',
-              ),
-              const SizedBox(height: 24),
-              if (items.isEmpty)
-                EmptyState(
-                  title: 'Todavía no tienes conversaciones',
-                  message:
-                      'Al confirmar una reserva podrás coordinar los detalles con tu compa.',
-                  icon: Icons.chat_bubble_outline,
-                  action: OutlinedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/match'),
-                    child: const Text('Ver mis reservas'),
-                  ),
-                ),
-              for (final item in items)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Card(
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(16),
-                      leading: const CircleAvatar(
-                        child: Icon(Icons.chat_bubble_outline),
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(t.chatTitle),
+        actions: [
+          FutureBuilder<String>(
+            future: role,
+            builder: (context, snapshot) => snapshot.data == 'admin'
+                ? IconButton(
+                    tooltip: t.chatModeration,
+                    icon: const Icon(Icons.admin_panel_settings_outlined),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (_) => const ModerationScreen(),
                       ),
-                      title: Text(
-                        item['nombre'] as String,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                        '${chatState(item['estado'] as String)} · Reserva ${(item['sesion_id'] as String).substring(0, 8)}\n${(item['ultimo_mensaje'] as String).isEmpty ? 'Sé el primero en saludar' : item['ultimo_mensaje']}',
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (_) => ChatConversationScreen(
-                              bookingId: item['sesion_id'] as String,
-                              name: item['nombre'] as String,
-                            ),
-                          ),
-                        );
-                        if (mounted) load(offset);
-                      },
                     ),
-                  ),
-                ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (offset > 0)
-                    TextButton(
-                      onPressed: () => load(offset - 20),
-                      child: const Text('Más recientes'),
-                    ),
-                  if (snapshot.data!['has_more'] == true)
-                    TextButton(
-                      onPressed: () => load(offset + 20),
-                      child: const Text('Anteriores'),
-                    ),
-                ],
-              ),
-            ],
-          );
-        },
+                  )
+                : const SizedBox.shrink(),
+          ),
+          IconButton(
+            tooltip: t.chatRefreshList,
+            onPressed: () => load(0),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
-    ),
-  );
+      body: PageContent(
+        width: 900,
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: data,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return EmptyState(
+                title: t.chatListLoadFailed,
+                message: chatFailure(t, snapshot.error, t.chatCheckConnection),
+                action: OutlinedButton(
+                  onPressed: () => load(offset),
+                  child: Text(t.chatRetry),
+                ),
+              );
+            }
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final items = snapshot.data!['items'] as List;
+            return ListView(
+              children: [
+                Text(
+                  t.chatListHeadline,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 8),
+                Text(t.chatListIntro),
+                const SizedBox(height: 24),
+                if (items.isEmpty)
+                  EmptyState(
+                    title: t.chatListEmptyTitle,
+                    message: t.chatListEmptyMessage,
+                    icon: Icons.chat_bubble_outline,
+                    action: OutlinedButton(
+                      onPressed: () => Navigator.pushNamed(context, '/match'),
+                      child: Text(t.chatListBookings),
+                    ),
+                  ),
+                for (final item in items)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Card(
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(16),
+                        leading: const CircleAvatar(
+                          child: Icon(Icons.chat_bubble_outline),
+                        ),
+                        title: Text(
+                          item['nombre'] as String,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          t.chatListSubtitle(
+                            chatState(t, item['estado'] as String),
+                            (item['sesion_id'] as String).substring(0, 8),
+                            (item['ultimo_mensaje'] as String).isEmpty
+                                ? t.chatListFirstHello
+                                : item['ultimo_mensaje'] as String,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (_) => ChatConversationScreen(
+                                bookingId: item['sesion_id'] as String,
+                                name: item['nombre'] as String,
+                              ),
+                            ),
+                          );
+                          if (mounted) load(offset);
+                        },
+                      ),
+                    ),
+                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (offset > 0)
+                      TextButton(
+                        onPressed: () => load(offset - 20),
+                        child: Text(t.chatListNewer),
+                      ),
+                    if (snapshot.data!['has_more'] == true)
+                      TextButton(
+                        onPressed: () => load(offset + 20),
+                        child: Text(t.chatListOlder),
+                      ),
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
 class ChatConversationScreen extends StatefulWidget {
   const ChatConversationScreen({
     super.key,
     required this.bookingId,
-    this.name = 'Tu conversación',
+    this.name,
     this.apiFactory,
   });
-  final String bookingId, name;
+  final String bookingId;
+  final String? name;
   final ChatApi Function()? apiFactory;
   @override
   State<ChatConversationScreen> createState() => _ChatConversationScreenState();
@@ -183,8 +211,11 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
   final text = TextEditingController();
   final scroll = ScrollController();
   final messages = <String, Map<String, dynamic>>{};
-  String cursor = '0', before = '', connection = 'Conectando…';
-  String? error, sendError, pendingId, pendingText;
+  String cursor = '0', before = '';
+  _Link connection = _Link.connecting;
+  // Failures keep their cause and are localized when rendered.
+  Object? error, sendError;
+  String? pendingId, pendingText;
   bool loading = true,
       canSend = false,
       sending = false,
@@ -235,7 +266,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
         state == AppLifecycleState.hidden ||
         state == AppLifecycleState.detached) {
       stopPolling();
-      if (mounted) setState(() => connection = 'En pausa');
+      if (mounted) setState(() => connection = _Link.paused);
     }
   }
 
@@ -268,16 +299,15 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
     }
   }
 
-  String explain(Object e) => e is ChatException
-      ? e.message
-      : 'Se interrumpió la conexión. Reintentaremos sin perder el historial.';
+  String explain(AppLocalizations t, Object e) =>
+      e is _TooLong ? t.chatTooLong : chatFailure(t, e, t.chatInterrupted);
   Future<void> load() async {
     stopPolling();
     final current = generation;
     if (mounted) {
       setState(() {
         error = null;
-        connection = 'Conectando…';
+        connection = _Link.connecting;
       });
     }
     try {
@@ -291,7 +321,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
         canSend = result['can_send'] == true;
         loading = false;
         error = null;
-        connection = canSend ? 'Conectado' : 'Solo lectura';
+        connection = canSend ? _Link.connected : _Link.readOnly;
         if (!loadedOlder) {
           hasOlder = result['has_more'] == true;
           before = result['before'] as String;
@@ -306,8 +336,8 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
       if (mounted && current == generation) {
         setState(() {
           loading = false;
-          error = explain(e);
-          connection = 'Sin conexión';
+          error = e;
+          connection = _Link.offline;
         });
       }
     }
@@ -325,7 +355,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
           );
           cursor = result['cursor'] as String;
           canSend = result['can_send'] == true;
-          connection = canSend ? 'Conectado' : 'Solo lectura';
+          connection = canSend ? _Link.connected : _Link.readOnly;
           error = null;
         });
         bottom();
@@ -338,8 +368,8 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
           return;
         }
         setState(() {
-          connection = 'Reconectando…';
-          error = explain(e);
+          connection = _Link.reconnecting;
+          error = e;
           if (e is ChatException && [401, 403, 404].contains(e.status)) {
             canSend = false;
           }
@@ -390,9 +420,10 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
       });
     } catch (e) {
       if (mounted) {
+        final t = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(explain(e))));
+        ).showSnackBar(SnackBar(content: Text(explain(t, e))));
       }
     } finally {
       if (mounted) setState(() => loadingOlder = false);
@@ -406,7 +437,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
       return;
     }
     if (pendingId == null && text.text.trim().runes.length > 2000) {
-      setState(() => sendError = 'Usa hasta 2000 caracteres por mensaje.');
+      setState(() => sendError = const _TooLong());
       return;
     }
     pendingId ??= ChatApi.newRequestId();
@@ -432,7 +463,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
     } catch (e) {
       if (mounted && pendingId == id) {
         setState(() {
-          sendError = explain(e);
+          sendError = e;
           if (e is ChatException && [401, 403, 404, 409].contains(e.status)) {
             canSend = false;
           }
@@ -453,12 +484,22 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
         ).compareTo(BigInt.parse(b['numero'] as String)),
       );
     final colors = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
+    final name = widget.name ?? t.chatDefaultName;
+    final link = switch (connection) {
+      _Link.connecting => t.chatLinkConnecting,
+      _Link.paused => t.chatLinkPaused,
+      _Link.connected => t.chatLinkConnected,
+      _Link.readOnly => t.chatLinkReadOnly,
+      _Link.offline => t.chatLinkOffline,
+      _Link.reconnecting => t.chatLinkReconnecting,
+    };
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+        title: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis),
         actions: [
           IconButton(
-            tooltip: 'Seguridad de la conversación',
+            tooltip: t.chatSafety,
             icon: const Icon(Icons.shield_outlined),
             onPressed: () async {
               await Navigator.push(
@@ -471,7 +512,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
             },
           ),
           IconButton(
-            tooltip: 'Actualizar conversación',
+            tooltip: t.chatRefresh,
             onPressed: load,
             icon: const Icon(Icons.refresh),
           ),
@@ -487,12 +528,14 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 const Icon(Icons.lock_outline, size: 18),
-                const Text('Conversación privada'),
-                Chip(label: Text(connection)),
+                Text(t.chatPrivate),
+                Chip(label: Text(link)),
               ],
             ),
             Text(
-              'Reserva ${widget.bookingId.substring(0, 8)} · ${canSend ? 'Coordina los detalles de tu plan.' : 'El historial se conserva en solo lectura.'}',
+              canSend
+                  ? t.chatBookingWritable(widget.bookingId.substring(0, 8))
+                  : t.chatBookingReadOnly(widget.bookingId.substring(0, 8)),
             ),
             if (error != null)
               Semantics(
@@ -501,13 +544,13 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                   children: [
                     Expanded(
                       child: Text(
-                        error!,
+                        explain(t, error!),
                         style: TextStyle(color: colors.error),
                       ),
                     ),
                     TextButton(
                       onPressed: load,
-                      child: const Text('Reintentar conexión'),
+                      child: Text(t.chatRetryConnection),
                     ),
                   ],
                 ),
@@ -517,9 +560,9 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
               child: loading
                   ? const Center(child: CircularProgressIndicator())
                   : ordered.isEmpty
-                  ? const EmptyState(
-                      title: 'Un saludo abre la conversación',
-                      message: 'Los mensajes de esta reserva aparecerán aquí.',
+                  ? EmptyState(
+                      title: t.chatEmptyTitle,
+                      message: t.chatEmptyMessage,
                       icon: Icons.waving_hand_outlined,
                     )
                   : ListView.builder(
@@ -530,9 +573,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                           return TextButton(
                             onPressed: loadingOlder ? null : older,
                             child: Text(
-                              loadingOlder
-                                  ? 'Cargando…'
-                                  : 'Cargar mensajes anteriores',
+                              loadingOlder ? t.chatLoading : t.chatLoadOlder,
                             ),
                           );
                         }
@@ -599,7 +640,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        own ? 'Tú' : widget.name,
+                                        own ? t.chatYou : name,
                                         style: Theme.of(
                                           context,
                                         ).textTheme.labelMedium,
@@ -615,7 +656,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                                       ),
                                       const SizedBox(height: 6),
                                       Text(
-                                        '${dateLabel(sent)} · ${clockLabel(sent)}${own ? ' · Guardado' : ''}',
+                                        '${dateLabel(sent)} · ${clockLabel(sent)}${own ? ' · ${t.chatSaved}' : ''}',
                                         style: Theme.of(
                                           context,
                                         ).textTheme.labelSmall,
@@ -636,7 +677,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                 child: Semantics(
                   liveRegion: true,
                   child: Text(
-                    sendError!,
+                    explain(t, sendError!),
                     style: TextStyle(color: colors.error),
                   ),
                 ),
@@ -652,9 +693,9 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                       maxLength: 2000,
                       minLines: 1,
                       maxLines: 4,
-                      decoration: const InputDecoration(
-                        labelText: 'Mensaje',
-                        hintText: 'Escribe un mensaje…',
+                      decoration: InputDecoration(
+                        labelText: t.chatMessage,
+                        hintText: t.chatMessageHint,
                       ),
                     ),
                   ),
@@ -663,8 +704,8 @@ class _ChatConversationScreenState extends State<ChatConversationScreen>
                     padding: const EdgeInsets.only(bottom: 26),
                     child: IconButton.filled(
                       tooltip: pendingId != null && !sending
-                          ? 'Reintentar envío'
-                          : 'Enviar mensaje',
+                          ? t.chatRetrySend
+                          : t.chatSend,
                       onPressed: canSend && !sending ? send : null,
                       icon: sending
                           ? const SizedBox(
