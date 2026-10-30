@@ -1063,4 +1063,82 @@ class AppLocalizationsEs extends AppLocalizations {
   String publicProfilePhotoLabel(String name) {
     return 'Foto de $name';
   }
+
+  @override
+  String get timeOffTitle => 'Mis días libres';
+
+  @override
+  String get timeOffRefresh => 'Actualizar días libres';
+
+  @override
+  String get timeOffHeading => 'Una pausa en tu agenda';
+
+  @override
+  String get timeOffDescription =>
+      'Bloquea días completos para vacaciones u otros compromisos. Las fechas usan la zona de tu agenda. El último día también queda bloqueado.';
+
+  @override
+  String timeOffDescriptionWithZone(String zone) {
+    return 'Bloquea días completos para vacaciones u otros compromisos. Las fechas usan la zona de tu agenda: $zone. El último día también queda bloqueado.';
+  }
+
+  @override
+  String get timeOffReservationsHelp =>
+      'No se cancelan reservas existentes. Si hay una pendiente o confirmada, resuélvela antes de bloquear ese período.';
+
+  @override
+  String get timeOffForbidden => 'Solo puedes gestionar tu propia agenda.';
+
+  @override
+  String get timeOffLoadFailed =>
+      'No pudimos cargar los días libres. Inténtalo nuevamente.';
+
+  @override
+  String get timeOffConflict =>
+      'El período se cruza con una reserva o con otro bloqueo. Tus reservas se conservan.';
+
+  @override
+  String get timeOffSaveFailed =>
+      'No pudimos guardar el cambio. Revisa las fechas e inténtalo nuevamente.';
+
+  @override
+  String get timeOffTooLong => 'Puedes bloquear hasta 366 días por período.';
+
+  @override
+  String get timeOffPickerHelp => 'Días sin disponibilidad';
+
+  @override
+  String get timeOffPickerSave => 'Bloquear días';
+
+  @override
+  String get timeOffRemoveTitle => '¿Volver a ofrecer estos días?';
+
+  @override
+  String timeOffRemoveMessage(String start, String end) {
+    return 'Se quitará el bloqueo del $start al $end. Se conserva tu horario semanal.';
+  }
+
+  @override
+  String get timeOffKeep => 'Conservar';
+
+  @override
+  String get timeOffRemove => 'Quitar bloqueo';
+
+  @override
+  String get timeOffRetry => 'Reintentar';
+
+  @override
+  String get timeOffSaving => 'Guardando…';
+
+  @override
+  String get timeOffAdd => 'Agregar días libres';
+
+  @override
+  String get timeOffEmpty =>
+      'No tienes bloqueos vigentes. Se aplica tu disponibilidad semanal.';
+
+  @override
+  String timeOffFullDays(String zone) {
+    return 'Días completos · $zone';
+  }
 }

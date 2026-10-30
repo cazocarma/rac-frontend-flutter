@@ -2005,6 +2005,138 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Foto de {name}'**
   String publicProfilePhotoLabel(String name);
+
+  /// No description provided for @timeOffTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis días libres'**
+  String get timeOffTitle;
+
+  /// No description provided for @timeOffRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar días libres'**
+  String get timeOffRefresh;
+
+  /// No description provided for @timeOffHeading.
+  ///
+  /// In es, this message translates to:
+  /// **'Una pausa en tu agenda'**
+  String get timeOffHeading;
+
+  /// No description provided for @timeOffDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloquea días completos para vacaciones u otros compromisos. Las fechas usan la zona de tu agenda. El último día también queda bloqueado.'**
+  String get timeOffDescription;
+
+  /// No description provided for @timeOffDescriptionWithZone.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloquea días completos para vacaciones u otros compromisos. Las fechas usan la zona de tu agenda: {zone}. El último día también queda bloqueado.'**
+  String timeOffDescriptionWithZone(String zone);
+
+  /// No description provided for @timeOffReservationsHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'No se cancelan reservas existentes. Si hay una pendiente o confirmada, resuélvela antes de bloquear ese período.'**
+  String get timeOffReservationsHelp;
+
+  /// No description provided for @timeOffForbidden.
+  ///
+  /// In es, this message translates to:
+  /// **'Solo puedes gestionar tu propia agenda.'**
+  String get timeOffForbidden;
+
+  /// No description provided for @timeOffLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar los días libres. Inténtalo nuevamente.'**
+  String get timeOffLoadFailed;
+
+  /// No description provided for @timeOffConflict.
+  ///
+  /// In es, this message translates to:
+  /// **'El período se cruza con una reserva o con otro bloqueo. Tus reservas se conservan.'**
+  String get timeOffConflict;
+
+  /// No description provided for @timeOffSaveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos guardar el cambio. Revisa las fechas e inténtalo nuevamente.'**
+  String get timeOffSaveFailed;
+
+  /// No description provided for @timeOffTooLong.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes bloquear hasta 366 días por período.'**
+  String get timeOffTooLong;
+
+  /// No description provided for @timeOffPickerHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Días sin disponibilidad'**
+  String get timeOffPickerHelp;
+
+  /// No description provided for @timeOffPickerSave.
+  ///
+  /// In es, this message translates to:
+  /// **'Bloquear días'**
+  String get timeOffPickerSave;
+
+  /// No description provided for @timeOffRemoveTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Volver a ofrecer estos días?'**
+  String get timeOffRemoveTitle;
+
+  /// No description provided for @timeOffRemoveMessage.
+  ///
+  /// In es, this message translates to:
+  /// **'Se quitará el bloqueo del {start} al {end}. Se conserva tu horario semanal.'**
+  String timeOffRemoveMessage(String start, String end);
+
+  /// No description provided for @timeOffKeep.
+  ///
+  /// In es, this message translates to:
+  /// **'Conservar'**
+  String get timeOffKeep;
+
+  /// No description provided for @timeOffRemove.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar bloqueo'**
+  String get timeOffRemove;
+
+  /// No description provided for @timeOffRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get timeOffRetry;
+
+  /// No description provided for @timeOffSaving.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardando…'**
+  String get timeOffSaving;
+
+  /// No description provided for @timeOffAdd.
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar días libres'**
+  String get timeOffAdd;
+
+  /// No description provided for @timeOffEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No tienes bloqueos vigentes. Se aplica tu disponibilidad semanal.'**
+  String get timeOffEmpty;
+
+  /// No description provided for @timeOffFullDays.
+  ///
+  /// In es, this message translates to:
+  /// **'Días completos · {zone}'**
+  String timeOffFullDays(String zone);
 }
 
 class _AppLocalizationsDelegate

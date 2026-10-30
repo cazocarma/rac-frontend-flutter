@@ -1062,4 +1062,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String publicProfilePhotoLabel(String name) {
     return 'Photo of $name';
   }
+
+  @override
+  String get timeOffTitle => 'My days off';
+
+  @override
+  String get timeOffRefresh => 'Refresh days off';
+
+  @override
+  String get timeOffHeading => 'A break in your schedule';
+
+  @override
+  String get timeOffDescription =>
+      'Block full days for holidays or other commitments. Dates use your schedule time zone. The last day is included.';
+
+  @override
+  String timeOffDescriptionWithZone(String zone) {
+    return 'Block full days for holidays or other commitments. Dates use your schedule time zone: $zone. The last day is included.';
+  }
+
+  @override
+  String get timeOffReservationsHelp =>
+      'Existing bookings are not cancelled. Resolve pending or confirmed bookings before blocking that period.';
+
+  @override
+  String get timeOffForbidden => 'You can only manage your own schedule.';
+
+  @override
+  String get timeOffLoadFailed => 'We could not load your days off. Try again.';
+
+  @override
+  String get timeOffConflict =>
+      'The period overlaps a booking or another block. Your bookings are unchanged.';
+
+  @override
+  String get timeOffSaveFailed =>
+      'We could not save the change. Check the dates and try again.';
+
+  @override
+  String get timeOffTooLong => 'You can block up to 366 days per period.';
+
+  @override
+  String get timeOffPickerHelp => 'Unavailable days';
+
+  @override
+  String get timeOffPickerSave => 'Block days';
+
+  @override
+  String get timeOffRemoveTitle => 'Make these days available again?';
+
+  @override
+  String timeOffRemoveMessage(String start, String end) {
+    return 'The block from $start to $end will be removed. Your weekly schedule is unchanged.';
+  }
+
+  @override
+  String get timeOffKeep => 'Keep block';
+
+  @override
+  String get timeOffRemove => 'Remove block';
+
+  @override
+  String get timeOffRetry => 'Try again';
+
+  @override
+  String get timeOffSaving => 'Saving…';
+
+  @override
+  String get timeOffAdd => 'Add days off';
+
+  @override
+  String get timeOffEmpty =>
+      'You have no current blocks. Your weekly availability applies.';
+
+  @override
+  String timeOffFullDays(String zone) {
+    return 'Full days · $zone';
+  }
 }

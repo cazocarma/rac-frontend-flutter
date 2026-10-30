@@ -1328,5 +1328,111 @@
         "type": "String"
       }
     }
+  },
+  "timeOffTitle": "My days off",
+  "@timeOffTitle": {
+    "legal_review": "pending"
+  },
+  "timeOffRefresh": "Refresh days off",
+  "@timeOffRefresh": {
+    "legal_review": "pending"
+  },
+  "timeOffHeading": "A break in your schedule",
+  "@timeOffHeading": {
+    "legal_review": "pending"
+  },
+  "timeOffDescription": "Block full days for holidays or other commitments. Dates use your schedule time zone. The last day is included.",
+  "@timeOffDescription": {
+    "legal_review": "pending"
+  },
+  "timeOffDescriptionWithZone": "Block full days for holidays or other commitments. Dates use your schedule time zone: {zone}. The last day is included.",
+  "@timeOffDescriptionWithZone": {
+    "legal_review": "pending",
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "timeOffReservationsHelp": "Existing bookings are not cancelled. Resolve pending or confirmed bookings before blocking that period.",
+  "@timeOffReservationsHelp": {
+    "legal_review": "pending"
+  },
+  "timeOffForbidden": "You can only manage your own schedule.",
+  "@timeOffForbidden": {
+    "legal_review": "pending"
+  },
+  "timeOffLoadFailed": "We could not load your days off. Try again.",
+  "@timeOffLoadFailed": {
+    "legal_review": "pending"
+  },
+  "timeOffConflict": "The period overlaps a booking or another block. Your bookings are unchanged.",
+  "@timeOffConflict": {
+    "legal_review": "pending"
+  },
+  "timeOffSaveFailed": "We could not save the change. Check the dates and try again.",
+  "@timeOffSaveFailed": {
+    "legal_review": "pending"
+  },
+  "timeOffTooLong": "You can block up to 366 days per period.",
+  "@timeOffTooLong": {
+    "legal_review": "pending"
+  },
+  "timeOffPickerHelp": "Unavailable days",
+  "@timeOffPickerHelp": {
+    "legal_review": "pending"
+  },
+  "timeOffPickerSave": "Block days",
+  "@timeOffPickerSave": {
+    "legal_review": "pending"
+  },
+  "timeOffRemoveTitle": "Make these days available again?",
+  "@timeOffRemoveTitle": {
+    "legal_review": "pending"
+  },
+  "timeOffRemoveMessage": "The block from {start} to {end} will be removed. Your weekly schedule is unchanged.",
+  "@timeOffRemoveMessage": {
+    "legal_review": "pending",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "timeOffKeep": "Keep block",
+  "@timeOffKeep": {
+    "legal_review": "pending"
+  },
+  "timeOffRemove": "Remove block",
+  "@timeOffRemove": {
+    "legal_review": "pending"
+  },
+  "timeOffRetry": "Try again",
+  "@timeOffRetry": {
+    "legal_review": "pending"
+  },
+  "timeOffSaving": "Saving…",
+  "@timeOffSaving": {
+    "legal_review": "pending"
+  },
+  "timeOffAdd": "Add days off",
+  "@timeOffAdd": {
+    "legal_review": "pending"
+  },
+  "timeOffEmpty": "You have no current blocks. Your weekly availability applies.",
+  "@timeOffEmpty": {
+    "legal_review": "pending"
+  },
+  "timeOffFullDays": "Full days · {zone}",
+  "@timeOffFullDays": {
+    "legal_review": "pending",
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
   }
 }

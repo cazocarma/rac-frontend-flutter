@@ -1,3 +1,4 @@
+import 'package:rentacompa/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rentacompa/features/match/ui/time_off_screen.dart';
@@ -53,6 +54,9 @@ void main() {
     final api = ScheduleApi();
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: TimeOffScreen(api: api, compaId: 'me'),
       ),
     );
@@ -78,6 +82,9 @@ void main() {
     final api = ScheduleApi()..fail = true;
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('es'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: TimeOffScreen(api: api, compaId: 'me'),
       ),
     );

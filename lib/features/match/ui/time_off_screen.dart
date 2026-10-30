@@ -1,8 +1,11 @@
+import '../../../l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/services/json_api.dart';
 import '../../../shared/widgets/design.dart';
+
+enum _TimeOffFailure { forbidden, load, conflict, save, tooLong }
 
 class TimeOffScreen extends StatefulWidget {
   const TimeOffScreen({super.key, this.api, this.compaId});
@@ -13,8 +16,10 @@ class TimeOffScreen extends StatefulWidget {
 }
 
 class _TimeOffScreenState extends State<TimeOffScreen> {
+  AppLocalizations get t => AppLocalizations.of(context)!;
   late final api = widget.api ?? JsonApi(Env.apiBase, apiPath: '/api/match');
-  String? owner, zone, error;
+  String? owner, zone;
+  _TimeOffFailure? error;
   DateTime? minimum, maximum;
   List<dynamic> items = [];
   bool loading = true, busy = false;
@@ -38,16 +43,28 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
       loading = true;
       error = null;
       items = [];
+      zone = null;
+      minimum = null;
+      maximum = null;
     });
     try {
       owner ??= widget.compaId ?? (await Services.user.me())['id'] as String;
       final data = await api.request(path);
+      // Publish a complete response together. A failed refresh must not leave
+      // stale date bounds or imply that an unobserved schedule has no blocks.
+      final nextItems = data['items'] as List;
+      final nextZone = data['zona_horaria'] as String;
+      final nextMinimum = DateTime.parse(data['fecha_min'] as String);
+      final nextMaximum = DateTime.parse(data['fecha_max'] as String);
+      if (nextZone.isEmpty || nextMaximum.isBefore(nextMinimum)) {
+        throw const FormatException('invalid_time_off_window');
+      }
       if (mounted) {
         setState(() {
-          items = data['items'] as List;
-          zone = data['zona_horaria'] as String;
-          minimum = DateTime.parse(data['fecha_min'] as String);
-          maximum = DateTime.parse(data['fecha_max'] as String);
+          items = nextItems;
+          zone = nextZone;
+          minimum = nextMinimum;
+          maximum = nextMaximum;
           loading = false;
         });
       }
@@ -56,8 +73,8 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
         setState(() {
           loading = false;
           error = e is ApiException && e.status == 403
-              ? 'Solo puedes gestionar tu propia agenda.'
-              : 'No pudimos cargar los días libres. Inténtalo nuevamente.';
+              ? _TimeOffFailure.forbidden
+              : _TimeOffFailure.load;
         });
       }
     }
@@ -81,8 +98,8 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
       if (mounted) {
         setState(
           () => error = e is ApiException && e.status == 409
-              ? 'El período se cruza con una reserva o con otro bloqueo. Tus reservas se conservan.'
-              : 'No pudimos guardar el cambio. Revisa las fechas e inténtalo nuevamente.',
+              ? _TimeOffFailure.conflict
+              : _TimeOffFailure.save,
         );
       }
     } finally {
@@ -98,8 +115,8 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
       context: context,
       firstDate: today,
       lastDate: maximum!,
-      helpText: 'Días sin disponibilidad',
-      saveText: 'Bloquear días',
+      helpText: t.timeOffPickerHelp,
+      saveText: t.timeOffPickerSave,
     );
     if (range == null || !mounted) {
       return;
@@ -114,7 +131,7 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
             )
             .inDays >=
         366) {
-      setState(() => error = 'Puedes bloquear hasta 366 días por período.');
+      setState(() => error = _TimeOffFailure.tooLong);
       return;
     }
     String date(DateTime d) =>
@@ -129,18 +146,21 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
     final yes = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Volver a ofrecer estos días?'),
+        title: Text(t.timeOffRemoveTitle),
         content: Text(
-          'Se quitará el bloqueo del ${item['desde']} al ${item['hasta']}. Se conserva tu horario semanal.',
+          t.timeOffRemoveMessage(
+            item['desde'] as String,
+            item['hasta'] as String,
+          ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Conservar'),
+            child: Text(t.timeOffKeep),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Quitar bloqueo'),
+            child: Text(t.timeOffRemove),
           ),
         ],
       ),
@@ -150,13 +170,21 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
     }
   }
 
+  String _errorText(_TimeOffFailure failure) => switch (failure) {
+    _TimeOffFailure.forbidden => t.timeOffForbidden,
+    _TimeOffFailure.load => t.timeOffLoadFailed,
+    _TimeOffFailure.conflict => t.timeOffConflict,
+    _TimeOffFailure.save => t.timeOffSaveFailed,
+    _TimeOffFailure.tooLong => t.timeOffTooLong,
+  };
+
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: const Text('Mis días libres'),
+      title: Text(t.timeOffTitle),
       actions: [
         IconButton(
-          tooltip: 'Actualizar días libres',
+          tooltip: t.timeOffRefresh,
           onPressed: loading || busy ? null : load,
           icon: const Icon(Icons.refresh),
         ),
@@ -169,44 +197,38 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
           : ListView(
               children: [
                 Text(
-                  'Una pausa en tu agenda',
+                  t.timeOffHeading,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Bloquea días completos para vacaciones u otros compromisos. Las fechas usan la zona de tu agenda${zone == null ? '' : ': $zone'}. El último día también queda bloqueado.',
+                  zone == null
+                      ? t.timeOffDescription
+                      : t.timeOffDescriptionWithZone(zone!),
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'No se cancelan reservas existentes. Si hay una pendiente o confirmada, resuélvela antes de bloquear ese período.',
-                ),
+                Text(t.timeOffReservationsHelp),
                 const SizedBox(height: 20),
                 if (error != null)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: Text(
-                      error!,
+                      _errorText(error!),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.error,
                       ),
                     ),
                   ),
                 if (zone == null)
-                  OutlinedButton(
-                    onPressed: load,
-                    child: const Text('Reintentar'),
-                  )
+                  OutlinedButton(onPressed: load, child: Text(t.timeOffRetry))
                 else
                   FilledButton.icon(
                     onPressed: busy ? null : add,
                     icon: const Icon(Icons.event_busy_outlined),
-                    label: Text(busy ? 'Guardando…' : 'Agregar días libres'),
+                    label: Text(busy ? t.timeOffSaving : t.timeOffAdd),
                   ),
                 const SizedBox(height: 24),
-                if (items.isEmpty && zone != null)
-                  const Text(
-                    'No tienes bloqueos vigentes. Se aplica tu disponibilidad semanal.',
-                  ),
+                if (items.isEmpty && zone != null) Text(t.timeOffEmpty),
                 for (final raw in items)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -215,10 +237,10 @@ class _TimeOffScreenState extends State<TimeOffScreen> {
                         isThreeLine: true,
                         title: Text('${raw['desde']} → ${raw['hasta']}'),
                         subtitle: Text(
-                          'Días completos · ${raw['zona_horaria']}',
+                          t.timeOffFullDays(raw['zona_horaria'] as String),
                         ),
                         trailing: IconButton(
-                          tooltip: 'Quitar bloqueo',
+                          tooltip: t.timeOffRemove,
                           onPressed: busy
                               ? null
                               : () => remove(Map<String, dynamic>.from(raw)),
