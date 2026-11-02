@@ -41,6 +41,7 @@ void main() {
           final name = find.widgetWithText(TextFormField, t.profileName);
           await tester.ensureVisible(name);
           await tester.enterText(name, 'Synthetic draft');
+          await tester.pumpAndSettle();
           final save = find.text(t.profileSave);
           await tester.ensureVisible(save);
           await tester.tap(save);
