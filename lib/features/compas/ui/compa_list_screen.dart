@@ -4,6 +4,7 @@ import '../../../shared/widgets/public_profile.dart';
 import '../../compas/data/compa_api.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/widgets/design.dart';
+import 'activity_labels.dart';
 import 'compa_detail_screen.dart';
 import '../../../shared/widgets/brand.dart';
 
@@ -15,11 +16,10 @@ class CompaListScreen extends StatefulWidget {
 }
 
 class _CompaListScreenState extends State<CompaListScreen> {
-  final search = TextEditingController();
   List<CompaCard> items = [];
-  List<String> skills = [];
+  List<CompaActivity> catalog = [];
   bool loading = true, more = true;
-  bool failed = false;
+  bool failed = false, catalogFailed = false;
   String filter = '';
   int request = 0;
   CompaApi get api => widget.api ?? Services.compas;
@@ -27,20 +27,17 @@ class _CompaListScreenState extends State<CompaListScreen> {
   void initState() {
     super.initState();
     load();
-    loadSkills();
+    loadCatalog();
   }
 
-  @override
-  void dispose() {
-    search.dispose();
-    super.dispose();
-  }
-
-  Future<void> loadSkills() async {
+  Future<void> loadCatalog() async {
+    setState(() => catalogFailed = false);
     try {
-      final data = await api.listSkills(limit: 20);
-      if (mounted) setState(() => skills = data);
-    } catch (_) {}
+      final data = await api.listActivities();
+      if (mounted) setState(() => catalog = data.items);
+    } catch (_) {
+      if (mounted) setState(() => catalogFailed = true);
+    }
   }
 
   Future<void> load({bool append = false}) async {
@@ -51,7 +48,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
     });
     try {
       final data = await api.list(
-        skill: filter,
+        category: filter,
         limit: 12,
         offset: append ? items.length : 0,
       );
@@ -69,11 +66,8 @@ class _CompaListScreenState extends State<CompaListScreen> {
     }
   }
 
-  void applyFilter(String value) {
-    setState(() {
-      filter = value.trim();
-      search.text = filter;
-    });
+  void applyFilter(String slug) {
+    setState(() => filter = slug);
     load();
   }
 
@@ -169,54 +163,37 @@ class _CompaListScreenState extends State<CompaListScreen> {
           const SizedBox(height: 6),
           Text(t.exploreQuestionHelp),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: search,
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    hintText: compact
-                        ? t.exploreSearchHintCompact
-                        : t.exploreSearchHint,
-                    prefixIcon: const Icon(Icons.search_rounded),
-                    suffixIcon: search.text.isEmpty
-                        ? null
-                        : IconButton(
-                            tooltip: t.exploreClearSearch,
-                            onPressed: () => applyFilter(''),
-                            icon: const Icon(Icons.close, size: 18),
-                          ),
-                  ),
-                  onChanged: (_) => setState(() {}),
-                  onSubmitted: applyFilter,
-                ),
-              ),
-              const SizedBox(width: 10),
-              FilledButton(
-                onPressed: loading ? null : () => applyFilter(search.text),
-                child: Text(t.exploreSearch),
-              ),
-            ],
-          ),
           const SizedBox(height: 12),
           SizedBox(
             height: 48,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                for (final skill in ['', ...skills])
+                for (final activity in [null, ...catalog])
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: ChoiceChip(
-                      label: Text(skill.isEmpty ? t.exploreAllSkills : skill),
-                      selected: filter == skill,
-                      onSelected: (_) => applyFilter(skill),
+                      label: Text(
+                        activity == null
+                            ? t.exploreAllActivities
+                            : activityName(t, activity.nameKey),
+                      ),
+                      tooltip: activity == null
+                          ? null
+                          : activityDescription(t, activity.nameKey),
+                      selected: filter == (activity?.slug ?? ''),
+                      onSelected: (_) => applyFilter(activity?.slug ?? ''),
                     ),
                   ),
               ],
             ),
           ),
+          if (catalogFailed)
+            TextButton.icon(
+              onPressed: loadCatalog,
+              icon: const Icon(Icons.refresh),
+              label: Text(t.exploreCatalogFailed),
+            ),
           const SizedBox(height: 24),
           Row(
             children: [
@@ -333,7 +310,7 @@ class _CompaListScreenState extends State<CompaListScreen> {
       excludeSemantics: true,
       label: t.exploreCardSemantics(
         compa.nombre,
-        compa.habilidades.join(', '),
+        compa.actividades.map((a) => activityName(t, a.nameKey)).join(', '),
         money(compa.tarifaHora),
         compa.ratingPromedio > 0
             ? t.exploreCardRating(compa.ratingPromedio.toStringAsFixed(1))
@@ -411,9 +388,9 @@ class _CompaListScreenState extends State<CompaListScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        compa.habilidades.isEmpty
-                            ? t.exploreNoSkills
-                            : compa.habilidades.join(' · '),
+                        compa.actividades
+                            .map((a) => activityName(t, a.nameKey))
+                            .join(' · '),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

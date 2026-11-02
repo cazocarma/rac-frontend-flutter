@@ -509,22 +509,6 @@
   "@compaRateInvalid": {
     "legal_review": "pending"
   },
-  "compaSkillsLabel": "Habilidades",
-  "@compaSkillsLabel": {
-    "legal_review": "pending"
-  },
-  "compaSkillsHint": "asado, cine, running",
-  "@compaSkillsHint": {
-    "legal_review": "pending"
-  },
-  "compaSkillsHelp": "Separa con comas. Entre 1 y 8 habilidades.",
-  "@compaSkillsHelp": {
-    "legal_review": "pending"
-  },
-  "compaSkillsInvalid": "Agrega de 1 a 8 habilidades, de 2 a 40 caracteres cada una.",
-  "@compaSkillsInvalid": {
-    "legal_review": "pending"
-  },
   "compaAvailabilityHeading": "Tu disponibilidad semanal",
   "@compaAvailabilityHeading": {
     "legal_review": "pending"
@@ -1487,28 +1471,8 @@
   "@exploreQuestion": {
     "legal_review": "pending"
   },
-  "exploreQuestionHelp": "Busca por habilidad o explora algo diferente.",
+  "exploreQuestionHelp": "Elige una actividad del catálogo.",
   "@exploreQuestionHelp": {
-    "legal_review": "pending"
-  },
-  "exploreSearchHintCompact": "Cine, running, café…",
-  "@exploreSearchHintCompact": {
-    "legal_review": "pending"
-  },
-  "exploreSearchHint": "Busca una habilidad: cine, running, café…",
-  "@exploreSearchHint": {
-    "legal_review": "pending"
-  },
-  "exploreClearSearch": "Limpiar búsqueda",
-  "@exploreClearSearch": {
-    "legal_review": "pending"
-  },
-  "exploreSearch": "Buscar",
-  "@exploreSearch": {
-    "legal_review": "pending"
-  },
-  "exploreAllSkills": "Todos",
-  "@exploreAllSkills": {
     "legal_review": "pending"
   },
   "exploreTitle": "Encuentra tu compa",
@@ -1588,10 +1552,6 @@
   },
   "exploreNewInRac": "Nuevo en RAC",
   "@exploreNewInRac": {
-    "legal_review": "pending"
-  },
-  "exploreNoSkills": "Conoce sus intereses",
-  "@exploreNoSkills": {
     "legal_review": "pending"
   },
   "exploreNoDescription": "Comparte una nueva experiencia.",
@@ -2790,5 +2750,135 @@
   "identityGo": "Verificar identidad",
   "@identityGo": {
     "legal_review": "pending"
+  },
+  "activityCinema": "Cine",
+  "@activityCinema": {
+    "legal_review": "pending"
+  },
+  "activityCinemaDescription": "Ver una película en una sala de cine.",
+  "@activityCinemaDescription": {
+    "legal_review": "pending"
+  },
+  "activityTheatre": "Teatro",
+  "@activityTheatre": {
+    "legal_review": "pending"
+  },
+  "activityTheatreDescription": "Asistir a una obra en un teatro.",
+  "@activityTheatreDescription": {
+    "legal_review": "pending"
+  },
+  "activityConcerts": "Conciertos",
+  "@activityConcerts": {
+    "legal_review": "pending"
+  },
+  "activityConcertsDescription": "Ir a un concierto o recital.",
+  "@activityConcertsDescription": {
+    "legal_review": "pending"
+  },
+  "activityMuseums": "Museos",
+  "@activityMuseums": {
+    "legal_review": "pending"
+  },
+  "activityMuseumsDescription": "Recorrer un museo o una exposición.",
+  "@activityMuseumsDescription": {
+    "legal_review": "pending"
+  },
+  "activityRunning": "Running",
+  "@activityRunning": {
+    "legal_review": "pending"
+  },
+  "activityRunningDescription": "Salir a correr en espacios públicos.",
+  "@activityRunningDescription": {
+    "legal_review": "pending"
+  },
+  "activityTrekking": "Trekking",
+  "@activityTrekking": {
+    "legal_review": "pending"
+  },
+  "activityTrekkingDescription": "Caminar por senderos y rutas al aire libre.",
+  "@activityTrekkingDescription": {
+    "legal_review": "pending"
+  },
+  "activityCycling": "Ciclismo",
+  "@activityCycling": {
+    "legal_review": "pending"
+  },
+  "activityCyclingDescription": "Andar en bicicleta por rutas o ciclovías.",
+  "@activityCyclingDescription": {
+    "legal_review": "pending"
+  },
+  "activityBoardGames": "Juegos de mesa",
+  "@activityBoardGames": {
+    "legal_review": "pending"
+  },
+  "activityBoardGamesDescription": "Jugar juegos de mesa en un café o local.",
+  "@activityBoardGamesDescription": {
+    "legal_review": "pending"
+  },
+  "activityKaraoke": "Karaoke",
+  "@activityKaraoke": {
+    "legal_review": "pending"
+  },
+  "activityKaraokeDescription": "Cantar en un local de karaoke.",
+  "@activityKaraokeDescription": {
+    "legal_review": "pending"
+  },
+  "activityLanguageExchange": "Conversación en idiomas",
+  "@activityLanguageExchange": {
+    "legal_review": "pending"
+  },
+  "activityLanguageExchangeDescription": "Practicar un idioma conversando.",
+  "@activityLanguageExchangeDescription": {
+    "legal_review": "pending"
+  },
+  "activityStreetPhotography": "Fotografía urbana",
+  "@activityStreetPhotography": {
+    "legal_review": "pending"
+  },
+  "activityStreetPhotographyDescription": "Fotografiar la ciudad en espacios públicos.",
+  "@activityStreetPhotographyDescription": {
+    "legal_review": "pending"
+  },
+  "activityRestaurants": "Gastronomía en restaurante",
+  "@activityRestaurants": {
+    "legal_review": "pending"
+  },
+  "activityRestaurantsDescription": "Compartir una comida en un restaurante.",
+  "@activityRestaurantsDescription": {
+    "legal_review": "pending"
+  },
+  "activityUnknown": "Actividad",
+  "@activityUnknown": {
+    "legal_review": "pending"
+  },
+  "exploreAllActivities": "Todas",
+  "@exploreAllActivities": {
+    "legal_review": "pending"
+  },
+  "exploreCatalogFailed": "No pudimos cargar las actividades. Inténtalo nuevamente.",
+  "@exploreCatalogFailed": {
+    "legal_review": "pending"
+  },
+  "compaActivitiesLabel": "Actividades que ofreces",
+  "@compaActivitiesLabel": {
+    "legal_review": "pending"
+  },
+  "compaActivitiesHelp": "Elige de 1 a {max} actividades del catálogo. Solo puedes ofrecer actividades de esta lista.",
+  "@compaActivitiesHelp": {
+    "legal_review": "pending",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "compaActivitiesInvalid": "Elige entre 1 y {max} actividades del catálogo.",
+  "@compaActivitiesInvalid": {
+    "legal_review": "pending",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
   }
 }

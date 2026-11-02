@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import '../../../shared/widgets/design.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/services/session.dart';
+import '../../compas/data/compa_api.dart';
+import '../../compas/ui/activity_labels.dart';
 
 class BecomeCompaScreen extends StatefulWidget {
-  const BecomeCompaScreen({super.key, this.api});
+  const BecomeCompaScreen({super.key, this.api, this.catalogApi});
   final UserApi? api;
+  final CompaApi? catalogApi;
   @override
   State<BecomeCompaScreen> createState() => _BecomeCompaScreenState();
 }
@@ -19,7 +22,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   final form = GlobalKey<FormState>();
   final description = TextEditingController();
   final rate = TextEditingController();
-  final skills = TextEditingController();
+  // Closed catalog: only these activities can be offered (P06).
+  ActivityCatalog? catalog;
+  final selected = <String>{};
+  final notes = <String, String>{};
+  bool activitiesInvalid = false;
   static const days = [
     'lunes',
     'martes',
@@ -60,6 +67,7 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   String? success;
 
   Future<void> load() async {
+    catalog = await (widget.catalogApi ?? Services.compas).listActivities();
     await api.me();
     final data = await api.ownCompa();
     if (!mounted || data == null) return;
@@ -67,7 +75,15 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
     final profile = data['profile'] as Map;
     description.text = profile['descripcion'] as String? ?? '';
     rate.text = '${profile['tarifa_hora']}';
-    skills.text = (profile['habilidades'] as List).join(', ');
+    selected.clear();
+    for (final raw in profile['actividades'] as List? ?? const []) {
+      final activity = CompaActivity.fromJson(
+        Map<String, dynamic>.from(raw as Map),
+      );
+      selected.add(activity.slug);
+      // Existing notes are kept when the selection is saved again.
+      if (activity.note != null) notes[activity.slug] = activity.note!;
+    }
     final availability = data['availability'] as Map;
     for (final day in days) {
       windows[day]!.text = (availability[day] as List? ?? []).join(', ');
@@ -81,7 +97,6 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   void dispose() {
     description.dispose();
     rate.dispose();
-    skills.dispose();
     for (final controller in windows.values) {
       controller.dispose();
     }
@@ -89,7 +104,11 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
   }
 
   Future<void> save() async {
-    if (busy || !form.currentState!.validate()) return;
+    final maximum = catalog?.maxPerCompa ?? 0;
+    setState(
+      () => activitiesInvalid = selected.isEmpty || selected.length > maximum,
+    );
+    if (busy || !form.currentState!.validate() || activitiesInvalid) return;
     final availability = <String, List<String>>{};
     for (final entry in windows.entries) {
       final values = entry.value.text
@@ -114,11 +133,10 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
       await api.saveCompa({
         'descripcion': description.text.trim(),
         'tarifa_hora': double.parse(rate.text.trim().replaceAll(',', '.')),
-        'habilidades': skills.text
-            .split(',')
-            .map((s) => s.trim())
-            .where((s) => s.isNotEmpty)
-            .toList(),
+        'actividades': [
+          for (final slug in selected)
+            {'slug': slug, if (notes[slug] != null) 'nota': notes[slug]},
+        ],
         'availability': availability,
         'zona_horaria': zone,
       });
@@ -264,35 +282,46 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
-                    controller: skills,
-                    enabled: !busy,
-                    maxLength: 350,
-                    decoration: InputDecoration(
-                      labelText: t.compaSkillsLabel,
-                      helperMaxLines: 3,
-                      errorMaxLines: 3,
-                      hintText: t.compaSkillsHint,
-                      helperText: t.compaSkillsHelp,
-                    ),
-                    validator: (v) {
-                      final values = (v ?? '')
-                          .split(',')
-                          .map((s) => s.trim())
-                          .where((s) => s.isNotEmpty)
-                          .toList();
-                      return values.isEmpty ||
-                              values.length > 8 ||
-                              values.any(
-                                (s) =>
-                                    s.runes.length < 2 ||
-                                    s.runes.length > 40 ||
-                                    s.contains(RegExp(r'[\r\n\t]')),
-                              )
-                          ? t.compaSkillsInvalid
-                          : null;
-                    },
+                  Text(
+                    t.compaActivitiesLabel,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  const SizedBox(height: 4),
+                  Text(t.compaActivitiesHelp(catalog?.maxPerCompa ?? 0)),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final activity
+                          in catalog?.items ?? <CompaActivity>[])
+                        FilterChip(
+                          label: Text(activityName(t, activity.nameKey)),
+                          tooltip: activityDescription(t, activity.nameKey),
+                          selected: selected.contains(activity.slug),
+                          onSelected: busy
+                              ? null
+                              : (value) => setState(() {
+                                  if (value) {
+                                    selected.add(activity.slug);
+                                  } else {
+                                    selected.remove(activity.slug);
+                                  }
+                                  activitiesInvalid = false;
+                                }),
+                        ),
+                    ],
+                  ),
+                  if (activitiesInvalid)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Text(
+                        t.compaActivitiesInvalid(catalog?.maxPerCompa ?? 0),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      ),
+                    ),
                   const SizedBox(height: 24),
                   Text(
                     t.compaAvailabilityHeading,

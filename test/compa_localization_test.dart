@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:rentacompa/features/compa_onboarding/ui/become_compa_screen.dart';
+import 'package:rentacompa/features/compas/data/compa_api.dart';
 import 'package:rentacompa/shared/services/user_api.dart';
 import 'package:rentacompa/l10n/generated/app_localizations.dart';
 
@@ -35,12 +36,21 @@ void main() {
             }),
           );
           addTearDown(api.client.close);
+          final catalogApi = CompaApi(
+            'https://fixture.invalid',
+            client: MockClient(
+              (request) async => http.Response(
+                '{"items":[{"slug":"cine","name_key":"activityCinema","description_key":"activityCinemaDescription","setting":"venue"},{"slug":"karaoke","name_key":"activityKaraoke","description_key":"activityKaraokeDescription","setting":"venue"}],"max_per_compa":5}',
+                200,
+              ),
+            ),
+          );
           await tester.pumpWidget(
             MaterialApp(
               locale: Locale(locale),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              home: BecomeCompaScreen(api: api),
+              home: BecomeCompaScreen(api: api, catalogApi: catalogApi),
             ),
           );
           await tester.pumpAndSettle();
@@ -54,7 +64,6 @@ void main() {
             'Synthetic description for localization checks.',
           );
           await tester.enterText(field(t.compaRateLabel), '12000');
-          await tester.enterText(field(t.compaSkillsLabel), 'cine');
           await tester.ensureVisible(field(t.compaMonday));
           await tester.enterText(field(t.compaMonday), '18:00-20:00');
           FocusManager.instance.primaryFocus?.unfocus();
@@ -67,6 +76,20 @@ void main() {
           await tester.pumpAndSettle();
           await tester.tap(activate);
           await tester.pumpAndSettle();
+          // Nothing outside the catalog, and nothing at all, can be offered.
+          expect(find.text(t.compaActivitiesInvalid(5)), findsOneWidget);
+          expect(saved, isNull);
+          expect(find.text(t.activityKaraoke), findsOneWidget);
+          await tester.ensureVisible(find.text(t.activityCinema));
+          await tester.tap(find.text(t.activityCinema));
+          await tester.pumpAndSettle();
+          await tester.ensureVisible(activate);
+          await tester.tap(activate);
+          await tester.pumpAndSettle();
+          expect(saved?['actividades'], [
+            {'slug': 'cine'},
+          ]);
+          expect(saved?.containsKey('habilidades'), isFalse);
           expect(saved?['availability'], {
             'lunes': ['18:00-20:00'],
           });

@@ -509,22 +509,6 @@
   "@compaRateInvalid": {
     "legal_review": "pending"
   },
-  "compaSkillsLabel": "Skills",
-  "@compaSkillsLabel": {
-    "legal_review": "pending"
-  },
-  "compaSkillsHint": "barbecue, movies, running",
-  "@compaSkillsHint": {
-    "legal_review": "pending"
-  },
-  "compaSkillsHelp": "Separate with commas. Between 1 and 8 skills.",
-  "@compaSkillsHelp": {
-    "legal_review": "pending"
-  },
-  "compaSkillsInvalid": "Add 1 to 8 skills, each between 2 and 40 characters.",
-  "@compaSkillsInvalid": {
-    "legal_review": "pending"
-  },
   "compaAvailabilityHeading": "Your weekly availability",
   "@compaAvailabilityHeading": {
     "legal_review": "pending"
@@ -1487,28 +1471,8 @@
   "@exploreQuestion": {
     "legal_review": "pending"
   },
-  "exploreQuestionHelp": "Search by skill or explore something different.",
+  "exploreQuestionHelp": "Choose an activity from the catalog.",
   "@exploreQuestionHelp": {
-    "legal_review": "pending"
-  },
-  "exploreSearchHintCompact": "Movies, running, coffee…",
-  "@exploreSearchHintCompact": {
-    "legal_review": "pending"
-  },
-  "exploreSearchHint": "Search for a skill: movies, running, coffee…",
-  "@exploreSearchHint": {
-    "legal_review": "pending"
-  },
-  "exploreClearSearch": "Clear search",
-  "@exploreClearSearch": {
-    "legal_review": "pending"
-  },
-  "exploreSearch": "Search",
-  "@exploreSearch": {
-    "legal_review": "pending"
-  },
-  "exploreAllSkills": "All",
-  "@exploreAllSkills": {
     "legal_review": "pending"
   },
   "exploreTitle": "Find your compa",
@@ -1588,10 +1552,6 @@
   },
   "exploreNewInRac": "New on RAC",
   "@exploreNewInRac": {
-    "legal_review": "pending"
-  },
-  "exploreNoSkills": "Get to know their interests",
-  "@exploreNoSkills": {
     "legal_review": "pending"
   },
   "exploreNoDescription": "Share a new experience.",
@@ -2790,5 +2750,135 @@
   "identityGo": "Verify identity",
   "@identityGo": {
     "legal_review": "pending"
+  },
+  "activityCinema": "Cinema",
+  "@activityCinema": {
+    "legal_review": "pending"
+  },
+  "activityCinemaDescription": "Watch a film at a cinema.",
+  "@activityCinemaDescription": {
+    "legal_review": "pending"
+  },
+  "activityTheatre": "Theatre",
+  "@activityTheatre": {
+    "legal_review": "pending"
+  },
+  "activityTheatreDescription": "Attend a play at a theatre.",
+  "@activityTheatreDescription": {
+    "legal_review": "pending"
+  },
+  "activityConcerts": "Concerts",
+  "@activityConcerts": {
+    "legal_review": "pending"
+  },
+  "activityConcertsDescription": "Go to a concert or recital.",
+  "@activityConcertsDescription": {
+    "legal_review": "pending"
+  },
+  "activityMuseums": "Museums",
+  "@activityMuseums": {
+    "legal_review": "pending"
+  },
+  "activityMuseumsDescription": "Visit a museum or an exhibition.",
+  "@activityMuseumsDescription": {
+    "legal_review": "pending"
+  },
+  "activityRunning": "Running",
+  "@activityRunning": {
+    "legal_review": "pending"
+  },
+  "activityRunningDescription": "Go running in public spaces.",
+  "@activityRunningDescription": {
+    "legal_review": "pending"
+  },
+  "activityTrekking": "Hiking",
+  "@activityTrekking": {
+    "legal_review": "pending"
+  },
+  "activityTrekkingDescription": "Walk trails and outdoor routes.",
+  "@activityTrekkingDescription": {
+    "legal_review": "pending"
+  },
+  "activityCycling": "Cycling",
+  "@activityCycling": {
+    "legal_review": "pending"
+  },
+  "activityCyclingDescription": "Ride a bike on routes or bike lanes.",
+  "@activityCyclingDescription": {
+    "legal_review": "pending"
+  },
+  "activityBoardGames": "Board games",
+  "@activityBoardGames": {
+    "legal_review": "pending"
+  },
+  "activityBoardGamesDescription": "Play board games at a café or venue.",
+  "@activityBoardGamesDescription": {
+    "legal_review": "pending"
+  },
+  "activityKaraoke": "Karaoke",
+  "@activityKaraoke": {
+    "legal_review": "pending"
+  },
+  "activityKaraokeDescription": "Sing at a karaoke venue.",
+  "@activityKaraokeDescription": {
+    "legal_review": "pending"
+  },
+  "activityLanguageExchange": "Language exchange",
+  "@activityLanguageExchange": {
+    "legal_review": "pending"
+  },
+  "activityLanguageExchangeDescription": "Practise a language through conversation.",
+  "@activityLanguageExchangeDescription": {
+    "legal_review": "pending"
+  },
+  "activityStreetPhotography": "Street photography",
+  "@activityStreetPhotography": {
+    "legal_review": "pending"
+  },
+  "activityStreetPhotographyDescription": "Photograph the city in public spaces.",
+  "@activityStreetPhotographyDescription": {
+    "legal_review": "pending"
+  },
+  "activityRestaurants": "Restaurant dining",
+  "@activityRestaurants": {
+    "legal_review": "pending"
+  },
+  "activityRestaurantsDescription": "Share a meal at a restaurant.",
+  "@activityRestaurantsDescription": {
+    "legal_review": "pending"
+  },
+  "activityUnknown": "Activity",
+  "@activityUnknown": {
+    "legal_review": "pending"
+  },
+  "exploreAllActivities": "All",
+  "@exploreAllActivities": {
+    "legal_review": "pending"
+  },
+  "exploreCatalogFailed": "We could not load the activities. Please try again.",
+  "@exploreCatalogFailed": {
+    "legal_review": "pending"
+  },
+  "compaActivitiesLabel": "Activities you offer",
+  "@compaActivitiesLabel": {
+    "legal_review": "pending"
+  },
+  "compaActivitiesHelp": "Choose 1 to {max} activities from the catalog. You can only offer activities from this list.",
+  "@compaActivitiesHelp": {
+    "legal_review": "pending",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "compaActivitiesInvalid": "Choose between 1 and {max} activities from the catalog.",
+  "@compaActivitiesInvalid": {
+    "legal_review": "pending",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
   }
 }

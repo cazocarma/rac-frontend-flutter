@@ -842,30 +842,6 @@ abstract class AppLocalizations {
   /// **'Ingresa un monto válido, con hasta 2 decimales.'**
   String get compaRateInvalid;
 
-  /// No description provided for @compaSkillsLabel.
-  ///
-  /// In es, this message translates to:
-  /// **'Habilidades'**
-  String get compaSkillsLabel;
-
-  /// No description provided for @compaSkillsHint.
-  ///
-  /// In es, this message translates to:
-  /// **'asado, cine, running'**
-  String get compaSkillsHint;
-
-  /// No description provided for @compaSkillsHelp.
-  ///
-  /// In es, this message translates to:
-  /// **'Separa con comas. Entre 1 y 8 habilidades.'**
-  String get compaSkillsHelp;
-
-  /// No description provided for @compaSkillsInvalid.
-  ///
-  /// In es, this message translates to:
-  /// **'Agrega de 1 a 8 habilidades, de 2 a 40 caracteres cada una.'**
-  String get compaSkillsInvalid;
-
   /// No description provided for @compaAvailabilityHeading.
   ///
   /// In es, this message translates to:
@@ -2219,38 +2195,8 @@ abstract class AppLocalizations {
   /// No description provided for @exploreQuestionHelp.
   ///
   /// In es, this message translates to:
-  /// **'Busca por habilidad o explora algo diferente.'**
+  /// **'Elige una actividad del catálogo.'**
   String get exploreQuestionHelp;
-
-  /// No description provided for @exploreSearchHintCompact.
-  ///
-  /// In es, this message translates to:
-  /// **'Cine, running, café…'**
-  String get exploreSearchHintCompact;
-
-  /// No description provided for @exploreSearchHint.
-  ///
-  /// In es, this message translates to:
-  /// **'Busca una habilidad: cine, running, café…'**
-  String get exploreSearchHint;
-
-  /// No description provided for @exploreClearSearch.
-  ///
-  /// In es, this message translates to:
-  /// **'Limpiar búsqueda'**
-  String get exploreClearSearch;
-
-  /// No description provided for @exploreSearch.
-  ///
-  /// In es, this message translates to:
-  /// **'Buscar'**
-  String get exploreSearch;
-
-  /// No description provided for @exploreAllSkills.
-  ///
-  /// In es, this message translates to:
-  /// **'Todos'**
-  String get exploreAllSkills;
 
   /// No description provided for @exploreTitle.
   ///
@@ -2334,12 +2280,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Nuevo en RAC'**
   String get exploreNewInRac;
-
-  /// No description provided for @exploreNoSkills.
-  ///
-  /// In es, this message translates to:
-  /// **'Conoce sus intereses'**
-  String get exploreNoSkills;
 
   /// No description provided for @exploreNoDescription.
   ///
@@ -3954,6 +3894,186 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Verificar identidad'**
   String get identityGo;
+
+  /// No description provided for @activityCinema.
+  ///
+  /// In es, this message translates to:
+  /// **'Cine'**
+  String get activityCinema;
+
+  /// No description provided for @activityCinemaDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver una película en una sala de cine.'**
+  String get activityCinemaDescription;
+
+  /// No description provided for @activityTheatre.
+  ///
+  /// In es, this message translates to:
+  /// **'Teatro'**
+  String get activityTheatre;
+
+  /// No description provided for @activityTheatreDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Asistir a una obra en un teatro.'**
+  String get activityTheatreDescription;
+
+  /// No description provided for @activityConcerts.
+  ///
+  /// In es, this message translates to:
+  /// **'Conciertos'**
+  String get activityConcerts;
+
+  /// No description provided for @activityConcertsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir a un concierto o recital.'**
+  String get activityConcertsDescription;
+
+  /// No description provided for @activityMuseums.
+  ///
+  /// In es, this message translates to:
+  /// **'Museos'**
+  String get activityMuseums;
+
+  /// No description provided for @activityMuseumsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Recorrer un museo o una exposición.'**
+  String get activityMuseumsDescription;
+
+  /// No description provided for @activityRunning.
+  ///
+  /// In es, this message translates to:
+  /// **'Running'**
+  String get activityRunning;
+
+  /// No description provided for @activityRunningDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Salir a correr en espacios públicos.'**
+  String get activityRunningDescription;
+
+  /// No description provided for @activityTrekking.
+  ///
+  /// In es, this message translates to:
+  /// **'Trekking'**
+  String get activityTrekking;
+
+  /// No description provided for @activityTrekkingDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Caminar por senderos y rutas al aire libre.'**
+  String get activityTrekkingDescription;
+
+  /// No description provided for @activityCycling.
+  ///
+  /// In es, this message translates to:
+  /// **'Ciclismo'**
+  String get activityCycling;
+
+  /// No description provided for @activityCyclingDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Andar en bicicleta por rutas o ciclovías.'**
+  String get activityCyclingDescription;
+
+  /// No description provided for @activityBoardGames.
+  ///
+  /// In es, this message translates to:
+  /// **'Juegos de mesa'**
+  String get activityBoardGames;
+
+  /// No description provided for @activityBoardGamesDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Jugar juegos de mesa en un café o local.'**
+  String get activityBoardGamesDescription;
+
+  /// No description provided for @activityKaraoke.
+  ///
+  /// In es, this message translates to:
+  /// **'Karaoke'**
+  String get activityKaraoke;
+
+  /// No description provided for @activityKaraokeDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Cantar en un local de karaoke.'**
+  String get activityKaraokeDescription;
+
+  /// No description provided for @activityLanguageExchange.
+  ///
+  /// In es, this message translates to:
+  /// **'Conversación en idiomas'**
+  String get activityLanguageExchange;
+
+  /// No description provided for @activityLanguageExchangeDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Practicar un idioma conversando.'**
+  String get activityLanguageExchangeDescription;
+
+  /// No description provided for @activityStreetPhotography.
+  ///
+  /// In es, this message translates to:
+  /// **'Fotografía urbana'**
+  String get activityStreetPhotography;
+
+  /// No description provided for @activityStreetPhotographyDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Fotografiar la ciudad en espacios públicos.'**
+  String get activityStreetPhotographyDescription;
+
+  /// No description provided for @activityRestaurants.
+  ///
+  /// In es, this message translates to:
+  /// **'Gastronomía en restaurante'**
+  String get activityRestaurants;
+
+  /// No description provided for @activityRestaurantsDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Compartir una comida en un restaurante.'**
+  String get activityRestaurantsDescription;
+
+  /// No description provided for @activityUnknown.
+  ///
+  /// In es, this message translates to:
+  /// **'Actividad'**
+  String get activityUnknown;
+
+  /// No description provided for @exploreAllActivities.
+  ///
+  /// In es, this message translates to:
+  /// **'Todas'**
+  String get exploreAllActivities;
+
+  /// No description provided for @exploreCatalogFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar las actividades. Inténtalo nuevamente.'**
+  String get exploreCatalogFailed;
+
+  /// No description provided for @compaActivitiesLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Actividades que ofreces'**
+  String get compaActivitiesLabel;
+
+  /// No description provided for @compaActivitiesHelp.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige de 1 a {max} actividades del catálogo. Solo puedes ofrecer actividades de esta lista.'**
+  String compaActivitiesHelp(int max);
+
+  /// No description provided for @compaActivitiesInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige entre 1 y {max} actividades del catálogo.'**
+  String compaActivitiesInvalid(int max);
 }
 
 class _AppLocalizationsDelegate

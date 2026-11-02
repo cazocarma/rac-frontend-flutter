@@ -426,19 +426,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ingresa un monto válido, con hasta 2 decimales.';
 
   @override
-  String get compaSkillsLabel => 'Habilidades';
-
-  @override
-  String get compaSkillsHint => 'asado, cine, running';
-
-  @override
-  String get compaSkillsHelp => 'Separa con comas. Entre 1 y 8 habilidades.';
-
-  @override
-  String get compaSkillsInvalid =>
-      'Agrega de 1 a 8 habilidades, de 2 a 40 caracteres cada una.';
-
-  @override
   String get compaAvailabilityHeading => 'Tu disponibilidad semanal';
 
   @override
@@ -1187,23 +1174,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exploreQuestion => '¿Qué te gustaría hacer?';
 
   @override
-  String get exploreQuestionHelp =>
-      'Busca por habilidad o explora algo diferente.';
-
-  @override
-  String get exploreSearchHintCompact => 'Cine, running, café…';
-
-  @override
-  String get exploreSearchHint => 'Busca una habilidad: cine, running, café…';
-
-  @override
-  String get exploreClearSearch => 'Limpiar búsqueda';
-
-  @override
-  String get exploreSearch => 'Buscar';
-
-  @override
-  String get exploreAllSkills => 'Todos';
+  String get exploreQuestionHelp => 'Elige una actividad del catálogo.';
 
   @override
   String get exploreTitle => 'Encuentra tu compa';
@@ -1262,9 +1233,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exploreNewInRac => 'Nuevo en RAC';
-
-  @override
-  String get exploreNoSkills => 'Conoce sus intereses';
 
   @override
   String get exploreNoDescription => 'Comparte una nueva experiencia.';
@@ -2205,4 +2173,108 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get identityGo => 'Verificar identidad';
+
+  @override
+  String get activityCinema => 'Cine';
+
+  @override
+  String get activityCinemaDescription =>
+      'Ver una película en una sala de cine.';
+
+  @override
+  String get activityTheatre => 'Teatro';
+
+  @override
+  String get activityTheatreDescription => 'Asistir a una obra en un teatro.';
+
+  @override
+  String get activityConcerts => 'Conciertos';
+
+  @override
+  String get activityConcertsDescription => 'Ir a un concierto o recital.';
+
+  @override
+  String get activityMuseums => 'Museos';
+
+  @override
+  String get activityMuseumsDescription =>
+      'Recorrer un museo o una exposición.';
+
+  @override
+  String get activityRunning => 'Running';
+
+  @override
+  String get activityRunningDescription =>
+      'Salir a correr en espacios públicos.';
+
+  @override
+  String get activityTrekking => 'Trekking';
+
+  @override
+  String get activityTrekkingDescription =>
+      'Caminar por senderos y rutas al aire libre.';
+
+  @override
+  String get activityCycling => 'Ciclismo';
+
+  @override
+  String get activityCyclingDescription =>
+      'Andar en bicicleta por rutas o ciclovías.';
+
+  @override
+  String get activityBoardGames => 'Juegos de mesa';
+
+  @override
+  String get activityBoardGamesDescription =>
+      'Jugar juegos de mesa en un café o local.';
+
+  @override
+  String get activityKaraoke => 'Karaoke';
+
+  @override
+  String get activityKaraokeDescription => 'Cantar en un local de karaoke.';
+
+  @override
+  String get activityLanguageExchange => 'Conversación en idiomas';
+
+  @override
+  String get activityLanguageExchangeDescription =>
+      'Practicar un idioma conversando.';
+
+  @override
+  String get activityStreetPhotography => 'Fotografía urbana';
+
+  @override
+  String get activityStreetPhotographyDescription =>
+      'Fotografiar la ciudad en espacios públicos.';
+
+  @override
+  String get activityRestaurants => 'Gastronomía en restaurante';
+
+  @override
+  String get activityRestaurantsDescription =>
+      'Compartir una comida en un restaurante.';
+
+  @override
+  String get activityUnknown => 'Actividad';
+
+  @override
+  String get exploreAllActivities => 'Todas';
+
+  @override
+  String get exploreCatalogFailed =>
+      'No pudimos cargar las actividades. Inténtalo nuevamente.';
+
+  @override
+  String get compaActivitiesLabel => 'Actividades que ofreces';
+
+  @override
+  String compaActivitiesHelp(int max) {
+    return 'Elige de 1 a $max actividades del catálogo. Solo puedes ofrecer actividades de esta lista.';
+  }
+
+  @override
+  String compaActivitiesInvalid(int max) {
+    return 'Elige entre 1 y $max actividades del catálogo.';
+  }
 }

@@ -2,6 +2,30 @@ import 'package:rentacompa/shared/services/document_http_client.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+/// An offered activity from the closed catalog; names are i18n keys.
+class CompaActivity {
+  const CompaActivity({required this.slug, required this.nameKey, this.note});
+  final String slug, nameKey;
+  final String? note;
+  factory CompaActivity.fromJson(Map<String, dynamic> j) => CompaActivity(
+    slug: j['slug'] as String,
+    nameKey: j['name_key'] as String,
+    note: j['nota'] as String?,
+  );
+  Map<String, dynamic> toJson() => {
+    'slug': slug,
+    'name_key': nameKey,
+    if (note != null) 'nota': note,
+  };
+}
+
+/// The public catalog and the per-compa maximum served by user.
+class ActivityCatalog {
+  const ActivityCatalog({required this.items, required this.maxPerCompa});
+  final List<CompaActivity> items;
+  final int maxPerCompa;
+}
+
 class CompaCard {
   final String id;
   final String usuarioId;
@@ -9,7 +33,7 @@ class CompaCard {
   final double tarifaHora;
   final double ratingPromedio;
   final int cantidadResenas;
-  final List<String> habilidades;
+  final List<CompaActivity> actividades;
   final String? fotoUrl;
   final String? descripcion;
   final String biografia;
@@ -21,7 +45,7 @@ class CompaCard {
     required this.nombre,
     required this.tarifaHora,
     required this.ratingPromedio,
-    required this.habilidades,
+    required this.actividades,
     this.fotoUrl,
     this.descripcion,
     this.cantidadResenas = 0,
@@ -36,7 +60,10 @@ class CompaCard {
     tarifaHora: _asDouble(j['tarifa_hora'] ?? j['tarifaHora']),
     ratingPromedio: _asDouble(j['rating_promedio'] ?? j['ratingPromedio']),
     cantidadResenas: (j['cantidad_resenas'] as num?)?.toInt() ?? 0,
-    habilidades: _asStringList(j['habilidades']),
+    actividades: [
+      for (final item in (j['actividades'] as List? ?? const []))
+        CompaActivity.fromJson(Map<String, dynamic>.from(item as Map)),
+    ],
     fotoUrl: j['foto_url'] as String?,
     descripcion: j['descripcion'] as String?,
     biografia: j['biografia'] as String? ?? '',
@@ -50,7 +77,7 @@ class CompaCard {
     'tarifa_hora': tarifaHora,
     'rating_promedio': ratingPromedio,
     'cantidad_resenas': cantidadResenas,
-    'habilidades': habilidades,
+    'actividades': [for (final a in actividades) a.toJson()],
     'foto_url': fotoUrl,
     'descripcion': descripcion,
     'biografia': biografia,
@@ -106,7 +133,7 @@ class CompaApi {
   }
 
   Future<List<CompaCard>> list({
-    String? skill,
+    String? category,
     int limit = 20,
     int offset = 0,
     Map<String, String>? headers,
@@ -114,7 +141,7 @@ class CompaApi {
     final uri = _u('/api/user/compas', {
       'limit': '$limit',
       'offset': '$offset',
-      if (skill != null && skill.isNotEmpty) 'skill': skill,
+      if (category != null && category.isNotEmpty) 'categoria': category,
     });
 
     final res = await _client
@@ -159,31 +186,22 @@ class CompaApi {
     );
   }
 
-  Future<List<String>> listSkills({
-    String q = '',
-    int limit = 20,
-    Map<String, String>? headers,
-  }) async {
-    final uri = _u('/api/user/skills', {
-      if (q.isNotEmpty) 'q': q,
-      'limit': '$limit',
-    });
-
+  /// The closed activity catalog; there is no free-text skill search.
+  Future<ActivityCatalog> listActivities({Map<String, String>? headers}) async {
+    final uri = _u('/api/user/activities');
     final res = await _client
         .get(uri, headers: {...defaultHeaders, ...?headers})
         .timeout(const Duration(seconds: 15));
-
-    if (res.statusCode == 204 || res.body.trim().isEmpty) {
-      return <String>[];
-    }
     if (res.statusCode != 200) {
-      throw Exception('GET ${uri.path} → HTTP ${res.statusCode}: ${res.body}');
+      throw Exception('GET ${uri.path} → HTTP ${res.statusCode}');
     }
-
-    final decoded = jsonDecode(res.body);
-    if (decoded is List) {
-      return decoded.map((e) => e.toString()).toList();
-    }
-    return <String>[];
+    final decoded = jsonDecode(res.body) as Map<String, dynamic>;
+    return ActivityCatalog(
+      items: [
+        for (final item in decoded['items'] as List)
+          CompaActivity.fromJson(Map<String, dynamic>.from(item as Map)),
+      ],
+      maxPerCompa: (decoded['max_per_compa'] as num).toInt(),
+    );
   }
 }

@@ -17,7 +17,7 @@ Map<String, dynamic> compa(
   int i, {
   double rating = 4.5,
   int reviews = 1,
-  List<String> skills = const ['cine'],
+  List<String> activities = const ['cine'],
   String? description = 'Plan tranquilo',
 }) => {
   'id': 'compa-$i',
@@ -26,7 +26,13 @@ Map<String, dynamic> compa(
   'tarifa_hora': 12000,
   'rating_promedio': rating,
   'cantidad_resenas': reviews,
-  'habilidades': skills,
+  'actividades': [
+    for (final slug in activities)
+      {
+        'slug': slug,
+        'name_key': slug == 'cine' ? 'activityCinema' : 'activityUnknown',
+      },
+  ],
   'descripcion': description,
 };
 
@@ -35,12 +41,21 @@ class CompaFixture {
   List<Map<String, dynamic>> cards = [compa(1)];
   Map<String, dynamic> detail = compa(1);
   bool fail = false;
+  final categories = <String?>[];
   late final api = CompaApi(
     'https://api.example',
     client: MockClient((request) async {
       if (fail) return http.Response('{"error":"private upstream"}', 503);
       final path = request.url.path;
-      if (path == '/api/user/skills') return http.Response('["cine"]', 200);
+      if (path == '/api/user/activities') {
+        return http.Response(
+          '{"items":[{"slug":"cine","name_key":"activityCinema","description_key":"activityCinemaDescription","setting":"venue"},{"slug":"karaoke","name_key":"activityKaraoke","description_key":"activityKaraokeDescription","setting":"venue"}],"max_per_compa":5}',
+          200,
+        );
+      }
+      if (path == '/api/user/compas') {
+        categories.add(request.url.queryParameters['categoria']);
+      }
       if (path == '/api/user/compas') {
         return http.Response(jsonEncode(cards), 200);
       }
@@ -121,12 +136,14 @@ void main() {
           final t = l10n(tester, CompaListScreen);
           expect(find.text(t.exploreTitle), findsOneWidget);
           expect(find.text(t.exploreCount(1, '1')), findsOneWidget);
-          expect(find.text(t.exploreAllSkills), findsOneWidget);
+          expect(find.text(t.exploreAllActivities), findsOneWidget);
+          expect(find.text(t.activityKaraoke), findsOneWidget);
+          expect(find.byType(TextField), findsNothing);
           expect(
             find.bySemanticsLabel(
               t.exploreCardSemantics(
                 'Compa 1',
-                'cine',
+                t.activityCinema,
                 '\$12.000',
                 t.exploreCardRating('4.5'),
               ),
@@ -139,12 +156,21 @@ void main() {
           );
           fixture.cards = [
             for (var i = 1; i <= 12; i++)
-              compa(i, rating: 0, skills: const [], description: null),
+              compa(
+                i,
+                rating: 0,
+                activities: const ['future_slug'],
+                description: null,
+              ),
           ];
           await tester.tap(find.byTooltip(t.exploreRefresh));
           await tester.pumpAndSettle();
           expect(find.text(t.exploreCount(12, '12+')), findsOneWidget);
-          expect(find.text(t.exploreNoSkills), findsWidgets);
+          expect(find.text(t.activityUnknown), findsWidgets);
+          await tester.ensureVisible(find.text(t.activityCinema).first);
+          await tester.tap(find.widgetWithText(ChoiceChip, t.activityCinema));
+          await tester.pumpAndSettle();
+          expect(fixture.categories.last, 'cine');
           expect(find.text(t.exploreNoDescription), findsWidgets);
           expect(find.text(t.exploreNewInRac), findsWidgets);
           expect(find.text(t.exploreShowMore), findsOneWidget);

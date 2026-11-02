@@ -5,6 +5,7 @@ import '../../../shared/widgets/design.dart';
 import '../../../shared/widgets/public_profile.dart';
 import '../../booking/ui/booking_screen.dart';
 import '../data/compa_api.dart';
+import 'activity_labels.dart';
 
 class CompaDetailScreen extends StatefulWidget {
   const CompaDetailScreen({super.key, required this.api, required this.id});
@@ -76,9 +77,13 @@ class _CompaDetailScreenState extends State<CompaDetailScreen> {
                         spacing: 8,
                         runSpacing: 8,
                         children: [
-                          for (final skill in c.habilidades)
+                          for (final activity in c.actividades)
                             Chip(
-                              label: Text(skill),
+                              label: Text(
+                                activity.note == null
+                                    ? activityName(t, activity.nameKey)
+                                    : '${activityName(t, activity.nameKey)} · ${activity.note}',
+                              ),
                               avatar: const Icon(
                                 Icons.auto_awesome_outlined,
                                 size: 16,
