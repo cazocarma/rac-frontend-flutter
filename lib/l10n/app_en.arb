@@ -2872,6 +2872,8 @@
       }
     }
   },
+  "publicContactNotAllowed": "Remove phone numbers, emails, links and social media contact details from public fields to save. You can keep your private phone number in your account.",
+  "@publicContactNotAllowed": {"legal_review": "pending"},
   "compaActivitiesInvalid": "Choose between 1 and {max} activities from the catalog.",
   "@compaActivitiesInvalid": {
     "legal_review": "pending",

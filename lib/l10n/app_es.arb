@@ -2872,6 +2872,8 @@
       }
     }
   },
+  "publicContactNotAllowed": "Quita los teléfonos, correos, enlaces y datos de redes sociales de los campos públicos para guardar. Tu teléfono privado puede permanecer en tu cuenta.",
+  "@publicContactNotAllowed": {"legal_review": "pending"},
   "compaActivitiesInvalid": "Elige entre 1 y {max} actividades del catálogo.",
   "@compaActivitiesInvalid": {
     "legal_review": "pending",

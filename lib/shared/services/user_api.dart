@@ -6,6 +6,19 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:rentacompa/shared/services/session.dart';
 
+void _checkPublicContactResponse(http.Response response) {
+  if (response.statusCode != 400) return;
+  dynamic body;
+  try {
+    body = jsonDecode(response.body);
+  } on FormatException {
+    return;
+  }
+  if (body is Map && body['error'] == 'public_contact_not_allowed') {
+    throw const ApiException(400, 'public_contact_not_allowed');
+  }
+}
+
 enum ProfilePhotoFailure {
   load,
   tooLarge,
@@ -160,6 +173,7 @@ class UserApi {
       },
       body: jsonEncode(payload),
     );
+    _checkPublicContactResponse(response);
     if (response.statusCode == 428) {
       final decoded = jsonDecode(response.body);
       if (decoded is Map &&
@@ -198,6 +212,7 @@ class UserApi {
       },
       body: jsonEncode(payload),
     );
+    _checkPublicContactResponse(response);
     if (response.statusCode != 200) {
       throw StateError(
         response.statusCode == 400

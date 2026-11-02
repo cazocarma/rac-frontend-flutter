@@ -2274,6 +2274,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get publicContactNotAllowed =>
+      'Quita los teléfonos, correos, enlaces y datos de redes sociales de los campos públicos para guardar. Tu teléfono privado puede permanecer en tu cuenta.';
+
+  @override
   String compaActivitiesInvalid(int max) {
     return 'Elige entre 1 y $max actividades del catálogo.';
   }

@@ -161,6 +161,9 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
             needsSession = true;
             error = t.compaSessionPending;
           } else if (e is ApiException &&
+              e.code == 'public_contact_not_allowed') {
+            error = t.publicContactNotAllowed;
+          } else if (e is ApiException &&
               e.status == 428 &&
               e.code == 'IDENTITY_VERIFICATION_REQUIRED') {
             identityRequired = true;

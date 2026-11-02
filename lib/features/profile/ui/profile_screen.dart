@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../shared/widgets/public_profile.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/services/user_api.dart';
+import '../../../shared/services/json_api.dart';
 import '../../../shared/widgets/design.dart';
 import '../../../shared/widgets/brand.dart';
 
@@ -35,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Map<String, dynamic>? me;
   bool loading = true, saving = false, dirty = false;
   bool loadFailed = false, saveFailed = false;
+  bool publicContactRejected = false;
   ProfilePhotoFailure? photoError;
   Uint8List? photo;
   bool photoBusy = false;
@@ -97,6 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       saving = true;
       saveFailed = false;
+      publicContactRejected = false;
     });
     final payload = <String, dynamic>{
       for (final key in fields.keys) key: fields[key]!.text.trim(),
@@ -117,9 +120,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(t.profileSaved)));
-    } catch (_) {
+    } catch (error) {
       if (mounted) {
-        setState(() => saveFailed = true);
+        setState(() {
+          saveFailed = true;
+          publicContactRejected =
+              error is ApiException &&
+              error.code == 'public_contact_not_allowed';
+        });
       }
     } finally {
       if (mounted) setState(() => saving = false);
@@ -552,8 +560,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     vertical: 16,
                                   ),
                                   child: Text(
-                                    t.profileSaveFailed,
-                                    semanticsLabel: t.profileSaveFailed,
+                                    publicContactRejected
+                                        ? t.publicContactNotAllowed
+                                        : t.profileSaveFailed,
+                                    semanticsLabel: publicContactRejected
+                                        ? t.publicContactNotAllowed
+                                        : t.profileSaveFailed,
                                     style: TextStyle(
                                       color: Theme.of(
                                         context,

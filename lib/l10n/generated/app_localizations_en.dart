@@ -2257,6 +2257,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get publicContactNotAllowed =>
+      'Remove phone numbers, emails, links and social media contact details from public fields to save. You can keep your private phone number in your account.';
+
+  @override
   String compaActivitiesInvalid(int max) {
     return 'Choose between 1 and $max activities from the catalog.';
   }

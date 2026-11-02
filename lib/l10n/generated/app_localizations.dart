@@ -4069,6 +4069,12 @@ abstract class AppLocalizations {
   /// **'Elige de 1 a {max} actividades del catálogo. Solo puedes ofrecer actividades de esta lista.'**
   String compaActivitiesHelp(int max);
 
+  /// No description provided for @publicContactNotAllowed.
+  ///
+  /// In es, this message translates to:
+  /// **'Quita los teléfonos, correos, enlaces y datos de redes sociales de los campos públicos para guardar. Tu teléfono privado puede permanecer en tu cuenta.'**
+  String get publicContactNotAllowed;
+
   /// No description provided for @compaActivitiesInvalid.
   ///
   /// In es, this message translates to:
