@@ -4080,6 +4080,150 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Elige entre 1 y {max} actividades del catálogo.'**
   String compaActivitiesInvalid(int max);
+
+  /// No description provided for @listingReviewTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisión de tu publicación'**
+  String get listingReviewTitle;
+
+  /// No description provided for @listingReviewRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar estado'**
+  String get listingReviewRefresh;
+
+  /// No description provided for @listingReviewWhy.
+  ///
+  /// In es, this message translates to:
+  /// **'Una persona del equipo revisa cada envío.'**
+  String get listingReviewWhy;
+
+  /// No description provided for @listingReviewWhat.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviamos tu nombre, biografía, intereses, descripción, actividades y tarifa tal como están guardados. Enviar no publica cambios por sí solo.'**
+  String get listingReviewWhat;
+
+  /// No description provided for @listingReviewNoDeadline.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tenemos un plazo de revisión comprometido.'**
+  String get listingReviewNoDeadline;
+
+  /// No description provided for @listingReviewLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el estado de revisión.'**
+  String get listingReviewLoadFailed;
+
+  /// No description provided for @listingReviewRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get listingReviewRetry;
+
+  /// No description provided for @listingReviewNone.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil aún no se ha enviado a revisión.'**
+  String get listingReviewNone;
+
+  /// No description provided for @listingReviewPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu envío está en revisión.'**
+  String get listingReviewPending;
+
+  /// No description provided for @listingReviewApproved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu último envío fue aprobado.'**
+  String get listingReviewApproved;
+
+  /// No description provided for @listingReviewRejected.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu último envío no fue aprobado. Revisa tu perfil y vuelve a enviarlo.'**
+  String get listingReviewRejected;
+
+  /// No description provided for @listingReviewChanges.
+  ///
+  /// In es, this message translates to:
+  /// **'Se pidieron cambios en tu último envío. Ajusta tu perfil y vuelve a enviarlo.'**
+  String get listingReviewChanges;
+
+  /// No description provided for @listingReviewSent.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviado a revisión.'**
+  String get listingReviewSent;
+
+  /// No description provided for @listingReviewHasApproved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tienes una versión aprobada registrada.'**
+  String get listingReviewHasApproved;
+
+  /// No description provided for @listingReviewContact.
+  ///
+  /// In es, this message translates to:
+  /// **'Quita teléfonos, correos, enlaces o usuarios de redes de tu perfil antes de enviarlo.'**
+  String get listingReviewContact;
+
+  /// No description provided for @listingReviewInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil no cumple los requisitos de envío: revisa nombre, descripción (mínimo 20 caracteres), actividades y tarifa.'**
+  String get listingReviewInvalid;
+
+  /// No description provided for @listingReviewConflict.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu publicación cambió mientras enviabas. Revisa el estado actualizado y vuelve a intentarlo.'**
+  String get listingReviewConflict;
+
+  /// No description provided for @listingReviewNeedsProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Primero completa tu perfil compa.'**
+  String get listingReviewNeedsProfile;
+
+  /// No description provided for @listingReviewIdentity.
+  ///
+  /// In es, this message translates to:
+  /// **'Necesitas verificar tu identidad antes de enviar.'**
+  String get listingReviewIdentity;
+
+  /// No description provided for @listingReviewUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'El envío a revisión aún no está disponible.'**
+  String get listingReviewUnavailable;
+
+  /// No description provided for @listingReviewSubmitFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos enviar tu perfil. Inténtalo nuevamente.'**
+  String get listingReviewSubmitFailed;
+
+  /// No description provided for @listingReviewEditProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar perfil compa'**
+  String get listingReviewEditProfile;
+
+  /// No description provided for @listingReviewSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar a revisión'**
+  String get listingReviewSubmit;
+
+  /// No description provided for @listingReviewResubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Reemplazar envío pendiente'**
+  String get listingReviewResubmit;
 }
 
 class _AppLocalizationsDelegate

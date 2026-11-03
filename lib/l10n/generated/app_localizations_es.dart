@@ -2281,4 +2281,88 @@ class AppLocalizationsEs extends AppLocalizations {
   String compaActivitiesInvalid(int max) {
     return 'Elige entre 1 y $max actividades del catálogo.';
   }
+
+  @override
+  String get listingReviewTitle => 'Revisión de tu publicación';
+
+  @override
+  String get listingReviewRefresh => 'Actualizar estado';
+
+  @override
+  String get listingReviewWhy => 'Una persona del equipo revisa cada envío.';
+
+  @override
+  String get listingReviewWhat =>
+      'Enviamos tu nombre, biografía, intereses, descripción, actividades y tarifa tal como están guardados. Enviar no publica cambios por sí solo.';
+
+  @override
+  String get listingReviewNoDeadline =>
+      'Aún no tenemos un plazo de revisión comprometido.';
+
+  @override
+  String get listingReviewLoadFailed =>
+      'No pudimos cargar el estado de revisión.';
+
+  @override
+  String get listingReviewRetry => 'Reintentar';
+
+  @override
+  String get listingReviewNone => 'Tu perfil aún no se ha enviado a revisión.';
+
+  @override
+  String get listingReviewPending => 'Tu envío está en revisión.';
+
+  @override
+  String get listingReviewApproved => 'Tu último envío fue aprobado.';
+
+  @override
+  String get listingReviewRejected =>
+      'Tu último envío no fue aprobado. Revisa tu perfil y vuelve a enviarlo.';
+
+  @override
+  String get listingReviewChanges =>
+      'Se pidieron cambios en tu último envío. Ajusta tu perfil y vuelve a enviarlo.';
+
+  @override
+  String get listingReviewSent => 'Enviado a revisión.';
+
+  @override
+  String get listingReviewHasApproved =>
+      'Tienes una versión aprobada registrada.';
+
+  @override
+  String get listingReviewContact =>
+      'Quita teléfonos, correos, enlaces o usuarios de redes de tu perfil antes de enviarlo.';
+
+  @override
+  String get listingReviewInvalid =>
+      'Tu perfil no cumple los requisitos de envío: revisa nombre, descripción (mínimo 20 caracteres), actividades y tarifa.';
+
+  @override
+  String get listingReviewConflict =>
+      'Tu publicación cambió mientras enviabas. Revisa el estado actualizado y vuelve a intentarlo.';
+
+  @override
+  String get listingReviewNeedsProfile => 'Primero completa tu perfil compa.';
+
+  @override
+  String get listingReviewIdentity =>
+      'Necesitas verificar tu identidad antes de enviar.';
+
+  @override
+  String get listingReviewUnavailable =>
+      'El envío a revisión aún no está disponible.';
+
+  @override
+  String get listingReviewSubmitFailed =>
+      'No pudimos enviar tu perfil. Inténtalo nuevamente.';
+
+  @override
+  String get listingReviewEditProfile => 'Editar perfil compa';
+
+  @override
+  String get listingReviewSubmit => 'Enviar a revisión';
+
+  @override
+  String get listingReviewResubmit => 'Reemplazar envío pendiente';
 }

@@ -74,7 +74,8 @@ class JsonApi {
       );
     }
     final decoded = jsonDecode(response.body) as Map<String, dynamic>;
-    if (response.statusCode != 200 && response.statusCode != 201) {
+    // 202 acknowledges work accepted for later human review.
+    if (response.statusCode < 200 || response.statusCode > 202) {
       final pending = DocumentPrecondition.parse(response.statusCode, decoded);
       if (pending != null) onDocumentsRequired(pending);
       if (response.statusCode == 428 &&

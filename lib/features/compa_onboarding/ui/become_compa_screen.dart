@@ -389,6 +389,17 @@ class _BecomeCompaScreenState extends State<BecomeCompaScreen> {
                         label: Text(t.identityGo),
                       ),
                     ),
+                  // Saving the profile is separate from asking for review (P08).
+                  if (published)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: OutlinedButton.icon(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/listing-review'),
+                        icon: const Icon(Icons.fact_check_outlined),
+                        label: Text(t.listingReviewTitle),
+                      ),
+                    ),
                   if (success != null)
                     Card(
                       child: Padding(

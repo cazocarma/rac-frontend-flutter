@@ -2264,4 +2264,88 @@ class AppLocalizationsEn extends AppLocalizations {
   String compaActivitiesInvalid(int max) {
     return 'Choose between 1 and $max activities from the catalog.';
   }
+
+  @override
+  String get listingReviewTitle => 'Your listing review';
+
+  @override
+  String get listingReviewRefresh => 'Refresh status';
+
+  @override
+  String get listingReviewWhy => 'A team member reviews each submission.';
+
+  @override
+  String get listingReviewWhat =>
+      'We send your name, biography, interests, description, activities and rate as saved. Sending does not publish changes by itself.';
+
+  @override
+  String get listingReviewNoDeadline =>
+      'We do not have a committed review time yet.';
+
+  @override
+  String get listingReviewLoadFailed => 'We couldn\'t load the review status.';
+
+  @override
+  String get listingReviewRetry => 'Retry';
+
+  @override
+  String get listingReviewNone =>
+      'Your profile has not been sent for review yet.';
+
+  @override
+  String get listingReviewPending => 'Your submission is under review.';
+
+  @override
+  String get listingReviewApproved => 'Your latest submission was approved.';
+
+  @override
+  String get listingReviewRejected =>
+      'Your latest submission was not approved. Review your profile and send it again.';
+
+  @override
+  String get listingReviewChanges =>
+      'Changes were requested on your latest submission. Adjust your profile and send it again.';
+
+  @override
+  String get listingReviewSent => 'Sent for review.';
+
+  @override
+  String get listingReviewHasApproved =>
+      'You have an approved version on record.';
+
+  @override
+  String get listingReviewContact =>
+      'Remove phone numbers, emails, links or social handles from your profile before sending it.';
+
+  @override
+  String get listingReviewInvalid =>
+      'Your profile does not meet the submission requirements: check name, description (at least 20 characters), activities and rate.';
+
+  @override
+  String get listingReviewConflict =>
+      'Your listing changed while you were sending it. Check the updated status and try again.';
+
+  @override
+  String get listingReviewNeedsProfile => 'Complete your compa profile first.';
+
+  @override
+  String get listingReviewIdentity =>
+      'You need to verify your identity before sending.';
+
+  @override
+  String get listingReviewUnavailable =>
+      'Sending for review is not available yet.';
+
+  @override
+  String get listingReviewSubmitFailed =>
+      'We couldn\'t send your profile. Please try again.';
+
+  @override
+  String get listingReviewEditProfile => 'Edit compa profile';
+
+  @override
+  String get listingReviewSubmit => 'Send for review';
+
+  @override
+  String get listingReviewResubmit => 'Replace pending submission';
 }

@@ -2873,7 +2873,9 @@
     }
   },
   "publicContactNotAllowed": "Remove phone numbers, emails, links and social media contact details from public fields to save. You can keep your private phone number in your account.",
-  "@publicContactNotAllowed": {"legal_review": "pending"},
+  "@publicContactNotAllowed": {
+    "legal_review": "pending"
+  },
   "compaActivitiesInvalid": "Choose between 1 and {max} activities from the catalog.",
   "@compaActivitiesInvalid": {
     "legal_review": "pending",
@@ -2882,5 +2884,101 @@
         "type": "int"
       }
     }
+  },
+  "listingReviewTitle": "Your listing review",
+  "@listingReviewTitle": {
+    "legal_review": "pending"
+  },
+  "listingReviewRefresh": "Refresh status",
+  "@listingReviewRefresh": {
+    "legal_review": "pending"
+  },
+  "listingReviewWhy": "A team member reviews each submission.",
+  "@listingReviewWhy": {
+    "legal_review": "pending"
+  },
+  "listingReviewWhat": "We send your name, biography, interests, description, activities and rate as saved. Sending does not publish changes by itself.",
+  "@listingReviewWhat": {
+    "legal_review": "pending"
+  },
+  "listingReviewNoDeadline": "We do not have a committed review time yet.",
+  "@listingReviewNoDeadline": {
+    "legal_review": "pending"
+  },
+  "listingReviewLoadFailed": "We couldn't load the review status.",
+  "@listingReviewLoadFailed": {
+    "legal_review": "pending"
+  },
+  "listingReviewRetry": "Retry",
+  "@listingReviewRetry": {
+    "legal_review": "pending"
+  },
+  "listingReviewNone": "Your profile has not been sent for review yet.",
+  "@listingReviewNone": {
+    "legal_review": "pending"
+  },
+  "listingReviewPending": "Your submission is under review.",
+  "@listingReviewPending": {
+    "legal_review": "pending"
+  },
+  "listingReviewApproved": "Your latest submission was approved.",
+  "@listingReviewApproved": {
+    "legal_review": "pending"
+  },
+  "listingReviewRejected": "Your latest submission was not approved. Review your profile and send it again.",
+  "@listingReviewRejected": {
+    "legal_review": "pending"
+  },
+  "listingReviewChanges": "Changes were requested on your latest submission. Adjust your profile and send it again.",
+  "@listingReviewChanges": {
+    "legal_review": "pending"
+  },
+  "listingReviewSent": "Sent for review.",
+  "@listingReviewSent": {
+    "legal_review": "pending"
+  },
+  "listingReviewHasApproved": "You have an approved version on record.",
+  "@listingReviewHasApproved": {
+    "legal_review": "pending"
+  },
+  "listingReviewContact": "Remove phone numbers, emails, links or social handles from your profile before sending it.",
+  "@listingReviewContact": {
+    "legal_review": "pending"
+  },
+  "listingReviewInvalid": "Your profile does not meet the submission requirements: check name, description (at least 20 characters), activities and rate.",
+  "@listingReviewInvalid": {
+    "legal_review": "pending"
+  },
+  "listingReviewConflict": "Your listing changed while you were sending it. Check the updated status and try again.",
+  "@listingReviewConflict": {
+    "legal_review": "pending"
+  },
+  "listingReviewNeedsProfile": "Complete your compa profile first.",
+  "@listingReviewNeedsProfile": {
+    "legal_review": "pending"
+  },
+  "listingReviewIdentity": "You need to verify your identity before sending.",
+  "@listingReviewIdentity": {
+    "legal_review": "pending"
+  },
+  "listingReviewUnavailable": "Sending for review is not available yet.",
+  "@listingReviewUnavailable": {
+    "legal_review": "pending"
+  },
+  "listingReviewSubmitFailed": "We couldn't send your profile. Please try again.",
+  "@listingReviewSubmitFailed": {
+    "legal_review": "pending"
+  },
+  "listingReviewEditProfile": "Edit compa profile",
+  "@listingReviewEditProfile": {
+    "legal_review": "pending"
+  },
+  "listingReviewSubmit": "Send for review",
+  "@listingReviewSubmit": {
+    "legal_review": "pending"
+  },
+  "listingReviewResubmit": "Replace pending submission",
+  "@listingReviewResubmit": {
+    "legal_review": "pending"
   }
 }

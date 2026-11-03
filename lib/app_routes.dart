@@ -19,6 +19,7 @@ import 'package:rentacompa/shared/widgets/design.dart';
 import 'main.dart';
 import 'shared/widgets/brand.dart';
 import 'features/identity/ui/identity_screen.dart';
+import 'features/listing/ui/listing_review_screen.dart';
 import 'features/plans/ui/plans_screen.dart';
 import 'features/alerts/ui/notifications_screen.dart';
 import 'features/compa_onboarding/ui/become_compa_screen.dart';
@@ -263,6 +264,7 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
     ),
   ),
   '/become-compa': (_) => const BecomeCompaScreen(),
+  '/listing-review': (_) => const AuthGuard(child: ListingReviewScreen()),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),
   '/time-off': (_) => const AuthGuard(child: TimeOffScreen()),
