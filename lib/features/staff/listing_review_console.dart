@@ -126,7 +126,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
   }
 
   Future<void> approve([EditorialDecisionAttempt? recovered]) async {
-    if (!sameAccount ||
+    if (busy ||
+        !sameAccount ||
         recoveryFailed ||
         !widget.permissions.contains('listings.review')) {
       return;

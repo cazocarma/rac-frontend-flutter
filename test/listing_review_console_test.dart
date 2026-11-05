@@ -80,6 +80,8 @@ void main() {
         tester.element(find.byType(ListingReviewConsole)),
       )!;
       await tester.tap(find.text(t.staffListingRetry));
+      // The old callback can still be present before the next frame.
+      await tester.tap(find.text(t.staffListingRetry));
       await tester.pumpAndSettle();
       expect(writes, 1);
       expect(find.text(t.staffListingApproved), findsOneWidget);
