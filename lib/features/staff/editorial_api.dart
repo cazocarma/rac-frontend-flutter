@@ -25,10 +25,32 @@ class EditorialCommand {
     if (body['event_id'] is! String || (body['event_id'] as String).isEmpty) {
       throw ArgumentError('A stable event_id is required');
     }
+    if (isListing) {
+      final version = body['expected_version'];
+      if (body.length != 3 ||
+          !_reference.hasMatch(body['event_id'] as String) ||
+          body['event_id'] == '00000000-0000-0000-0000-000000000000' ||
+          version is! String ||
+          !RegExp(r'^(0|[1-9][0-9]{0,18})$').hasMatch(version) ||
+          BigInt.parse(version) > BigInt.parse('9223372036854775806') ||
+          body['sha256'] is! String ||
+          !RegExp(r'^[0-9a-f]{64}$').hasMatch(body['sha256'] as String)) {
+        throw ArgumentError('Exact listing command required');
+      }
+    }
   }
 
   final String path;
   final String encodedBody;
+  static final _reference = RegExp(
+    r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+  );
+  static final _listing = RegExp(
+    r'^listings/revisions/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/(photo-approval|approval)$',
+  );
+  bool get isListing => path.startsWith('/api/admin/staff/listings/');
+  String? get listingRevision =>
+      _listing.firstMatch(path.substring('/api/admin/staff/'.length))?.group(1);
 
   static String _path(String operation) {
     const operations = {
@@ -40,7 +62,10 @@ class EditorialCommand {
       'assessments/reviews',
       'assessments/publications',
     };
-    if (!operations.contains(operation)) {
+    final listing = _listing.firstMatch(operation);
+    if (!operations.contains(operation) &&
+        (listing == null ||
+            listing.group(1) == '00000000-0000-0000-0000-000000000000')) {
       throw ArgumentError('Unknown editorial operation');
     }
     return '/api/admin/staff/$operation';
@@ -210,23 +235,52 @@ class EditorialApi {
 
   Future<Map<String, dynamic>> listingWrite(
     String path,
-    String encodedBody,
-  ) async {
+    String encodedBody, {
+    String? expectedAccountScope,
+  }) async {
     if (!path.startsWith('/api/admin/staff/listings/revisions/')) {
       throw ArgumentError('Listing review route required');
     }
+    final scope = expectedAccountScope ?? photoAccountScope;
+    if (scope == null || scope != photoAccountScope)
+      throw const EditorialFailure(401, uncertain: false);
     final headers = await _headers();
+    if (scope != photoAccountScope)
+      throw const EditorialFailure(401, uncertain: false);
     try {
       // Exactly one attempt; a manual retry resends the same frozen command.
-      return _decode(
-        await _send('POST', path, headers, encodedBody),
-        write: true,
+      final response = await _send(
+        'POST',
+        path,
+        headers,
+        encodedBody,
+        1048576,
+        path.endsWith('/photo-approval')
+            ? const Duration(seconds: 40)
+            : const Duration(seconds: 8),
       );
+      if (scope != photoAccountScope ||
+          headers['Authorization'] != 'Bearer ${await session.accessToken()}' ||
+          scope != photoAccountScope) {
+        throw const EditorialFailure(401, uncertain: true);
+      }
+      return _decode(response, write: true);
     } on EditorialFailure {
       rethrow;
     } catch (_) {
       throw const EditorialFailure(null, uncertain: true);
     }
+  }
+
+  Future<bool> photoApprovalEnabled() async {
+    final scope = photoAccountScope;
+    if (scope == null) throw const EditorialFailure(401, uncertain: false);
+    final result = await _get('/api/admin/staff/listings/capabilities');
+    if (scope != photoAccountScope)
+      throw const EditorialFailure(401, uncertain: false);
+    if (result.length != 1 || result['photo_approval_enabled'] is! bool)
+      throw const EditorialFailure(200, uncertain: false);
+    return result['photo_approval_enabled'] as bool;
   }
 
   Future<Map<String, dynamic>> _get(String path) async {
@@ -302,7 +356,9 @@ class EditorialApi {
         response.statusCode,
         code: code,
         uncertain:
-            write && !{400, 401, 403, 404, 409}.contains(response.statusCode),
+            write &&
+            (code == 'staff_step_up_required' ||
+                !{400, 401, 403, 404, 409}.contains(response.statusCode)),
       );
     }
     try {

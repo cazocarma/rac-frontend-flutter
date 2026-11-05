@@ -9,8 +9,10 @@ import 'editorial_api.dart';
 /// encryption on web and hardened secure storage on native platforms.
 /// It is isolated from token manager buckets and never cleared by OIDC logout.
 class EditorialJournal {
-  EditorialJournal({OidcStore? store}) : store = store ?? createAuthStore();
+  EditorialJournal({OidcStore? store, this.managerId = manager})
+    : store = store ?? createAuthStore();
   final OidcStore store;
+  final String managerId;
   static const manager = 'rac-editorial-recovery-v1';
   static const prefix = 'command-';
   String commandKey(EditorialCommand command) {
@@ -36,7 +38,7 @@ class EditorialJournal {
     final existing = await store.get(
       OidcStoreNamespace.secureTokens,
       key: key,
-      managerId: manager,
+      managerId: managerId,
     );
     final encoded = jsonEncode({
       'version': 1,
@@ -53,7 +55,7 @@ class EditorialJournal {
     await store.set(
       OidcStoreNamespace.secureTokens,
       key: key,
-      managerId: manager,
+      managerId: managerId,
       value: encoded,
     );
   }
@@ -69,7 +71,7 @@ class EditorialJournal {
     final raw = await store.get(
       OidcStoreNamespace.secureTokens,
       key: key,
-      managerId: manager,
+      managerId: managerId,
     );
     if (raw == null) return null;
     final value = jsonDecode(raw);
@@ -99,12 +101,12 @@ class EditorialJournal {
     await store.init();
     final keys = await store.getAllKeys(
       OidcStoreNamespace.secureTokens,
-      managerId: manager,
+      managerId: managerId,
     );
     final values = await store.getMany(
       OidcStoreNamespace.secureTokens,
       keys: keys.where((key) => key.startsWith(prefix)).toSet(),
-      managerId: manager,
+      managerId: managerId,
     );
     final commands = <EditorialCommand>[];
     for (final raw in values.values) {
@@ -152,7 +154,7 @@ class EditorialJournal {
     await store.remove(
       OidcStoreNamespace.secureTokens,
       key: commandKey(command),
-      managerId: manager,
+      managerId: managerId,
     );
   }
 }

@@ -96,10 +96,31 @@ class EditorialDecisionAttempt {
         issuer: issuer,
         origin: origin,
       );
+      if (command.isListing &&
+          (api.session.claims['sub'] != subject ||
+              api.session.claims['iss'] != issuer ||
+              api.origin.origin != origin)) {
+        throw const EditorialFailure(401, uncertain: false);
+      }
       dispatched = true;
-      final result = await api.submit(command);
+      final result = command.isListing
+          ? await api.listingWrite(
+              command.path,
+              command.encodedBody,
+              expectedAccountScope: jsonEncode([issuer, subject]),
+            )
+          : await api.submit(command);
       final body = jsonDecode(command.encodedBody) as Map<String, dynamic>;
-      if (command.path == '/api/admin/staff/documents/activations') {
+      if (command.isListing) {
+        final expected =
+            BigInt.parse(body['expected_version'] as String) + BigInt.one;
+        if (result['event_id'] != body['event_id'] ||
+            result['revision_id'] != command.listingRevision ||
+            result['decision'] != 'approved' ||
+            result['listing_version'] != expected.toString()) {
+          throw const EditorialFailure(200, uncertain: true);
+        }
+      } else if (command.path == '/api/admin/staff/documents/activations') {
         final expected = body['expected_version'];
         if (expected is! int ||
             expected < 0 ||
