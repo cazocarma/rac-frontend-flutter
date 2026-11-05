@@ -4578,6 +4578,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos abrir esa foto. Intenta elegirla de nuevo.'**
   String get photoUploadPickerFailed;
+
+  /// No description provided for @photoUploadUsePhoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar en este envío'**
+  String get photoUploadUsePhoto;
+
+  /// No description provided for @listingReviewPhotoSelected.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto preparada seleccionada. Se revisará junto con tu publicación.'**
+  String get listingReviewPhotoSelected;
+
+  /// No description provided for @listingReviewPhotoRemove.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar foto de este envío'**
+  String get listingReviewPhotoRemove;
+
+  /// No description provided for @listingReviewPhotoUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.'**
+  String get listingReviewPhotoUnavailable;
 }
 
 class _AppLocalizationsDelegate

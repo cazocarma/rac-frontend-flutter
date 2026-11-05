@@ -3241,5 +3241,21 @@
   "photoUploadPickerFailed": "We could not open that photo. Try choosing it again.",
   "@photoUploadPickerFailed": {
     "legal_review": "pending"
+  },
+  "photoUploadUsePhoto": "Use in this submission",
+  "@photoUploadUsePhoto": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoSelected": "Prepared photo selected. It will be reviewed with your listing.",
+  "@listingReviewPhotoSelected": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoRemove": "Remove photo from this submission",
+  "@listingReviewPhotoRemove": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoUnavailable": "The selected photo is not ready for this submission. Check its status or choose another.",
+  "@listingReviewPhotoUnavailable": {
+    "legal_review": "pending"
   }
 }

@@ -2583,4 +2583,18 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get photoUploadPickerFailed =>
       'No pudimos abrir esa foto. Intenta elegirla de nuevo.';
+
+  @override
+  String get photoUploadUsePhoto => 'Usar en este envío';
+
+  @override
+  String get listingReviewPhotoSelected =>
+      'Foto preparada seleccionada. Se revisará junto con tu publicación.';
+
+  @override
+  String get listingReviewPhotoRemove => 'Quitar foto de este envío';
+
+  @override
+  String get listingReviewPhotoUnavailable =>
+      'La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.';
 }

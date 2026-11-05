@@ -25,10 +25,12 @@ class PhotoUploadScreen extends StatefulWidget {
     this.api,
     this.pointer,
     this.choosePhoto,
+    this.selectForListing = false,
   });
   final PhotoUploadApi? api;
   final PhotoUploadPointer? pointer;
   final Future<SelectedReviewPhoto?> Function()? choosePhoto;
+  final bool selectForListing;
   @override
   State<PhotoUploadScreen> createState() => _PhotoUploadScreenState();
 }
@@ -356,6 +358,19 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                 spacing: 12,
                 runSpacing: 12,
                 children: [
+                  if (active &&
+                      widget.selectForListing &&
+                      current?.state == PhotoSourceState.awaitingReview)
+                    FilledButton.icon(
+                      onPressed: busy || !Navigator.of(context).canPop()
+                          ? null
+                          : () {
+                              if (checkOwner())
+                                Navigator.of(context).pop(current!.assetId);
+                            },
+                      icon: const Icon(Icons.check),
+                      label: Text(t.photoUploadUsePhoto),
+                    ),
                   if (active)
                     OutlinedButton.icon(
                       onPressed: busy ? null : choose,

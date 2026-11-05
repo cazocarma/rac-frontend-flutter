@@ -3241,5 +3241,21 @@
   "photoUploadPickerFailed": "No pudimos abrir esa foto. Intenta elegirla de nuevo.",
   "@photoUploadPickerFailed": {
     "legal_review": "pending"
+  },
+  "photoUploadUsePhoto": "Usar en este envío",
+  "@photoUploadUsePhoto": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoSelected": "Foto preparada seleccionada. Se revisará junto con tu publicación.",
+  "@listingReviewPhotoSelected": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoRemove": "Quitar foto de este envío",
+  "@listingReviewPhotoRemove": {
+    "legal_review": "pending"
+  },
+  "listingReviewPhotoUnavailable": "La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.",
+  "@listingReviewPhotoUnavailable": {
+    "legal_review": "pending"
   }
 }

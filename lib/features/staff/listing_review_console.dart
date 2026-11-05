@@ -208,6 +208,11 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
               const SizedBox(height: 12),
               if (current['is_self'] == true)
                 Text(t.staffListingSelf)
+              else if (((current['payload'] as Map?)?['photo_version']
+                          as String? ??
+                      '')
+                  .isNotEmpty)
+                Text(t.staffListingPhoto)
               else if (current['is_pending'] == true &&
                   widget.permissions.contains('listings.review'))
                 FilledButton.icon(

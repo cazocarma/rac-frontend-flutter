@@ -76,6 +76,53 @@ class FakePhotoUploadApi extends PhotoUploadApi {
 }
 
 void main() {
+  testWidgets(
+    'only a prepared photo can be explicitly selected for a listing',
+    (tester) async {
+      final pointer = MemoryPhotoPointer()..id = savedRequest;
+      final api = FakePhotoUploadApi(PhotoScope(), pointer)
+        ..current = const PhotoSourceStatus(
+          photoId,
+          PhotoSourceState.awaitingReview,
+        );
+      String? chosen;
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: TextButton(
+                onPressed: () async {
+                  chosen = await Navigator.of(context).push<String>(
+                    MaterialPageRoute(
+                      builder: (_) => PhotoUploadScreen(
+                        api: api,
+                        pointer: pointer,
+                        selectForListing: true,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('open fixture'),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.tap(find.text('open fixture'));
+      await tester.pumpAndSettle();
+      final t = AppLocalizations.of(
+        tester.element(find.byType(PhotoUploadScreen)),
+      )!;
+      expect(chosen, isNull);
+      await tester.tap(find.text(t.photoUploadUsePhoto));
+      await tester.pumpAndSettle();
+      expect(chosen, photoId);
+      expect(api.uploads, 0);
+      expect(api.confirms, 0);
+    },
+  );
   final bytes = File('test/fixtures/review_photo.png').readAsBytesSync();
   Future<AppLocalizations> show(
     WidgetTester tester,

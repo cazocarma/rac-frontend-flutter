@@ -37,6 +37,64 @@ class FakeListingApi extends ListingApi {
 const draft = {'display_name': 'Cris A', 'description': 'Synthetic fixture'};
 
 void main() {
+  test('existing review photo is retained without using a mutable avatar', () {
+    const photo = '22222222-2222-4222-8222-222222222222';
+    final listing = OwnListing.fromJson({
+      'state': 'published',
+      'version': '3',
+      'pending': null,
+      'published': {
+        'listing': {'photo_version': photo},
+      },
+    });
+    expect(listing.photoVersion, photo);
+    expect(
+      () => OwnListing.fromJson({
+        'state': 'unpublished',
+        'version': '1',
+        'pending': {
+          'listing': {'photo_version': 'https://external.invalid/photo'},
+        },
+      }),
+      throwsFormatException,
+    );
+  });
+  testWidgets(
+    'photo selection is explicit and submission keeps its exact reference',
+    (tester) async {
+      const photo = '22222222-2222-4222-8222-222222222222';
+      final api = FakeListingApi();
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: ListingReviewScreen(
+            api: api,
+            draft: () async => draft,
+            selectPhoto: () async => photo,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final t = AppLocalizations.of(
+        tester.element(find.byType(ListingReviewScreen)),
+      )!;
+      expect(api.sent, isEmpty);
+      await tester.tap(find.text(t.photoUploadOpen));
+      await tester.pumpAndSettle();
+      expect(find.text(t.listingReviewPhotoSelected), findsOneWidget);
+      expect(api.sent, isEmpty);
+      await tester.ensureVisible(find.text(t.listingReviewSubmit));
+      await tester.tap(find.text(t.listingReviewSubmit));
+      await tester.pumpAndSettle();
+      expect(api.sent.single.$2['photo_version'], photo);
+      await tester.tap(find.text(t.listingReviewPhotoRemove));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(t.listingReviewResubmit));
+      await tester.pumpAndSettle();
+      expect(api.sent.last.$2['photo_version'], '');
+    },
+  );
   test('draft maps the saved profile without photo or area', () {
     final result = listingDraft(
       {

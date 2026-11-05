@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/config/env.dart';
 import '../../../shared/di/services.dart';
 import '../../../shared/services/json_api.dart';
+import '../../../shared/services/request_id.dart';
 import '../../../shared/widgets/design.dart';
 import '../data/listing_api.dart';
 
@@ -15,14 +16,21 @@ enum _ListingFailure {
   identity,
   unavailable,
   submit,
+  photo,
 }
 
 /// P08. Sending the saved profile asks for a human review; it never publishes
 /// directly and no review time is promised while D07 has no commitment.
 class ListingReviewScreen extends StatefulWidget {
-  const ListingReviewScreen({super.key, this.api, this.draft});
+  const ListingReviewScreen({
+    super.key,
+    this.api,
+    this.draft,
+    this.selectPhoto,
+  });
   final ListingApi? api;
   final Future<Map<String, dynamic>> Function()? draft;
+  final Future<String?> Function()? selectPhoto;
   @override
   State<ListingReviewScreen> createState() => _ListingReviewScreenState();
 }
@@ -32,6 +40,8 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
   OwnListing? listing;
   bool loading = true, busy = false, sent = false;
   _ListingFailure? failure;
+  String? selectedPhoto;
+  bool photoTouched = false;
 
   @override
   void initState() {
@@ -59,7 +69,11 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
     });
     try {
       final value = await api.state();
-      if (mounted) setState(() => listing = value);
+      if (mounted)
+        setState(() {
+          listing = value;
+          if (!photoTouched) selectedPhoto = value?.photoVersion;
+        });
     } catch (_) {
       if (mounted) setState(() => failure = _ListingFailure.load);
     } finally {
@@ -74,7 +88,12 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
       sent = false;
     });
     try {
-      final draft = await (widget.draft ?? savedDraft)();
+      final saved = await (widget.draft ?? savedDraft)();
+      final draft = {
+        ...saved,
+        if (photoTouched || selectedPhoto != null)
+          'photo_version': selectedPhoto ?? '',
+      };
       await api.submit(listing?.version ?? '0', draft);
       if (!mounted) return;
       setState(() => sent = true);
@@ -91,6 +110,7 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
           'compa_profile_required' => _ListingFailure.needsProfile,
           'IDENTITY_VERIFICATION_REQUIRED' => _ListingFailure.identity,
           'listing_submission_unavailable' => _ListingFailure.unavailable,
+          'listing_photo_unavailable' => _ListingFailure.photo,
           _ when status == 503 => _ListingFailure.unavailable,
           _ => _ListingFailure.submit,
         };
@@ -183,10 +203,23 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
                         t.listingReviewNeedsProfile,
                       _ListingFailure.identity => t.listingReviewIdentity,
                       _ListingFailure.unavailable => t.listingReviewUnavailable,
+                      _ListingFailure.photo => t.listingReviewPhotoUnavailable,
                       _ => t.listingReviewSubmitFailed,
                     }, style: TextStyle(color: colors.error)),
                   ),
                 const SizedBox(height: 16),
+                if (selectedPhoto != null) ...[
+                  Text(t.listingReviewPhotoSelected),
+                  TextButton(
+                    onPressed: busy
+                        ? null
+                        : () => setState(() {
+                            selectedPhoto = null;
+                            photoTouched = true;
+                          }),
+                    child: Text(t.listingReviewPhotoRemove),
+                  ),
+                ],
                 Wrap(
                   spacing: 12,
                   runSpacing: 12,
@@ -194,9 +227,20 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
                     OutlinedButton.icon(
                       onPressed: busy
                           ? null
-                          : () => Navigator.of(
-                              context,
-                            ).pushNamed('/photo-review'),
+                          : () async {
+                              final id =
+                                  await (widget.selectPhoto?.call() ??
+                                      Navigator.of(context).pushNamed<String>(
+                                        '/photo-review',
+                                        arguments: 'select-for-listing',
+                                      ));
+                              if (mounted && id != null && isRequestId(id)) {
+                                setState(() {
+                                  selectedPhoto = id;
+                                  photoTouched = true;
+                                });
+                              }
+                            },
                       icon: const Icon(Icons.add_photo_alternate_outlined),
                       label: Text(t.photoUploadOpen),
                     ),

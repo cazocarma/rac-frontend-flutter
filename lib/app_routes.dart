@@ -266,7 +266,12 @@ Map<String, WidgetBuilder> buildRoutes({String requestedRoute = '/'}) => {
   ),
   '/become-compa': (_) => const BecomeCompaScreen(),
   '/listing-review': (_) => const AuthGuard(child: ListingReviewScreen()),
-  '/photo-review': (_) => const AuthGuard(child: PhotoUploadScreen()),
+  '/photo-review': (context) => AuthGuard(
+    child: PhotoUploadScreen(
+      selectForListing:
+          ModalRoute.of(context)?.settings.arguments == 'select-for-listing',
+    ),
+  ),
   '/chat': (_) => const AuthGuard(child: ChatListScreen()),
   '/payments': (_) => const PlansScreen(),
   '/time-off': (_) => const AuthGuard(child: TimeOffScreen()),

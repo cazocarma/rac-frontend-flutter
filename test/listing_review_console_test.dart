@@ -13,6 +13,77 @@ import 'editorial_api_test.dart' show StaffFixture;
 const revision = '11111111-1111-4111-8111-111111111111';
 
 void main() {
+  testWidgets(
+    'a photo-bound revision cannot be approved before media review is available',
+    (tester) async {
+      var commands = 0;
+      final api = EditorialApi(
+        session: StaffFixture(),
+        origin: Uri.parse('https://rac.test'),
+        client: MockClient((request) async {
+          if (request.url.path.endsWith('/queue')) {
+            return http.Response(
+              jsonEncode({
+                'items': [
+                  {
+                    'id': revision,
+                    'risk_score': 0,
+                    'submitted_at': '2026-11-05T10:00:00Z',
+                  },
+                ],
+                'next_cursor': '',
+              }),
+              200,
+            );
+          }
+          if (request.url.path.endsWith('/approval')) {
+            commands++;
+            return http.Response('{}', 200);
+          }
+          return http.Response(
+            jsonEncode({
+              'id': revision,
+              'listing_version': '1',
+              'sha256': 'a' * 64,
+              'is_pending': true,
+              'is_self': false,
+              'payload': {
+                'display_name': 'Photo fixture',
+                'description': 'Synthetic',
+                'price_clp_per_hour': 12000,
+                'photo_version': '22222222-2222-4222-8222-222222222222',
+              },
+              'assessment': {'fields': []},
+            }),
+            200,
+          );
+        }),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: ListingReviewConsole(
+                api: api,
+                permissions: const {'listings.read', 'listings.review'},
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(ListTile));
+      await tester.pumpAndSettle();
+      final t = AppLocalizations.of(
+        tester.element(find.byType(ListingReviewConsole)),
+      )!;
+      expect(find.text(t.staffListingPhoto), findsOneWidget);
+      expect(find.text(t.staffListingApprove), findsNothing);
+      expect(commands, 0);
+    },
+  );
   for (final locale in ['es', 'en']) {
     for (final width in [360.0, 1200.0]) {
       testWidgets('listing console $locale $width reviews and approves', (
