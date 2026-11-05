@@ -3257,5 +3257,21 @@
   "listingReviewPhotoUnavailable": "The selected photo is not ready for this submission. Check its status or choose another.",
   "@listingReviewPhotoUnavailable": {
     "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewOpen": "View private photo",
+  "@staffListingPhotoPreviewOpen": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewClose": "Hide photo",
+  "@staffListingPhotoPreviewClose": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewLabel": "Exact photo submitted for review",
+  "@staffListingPhotoPreviewLabel": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewFailed": "We could not display the photo. Check your access and try again.",
+  "@staffListingPhotoPreviewFailed": {
+    "legal_review": "pending"
   }
 }

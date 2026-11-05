@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/generated/app_localizations.dart';
 import 'editorial_api.dart';
 import 'editorial_decision.dart';
+import 'listing_photo_preview.dart';
 
 /// P08 A4. Queue and detail come from the owner through the admin proxy;
 /// signals only prioritize review. Approval sends one frozen command and an
@@ -205,6 +206,15 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
                 ),
             ] else ...[
               _Detail(revision: current, signals: signalCount(current)),
+              if (current['is_pending'] == true &&
+                  ((current['payload'] as Map?)?['photo_version'] as String? ??
+                          '')
+                      .isNotEmpty)
+                ListingPhotoPreview(
+                  key: ValueKey(current['id']),
+                  api: widget.api,
+                  revision: current['id'] as String,
+                ),
               const SizedBox(height: 12),
               if (current['is_self'] == true)
                 Text(t.staffListingSelf)

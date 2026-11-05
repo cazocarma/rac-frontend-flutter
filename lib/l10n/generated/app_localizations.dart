@@ -4602,6 +4602,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.'**
   String get listingReviewPhotoUnavailable;
+
+  /// No description provided for @staffListingPhotoPreviewOpen.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver foto privada'**
+  String get staffListingPhotoPreviewOpen;
+
+  /// No description provided for @staffListingPhotoPreviewClose.
+  ///
+  /// In es, this message translates to:
+  /// **'Ocultar foto'**
+  String get staffListingPhotoPreviewClose;
+
+  /// No description provided for @staffListingPhotoPreviewLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto exacta enviada a revisión'**
+  String get staffListingPhotoPreviewLabel;
+
+  /// No description provided for @staffListingPhotoPreviewFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.'**
+  String get staffListingPhotoPreviewFailed;
 }
 
 class _AppLocalizationsDelegate

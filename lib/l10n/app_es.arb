@@ -3257,5 +3257,21 @@
   "listingReviewPhotoUnavailable": "La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.",
   "@listingReviewPhotoUnavailable": {
     "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewOpen": "Ver foto privada",
+  "@staffListingPhotoPreviewOpen": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewClose": "Ocultar foto",
+  "@staffListingPhotoPreviewClose": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewLabel": "Foto exacta enviada a revisión",
+  "@staffListingPhotoPreviewLabel": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoPreviewFailed": "No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.",
+  "@staffListingPhotoPreviewFailed": {
+    "legal_review": "pending"
   }
 }

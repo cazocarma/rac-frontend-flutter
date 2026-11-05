@@ -8,8 +8,11 @@ import 'package:rentacompa/shared/services/auth_session.dart';
 
 class StaffFixture implements AuthSession {
   String? token = 'staff-token';
+  String subject = '99999999-9999-4999-8999-999999999999';
   @override
   Map<String, dynamic> get claims => {
+    'iss': 'https://issuer.example/realms/rac',
+    'sub': subject,
     'realm_access': {
       'roles': ['admin'],
     },

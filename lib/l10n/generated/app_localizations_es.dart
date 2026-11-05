@@ -2597,4 +2597,17 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get listingReviewPhotoUnavailable =>
       'La foto seleccionada no está lista para este envío. Comprueba su estado o elige otra.';
+
+  @override
+  String get staffListingPhotoPreviewOpen => 'Ver foto privada';
+
+  @override
+  String get staffListingPhotoPreviewClose => 'Ocultar foto';
+
+  @override
+  String get staffListingPhotoPreviewLabel => 'Foto exacta enviada a revisión';
+
+  @override
+  String get staffListingPhotoPreviewFailed =>
+      'No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.';
 }

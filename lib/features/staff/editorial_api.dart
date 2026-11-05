@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
@@ -57,6 +58,7 @@ const listingFailureCodes = {
   'listing_owner_restricted',
   'listing_activity_unavailable',
   'listing_photo_unapproved',
+  'listing_photo_not_found',
 };
 
 class EditorialFailure implements Exception {
@@ -143,6 +145,68 @@ class EditorialApi {
     return _get(path);
   }
 
+  /// Used only to discard private images when the injected staff account changes.
+  /// These claims never authorize a request; both server hops verify the bearer.
+  String? get photoAccountScope {
+    final issuer = session.claims['iss'];
+    final subject = session.claims['sub'];
+    if (issuer is! String ||
+        issuer.isEmpty ||
+        subject is! String ||
+        !RegExp(
+          r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+        ).hasMatch(subject)) {
+      return null;
+    }
+    return jsonEncode([issuer, subject]);
+  }
+
+  Future<Uint8List> listingPhoto(String revision) async {
+    if (!RegExp(
+      r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+    ).hasMatch(revision)) {
+      throw ArgumentError('Exact listing revision required');
+    }
+    final scope = photoAccountScope;
+    if (scope == null) throw const EditorialFailure(401, uncertain: false);
+    final headers = await _headers();
+    if (scope != photoAccountScope)
+      throw const EditorialFailure(401, uncertain: false);
+    try {
+      final response = await _send(
+        'GET',
+        '/api/admin/staff/listings/revisions/$revision/photo',
+        headers,
+        null,
+        5 * 1024 * 1024,
+        const Duration(seconds: 18),
+      );
+      if (scope != photoAccountScope ||
+          headers['Authorization'] != 'Bearer ${await session.accessToken()}' ||
+          scope != photoAccountScope) {
+        throw const EditorialFailure(401, uncertain: false);
+      }
+      if (response.statusCode != 200) {
+        _decode(response, write: false);
+        throw const EditorialFailure(null, uncertain: false);
+      }
+      final bytes = response.bodyBytes;
+      if (response.headers['content-type']?.split(';').first.trim() !=
+              'image/jpeg' ||
+          bytes.length < 3 ||
+          bytes[0] != 0xff ||
+          bytes[1] != 0xd8 ||
+          bytes[2] != 0xff) {
+        throw const EditorialFailure(200, uncertain: false);
+      }
+      return Uint8List.fromList(bytes);
+    } on EditorialFailure {
+      rethrow;
+    } catch (_) {
+      throw const EditorialFailure(null, uncertain: false);
+    }
+  }
+
   Future<Map<String, dynamic>> listingWrite(
     String path,
     String encodedBody,
@@ -195,6 +259,8 @@ class EditorialApi {
     String path,
     Map<String, String> headers, [
     String? body,
+    int maxBytes = 1048576,
+    Duration timeout = const Duration(seconds: 8),
   ]) async {
     final request = http.Request(method, origin.resolve(path))
       ..followRedirects = false
@@ -204,13 +270,17 @@ class EditorialApi {
       final response = await client.send(request);
       final bytes = <int>[];
       await for (final chunk in response.stream) {
-        if (bytes.length + chunk.length > 1048576) {
+        if (bytes.length + chunk.length > maxBytes) {
           throw const FormatException('Editorial response too large');
         }
         bytes.addAll(chunk);
       }
-      return http.Response.bytes(bytes, response.statusCode);
-    })().timeout(const Duration(seconds: 8));
+      return http.Response.bytes(
+        bytes,
+        response.statusCode,
+        headers: response.headers,
+      );
+    })().timeout(timeout);
   }
 
   Map<String, dynamic> _decode(http.Response response, {required bool write}) {

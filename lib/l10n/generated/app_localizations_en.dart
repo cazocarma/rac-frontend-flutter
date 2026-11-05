@@ -2578,4 +2578,18 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get listingReviewPhotoUnavailable =>
       'The selected photo is not ready for this submission. Check its status or choose another.';
+
+  @override
+  String get staffListingPhotoPreviewOpen => 'View private photo';
+
+  @override
+  String get staffListingPhotoPreviewClose => 'Hide photo';
+
+  @override
+  String get staffListingPhotoPreviewLabel =>
+      'Exact photo submitted for review';
+
+  @override
+  String get staffListingPhotoPreviewFailed =>
+      'We could not display the photo. Check your access and try again.';
 }
