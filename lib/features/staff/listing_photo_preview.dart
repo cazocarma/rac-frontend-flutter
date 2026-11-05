@@ -44,8 +44,9 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
   @override
   void didUpdateWidget(covariant ListingPhotoPreview oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.api != widget.api || oldWidget.revision != widget.revision)
+    if (oldWidget.api != widget.api || oldWidget.revision != widget.revision) {
       discard();
+    }
   }
 
   @override

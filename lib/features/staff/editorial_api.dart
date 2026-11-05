@@ -170,8 +170,9 @@ class EditorialApi {
     final scope = photoAccountScope;
     if (scope == null) throw const EditorialFailure(401, uncertain: false);
     final headers = await _headers();
-    if (scope != photoAccountScope)
+    if (scope != photoAccountScope) {
       throw const EditorialFailure(401, uncertain: false);
+    }
     try {
       final response = await _send(
         'GET',
