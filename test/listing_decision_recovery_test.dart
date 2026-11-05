@@ -44,8 +44,9 @@ void main() {
             hasLength(1),
           );
           calls++;
-          if (calls == 1)
+          if (calls == 1) {
             return http.Response('{"error":"staff_step_up_required"}', 403);
+          }
           return http.Response(
             jsonEncode({
               'event_id': jsonDecode(request.body)['event_id'],

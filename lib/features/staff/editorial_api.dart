@@ -242,11 +242,13 @@ class EditorialApi {
       throw ArgumentError('Listing review route required');
     }
     final scope = expectedAccountScope ?? photoAccountScope;
-    if (scope == null || scope != photoAccountScope)
+    if (scope == null || scope != photoAccountScope) {
       throw const EditorialFailure(401, uncertain: false);
+    }
     final headers = await _headers();
-    if (scope != photoAccountScope)
+    if (scope != photoAccountScope) {
       throw const EditorialFailure(401, uncertain: false);
+    }
     try {
       // Exactly one attempt; a manual retry resends the same frozen command.
       final response = await _send(
@@ -276,10 +278,12 @@ class EditorialApi {
     final scope = photoAccountScope;
     if (scope == null) throw const EditorialFailure(401, uncertain: false);
     final result = await _get('/api/admin/staff/listings/capabilities');
-    if (scope != photoAccountScope)
+    if (scope != photoAccountScope) {
       throw const EditorialFailure(401, uncertain: false);
-    if (result.length != 1 || result['photo_approval_enabled'] is! bool)
+    }
+    if (result.length != 1 || result['photo_approval_enabled'] is! bool) {
       throw const EditorialFailure(200, uncertain: false);
+    }
     return result['photo_approval_enabled'] as bool;
   }
 
