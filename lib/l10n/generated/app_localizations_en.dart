@@ -2450,4 +2450,118 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get staffListingBack => 'Back to the queue';
+
+  @override
+  String get photoUploadTitle => 'Photo for your listing';
+
+  @override
+  String get photoUploadIntro =>
+      'Prepare your photo before submitting it for review. It stays private during this process.';
+
+  @override
+  String get photoUploadRules =>
+      'Use JPG or PNG and avoid phone numbers, emails, links and usernames from other apps.';
+
+  @override
+  String get photoUploadChoose => 'Choose photo';
+
+  @override
+  String get photoUploadSend => 'Send photo';
+
+  @override
+  String get photoUploadRetry => 'Retry upload';
+
+  @override
+  String get photoUploadConfirmRetry => 'Complete upload';
+
+  @override
+  String get photoUploadRefresh => 'Refresh status';
+
+  @override
+  String get photoUploadWorking => 'Preparing your photo…';
+
+  @override
+  String get photoUploadPendingFile =>
+      'The upload needs to be completed. You can retry it.';
+
+  @override
+  String get photoUploadQueued => 'Photo received. Analysis is pending.';
+
+  @override
+  String get photoUploadProcessing => 'We are preparing the photo for review.';
+
+  @override
+  String get photoUploadProcessingUnavailable =>
+      'We could not finish preparing this photo. Refresh later or choose another photo.';
+
+  @override
+  String get photoUploadCorrection =>
+      'The photo needs changes: remove contact details and choose the corrected version.';
+
+  @override
+  String get photoUploadReview => 'Photo prepared for review.';
+
+  @override
+  String get photoUploadReviewConstruction =>
+      'Photo review and publication are under construction. Your photo stays private.';
+
+  @override
+  String get photoUploadConstructionTitle => 'Under construction';
+
+  @override
+  String get photoUploadConstruction =>
+      'Photo preparation for review is not enabled yet.';
+
+  @override
+  String get photoUploadLoadFailed =>
+      'We could not check the status. Please try again.';
+
+  @override
+  String get photoUploadSaveFailed =>
+      'We could not complete the upload. Check its status before retrying.';
+
+  @override
+  String get photoUploadInvalid => 'Choose a valid JPG or PNG photo.';
+
+  @override
+  String get photoUploadTooLarge =>
+      'The photo exceeds the size limit. Choose a smaller one.';
+
+  @override
+  String get photoUploadQuota =>
+      'You reached the upload limit for the last 24 hours. You can check your existing uploads.';
+
+  @override
+  String get photoUploadRestricted =>
+      'Your account is restricted from sending photos. You can still check your upload status.';
+
+  @override
+  String get photoUploadDocuments =>
+      'Review pending documents and requirements before continuing.';
+
+  @override
+  String get photoUploadSessionChanged =>
+      'Your session changed. Sign in again to continue with your account.';
+
+  @override
+  String get photoUploadIntegrity =>
+      'We could not verify the file. Choose another photo.';
+
+  @override
+  String get photoUploadLocalPreview => 'Local preview of the selected photo';
+
+  @override
+  String get photoUploadResume =>
+      'You can recover the status of your latest upload.';
+
+  @override
+  String get photoUploadNotReceived =>
+      'The upload is not registered yet. You can retry with the same photo.';
+
+  @override
+  String get photoUploadOpen => 'Prepare photo for review';
+
+  @override
+  String get photoUploadPickerFailed =>
+      'We could not open that photo. Try choosing it again.';
 }

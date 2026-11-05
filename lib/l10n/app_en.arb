@@ -3113,5 +3113,133 @@
   "staffListingBack": "Back to the queue",
   "@staffListingBack": {
     "legal_review": "pending"
+  },
+  "photoUploadTitle": "Photo for your listing",
+  "@photoUploadTitle": {
+    "legal_review": "pending"
+  },
+  "photoUploadIntro": "Prepare your photo before submitting it for review. It stays private during this process.",
+  "@photoUploadIntro": {
+    "legal_review": "pending"
+  },
+  "photoUploadRules": "Use JPG or PNG and avoid phone numbers, emails, links and usernames from other apps.",
+  "@photoUploadRules": {
+    "legal_review": "pending"
+  },
+  "photoUploadChoose": "Choose photo",
+  "@photoUploadChoose": {
+    "legal_review": "pending"
+  },
+  "photoUploadSend": "Send photo",
+  "@photoUploadSend": {
+    "legal_review": "pending"
+  },
+  "photoUploadRetry": "Retry upload",
+  "@photoUploadRetry": {
+    "legal_review": "pending"
+  },
+  "photoUploadConfirmRetry": "Complete upload",
+  "@photoUploadConfirmRetry": {
+    "legal_review": "pending"
+  },
+  "photoUploadRefresh": "Refresh status",
+  "@photoUploadRefresh": {
+    "legal_review": "pending"
+  },
+  "photoUploadWorking": "Preparing your photo…",
+  "@photoUploadWorking": {
+    "legal_review": "pending"
+  },
+  "photoUploadPendingFile": "The upload needs to be completed. You can retry it.",
+  "@photoUploadPendingFile": {
+    "legal_review": "pending"
+  },
+  "photoUploadQueued": "Photo received. Analysis is pending.",
+  "@photoUploadQueued": {
+    "legal_review": "pending"
+  },
+  "photoUploadProcessing": "We are preparing the photo for review.",
+  "@photoUploadProcessing": {
+    "legal_review": "pending"
+  },
+  "photoUploadProcessingUnavailable": "We could not finish preparing this photo. Refresh later or choose another photo.",
+  "@photoUploadProcessingUnavailable": {
+    "legal_review": "pending"
+  },
+  "photoUploadCorrection": "The photo needs changes: remove contact details and choose the corrected version.",
+  "@photoUploadCorrection": {
+    "legal_review": "pending"
+  },
+  "photoUploadReview": "Photo prepared for review.",
+  "@photoUploadReview": {
+    "legal_review": "pending"
+  },
+  "photoUploadReviewConstruction": "Photo review and publication are under construction. Your photo stays private.",
+  "@photoUploadReviewConstruction": {
+    "legal_review": "pending"
+  },
+  "photoUploadConstructionTitle": "Under construction",
+  "@photoUploadConstructionTitle": {
+    "legal_review": "pending"
+  },
+  "photoUploadConstruction": "Photo preparation for review is not enabled yet.",
+  "@photoUploadConstruction": {
+    "legal_review": "pending"
+  },
+  "photoUploadLoadFailed": "We could not check the status. Please try again.",
+  "@photoUploadLoadFailed": {
+    "legal_review": "pending"
+  },
+  "photoUploadSaveFailed": "We could not complete the upload. Check its status before retrying.",
+  "@photoUploadSaveFailed": {
+    "legal_review": "pending"
+  },
+  "photoUploadInvalid": "Choose a valid JPG or PNG photo.",
+  "@photoUploadInvalid": {
+    "legal_review": "pending"
+  },
+  "photoUploadTooLarge": "The photo exceeds the size limit. Choose a smaller one.",
+  "@photoUploadTooLarge": {
+    "legal_review": "pending"
+  },
+  "photoUploadQuota": "You reached the upload limit for the last 24 hours. You can check your existing uploads.",
+  "@photoUploadQuota": {
+    "legal_review": "pending"
+  },
+  "photoUploadRestricted": "Your account is restricted from sending photos. You can still check your upload status.",
+  "@photoUploadRestricted": {
+    "legal_review": "pending"
+  },
+  "photoUploadDocuments": "Review pending documents and requirements before continuing.",
+  "@photoUploadDocuments": {
+    "legal_review": "pending"
+  },
+  "photoUploadSessionChanged": "Your session changed. Sign in again to continue with your account.",
+  "@photoUploadSessionChanged": {
+    "legal_review": "pending"
+  },
+  "photoUploadIntegrity": "We could not verify the file. Choose another photo.",
+  "@photoUploadIntegrity": {
+    "legal_review": "pending"
+  },
+  "photoUploadLocalPreview": "Local preview of the selected photo",
+  "@photoUploadLocalPreview": {
+    "legal_review": "pending"
+  },
+  "photoUploadResume": "You can recover the status of your latest upload.",
+  "@photoUploadResume": {
+    "legal_review": "pending"
+  },
+  "photoUploadNotReceived": "The upload is not registered yet. You can retry with the same photo.",
+  "@photoUploadNotReceived": {
+    "legal_review": "pending"
+  },
+  "photoUploadOpen": "Prepare photo for review",
+  "@photoUploadOpen": {
+    "legal_review": "pending"
+  },
+  "photoUploadPickerFailed": "We could not open that photo. Try choosing it again.",
+  "@photoUploadPickerFailed": {
+    "legal_review": "pending"
   }
 }

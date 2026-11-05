@@ -2467,4 +2467,120 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get staffListingBack => 'Volver a la cola';
+
+  @override
+  String get photoUploadTitle => 'Foto para tu publicación';
+
+  @override
+  String get photoUploadIntro =>
+      'Prepara tu foto antes de enviarla a revisión. Se mantiene privada durante este proceso.';
+
+  @override
+  String get photoUploadRules =>
+      'Usa JPG o PNG y evita teléfonos, correos, enlaces y nombres de usuario de otras aplicaciones.';
+
+  @override
+  String get photoUploadChoose => 'Elegir foto';
+
+  @override
+  String get photoUploadSend => 'Enviar foto';
+
+  @override
+  String get photoUploadRetry => 'Reintentar envío';
+
+  @override
+  String get photoUploadConfirmRetry => 'Completar envío';
+
+  @override
+  String get photoUploadRefresh => 'Actualizar estado';
+
+  @override
+  String get photoUploadWorking => 'Preparando tu foto…';
+
+  @override
+  String get photoUploadPendingFile =>
+      'El envío necesita completarse. Puedes reintentarlo.';
+
+  @override
+  String get photoUploadQueued => 'Foto recibida. El análisis está pendiente.';
+
+  @override
+  String get photoUploadProcessing =>
+      'Estamos preparando la foto para revisión.';
+
+  @override
+  String get photoUploadProcessingUnavailable =>
+      'No pudimos terminar la preparación. Actualiza el estado más tarde o elige otra foto.';
+
+  @override
+  String get photoUploadCorrection =>
+      'La foto necesita cambios: retira los datos de contacto y elige la versión corregida.';
+
+  @override
+  String get photoUploadReview => 'Foto preparada para revisión.';
+
+  @override
+  String get photoUploadReviewConstruction =>
+      'La revisión y publicación de fotos está en construcción. Tu foto sigue privada.';
+
+  @override
+  String get photoUploadConstructionTitle => 'En construcción';
+
+  @override
+  String get photoUploadConstruction =>
+      'La preparación de fotos para revisión aún no está habilitada.';
+
+  @override
+  String get photoUploadLoadFailed =>
+      'No pudimos consultar el estado. Inténtalo de nuevo.';
+
+  @override
+  String get photoUploadSaveFailed =>
+      'No pudimos completar el envío. Consulta su estado antes de reintentarlo.';
+
+  @override
+  String get photoUploadInvalid => 'Elige una foto JPG o PNG válida.';
+
+  @override
+  String get photoUploadTooLarge =>
+      'La foto supera el tamaño permitido. Elige una más pequeña.';
+
+  @override
+  String get photoUploadQuota =>
+      'Llegaste al límite de envíos de las últimas 24 horas. Puedes consultar los que ya enviaste.';
+
+  @override
+  String get photoUploadRestricted =>
+      'Tu cuenta tiene una restricción para enviar fotos. Puedes consultar el estado de tus envíos.';
+
+  @override
+  String get photoUploadDocuments =>
+      'Revisa los documentos y requisitos pendientes antes de continuar.';
+
+  @override
+  String get photoUploadSessionChanged =>
+      'Tu sesión cambió. Vuelve a entrar para continuar con tu cuenta.';
+
+  @override
+  String get photoUploadIntegrity =>
+      'No pudimos comprobar el archivo. Elige otra foto.';
+
+  @override
+  String get photoUploadLocalPreview =>
+      'Vista previa local de la foto seleccionada';
+
+  @override
+  String get photoUploadResume =>
+      'Puedes recuperar el estado de tu último envío.';
+
+  @override
+  String get photoUploadNotReceived =>
+      'El envío aún no está registrado. Puedes reintentarlo con la misma foto.';
+
+  @override
+  String get photoUploadOpen => 'Preparar foto para revisión';
+
+  @override
+  String get photoUploadPickerFailed =>
+      'No pudimos abrir esa foto. Intenta elegirla de nuevo.';
 }

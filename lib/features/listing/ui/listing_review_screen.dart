@@ -191,6 +191,15 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
                   spacing: 12,
                   runSpacing: 12,
                   children: [
+                    OutlinedButton.icon(
+                      onPressed: busy
+                          ? null
+                          : () => Navigator.of(
+                              context,
+                            ).pushNamed('/photo-review'),
+                      icon: const Icon(Icons.add_photo_alternate_outlined),
+                      label: Text(t.photoUploadOpen),
+                    ),
                     if (failure == _ListingFailure.identity)
                       OutlinedButton.icon(
                         onPressed: () => Navigator.of(

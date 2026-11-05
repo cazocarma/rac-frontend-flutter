@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'session.dart';
 import 'pending_documents.dart';
@@ -36,41 +37,69 @@ class JsonApi {
     bool poll = false,
     bool retryAuth = true,
     String? method,
+  }) => _request(
+    path,
+    wireBody: body == null ? null : jsonEncode(body),
+    method: method ?? (body == null ? 'GET' : 'POST'),
+    poll: poll,
+    retryAuth: retryAuth,
+  );
+
+  /// Freeze the bytes before token refresh or network I/O. Retries retain the
+  /// exact idempotency key and payload; this never falls back to avatar routes.
+  Future<Map<String, dynamic>> requestBytes(
+    String path, {
+    required Uint8List bytes,
+    required String mediaType,
+    required String idempotencyKey,
+  }) => _request(
+    path,
+    wireBody: List<int>.unmodifiable(bytes),
+    method: 'POST',
+    headers: {'Content-Type': mediaType, 'Idempotency-Key': idempotencyKey},
+    timeout: const Duration(seconds: 35),
+  );
+
+  Future<Map<String, dynamic>> _request(
+    String path, {
+    Object? wireBody,
+    required String method,
+    Map<String, String> headers = const {},
+    bool poll = false,
+    bool retryAuth = true,
+    Duration? timeout,
   }) async {
     final access = await token();
     if (access == null || access.isEmpty) {
       throw exception(401, 'authentication_required');
     }
-    final headers = {
+    final requestHeaders = {
       'Authorization': 'Bearer $access',
       'Content-Type': 'application/json',
+      ...headers,
     };
     final uri = Uri.parse('$base$apiPath$path');
-    final response =
-        await (method == 'DELETE'
-                ? client.delete(uri, headers: headers)
-                : method == 'PUT'
-                ? client.put(
-                    uri,
-                    headers: headers,
-                    body: body == null ? null : jsonEncode(body),
-                  )
-                : body == null
-                ? client.get(uri, headers: headers)
-                : client.post(uri, headers: headers, body: jsonEncode(body)))
-            .timeout(Duration(seconds: poll ? 32 : 20));
+    final response = await (switch (method) {
+      'DELETE' => client.delete(uri, headers: requestHeaders, body: wireBody),
+      'PUT' => client.put(uri, headers: requestHeaders, body: wireBody),
+      'POST' => client.post(uri, headers: requestHeaders, body: wireBody),
+      'GET' => client.get(uri, headers: requestHeaders),
+      _ => throw ArgumentError.value(method, 'method'),
+    }).timeout(timeout ?? Duration(seconds: poll ? 32 : 20));
     if (response.statusCode == 401 && retryAuth) {
       try {
         await refresh();
       } catch (_) {
         throw exception(401, 'invalid_token');
       }
-      return request(
+      return _request(
         path,
-        body: body,
+        wireBody: wireBody,
+        headers: headers,
         poll: poll,
         retryAuth: false,
         method: method,
+        timeout: timeout,
       );
     }
     final decoded = jsonDecode(response.body) as Map<String, dynamic>;

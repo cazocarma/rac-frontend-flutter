@@ -4386,6 +4386,198 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Volver a la cola'**
   String get staffListingBack;
+
+  /// No description provided for @photoUploadTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto para tu publicación'**
+  String get photoUploadTitle;
+
+  /// No description provided for @photoUploadIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Prepara tu foto antes de enviarla a revisión. Se mantiene privada durante este proceso.'**
+  String get photoUploadIntro;
+
+  /// No description provided for @photoUploadRules.
+  ///
+  /// In es, this message translates to:
+  /// **'Usa JPG o PNG y evita teléfonos, correos, enlaces y nombres de usuario de otras aplicaciones.'**
+  String get photoUploadRules;
+
+  /// No description provided for @photoUploadChoose.
+  ///
+  /// In es, this message translates to:
+  /// **'Elegir foto'**
+  String get photoUploadChoose;
+
+  /// No description provided for @photoUploadSend.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar foto'**
+  String get photoUploadSend;
+
+  /// No description provided for @photoUploadRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar envío'**
+  String get photoUploadRetry;
+
+  /// No description provided for @photoUploadConfirmRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Completar envío'**
+  String get photoUploadConfirmRetry;
+
+  /// No description provided for @photoUploadRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar estado'**
+  String get photoUploadRefresh;
+
+  /// No description provided for @photoUploadWorking.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparando tu foto…'**
+  String get photoUploadWorking;
+
+  /// No description provided for @photoUploadPendingFile.
+  ///
+  /// In es, this message translates to:
+  /// **'El envío necesita completarse. Puedes reintentarlo.'**
+  String get photoUploadPendingFile;
+
+  /// No description provided for @photoUploadQueued.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto recibida. El análisis está pendiente.'**
+  String get photoUploadQueued;
+
+  /// No description provided for @photoUploadProcessing.
+  ///
+  /// In es, this message translates to:
+  /// **'Estamos preparando la foto para revisión.'**
+  String get photoUploadProcessing;
+
+  /// No description provided for @photoUploadProcessingUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos terminar la preparación. Actualiza el estado más tarde o elige otra foto.'**
+  String get photoUploadProcessingUnavailable;
+
+  /// No description provided for @photoUploadCorrection.
+  ///
+  /// In es, this message translates to:
+  /// **'La foto necesita cambios: retira los datos de contacto y elige la versión corregida.'**
+  String get photoUploadCorrection;
+
+  /// No description provided for @photoUploadReview.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto preparada para revisión.'**
+  String get photoUploadReview;
+
+  /// No description provided for @photoUploadReviewConstruction.
+  ///
+  /// In es, this message translates to:
+  /// **'La revisión y publicación de fotos está en construcción. Tu foto sigue privada.'**
+  String get photoUploadReviewConstruction;
+
+  /// No description provided for @photoUploadConstructionTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'En construcción'**
+  String get photoUploadConstructionTitle;
+
+  /// No description provided for @photoUploadConstruction.
+  ///
+  /// In es, this message translates to:
+  /// **'La preparación de fotos para revisión aún no está habilitada.'**
+  String get photoUploadConstruction;
+
+  /// No description provided for @photoUploadLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos consultar el estado. Inténtalo de nuevo.'**
+  String get photoUploadLoadFailed;
+
+  /// No description provided for @photoUploadSaveFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos completar el envío. Consulta su estado antes de reintentarlo.'**
+  String get photoUploadSaveFailed;
+
+  /// No description provided for @photoUploadInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una foto JPG o PNG válida.'**
+  String get photoUploadInvalid;
+
+  /// No description provided for @photoUploadTooLarge.
+  ///
+  /// In es, this message translates to:
+  /// **'La foto supera el tamaño permitido. Elige una más pequeña.'**
+  String get photoUploadTooLarge;
+
+  /// No description provided for @photoUploadQuota.
+  ///
+  /// In es, this message translates to:
+  /// **'Llegaste al límite de envíos de las últimas 24 horas. Puedes consultar los que ya enviaste.'**
+  String get photoUploadQuota;
+
+  /// No description provided for @photoUploadRestricted.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta tiene una restricción para enviar fotos. Puedes consultar el estado de tus envíos.'**
+  String get photoUploadRestricted;
+
+  /// No description provided for @photoUploadDocuments.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa los documentos y requisitos pendientes antes de continuar.'**
+  String get photoUploadDocuments;
+
+  /// No description provided for @photoUploadSessionChanged.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión cambió. Vuelve a entrar para continuar con tu cuenta.'**
+  String get photoUploadSessionChanged;
+
+  /// No description provided for @photoUploadIntegrity.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos comprobar el archivo. Elige otra foto.'**
+  String get photoUploadIntegrity;
+
+  /// No description provided for @photoUploadLocalPreview.
+  ///
+  /// In es, this message translates to:
+  /// **'Vista previa local de la foto seleccionada'**
+  String get photoUploadLocalPreview;
+
+  /// No description provided for @photoUploadResume.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes recuperar el estado de tu último envío.'**
+  String get photoUploadResume;
+
+  /// No description provided for @photoUploadNotReceived.
+  ///
+  /// In es, this message translates to:
+  /// **'El envío aún no está registrado. Puedes reintentarlo con la misma foto.'**
+  String get photoUploadNotReceived;
+
+  /// No description provided for @photoUploadOpen.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparar foto para revisión'**
+  String get photoUploadOpen;
+
+  /// No description provided for @photoUploadPickerFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos abrir esa foto. Intenta elegirla de nuevo.'**
+  String get photoUploadPickerFailed;
 }
 
 class _AppLocalizationsDelegate

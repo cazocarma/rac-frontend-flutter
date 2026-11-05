@@ -3113,5 +3113,133 @@
   "staffListingBack": "Volver a la cola",
   "@staffListingBack": {
     "legal_review": "pending"
+  },
+  "photoUploadTitle": "Foto para tu publicación",
+  "@photoUploadTitle": {
+    "legal_review": "pending"
+  },
+  "photoUploadIntro": "Prepara tu foto antes de enviarla a revisión. Se mantiene privada durante este proceso.",
+  "@photoUploadIntro": {
+    "legal_review": "pending"
+  },
+  "photoUploadRules": "Usa JPG o PNG y evita teléfonos, correos, enlaces y nombres de usuario de otras aplicaciones.",
+  "@photoUploadRules": {
+    "legal_review": "pending"
+  },
+  "photoUploadChoose": "Elegir foto",
+  "@photoUploadChoose": {
+    "legal_review": "pending"
+  },
+  "photoUploadSend": "Enviar foto",
+  "@photoUploadSend": {
+    "legal_review": "pending"
+  },
+  "photoUploadRetry": "Reintentar envío",
+  "@photoUploadRetry": {
+    "legal_review": "pending"
+  },
+  "photoUploadConfirmRetry": "Completar envío",
+  "@photoUploadConfirmRetry": {
+    "legal_review": "pending"
+  },
+  "photoUploadRefresh": "Actualizar estado",
+  "@photoUploadRefresh": {
+    "legal_review": "pending"
+  },
+  "photoUploadWorking": "Preparando tu foto…",
+  "@photoUploadWorking": {
+    "legal_review": "pending"
+  },
+  "photoUploadPendingFile": "El envío necesita completarse. Puedes reintentarlo.",
+  "@photoUploadPendingFile": {
+    "legal_review": "pending"
+  },
+  "photoUploadQueued": "Foto recibida. El análisis está pendiente.",
+  "@photoUploadQueued": {
+    "legal_review": "pending"
+  },
+  "photoUploadProcessing": "Estamos preparando la foto para revisión.",
+  "@photoUploadProcessing": {
+    "legal_review": "pending"
+  },
+  "photoUploadProcessingUnavailable": "No pudimos terminar la preparación. Actualiza el estado más tarde o elige otra foto.",
+  "@photoUploadProcessingUnavailable": {
+    "legal_review": "pending"
+  },
+  "photoUploadCorrection": "La foto necesita cambios: retira los datos de contacto y elige la versión corregida.",
+  "@photoUploadCorrection": {
+    "legal_review": "pending"
+  },
+  "photoUploadReview": "Foto preparada para revisión.",
+  "@photoUploadReview": {
+    "legal_review": "pending"
+  },
+  "photoUploadReviewConstruction": "La revisión y publicación de fotos está en construcción. Tu foto sigue privada.",
+  "@photoUploadReviewConstruction": {
+    "legal_review": "pending"
+  },
+  "photoUploadConstructionTitle": "En construcción",
+  "@photoUploadConstructionTitle": {
+    "legal_review": "pending"
+  },
+  "photoUploadConstruction": "La preparación de fotos para revisión aún no está habilitada.",
+  "@photoUploadConstruction": {
+    "legal_review": "pending"
+  },
+  "photoUploadLoadFailed": "No pudimos consultar el estado. Inténtalo de nuevo.",
+  "@photoUploadLoadFailed": {
+    "legal_review": "pending"
+  },
+  "photoUploadSaveFailed": "No pudimos completar el envío. Consulta su estado antes de reintentarlo.",
+  "@photoUploadSaveFailed": {
+    "legal_review": "pending"
+  },
+  "photoUploadInvalid": "Elige una foto JPG o PNG válida.",
+  "@photoUploadInvalid": {
+    "legal_review": "pending"
+  },
+  "photoUploadTooLarge": "La foto supera el tamaño permitido. Elige una más pequeña.",
+  "@photoUploadTooLarge": {
+    "legal_review": "pending"
+  },
+  "photoUploadQuota": "Llegaste al límite de envíos de las últimas 24 horas. Puedes consultar los que ya enviaste.",
+  "@photoUploadQuota": {
+    "legal_review": "pending"
+  },
+  "photoUploadRestricted": "Tu cuenta tiene una restricción para enviar fotos. Puedes consultar el estado de tus envíos.",
+  "@photoUploadRestricted": {
+    "legal_review": "pending"
+  },
+  "photoUploadDocuments": "Revisa los documentos y requisitos pendientes antes de continuar.",
+  "@photoUploadDocuments": {
+    "legal_review": "pending"
+  },
+  "photoUploadSessionChanged": "Tu sesión cambió. Vuelve a entrar para continuar con tu cuenta.",
+  "@photoUploadSessionChanged": {
+    "legal_review": "pending"
+  },
+  "photoUploadIntegrity": "No pudimos comprobar el archivo. Elige otra foto.",
+  "@photoUploadIntegrity": {
+    "legal_review": "pending"
+  },
+  "photoUploadLocalPreview": "Vista previa local de la foto seleccionada",
+  "@photoUploadLocalPreview": {
+    "legal_review": "pending"
+  },
+  "photoUploadResume": "Puedes recuperar el estado de tu último envío.",
+  "@photoUploadResume": {
+    "legal_review": "pending"
+  },
+  "photoUploadNotReceived": "El envío aún no está registrado. Puedes reintentarlo con la misma foto.",
+  "@photoUploadNotReceived": {
+    "legal_review": "pending"
+  },
+  "photoUploadOpen": "Preparar foto para revisión",
+  "@photoUploadOpen": {
+    "legal_review": "pending"
+  },
+  "photoUploadPickerFailed": "No pudimos abrir esa foto. Intenta elegirla de nuevo.",
+  "@photoUploadPickerFailed": {
+    "legal_review": "pending"
   }
 }
