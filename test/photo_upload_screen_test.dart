@@ -46,8 +46,9 @@ class FakePhotoUploadApi extends PhotoUploadApi {
   @override
   Future<PhotoSourceStatus> byRequest(String id) async {
     if (pending != null) return pending!.future;
-    if (current == null)
+    if (current == null) {
       throw const ApiException(404, 'photo_source_not_found');
+    }
     return current!;
   }
 
