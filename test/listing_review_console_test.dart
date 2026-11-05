@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:oidc/oidc.dart';
+import 'package:rentacompa/features/staff/editorial_journal.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,6 +15,84 @@ import 'editorial_api_test.dart' show StaffFixture;
 const revision = '11111111-1111-4111-8111-111111111111';
 
 void main() {
+  testWidgets(
+    'reload recovers an approval absent from the queue without automatic dispatch',
+    (tester) async {
+      final session = StaffFixture();
+      final store = OidcMemoryStore();
+      final journal = EditorialJournal(
+        store: store,
+        managerId: 'listing-reload',
+      );
+      final command =
+          EditorialCommand('listings/revisions/$revision/approval', {
+            'event_id': '22222222-2222-4222-8222-222222222222',
+            'expected_version': '3',
+            'sha256': 'a' * 64,
+          });
+      await journal.save(
+        command: command,
+        subject: session.subject,
+        issuer: session.claims['iss'] as String,
+        origin: 'https://rac.test',
+      );
+      var writes = 0;
+      final api = EditorialApi(
+        session: session,
+        origin: Uri.parse('https://rac.test'),
+        client: MockClient((request) async {
+          if (request.method == 'GET')
+            return http.Response('{"items":[],"next_cursor":""}', 200);
+          writes++;
+          expect(request.url.path, command.path);
+          expect(request.body, command.encodedBody);
+          return http.Response(
+            jsonEncode({
+              'event_id': jsonDecode(command.encodedBody)['event_id'],
+              'revision_id': revision,
+              'decision': 'approved',
+              'listing_version': '4',
+            }),
+            200,
+          );
+        }),
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: ListingReviewConsole(
+              api: api,
+              journal: EditorialJournal(
+                store: store,
+                managerId: 'listing-reload',
+              ),
+              permissions: const {'listings.read', 'listings.review'},
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(writes, 0);
+      final t = AppLocalizations.of(
+        tester.element(find.byType(ListingReviewConsole)),
+      )!;
+      await tester.tap(find.text(t.staffListingRetry));
+      await tester.pumpAndSettle();
+      expect(writes, 1);
+      expect(find.text(t.staffListingApproved), findsOneWidget);
+      expect(
+        await journal.pending(
+          subject: session.subject,
+          issuer: session.claims['iss'] as String,
+          origin: 'https://rac.test',
+        ),
+        isEmpty,
+      );
+    },
+  );
+
   testWidgets(
     'a photo-bound revision cannot be approved before media review is available',
     (tester) async {
@@ -66,6 +146,7 @@ void main() {
           home: Scaffold(
             body: SingleChildScrollView(
               child: ListingReviewConsole(
+                journal: EditorialJournal(store: OidcMemoryStore()),
                 api: api,
                 permissions: const {'listings.read', 'listings.review'},
               ),
@@ -98,7 +179,12 @@ void main() {
           () => http.Response('{"error":"listing_photo_unapproved"}', 409),
           () => throw http.ClientException('connection reset'),
           () => http.Response(
-            jsonEncode({'event_id': 'x', 'revision_id': revision}),
+            jsonEncode({
+              'event_id': jsonDecode(approvals.last)['event_id'],
+              'revision_id': revision,
+              'decision': 'approved',
+              'listing_version': '4',
+            }),
             200,
           ),
         ];
@@ -175,6 +261,7 @@ void main() {
             home: Scaffold(
               body: SingleChildScrollView(
                 child: ListingReviewConsole(
+                  journal: EditorialJournal(store: OidcMemoryStore()),
                   api: api,
                   permissions: const {'listings.read', 'listings.review'},
                 ),
@@ -259,6 +346,7 @@ void main() {
         home: Scaffold(
           body: SingleChildScrollView(
             child: ListingReviewConsole(
+              journal: EditorialJournal(store: OidcMemoryStore()),
               api: api,
               permissions: const {'listings.read', 'listings.review'},
             ),

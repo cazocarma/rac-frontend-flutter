@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'editorial_api.dart';
 import 'editorial_decision.dart';
+import 'editorial_journal.dart';
 import 'listing_photo_preview.dart';
 
 /// P08 A4. Queue and detail come from the owner through the admin proxy;
@@ -15,9 +14,11 @@ class ListingReviewConsole extends StatefulWidget {
     super.key,
     required this.api,
     required this.permissions,
+    this.journal,
   });
   final EditorialApi api;
   final Set<String> permissions;
+  final EditorialJournal? journal;
   @override
   State<ListingReviewConsole> createState() => _ListingReviewConsoleState();
 }
@@ -25,7 +26,19 @@ class ListingReviewConsole extends StatefulWidget {
 class _ListingReviewConsoleState extends State<ListingReviewConsole> {
   List<Map<String, dynamic>> items = [];
   Map<String, dynamic>? detail;
-  ({String revision, String body})? frozen;
+  late final journal =
+      widget.journal ?? EditorialJournal(managerId: 'rac-listing-recovery-v1');
+  List<EditorialDecisionAttempt> pending = [];
+  EditorialDecisionAttempt? frozen;
+  bool recoveryFailed = false;
+  bool needsAuthentication = false;
+  late final subject = widget.api.session.claims['sub'] as String? ?? '';
+  late final issuer = widget.api.session.claims['iss'] as String? ?? '';
+  late final origin = widget.api.origin.origin;
+  bool get sameAccount =>
+      widget.api.session.claims['sub'] == subject &&
+      widget.api.session.claims['iss'] == issuer &&
+      widget.api.origin.origin == origin;
   bool busy = true, loadFailed = false, uncertain = false, approved = false;
   String? code;
 
@@ -41,10 +54,37 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       loadFailed = false;
     });
     try {
+      if (subject.isEmpty || issuer.isEmpty)
+        throw StateError('Staff session required');
+      final commands = await journal.pending(
+        subject: subject,
+        issuer: issuer,
+        origin: origin,
+      );
+      if (commands.any((command) => !command.isListing)) {
+        throw StateError('Unexpected recovery operation');
+      }
+      if (!mounted || !sameAccount) return;
+      pending = [
+        for (final command in commands)
+          EditorialDecisionAttempt.durable(
+            command,
+            journal: journal,
+            subject: subject,
+            issuer: issuer,
+            origin: origin,
+            recovered: true,
+          ),
+      ];
+      recoveryFailed = false;
+    } catch (_) {
+      recoveryFailed = true;
+    }
+    try {
       final result = await widget.api.listingRead(
         '/api/admin/staff/listings/queue?limit=20',
       );
-      if (!mounted) return;
+      if (!mounted || !sameAccount) return;
       setState(() {
         items = [
           for (final item in result['items'] as List)
@@ -64,12 +104,17 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       code = null;
       approved = false;
       uncertain = false;
+      frozen = null;
+      for (final attempt in pending) {
+        if (attempt.command.listingRevision == id) frozen = attempt;
+      }
+      uncertain = frozen?.uncertain ?? false;
     });
     try {
       final result = await widget.api.listingRead(
         '/api/admin/staff/listings/revisions/$id',
       );
-      if (mounted) setState(() => detail = result);
+      if (mounted && sameAccount) setState(() => detail = result);
     } on EditorialFailure catch (error) {
       if (mounted) setState(() => code = error.code ?? 'failed');
     } catch (_) {
@@ -79,20 +124,27 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
     }
   }
 
-  Future<void> approve() async {
-    final current = detail!;
-    final revision = current['id'] as String;
-    // Reuse the frozen command for this revision after an uncertain result.
-    final command = frozen?.revision == revision
-        ? frozen!
-        : (
-            revision: revision,
-            body: jsonEncode({
-              'event_id': newEditorialReference(),
-              'expected_version': current['listing_version'],
-              'sha256': current['sha256'],
-            }),
-          );
+  Future<void> approve([EditorialDecisionAttempt? recovered]) async {
+    if (!sameAccount ||
+        recoveryFailed ||
+        !widget.permissions.contains('listings.review')) {
+      return;
+    }
+    final current = detail;
+    final command =
+        recovered ??
+        frozen ??
+        EditorialDecisionAttempt.durable(
+          EditorialCommand('listings/revisions/${current!['id']}/approval', {
+            'event_id': newEditorialReference(),
+            'expected_version': current['listing_version'],
+            'sha256': current['sha256'],
+          }),
+          journal: journal,
+          subject: subject,
+          issuer: issuer,
+          origin: origin,
+        );
     setState(() {
       busy = true;
       frozen = command;
@@ -100,24 +152,43 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       uncertain = false;
     });
     try {
-      await widget.api.listingWrite(
-        '/api/admin/staff/listings/revisions/$revision/approval',
-        command.body,
-      );
-      if (!mounted) return;
+      await command.submit(widget.api);
+      if (!mounted || !sameAccount) return;
       setState(() {
         approved = true;
+        needsAuthentication = false;
         frozen = null;
         detail = null;
       });
       await load();
     } on EditorialFailure catch (error) {
-      if (!mounted) return;
+      if (!command.uncertain && !error.authenticationRequired) {
+        try {
+          await journal.resolve(
+            command: command.command,
+            subject: subject,
+            issuer: issuer,
+            origin: origin,
+          );
+        } catch (_) {
+          command.uncertain = true;
+        }
+      }
+      if (!mounted || !sameAccount) return;
       setState(() {
-        uncertain = error.uncertain;
-        if (!error.uncertain) frozen = null;
+        uncertain = command.uncertain;
+        needsAuthentication = error.authenticationRequired;
+        if (!uncertain && !needsAuthentication) frozen = null;
         code = error.code ?? (error.uncertain ? null : 'failed');
       });
+    } catch (_) {
+      if (mounted && sameAccount) {
+        setState(() {
+          uncertain = command.uncertain;
+          recoveryFailed = !command.uncertain;
+          code = 'failed';
+        });
+      }
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -154,6 +225,7 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
     final colors = Theme.of(context).colorScheme;
     final error = message(t);
     final current = detail;
+    if (!sameAccount) return const SizedBox.shrink();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -178,6 +250,41 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
             Text(t.staffListingSignalsNote),
             const SizedBox(height: 12),
             if (busy) const LinearProgressIndicator(),
+            if (recoveryFailed)
+              Text(
+                t.staffListingLoadFailed,
+                style: TextStyle(color: colors.error),
+              ),
+            if (needsAuthentication)
+              TextButton(
+                onPressed: busy
+                    ? null
+                    : () async {
+                        try {
+                          await widget.api.session.login();
+                        } catch (_) {
+                          return;
+                        }
+                        if (mounted && sameAccount) {
+                          setState(() => needsAuthentication = false);
+                          await load();
+                        }
+                      },
+                child: Text(t.staffStepUpRequired),
+              ),
+            if (current == null &&
+                widget.permissions.contains('listings.review'))
+              for (final attempt in pending)
+                ListTile(
+                  title: Text(t.staffListingUncertain),
+                  subtitle: Text(attempt.command.listingRevision ?? ''),
+                  trailing: TextButton(
+                    onPressed: busy || recoveryFailed
+                        ? null
+                        : () => approve(attempt),
+                    child: Text(t.staffListingRetry),
+                  ),
+                ),
             if (approved)
               Semantics(liveRegion: true, child: Text(t.staffListingApproved)),
             if (uncertain)
@@ -226,7 +333,7 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
               else if (current['is_pending'] == true &&
                   widget.permissions.contains('listings.review'))
                 FilledButton.icon(
-                  onPressed: busy ? null : approve,
+                  onPressed: busy || recoveryFailed ? null : () => approve(),
                   icon: const Icon(Icons.check),
                   label: Text(
                     uncertain ? t.staffListingRetry : t.staffListingApprove,

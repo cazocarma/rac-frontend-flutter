@@ -150,6 +150,10 @@ class _StaffScreenState extends State<StaffScreen> {
                   ListingReviewConsole(
                     key: ValueKey('$subject|listings'),
                     api: widget.api,
+                    journal: EditorialJournal(
+                      store: journal.store,
+                      managerId: 'rac-listing-recovery-v1',
+                    ),
                     permissions: permissions,
                   ),
                 ],
