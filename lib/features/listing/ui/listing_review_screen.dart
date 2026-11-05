@@ -69,11 +69,12 @@ class _ListingReviewScreenState extends State<ListingReviewScreen> {
     });
     try {
       final value = await api.state();
-      if (mounted)
+      if (mounted) {
         setState(() {
           listing = value;
           if (!photoTouched) selectedPhoto = value?.photoVersion;
         });
+      }
     } catch (_) {
       if (mounted) setState(() => failure = _ListingFailure.load);
     } finally {

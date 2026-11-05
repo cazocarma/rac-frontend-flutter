@@ -365,8 +365,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                       onPressed: busy || !Navigator.of(context).canPop()
                           ? null
                           : () {
-                              if (checkOwner())
+                              if (checkOwner()) {
                                 Navigator.of(context).pop(current!.assetId);
+                              }
                             },
                       icon: const Icon(Icons.check),
                       label: Text(t.photoUploadUsePhoto),
