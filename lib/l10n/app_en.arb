@@ -2980,5 +2980,138 @@
   "listingReviewResubmit": "Replace pending submission",
   "@listingReviewResubmit": {
     "legal_review": "pending"
+  },
+  "staffListingTitle": "Listing review",
+  "@staffListingTitle": {
+    "legal_review": "pending"
+  },
+  "staffListingRefresh": "Refresh queue",
+  "@staffListingRefresh": {
+    "legal_review": "pending"
+  },
+  "staffListingLoadFailed": "We couldn't load the review queue.",
+  "@staffListingLoadFailed": {
+    "legal_review": "pending"
+  },
+  "staffListingEmpty": "No pending submissions.",
+  "@staffListingEmpty": {
+    "legal_review": "pending"
+  },
+  "staffListingRisk": "Priority {score}",
+  "@staffListingRisk": {
+    "legal_review": "pending",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingSubmitted": "Submitted {date}",
+  "@staffListingSubmitted": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingSignalsNote": "Automatic signals order the queue; they do not prove a violation or decide for you.",
+  "@staffListingSignalsNote": {
+    "legal_review": "pending"
+  },
+  "staffListingSignals": "Signals to review: {count}",
+  "@staffListingSignals": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingNoSignals": "No automatic signals. Still review the full content.",
+  "@staffListingNoSignals": {
+    "legal_review": "pending"
+  },
+  "staffListingActivities": "Activities: {list}",
+  "@staffListingActivities": {
+    "legal_review": "pending",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPrice": "Rate: {price} CLP per hour",
+  "@staffListingPrice": {
+    "legal_review": "pending",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingSelf": "You cannot review your own listing.",
+  "@staffListingSelf": {
+    "legal_review": "pending"
+  },
+  "staffListingApprove": "Approve submission",
+  "@staffListingApprove": {
+    "legal_review": "pending"
+  },
+  "staffListingApproved": "Submission approved.",
+  "@staffListingApproved": {
+    "legal_review": "pending"
+  },
+  "staffListingUncertain": "We don't know whether the approval was recorded. Retrying sends exactly the same command.",
+  "@staffListingUncertain": {
+    "legal_review": "pending"
+  },
+  "staffListingRetry": "Retry same command",
+  "@staffListingRetry": {
+    "legal_review": "pending"
+  },
+  "staffListingNegativePending": "Rejecting or requesting changes needs a reviewed reason catalog; it is not available in this console yet.",
+  "@staffListingNegativePending": {
+    "legal_review": "pending"
+  },
+  "staffListingConflict": "The listing changed. Go back to the queue and review the current version.",
+  "@staffListingConflict": {
+    "legal_review": "pending"
+  },
+  "staffListingPrerequisites": "The person no longer meets the required documents, declaration or identity.",
+  "@staffListingPrerequisites": {
+    "legal_review": "pending"
+  },
+  "staffListingRestricted": "The account has an active publishing restriction.",
+  "@staffListingRestricted": {
+    "legal_review": "pending"
+  },
+  "staffListingActivity": "An activity is no longer available or needs additional verification.",
+  "@staffListingActivity": {
+    "legal_review": "pending"
+  },
+  "staffListingPhoto": "Photos are not reviewed yet; this submission cannot be approved.",
+  "@staffListingPhoto": {
+    "legal_review": "pending"
+  },
+  "staffListingPolicy": "The listing policy changed since submission; the person must send it again.",
+  "@staffListingPolicy": {
+    "legal_review": "pending"
+  },
+  "staffListingNotPublishable": "The listing is suspended or removed.",
+  "@staffListingNotPublishable": {
+    "legal_review": "pending"
+  },
+  "staffListingNotFound": "The submission no longer exists.",
+  "@staffListingNotFound": {
+    "legal_review": "pending"
+  },
+  "staffListingFailed": "We couldn't complete the action.",
+  "@staffListingFailed": {
+    "legal_review": "pending"
+  },
+  "staffListingBack": "Back to the queue",
+  "@staffListingBack": {
+    "legal_review": "pending"
   }
 }

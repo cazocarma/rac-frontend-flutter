@@ -2348,4 +2348,106 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get listingReviewResubmit => 'Replace pending submission';
+
+  @override
+  String get staffListingTitle => 'Listing review';
+
+  @override
+  String get staffListingRefresh => 'Refresh queue';
+
+  @override
+  String get staffListingLoadFailed => 'We couldn\'t load the review queue.';
+
+  @override
+  String get staffListingEmpty => 'No pending submissions.';
+
+  @override
+  String staffListingRisk(int score) {
+    return 'Priority $score';
+  }
+
+  @override
+  String staffListingSubmitted(String date) {
+    return 'Submitted $date';
+  }
+
+  @override
+  String get staffListingSignalsNote =>
+      'Automatic signals order the queue; they do not prove a violation or decide for you.';
+
+  @override
+  String staffListingSignals(int count) {
+    return 'Signals to review: $count';
+  }
+
+  @override
+  String get staffListingNoSignals =>
+      'No automatic signals. Still review the full content.';
+
+  @override
+  String staffListingActivities(String list) {
+    return 'Activities: $list';
+  }
+
+  @override
+  String staffListingPrice(String price) {
+    return 'Rate: $price CLP per hour';
+  }
+
+  @override
+  String get staffListingSelf => 'You cannot review your own listing.';
+
+  @override
+  String get staffListingApprove => 'Approve submission';
+
+  @override
+  String get staffListingApproved => 'Submission approved.';
+
+  @override
+  String get staffListingUncertain =>
+      'We don\'t know whether the approval was recorded. Retrying sends exactly the same command.';
+
+  @override
+  String get staffListingRetry => 'Retry same command';
+
+  @override
+  String get staffListingNegativePending =>
+      'Rejecting or requesting changes needs a reviewed reason catalog; it is not available in this console yet.';
+
+  @override
+  String get staffListingConflict =>
+      'The listing changed. Go back to the queue and review the current version.';
+
+  @override
+  String get staffListingPrerequisites =>
+      'The person no longer meets the required documents, declaration or identity.';
+
+  @override
+  String get staffListingRestricted =>
+      'The account has an active publishing restriction.';
+
+  @override
+  String get staffListingActivity =>
+      'An activity is no longer available or needs additional verification.';
+
+  @override
+  String get staffListingPhoto =>
+      'Photos are not reviewed yet; this submission cannot be approved.';
+
+  @override
+  String get staffListingPolicy =>
+      'The listing policy changed since submission; the person must send it again.';
+
+  @override
+  String get staffListingNotPublishable =>
+      'The listing is suspended or removed.';
+
+  @override
+  String get staffListingNotFound => 'The submission no longer exists.';
+
+  @override
+  String get staffListingFailed => 'We couldn\'t complete the action.';
+
+  @override
+  String get staffListingBack => 'Back to the queue';
 }

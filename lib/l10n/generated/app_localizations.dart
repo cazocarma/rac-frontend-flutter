@@ -4224,6 +4224,168 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Reemplazar envío pendiente'**
   String get listingReviewResubmit;
+
+  /// No description provided for @staffListingTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisión de publicaciones'**
+  String get staffListingTitle;
+
+  /// No description provided for @staffListingRefresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar cola'**
+  String get staffListingRefresh;
+
+  /// No description provided for @staffListingLoadFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar la cola de revisión.'**
+  String get staffListingLoadFailed;
+
+  /// No description provided for @staffListingEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay envíos pendientes.'**
+  String get staffListingEmpty;
+
+  /// No description provided for @staffListingRisk.
+  ///
+  /// In es, this message translates to:
+  /// **'Prioridad {score}'**
+  String staffListingRisk(int score);
+
+  /// No description provided for @staffListingSubmitted.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviado {date}'**
+  String staffListingSubmitted(String date);
+
+  /// No description provided for @staffListingSignalsNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Las señales automáticas ordenan la cola; no prueban una infracción ni deciden por ti.'**
+  String get staffListingSignalsNote;
+
+  /// No description provided for @staffListingSignals.
+  ///
+  /// In es, this message translates to:
+  /// **'Señales para revisión: {count}'**
+  String staffListingSignals(int count);
+
+  /// No description provided for @staffListingNoSignals.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin señales automáticas. Revisa igual el contenido completo.'**
+  String get staffListingNoSignals;
+
+  /// No description provided for @staffListingActivities.
+  ///
+  /// In es, this message translates to:
+  /// **'Actividades: {list}'**
+  String staffListingActivities(String list);
+
+  /// No description provided for @staffListingPrice.
+  ///
+  /// In es, this message translates to:
+  /// **'Tarifa: {price} CLP por hora'**
+  String staffListingPrice(String price);
+
+  /// No description provided for @staffListingSelf.
+  ///
+  /// In es, this message translates to:
+  /// **'No puedes revisar tu propia publicación.'**
+  String get staffListingSelf;
+
+  /// No description provided for @staffListingApprove.
+  ///
+  /// In es, this message translates to:
+  /// **'Aprobar envío'**
+  String get staffListingApprove;
+
+  /// No description provided for @staffListingApproved.
+  ///
+  /// In es, this message translates to:
+  /// **'Envío aprobado.'**
+  String get staffListingApproved;
+
+  /// No description provided for @staffListingUncertain.
+  ///
+  /// In es, this message translates to:
+  /// **'No sabemos si la aprobación se registró. Reintentar envía exactamente el mismo comando.'**
+  String get staffListingUncertain;
+
+  /// No description provided for @staffListingRetry.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar mismo comando'**
+  String get staffListingRetry;
+
+  /// No description provided for @staffListingNegativePending.
+  ///
+  /// In es, this message translates to:
+  /// **'Rechazar o pedir cambios requiere un catálogo de motivos revisado; aún no está disponible en esta consola.'**
+  String get staffListingNegativePending;
+
+  /// No description provided for @staffListingConflict.
+  ///
+  /// In es, this message translates to:
+  /// **'La publicación cambió. Vuelve a la cola y revisa la versión actual.'**
+  String get staffListingConflict;
+
+  /// No description provided for @staffListingPrerequisites.
+  ///
+  /// In es, this message translates to:
+  /// **'La persona ya no cumple los documentos, la declaración o la identidad requeridos.'**
+  String get staffListingPrerequisites;
+
+  /// No description provided for @staffListingRestricted.
+  ///
+  /// In es, this message translates to:
+  /// **'La cuenta tiene una restricción vigente para publicar.'**
+  String get staffListingRestricted;
+
+  /// No description provided for @staffListingActivity.
+  ///
+  /// In es, this message translates to:
+  /// **'Alguna actividad ya no está disponible o requiere verificación adicional.'**
+  String get staffListingActivity;
+
+  /// No description provided for @staffListingPhoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Las fotos aún no tienen revisión; este envío no se puede aprobar.'**
+  String get staffListingPhoto;
+
+  /// No description provided for @staffListingPolicy.
+  ///
+  /// In es, this message translates to:
+  /// **'La política de publicación cambió desde el envío; la persona debe enviarlo de nuevo.'**
+  String get staffListingPolicy;
+
+  /// No description provided for @staffListingNotPublishable.
+  ///
+  /// In es, this message translates to:
+  /// **'La publicación está suspendida o retirada.'**
+  String get staffListingNotPublishable;
+
+  /// No description provided for @staffListingNotFound.
+  ///
+  /// In es, this message translates to:
+  /// **'El envío ya no existe.'**
+  String get staffListingNotFound;
+
+  /// No description provided for @staffListingFailed.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos completar la acción.'**
+  String get staffListingFailed;
+
+  /// No description provided for @staffListingBack.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a la cola'**
+  String get staffListingBack;
 }
 
 class _AppLocalizationsDelegate

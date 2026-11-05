@@ -7,6 +7,7 @@ import '../../shared/services/auth_session.dart';
 import 'editorial_api.dart';
 import 'editorial_workspace.dart';
 import 'editorial_journal.dart';
+import 'listing_review_console.dart';
 
 class StaffScreen extends StatefulWidget {
   const StaffScreen({super.key, required this.api, this.journal});
@@ -144,8 +145,17 @@ class _StaffScreenState extends State<StaffScreen> {
                     issuer: Env.issuer,
                     permissions: permissions,
                   ),
+                if (permissions.contains('listings.read')) ...[
+                  const SizedBox(height: 20),
+                  ListingReviewConsole(
+                    key: ValueKey('$subject|listings'),
+                    api: widget.api,
+                    permissions: permissions,
+                  ),
+                ],
                 const SizedBox(height: 20),
-                if (!canRead) Text(t.staffPending),
+                if (!canRead && !permissions.contains('listings.read'))
+                  Text(t.staffPending),
                 const SizedBox(height: 16),
                 OutlinedButton(onPressed: logout, child: Text(t.staffSignOut)),
               ] else ...[

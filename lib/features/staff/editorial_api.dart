@@ -46,6 +46,19 @@ class EditorialCommand {
   }
 }
 
+/// Owner outcomes the console can explain; any other body is discarded.
+const listingFailureCodes = {
+  'listing_self_review',
+  'listing_revision_not_found',
+  'listing_review_conflict',
+  'listing_owner_prerequisites_required',
+  'listing_not_publishable',
+  'listing_policy_changed',
+  'listing_owner_restricted',
+  'listing_activity_unavailable',
+  'listing_photo_unapproved',
+};
+
 class EditorialFailure implements Exception {
   const EditorialFailure(this.status, {required this.uncertain, this.code});
   final int? status;
@@ -122,6 +135,35 @@ class EditorialApi {
     return _get('/api/admin/staff/$resource/$id');
   }
 
+  /// Listing review owner routes (P08) share this transport and its limits.
+  Future<Map<String, dynamic>> listingRead(String path) {
+    if (!path.startsWith('/api/admin/staff/listings/')) {
+      throw ArgumentError('Listing review route required');
+    }
+    return _get(path);
+  }
+
+  Future<Map<String, dynamic>> listingWrite(
+    String path,
+    String encodedBody,
+  ) async {
+    if (!path.startsWith('/api/admin/staff/listings/revisions/')) {
+      throw ArgumentError('Listing review route required');
+    }
+    final headers = await _headers();
+    try {
+      // Exactly one attempt; a manual retry resends the same frozen command.
+      return _decode(
+        await _send('POST', path, headers, encodedBody),
+        write: true,
+      );
+    } on EditorialFailure {
+      rethrow;
+    } catch (_) {
+      throw const EditorialFailure(null, uncertain: true);
+    }
+  }
+
   Future<Map<String, dynamic>> _get(String path) async {
     final headers = await _headers();
     try {
@@ -178,8 +220,9 @@ class EditorialApi {
         final error = jsonDecode(utf8.decode(response.bodyBytes));
         if (error is Map<String, dynamic> &&
             error.length == 1 &&
-            error['error'] == 'staff_step_up_required') {
-          code = 'staff_step_up_required';
+            (error['error'] == 'staff_step_up_required' ||
+                listingFailureCodes.contains(error['error']))) {
+          code = error['error'] as String;
         }
       } catch (_) {
         // Never retain arbitrary upstream bodies or diagnostics.

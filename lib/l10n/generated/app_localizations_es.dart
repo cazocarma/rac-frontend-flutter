@@ -2365,4 +2365,106 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get listingReviewResubmit => 'Reemplazar envío pendiente';
+
+  @override
+  String get staffListingTitle => 'Revisión de publicaciones';
+
+  @override
+  String get staffListingRefresh => 'Actualizar cola';
+
+  @override
+  String get staffListingLoadFailed => 'No pudimos cargar la cola de revisión.';
+
+  @override
+  String get staffListingEmpty => 'No hay envíos pendientes.';
+
+  @override
+  String staffListingRisk(int score) {
+    return 'Prioridad $score';
+  }
+
+  @override
+  String staffListingSubmitted(String date) {
+    return 'Enviado $date';
+  }
+
+  @override
+  String get staffListingSignalsNote =>
+      'Las señales automáticas ordenan la cola; no prueban una infracción ni deciden por ti.';
+
+  @override
+  String staffListingSignals(int count) {
+    return 'Señales para revisión: $count';
+  }
+
+  @override
+  String get staffListingNoSignals =>
+      'Sin señales automáticas. Revisa igual el contenido completo.';
+
+  @override
+  String staffListingActivities(String list) {
+    return 'Actividades: $list';
+  }
+
+  @override
+  String staffListingPrice(String price) {
+    return 'Tarifa: $price CLP por hora';
+  }
+
+  @override
+  String get staffListingSelf => 'No puedes revisar tu propia publicación.';
+
+  @override
+  String get staffListingApprove => 'Aprobar envío';
+
+  @override
+  String get staffListingApproved => 'Envío aprobado.';
+
+  @override
+  String get staffListingUncertain =>
+      'No sabemos si la aprobación se registró. Reintentar envía exactamente el mismo comando.';
+
+  @override
+  String get staffListingRetry => 'Reintentar mismo comando';
+
+  @override
+  String get staffListingNegativePending =>
+      'Rechazar o pedir cambios requiere un catálogo de motivos revisado; aún no está disponible en esta consola.';
+
+  @override
+  String get staffListingConflict =>
+      'La publicación cambió. Vuelve a la cola y revisa la versión actual.';
+
+  @override
+  String get staffListingPrerequisites =>
+      'La persona ya no cumple los documentos, la declaración o la identidad requeridos.';
+
+  @override
+  String get staffListingRestricted =>
+      'La cuenta tiene una restricción vigente para publicar.';
+
+  @override
+  String get staffListingActivity =>
+      'Alguna actividad ya no está disponible o requiere verificación adicional.';
+
+  @override
+  String get staffListingPhoto =>
+      'Las fotos aún no tienen revisión; este envío no se puede aprobar.';
+
+  @override
+  String get staffListingPolicy =>
+      'La política de publicación cambió desde el envío; la persona debe enviarlo de nuevo.';
+
+  @override
+  String get staffListingNotPublishable =>
+      'La publicación está suspendida o retirada.';
+
+  @override
+  String get staffListingNotFound => 'El envío ya no existe.';
+
+  @override
+  String get staffListingFailed => 'No pudimos completar la acción.';
+
+  @override
+  String get staffListingBack => 'Volver a la cola';
 }

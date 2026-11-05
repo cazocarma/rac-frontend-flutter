@@ -2980,5 +2980,138 @@
   "listingReviewResubmit": "Reemplazar envío pendiente",
   "@listingReviewResubmit": {
     "legal_review": "pending"
+  },
+  "staffListingTitle": "Revisión de publicaciones",
+  "@staffListingTitle": {
+    "legal_review": "pending"
+  },
+  "staffListingRefresh": "Actualizar cola",
+  "@staffListingRefresh": {
+    "legal_review": "pending"
+  },
+  "staffListingLoadFailed": "No pudimos cargar la cola de revisión.",
+  "@staffListingLoadFailed": {
+    "legal_review": "pending"
+  },
+  "staffListingEmpty": "No hay envíos pendientes.",
+  "@staffListingEmpty": {
+    "legal_review": "pending"
+  },
+  "staffListingRisk": "Prioridad {score}",
+  "@staffListingRisk": {
+    "legal_review": "pending",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingSubmitted": "Enviado {date}",
+  "@staffListingSubmitted": {
+    "legal_review": "pending",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingSignalsNote": "Las señales automáticas ordenan la cola; no prueban una infracción ni deciden por ti.",
+  "@staffListingSignalsNote": {
+    "legal_review": "pending"
+  },
+  "staffListingSignals": "Señales para revisión: {count}",
+  "@staffListingSignals": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingNoSignals": "Sin señales automáticas. Revisa igual el contenido completo.",
+  "@staffListingNoSignals": {
+    "legal_review": "pending"
+  },
+  "staffListingActivities": "Actividades: {list}",
+  "@staffListingActivities": {
+    "legal_review": "pending",
+    "placeholders": {
+      "list": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPrice": "Tarifa: {price} CLP por hora",
+  "@staffListingPrice": {
+    "legal_review": "pending",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingSelf": "No puedes revisar tu propia publicación.",
+  "@staffListingSelf": {
+    "legal_review": "pending"
+  },
+  "staffListingApprove": "Aprobar envío",
+  "@staffListingApprove": {
+    "legal_review": "pending"
+  },
+  "staffListingApproved": "Envío aprobado.",
+  "@staffListingApproved": {
+    "legal_review": "pending"
+  },
+  "staffListingUncertain": "No sabemos si la aprobación se registró. Reintentar envía exactamente el mismo comando.",
+  "@staffListingUncertain": {
+    "legal_review": "pending"
+  },
+  "staffListingRetry": "Reintentar mismo comando",
+  "@staffListingRetry": {
+    "legal_review": "pending"
+  },
+  "staffListingNegativePending": "Rechazar o pedir cambios requiere un catálogo de motivos revisado; aún no está disponible en esta consola.",
+  "@staffListingNegativePending": {
+    "legal_review": "pending"
+  },
+  "staffListingConflict": "La publicación cambió. Vuelve a la cola y revisa la versión actual.",
+  "@staffListingConflict": {
+    "legal_review": "pending"
+  },
+  "staffListingPrerequisites": "La persona ya no cumple los documentos, la declaración o la identidad requeridos.",
+  "@staffListingPrerequisites": {
+    "legal_review": "pending"
+  },
+  "staffListingRestricted": "La cuenta tiene una restricción vigente para publicar.",
+  "@staffListingRestricted": {
+    "legal_review": "pending"
+  },
+  "staffListingActivity": "Alguna actividad ya no está disponible o requiere verificación adicional.",
+  "@staffListingActivity": {
+    "legal_review": "pending"
+  },
+  "staffListingPhoto": "Las fotos aún no tienen revisión; este envío no se puede aprobar.",
+  "@staffListingPhoto": {
+    "legal_review": "pending"
+  },
+  "staffListingPolicy": "La política de publicación cambió desde el envío; la persona debe enviarlo de nuevo.",
+  "@staffListingPolicy": {
+    "legal_review": "pending"
+  },
+  "staffListingNotPublishable": "La publicación está suspendida o retirada.",
+  "@staffListingNotPublishable": {
+    "legal_review": "pending"
+  },
+  "staffListingNotFound": "El envío ya no existe.",
+  "@staffListingNotFound": {
+    "legal_review": "pending"
+  },
+  "staffListingFailed": "No pudimos completar la acción.",
+  "@staffListingFailed": {
+    "legal_review": "pending"
+  },
+  "staffListingBack": "Volver a la cola",
+  "@staffListingBack": {
+    "legal_review": "pending"
   }
 }
