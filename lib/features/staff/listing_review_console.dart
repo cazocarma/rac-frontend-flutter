@@ -54,8 +54,9 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       loadFailed = false;
     });
     try {
-      if (subject.isEmpty || issuer.isEmpty)
+      if (subject.isEmpty || issuer.isEmpty) {
         throw StateError('Staff session required');
+      }
       final commands = await journal.pending(
         subject: subject,
         issuer: issuer,

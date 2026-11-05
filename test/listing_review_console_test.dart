@@ -41,8 +41,9 @@ void main() {
         session: session,
         origin: Uri.parse('https://rac.test'),
         client: MockClient((request) async {
-          if (request.method == 'GET')
+          if (request.method == 'GET') {
             return http.Response('{"items":[],"next_cursor":""}', 200);
+          }
           writes++;
           expect(request.url.path, command.path);
           expect(request.body, command.encodedBody);
