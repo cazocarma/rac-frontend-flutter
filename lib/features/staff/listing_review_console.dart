@@ -27,7 +27,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
   List<Map<String, dynamic>> items = [];
   Map<String, dynamic>? detail;
   late final journal =
-      widget.journal ?? EditorialJournal(managerId: 'rac-listing-recovery-v1');
+      widget.journal ??
+      EditorialJournal(managerId: EditorialJournal.listingManager);
   List<EditorialDecisionAttempt> pending = [];
   EditorialDecisionAttempt? frozen;
   bool recoveryFailed = false;

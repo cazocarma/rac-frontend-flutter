@@ -152,7 +152,7 @@ class _StaffScreenState extends State<StaffScreen> {
                     api: widget.api,
                     journal: EditorialJournal(
                       store: journal.store,
-                      managerId: 'rac-listing-recovery-v1',
+                      managerId: EditorialJournal.listingManager,
                     ),
                     permissions: permissions,
                   ),

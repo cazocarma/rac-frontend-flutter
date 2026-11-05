@@ -14,6 +14,7 @@ class EditorialJournal {
   final OidcStore store;
   final String managerId;
   static const manager = 'rac-editorial-recovery-v1';
+  static const listingManager = 'rac-listing-recovery-v1';
   static const prefix = 'command-';
   String commandKey(EditorialCommand command) {
     final event =
