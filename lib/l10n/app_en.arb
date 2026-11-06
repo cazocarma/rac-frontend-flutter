@@ -3273,5 +3273,64 @@
   "staffListingPhotoPreviewFailed": "We could not display the photo. Check your access and try again.",
   "@staffListingPhotoPreviewFailed": {
     "legal_review": "pending"
+  },
+  "staffListingPhotoReviewTitle": "Photo signals",
+  "@staffListingPhotoReviewTitle": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoNoSignals": "No automatic signals in the photo. Review it anyway.",
+  "@staffListingPhotoNoSignals": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoSignals": "Photo signals: {categories}. They only prioritize review.",
+  "@staffListingPhotoSignals": {
+    "legal_review": "pending",
+    "placeholders": {
+      "categories": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPhotoMatches": "Similar to {count} banned images. Compare carefully.",
+  "@staffListingPhotoMatches": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingPhotoCoverageComplete": "All automatic photo checks ran.",
+  "@staffListingPhotoCoverageComplete": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoCoverageIncomplete": "Checks not evaluated: {checks}. Do not treat them as passed.",
+  "@staffListingPhotoCoverageIncomplete": {
+    "legal_review": "pending",
+    "placeholders": {
+      "checks": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPhotoSimilarityPending": "similarity to banned images",
+  "@staffListingPhotoSimilarityPending": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoDisabled": "Photo approval is not enabled in this environment.",
+  "@staffListingPhotoDisabled": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoOpenFirst": "Open the private photo to verify it is the reviewed one.",
+  "@staffListingPhotoOpenFirst": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoConfirm": "I reviewed this exact photo and its signals, and I decide to approve it.",
+  "@staffListingPhotoConfirm": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoApprove": "Approve listing with photo",
+  "@staffListingPhotoApprove": {
+    "legal_review": "pending"
   }
 }

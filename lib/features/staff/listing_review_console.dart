@@ -41,7 +41,23 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       widget.api.session.claims['iss'] == issuer &&
       widget.api.origin.origin == origin;
   bool busy = true, loadFailed = false, uncertain = false, approved = false;
+  // Photo approval needs the owner's active capability, the exact verified
+  // preview on screen and an explicit human confirmation for this revision.
+  bool photoEnabled = false, photoVerified = false, photoConfirmed = false;
   String? code;
+
+  static String photoVersion(Map<String, dynamic> revision) =>
+      (revision['payload'] as Map?)?['photo_version'] as String? ?? '';
+
+  static Map<String, dynamic>? photoReview(Map<String, dynamic> revision) {
+    final summary = revision['photo_review'];
+    if (summary is! Map ||
+        summary['sha256'] is! String ||
+        !RegExp(r'^[0-9a-f]{64}$').hasMatch(summary['sha256'] as String)) {
+      return null;
+    }
+    return Map<String, dynamic>.from(summary);
+  }
 
   @override
   void initState() {
@@ -82,6 +98,16 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
     } catch (_) {
       recoveryFailed = true;
     }
+    var enabled = false;
+    if (widget.permissions.contains('listings.review')) {
+      try {
+        enabled = await widget.api.photoApprovalEnabled();
+      } catch (_) {
+        enabled = false;
+      }
+    }
+    if (!mounted || !sameAccount) return;
+    photoEnabled = enabled;
     try {
       final result = await widget.api.listingRead(
         '/api/admin/staff/listings/queue?limit=20',
@@ -106,6 +132,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       code = null;
       approved = false;
       uncertain = false;
+      photoVerified = false;
+      photoConfirmed = false;
       frozen = null;
       for (final attempt in pending) {
         if (attempt.command.listingRevision == id) frozen = attempt;
@@ -134,11 +162,24 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
       return;
     }
     final current = detail;
+    if (recovered == null && frozen == null) {
+      if (current == null) return;
+      if (photoVersion(current).isNotEmpty &&
+          (!photoEnabled ||
+              !photoVerified ||
+              !photoConfirmed ||
+              photoReview(current) == null)) {
+        return;
+      }
+    }
+    final operation = current != null && photoVersion(current).isNotEmpty
+        ? 'photo-approval'
+        : 'approval';
     final command =
         recovered ??
         frozen ??
         EditorialDecisionAttempt.durable(
-          EditorialCommand('listings/revisions/${current!['id']}/approval', {
+          EditorialCommand('listings/revisions/${current!['id']}/$operation', {
             'event_id': newEditorialReference(),
             'expected_version': current['listing_version'],
             'sha256': current['sha256'],
@@ -162,6 +203,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
         needsAuthentication = false;
         frozen = null;
         detail = null;
+        photoVerified = false;
+        photoConfirmed = false;
       });
       await load();
     } on EditorialFailure catch (error) {
@@ -201,7 +244,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
     null => null,
     'listing_self_review' => t.staffListingSelf,
     'listing_review_conflict' => t.staffListingConflict,
-    'listing_revision_not_found' => t.staffListingNotFound,
+    'listing_revision_not_found' ||
+    'listing_photo_not_found' => t.staffListingNotFound,
     'listing_owner_prerequisites_required' => t.staffListingPrerequisites,
     'listing_owner_restricted' => t.staffListingRestricted,
     'listing_activity_unavailable' => t.staffListingActivity,
@@ -316,32 +360,72 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
                 ),
             ] else ...[
               _Detail(revision: current, signals: signalCount(current)),
-              if (current['is_pending'] == true &&
-                  ((current['payload'] as Map?)?['photo_version'] as String? ??
-                          '')
-                      .isNotEmpty)
-                ListingPhotoPreview(
-                  key: ValueKey(current['id']),
-                  api: widget.api,
-                  revision: current['id'] as String,
-                ),
+              if (photoVersion(current).isNotEmpty) ...[
+                const SizedBox(height: 8),
+                if (photoReview(current) case final summary?)
+                  _PhotoReview(summary: summary)
+                else
+                  Text(t.staffListingPhoto),
+                if (current['is_pending'] == true)
+                  ListingPhotoPreview(
+                    key: ValueKey(current['id']),
+                    api: widget.api,
+                    revision: current['id'] as String,
+                    expectedSha256: photoReview(current)?['sha256'] as String?,
+                    onVerified: (verified) {
+                      if (!mounted) return;
+                      setState(() {
+                        photoVerified = verified;
+                        if (!verified) photoConfirmed = false;
+                      });
+                    },
+                  ),
+              ],
               const SizedBox(height: 12),
               if (current['is_self'] == true)
                 Text(t.staffListingSelf)
-              else if (((current['payload'] as Map?)?['photo_version']
-                          as String? ??
-                      '')
-                  .isNotEmpty)
-                Text(t.staffListingPhoto)
               else if (current['is_pending'] == true &&
-                  widget.permissions.contains('listings.review'))
-                FilledButton.icon(
-                  onPressed: busy || recoveryFailed ? null : () => approve(),
-                  icon: const Icon(Icons.check),
-                  label: Text(
-                    uncertain ? t.staffListingRetry : t.staffListingApprove,
+                  widget.permissions.contains('listings.review')) ...[
+                if (photoVersion(current).isNotEmpty && frozen == null) ...[
+                  if (!photoEnabled)
+                    Text(t.staffListingPhotoDisabled)
+                  else if (photoReview(current) != null)
+                    CheckboxListTile(
+                      contentPadding: EdgeInsets.zero,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      value: photoConfirmed,
+                      onChanged: busy || !photoVerified
+                          ? null
+                          : (value) =>
+                                setState(() => photoConfirmed = value ?? false),
+                      title: Text(t.staffListingPhotoConfirm),
+                      subtitle: photoVerified
+                          ? null
+                          : Text(t.staffListingPhotoOpenFirst),
+                    ),
+                ],
+                if (photoVersion(current).isEmpty ||
+                    frozen != null ||
+                    (photoEnabled && photoReview(current) != null))
+                  FilledButton.icon(
+                    onPressed:
+                        busy ||
+                            recoveryFailed ||
+                            (frozen == null &&
+                                photoVersion(current).isNotEmpty &&
+                                !(photoVerified && photoConfirmed))
+                        ? null
+                        : () => approve(),
+                    icon: const Icon(Icons.check),
+                    label: Text(
+                      uncertain
+                          ? t.staffListingRetry
+                          : photoVersion(current).isNotEmpty
+                          ? t.staffListingPhotoApprove
+                          : t.staffListingApprove,
+                    ),
                   ),
-                ),
+              ],
               const SizedBox(height: 8),
               Text(
                 t.staffListingNegativePending,
@@ -353,6 +437,8 @@ class _ListingReviewConsoleState extends State<ListingReviewConsole> {
                     : () => setState(() {
                         detail = null;
                         code = null;
+                        photoVerified = false;
+                        photoConfirmed = false;
                       }),
                 child: Text(t.staffListingBack),
               ),
@@ -398,6 +484,71 @@ class _Detail extends StatelessWidget {
               ? t.staffListingNoSignals
               : t.staffListingSignals(signals),
         ),
+      ],
+    );
+  }
+}
+
+/// Closed photo summary from the owner. Signals and coverage gaps inform the
+/// human reviewer; they never approve or reject by themselves.
+class _PhotoReview extends StatelessWidget {
+  const _PhotoReview({required this.summary});
+  final Map<String, dynamic> summary;
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final colors = Theme.of(context).colorScheme;
+    final signals = [
+      for (final signal in summary['signals'] as List? ?? const [])
+        if (signal is Map && signal['category'] is String)
+          signal['category'] as String,
+    ];
+    final unevaluated = [
+      for (final category in summary['unevaluated'] as List? ?? const [])
+        if (category is String) category,
+    ];
+    final similarity = summary['similarity'] is Map
+        ? Map<String, dynamic>.from(summary['similarity'] as Map)
+        : const <String, dynamic>{};
+    final matches = similarity['match_count'] is int
+        ? similarity['match_count'] as int
+        : 0;
+    final complete = similarity['state'] == 'evaluated' && unevaluated.isEmpty;
+    final risk = summary['risk_score'] is int
+        ? summary['risk_score'] as int
+        : 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          t.staffListingPhotoReviewTitle,
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        Text(t.staffListingRisk(risk)),
+        Text(
+          signals.isEmpty
+              ? t.staffListingPhotoNoSignals
+              : t.staffListingPhotoSignals(signals.toSet().join(', ')),
+        ),
+        if (matches > 0)
+          Text(
+            t.staffListingPhotoMatches(matches),
+            style: TextStyle(color: colors.error),
+          ),
+        if (complete)
+          Text(t.staffListingPhotoCoverageComplete)
+        else
+          Text(
+            t.staffListingPhotoCoverageIncomplete(
+              [
+                if (similarity['state'] != 'evaluated')
+                  t.staffListingPhotoSimilarityPending,
+                ...unevaluated,
+              ].join(', '),
+            ),
+            style: TextStyle(color: colors.error),
+          ),
+        const SizedBox(height: 8),
       ],
     );
   }

@@ -2610,4 +2610,49 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get staffListingPhotoPreviewFailed =>
       'No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.';
+
+  @override
+  String get staffListingPhotoReviewTitle => 'Señales de la foto';
+
+  @override
+  String get staffListingPhotoNoSignals =>
+      'Sin señales automáticas en la foto. Revísala igual.';
+
+  @override
+  String staffListingPhotoSignals(String categories) {
+    return 'Señales en la foto: $categories. Solo priorizan la revisión.';
+  }
+
+  @override
+  String staffListingPhotoMatches(int count) {
+    return 'Parecido con $count imágenes vetadas. Compara con cuidado.';
+  }
+
+  @override
+  String get staffListingPhotoCoverageComplete =>
+      'Todos los controles automáticos de la foto se ejecutaron.';
+
+  @override
+  String staffListingPhotoCoverageIncomplete(String checks) {
+    return 'Controles sin evaluar: $checks. No los des por aprobados.';
+  }
+
+  @override
+  String get staffListingPhotoSimilarityPending =>
+      'similitud con imágenes vetadas';
+
+  @override
+  String get staffListingPhotoDisabled =>
+      'La aprobación de fotos no está habilitada en este entorno.';
+
+  @override
+  String get staffListingPhotoOpenFirst =>
+      'Abre la foto privada para verificar que es la revisada.';
+
+  @override
+  String get staffListingPhotoConfirm =>
+      'Revisé esta foto exacta y sus señales, y decido aprobarla.';
+
+  @override
+  String get staffListingPhotoApprove => 'Aprobar publicación con foto';
 }

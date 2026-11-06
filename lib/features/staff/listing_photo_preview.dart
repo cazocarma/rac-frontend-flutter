@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/generated/app_localizations.dart';
@@ -12,9 +13,16 @@ class ListingPhotoPreview extends StatefulWidget {
     super.key,
     required this.api,
     required this.revision,
+    this.expectedSha256,
+    this.onVerified,
   });
   final EditorialApi api;
   final String revision;
+
+  /// When set, only bytes whose SHA-256 equals the reviewed summary are shown
+  /// and [onVerified] reports whether that exact image is on screen.
+  final String? expectedSha256;
+  final ValueChanged<bool>? onVerified;
   @override
   State<ListingPhotoPreview> createState() => _ListingPhotoPreviewState();
 }
@@ -44,14 +52,16 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
   @override
   void didUpdateWidget(covariant ListingPhotoPreview oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.api != widget.api || oldWidget.revision != widget.revision) {
+    if (oldWidget.api != widget.api ||
+        oldWidget.revision != widget.revision ||
+        oldWidget.expectedSha256 != widget.expectedSha256) {
       discard();
     }
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed && mounted) setState(discard);
+    if (state != AppLifecycleState.resumed && mounted) close();
   }
 
   @override
@@ -61,7 +71,13 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
     super.dispose();
   }
 
+  void close() {
+    setState(discard);
+    widget.onVerified?.call(false);
+  }
+
   Future<void> load() async {
+    widget.onVerified?.call(false);
     setState(() {
       discard();
       busy = true;
@@ -71,6 +87,10 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
     try {
       final bytes = await widget.api.listingPhoto(widget.revision);
       if (!currentAttempt(attempt)) return;
+      final expected = widget.expectedSha256;
+      if (expected != null && sha256.convert(bytes).toString() != expected) {
+        throw const FormatException('Preview differs from reviewed photo');
+      }
       final codec = await ui.instantiateImageCodec(bytes);
       ui.FrameInfo frame;
       try {
@@ -86,12 +106,14 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
         image = frame.image;
         busy = false;
       });
+      widget.onVerified?.call(widget.expectedSha256 != null);
     } catch (_) {
       if (mounted && generation == attempt) {
         setState(() {
           busy = false;
           failed = true;
         });
+        widget.onVerified?.call(false);
       }
     }
   }
@@ -125,7 +147,7 @@ class _ListingPhotoPreviewState extends State<ListingPhotoPreview>
             ),
           ),
           TextButton.icon(
-            onPressed: () => setState(discard),
+            onPressed: close,
             icon: const Icon(Icons.visibility_off_outlined),
             label: Text(t.staffListingPhotoPreviewClose),
           ),

@@ -3273,5 +3273,64 @@
   "staffListingPhotoPreviewFailed": "No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.",
   "@staffListingPhotoPreviewFailed": {
     "legal_review": "pending"
+  },
+  "staffListingPhotoReviewTitle": "Señales de la foto",
+  "@staffListingPhotoReviewTitle": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoNoSignals": "Sin señales automáticas en la foto. Revísala igual.",
+  "@staffListingPhotoNoSignals": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoSignals": "Señales en la foto: {categories}. Solo priorizan la revisión.",
+  "@staffListingPhotoSignals": {
+    "legal_review": "pending",
+    "placeholders": {
+      "categories": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPhotoMatches": "Parecido con {count} imágenes vetadas. Compara con cuidado.",
+  "@staffListingPhotoMatches": {
+    "legal_review": "pending",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "staffListingPhotoCoverageComplete": "Todos los controles automáticos de la foto se ejecutaron.",
+  "@staffListingPhotoCoverageComplete": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoCoverageIncomplete": "Controles sin evaluar: {checks}. No los des por aprobados.",
+  "@staffListingPhotoCoverageIncomplete": {
+    "legal_review": "pending",
+    "placeholders": {
+      "checks": {
+        "type": "String"
+      }
+    }
+  },
+  "staffListingPhotoSimilarityPending": "similitud con imágenes vetadas",
+  "@staffListingPhotoSimilarityPending": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoDisabled": "La aprobación de fotos no está habilitada en este entorno.",
+  "@staffListingPhotoDisabled": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoOpenFirst": "Abre la foto privada para verificar que es la revisada.",
+  "@staffListingPhotoOpenFirst": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoConfirm": "Revisé esta foto exacta y sus señales, y decido aprobarla.",
+  "@staffListingPhotoConfirm": {
+    "legal_review": "pending"
+  },
+  "staffListingPhotoApprove": "Aprobar publicación con foto",
+  "@staffListingPhotoApprove": {
+    "legal_review": "pending"
   }
 }

@@ -4626,6 +4626,72 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos mostrar la foto. Comprueba tu acceso y vuelve a intentarlo.'**
   String get staffListingPhotoPreviewFailed;
+
+  /// No description provided for @staffListingPhotoReviewTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Señales de la foto'**
+  String get staffListingPhotoReviewTitle;
+
+  /// No description provided for @staffListingPhotoNoSignals.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin señales automáticas en la foto. Revísala igual.'**
+  String get staffListingPhotoNoSignals;
+
+  /// No description provided for @staffListingPhotoSignals.
+  ///
+  /// In es, this message translates to:
+  /// **'Señales en la foto: {categories}. Solo priorizan la revisión.'**
+  String staffListingPhotoSignals(String categories);
+
+  /// No description provided for @staffListingPhotoMatches.
+  ///
+  /// In es, this message translates to:
+  /// **'Parecido con {count} imágenes vetadas. Compara con cuidado.'**
+  String staffListingPhotoMatches(int count);
+
+  /// No description provided for @staffListingPhotoCoverageComplete.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos los controles automáticos de la foto se ejecutaron.'**
+  String get staffListingPhotoCoverageComplete;
+
+  /// No description provided for @staffListingPhotoCoverageIncomplete.
+  ///
+  /// In es, this message translates to:
+  /// **'Controles sin evaluar: {checks}. No los des por aprobados.'**
+  String staffListingPhotoCoverageIncomplete(String checks);
+
+  /// No description provided for @staffListingPhotoSimilarityPending.
+  ///
+  /// In es, this message translates to:
+  /// **'similitud con imágenes vetadas'**
+  String get staffListingPhotoSimilarityPending;
+
+  /// No description provided for @staffListingPhotoDisabled.
+  ///
+  /// In es, this message translates to:
+  /// **'La aprobación de fotos no está habilitada en este entorno.'**
+  String get staffListingPhotoDisabled;
+
+  /// No description provided for @staffListingPhotoOpenFirst.
+  ///
+  /// In es, this message translates to:
+  /// **'Abre la foto privada para verificar que es la revisada.'**
+  String get staffListingPhotoOpenFirst;
+
+  /// No description provided for @staffListingPhotoConfirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisé esta foto exacta y sus señales, y decido aprobarla.'**
+  String get staffListingPhotoConfirm;
+
+  /// No description provided for @staffListingPhotoApprove.
+  ///
+  /// In es, this message translates to:
+  /// **'Aprobar publicación con foto'**
+  String get staffListingPhotoApprove;
 }
 
 class _AppLocalizationsDelegate

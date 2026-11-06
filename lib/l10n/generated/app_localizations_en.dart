@@ -2592,4 +2592,49 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffListingPhotoPreviewFailed =>
       'We could not display the photo. Check your access and try again.';
+
+  @override
+  String get staffListingPhotoReviewTitle => 'Photo signals';
+
+  @override
+  String get staffListingPhotoNoSignals =>
+      'No automatic signals in the photo. Review it anyway.';
+
+  @override
+  String staffListingPhotoSignals(String categories) {
+    return 'Photo signals: $categories. They only prioritize review.';
+  }
+
+  @override
+  String staffListingPhotoMatches(int count) {
+    return 'Similar to $count banned images. Compare carefully.';
+  }
+
+  @override
+  String get staffListingPhotoCoverageComplete =>
+      'All automatic photo checks ran.';
+
+  @override
+  String staffListingPhotoCoverageIncomplete(String checks) {
+    return 'Checks not evaluated: $checks. Do not treat them as passed.';
+  }
+
+  @override
+  String get staffListingPhotoSimilarityPending =>
+      'similarity to banned images';
+
+  @override
+  String get staffListingPhotoDisabled =>
+      'Photo approval is not enabled in this environment.';
+
+  @override
+  String get staffListingPhotoOpenFirst =>
+      'Open the private photo to verify it is the reviewed one.';
+
+  @override
+  String get staffListingPhotoConfirm =>
+      'I reviewed this exact photo and its signals, and I decide to approve it.';
+
+  @override
+  String get staffListingPhotoApprove => 'Approve listing with photo';
 }
